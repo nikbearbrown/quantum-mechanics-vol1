@@ -1,4 +1,4 @@
-# Chapter 11 — Measurement, Superposition, and the Qubit
+# Chapter 10 — Measurement, Superposition, and the Qubit
 
 An afternoon in Göttingen, 1925. Werner Heisenberg has fled to the island of Helgoland with hay fever and a problem: how to build a theory of atomic transitions that uses only numbers you can actually observe — not electron orbits that nobody has ever seen. He is about to invent matrix mechanics. But the deeper question underneath his calculation is one that every physicist who follows him will have to confront: when you measure something quantum, what happens?
 

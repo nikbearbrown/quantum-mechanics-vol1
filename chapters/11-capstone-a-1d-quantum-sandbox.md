@@ -1,4 +1,4 @@
-# Chapter 12 — Capstone: A 1D Quantum Sandbox
+# Chapter 11 — Capstone: A 1D Quantum Sandbox
 *Everything you have built, running on any potential you can write down.*
 
 There is a particular moment in learning physics when the thing you have been deriving starts to feel real. For most students, that moment does not arrive when they solve the harmonic oscillator analytically. It arrives when they type a potential into a computer, press a button, and watch the wave function appear.
