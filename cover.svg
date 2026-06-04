@@ -11,7 +11,10 @@
   </g>
   <g id="accent-elements"><polygon points="330,1210 1320,1082 1376,1154 386,1284" fill="#F5C518"/></g>
   <g id="title-letterforms">
-    <text x="120" y="1810" font-family="Arial Black, Arial, sans-serif" font-size="250" font-weight="900" letter-spacing="0" fill="#F5F0E8">QUANTUM</text>
-    <text x="120" y="2070" font-family="Arial Black, Arial, sans-serif" font-size="250" font-weight="900" letter-spacing="0" fill="#F5C518">MECHANICS</text>
+    <text x="120" y="1530" font-family="Arial Black, Arial, sans-serif" font-size="176" font-weight="900" letter-spacing="0" fill="#F5F0E8" textLength="1030" lengthAdjust="spacingAndGlyphs">QUANTUM</text>
+    <text x="120" y="1710" font-family="Arial Black, Arial, sans-serif" font-size="176" font-weight="900" letter-spacing="0" fill="#F5F0E8" textLength="1240" lengthAdjust="spacingAndGlyphs">MECHANICS</text>
+    <text x="120" y="1910" font-family="Arial Black, Arial, sans-serif" font-size="184" font-weight="900" letter-spacing="0" fill="#F5C518">V1</text>
+    <text x="120" y="2076" font-family="Arial Black, Arial, sans-serif" font-size="104" font-weight="900" letter-spacing="0" fill="#F5F0E8" textLength="1260" lengthAdjust="spacingAndGlyphs">FOUNDATIONS:</text>
+    <text x="120" y="2212" font-family="Arial Black, Arial, sans-serif" font-size="104" font-weight="900" letter-spacing="0" fill="#F5F0E8" textLength="1260" lengthAdjust="spacingAndGlyphs">THE QUANTUM WORLD</text>
   </g>
 </svg>
