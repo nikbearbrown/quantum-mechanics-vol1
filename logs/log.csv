@@ -1,0 +1,13 @@
+date,book,chapter_slug,word_count,sources_count,verify_flag_count,pantry_notes_found,pantry_lib_files_used,thin_pantry,mechanism_explained,contested_claims_flagged
+2026-06-03,quantum-mechanics-vol1,00-how-to-use-the-simulations,5255,9,0,yes,varies,no,"core concept of 00-how-to-use-the-simulations",0
+2026-06-03,quantum-mechanics-vol1,02-why-classical-physics-failed,5315,12,0,yes,varies,no,"core concept of 02-why-classical-physics-failed",0
+2026-06-03,quantum-mechanics-vol1,03-matter-waves,4194,0,1,yes,varies,no,"core concept of 03-matter-waves",0
+2026-06-03,quantum-mechanics-vol1,04-the-wave-function,4639,0,2,yes,varies,no,"core concept of 04-the-wave-function",0
+2026-06-03,quantum-mechanics-vol1,05-the-schrodinger-equation,4549,6,1,yes,varies,no,"core concept of 05-the-schrodinger-equation",0
+2026-06-03,quantum-mechanics-vol1,06-the-infinite-square-well,5997,10,3,yes,varies,no,"core concept of 06-the-infinite-square-well",0
+2026-06-03,quantum-mechanics-vol1,07-finite-wells-steps-and-barriers,5114,9,2,yes,varies,no,"core concept of 07-finite-wells-steps-and-barriers",0
+2026-06-03,quantum-mechanics-vol1,08-the-harmonic-oscillator,5362,7,1,yes,varies,no,"core concept of 08-the-harmonic-oscillator",0
+2026-06-03,quantum-mechanics-vol1,09-the-free-particle-and-wave-packets,5054,6,5,yes,varies,no,"core concept of 09-the-free-particle-and-wave-packets",0
+2026-06-03,quantum-mechanics-vol1,10-operators-and-uncertainty,4644,8,9,yes,varies,no,"core concept of 10-operators-and-uncertainty",0
+2026-06-03,quantum-mechanics-vol1,11-measurement-and-the-qubit,5085,8,7,yes,varies,no,"core concept of 11-measurement-and-the-qubit",2
+2026-06-03,quantum-mechanics-vol1,12-capstone-a-1d-quantum-sandbox,6084,8,9,yes,varies,no,"core concept of 12-capstone-a-1d-quantum-sandbox",0
