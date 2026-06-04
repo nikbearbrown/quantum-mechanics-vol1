@@ -1,259 +1,172 @@
 # Chapter 1 — Why Classical Physics Failed: Blackbody, Photoelectric, and the Photon
 
-## TL;DR
+There is a poker in a blacksmith's forge. As the iron heats, it glows red, then orange, then yellow-white. The color shifts. Not the particular piece of iron — any iron, any ceramic, any object at the same temperature glows the same color and emits the same spectrum. By 1900, Lummer and Pringsheim had measured those spectral curves with extraordinary precision. Smooth, hump-shaped, reproducible to within a percent. And every physicist in Europe knew exactly what the theory predicted — and exactly how badly that prediction failed.
 
-Classical physics predicts that a hot object radiates infinite energy at short wavelengths (the ultraviolet catastrophe), and that any sufficiently bright light beam — regardless of color — should eject electrons from metal. Both predictions are wrong. Planck (1900) fixed the first by quantizing oscillator energies in units of $h\nu$; Einstein (1905) fixed the second by proposing that light itself arrives as discrete packets — photons — each with energy $E = h\nu$. Together, these two moves introduce Planck's constant $h$ and establish the first irreducible break between classical and quantum physics.
-
----
-
-## Learning Objectives
-
-By the end of this chapter you will be able to:
-
-1. **(Understand)** Explain, using the equipartition theorem, why the Rayleigh–Jeans law diverges at high frequencies, and what assumption causes the divergence.
-2. **(Analyze)** Identify which experimental features of the photoelectric effect are inexplicable classically, and map each to the photon picture.
-3. **(Apply)** Calculate the stopping potential for the photoelectric effect given a photon frequency and a metal's work function, and compute the ratio of Planck to Rayleigh–Jeans spectral energy density at a given temperature and frequency.
-4. **(Evaluate)** Distinguish Planck's quantization (of oscillator energies) from Einstein's quantization (of the electromagnetic field itself), and explain why the distinction matters.
-5. **(Create)** Build a D3 simulation that plots both spectral distributions against frequency with a temperature slider, and verify that the Planck curve peaks near Wien's law at each temperature.
+The prediction was infinite energy. Not "a lot of energy." Infinite. A hot poker, left alone in a room, should incinerate you with UV radiation from the walls. The fact that this obviously does not happen was, to put it mildly, a problem.
 
 ---
 
-## The Scene: An Iron Poker in a Dark Forge
+## How You Get Infinite Energy from Perfectly Good Physics
 
-A blacksmith's iron poker sits in a forge. As it heats, it first glows a dim red, then orange, then yellow-white. The color shifts with temperature. Not with the particular iron — any iron, any steel, any ceramic at the same temperature emits the same spectrum of light. The total power radiated grows steeply with $T$. By 1900, all of this was measured precisely by Lummer and Pringsheim at the Physikalisch-Technische Reichsanstalt in Berlin. Their spectral curves were smooth, hump-shaped, reproducible to within a percent, and utterly inexplicable.
+The argument is clean. Inside a cavity at temperature $T$, the electromagnetic field can vibrate at any frequency. Count the modes: there are
 
-Every physicist at the turn of the twentieth century knew how to count: there are $8\pi\nu^2/c^3$ electromagnetic modes per unit volume per unit frequency interval in an enclosure. Every physicist knew equipartition: each quadratic degree of freedom in thermal equilibrium carries average energy $\frac{1}{2}k_BT$. An electromagnetic mode has two quadratic terms (electric energy and magnetic energy), so it should carry $k_BT$. The spectral energy density should be
+$$\frac{8\pi\nu^2}{c^3}$$
+
+modes per unit volume per unit frequency interval. This counting is correct — it is a geometric fact about standing waves in a box, and nobody disputes it.
+
+Now assign energy to each mode. Here the classical answer is equipartition: any degree of freedom in thermal equilibrium at temperature $T$ carries average energy $\frac{1}{2}k_BT$. An electromagnetic mode has two quadratic terms — electric field energy and magnetic field energy — so it carries $k_BT$. Multiply by the mode count:
 
 $$u(\nu, T) = \frac{8\pi\nu^2}{c^3}\,k_BT.$$
 
-This is the Rayleigh–Jeans law. It agrees with the Lummer–Pringsheim data at long wavelengths (low $\nu$). At short wavelengths (high $\nu$), it does not merely disagree — it predicts that $\int_0^\infty u(\nu,T)\,d\nu = \infty$. A hot poker would radiate infinite energy. You would be incinerated by ambient UV from your kitchen walls.
+This is the Rayleigh–Jeans law. It agrees with measurement at long wavelengths. At short wavelengths, the mode count grows as $\nu^2$ and each mode carries a fixed $k_BT$. The product grows without bound. Integrate over all frequencies and you get infinity. This was called the ultraviolet catastrophe, which is a better name than most disasters get.
 
-This is, obviously, not happening. The error is not in the measurement. The error is in the theory. And it took Planck, in desperation, to find the smallest possible change that would fix it.
+The mode counting is not wrong. Equipartition is not wrong in general — it works beautifully for ideal gases, for heat capacities at low temperature aside. The trouble is that equipartition assumes energy can be distributed *continuously* among modes. There is no smallest chunk. Any mode, however high its frequency, can hold any energy from zero to infinity, and on average it holds $k_BT$. That assumption is what kills you.
 
 ---
 
-## The Ultraviolet Catastrophe and Planck's Cure
+## Planck's Desperate Remedy
 
-### Why Rayleigh–Jeans Diverges
+Max Planck was not trying to discover quantum mechanics. He was trying to fit a curve. He had the experimental data from Lummer and Pringsheim, and he wanted a formula that would match it. Working backward from the data — which is a perfectly respectable thing to do if you are honest about what you are doing — he found that the only way to get a finite total energy was to change the entropy of a resonator in a very specific way.
 
-The mode counting — $8\pi\nu^2/c^3$ modes per unit frequency per unit volume — is correct. The error is equipartition. Equipartition assumes every mode can hold any energy continuously, and at temperature $T$ the average is $k_BT$. As $\nu$ grows without bound, the number of modes grows as $\nu^2$, and each holds $k_BT$. The product $\nu^2 \cdot k_BT$ diverges.
-
-Equipartition holds when thermal energy ($k_BT$) is large compared to any relevant energy scale in the problem. For a harmonic oscillator with natural frequency $\nu$, the relevant energy scale is — as Planck found — $h\nu$. When $k_BT \gg h\nu$ (low frequency or high temperature), equipartition is an excellent approximation. When $k_BT \ll h\nu$ (high frequency or low temperature), the oscillator cannot absorb even one quantum of energy from the thermal field, and it is effectively frozen at zero energy. Modes at high frequency are *starved* out by their own quantization.
-
-### Planck's Derivation
-
-Max Planck presented his formula to the German Physical Society on 14 December 1900 — a date sometimes called the birth of quantum mechanics. He arrived at it by working backward from the data: he guessed the entropy of a resonator that would give a formula matching experiment, then asked what kind of combinatorial counting would produce that entropy.
-
-The result: assume a resonator at frequency $\nu$ can only hold energies $0, h\nu, 2h\nu, 3h\nu, \ldots$ — integer multiples of $h\nu$, where $h$ is a constant to be fitted to the data. Then the average energy per mode at temperature $T$ is not $k_BT$ but
+What he found was this: suppose the oscillators in the cavity walls cannot hold arbitrary energies. Suppose instead they are restricted to values $0, h\nu, 2h\nu, 3h\nu, \ldots$ — discrete multiples of some basic unit $h\nu$, where $h$ is a new constant. Then instead of integrating over a continuous distribution (which gives $k_BT$), you sum a discrete geometric series:
 
 $$\langle E \rangle = \frac{h\nu}{e^{h\nu/k_BT} - 1}.$$
 
-This follows directly from the Boltzmann distribution applied to discrete rather than continuous energies. (Derive it yourself: $\langle E \rangle = \sum_{n=0}^\infty (nh\nu)\,e^{-nh\nu/k_BT} / \sum_{n=0}^\infty e^{-nh\nu/k_BT}$; the geometric series are elementary.) Multiplying by the mode density gives the **Planck distribution**:
+This is the Planck average energy per mode. Multiply by the mode density and you have the **Planck distribution**:
 
 $$u(\nu, T) = \frac{8\pi h\nu^3}{c^3} \cdot \frac{1}{e^{h\nu/k_BT} - 1}.$$
 
-Two limits confirm it is the right formula.
+Two things to check immediately. At low frequencies — $h\nu \ll k_BT$ — the exponential expands: $e^{h\nu/k_BT} \approx 1 + h\nu/k_BT$, so the denominator becomes $h\nu/k_BT$, and the whole expression reduces to $k_BT$. You recover exactly the Rayleigh–Jeans law. Planck's formula agrees with classical physics precisely where classical physics was already correct. At high frequencies — $h\nu \gg k_BT$ — the exponential is enormous, the $-1$ is negligible, and $u$ falls off like $e^{-h\nu/k_BT}$. The exponential kills the polynomial. No catastrophe.
 
-**Low-$\nu$ limit (classical).** When $h\nu \ll k_BT$, the exponential expands as $e^{h\nu/k_BT} \approx 1 + h\nu/k_BT$, so $e^{h\nu/k_BT} - 1 \approx h\nu/k_BT$, and
+The constant $h$ that Planck fitted to the Berlin data was $6.55 \times 10^{-34}$ J·s. The current accepted value is $6.626 \times 10^{-34}$ J·s — his first fit was within one percent.
 
-$$u(\nu, T) \approx \frac{8\pi h\nu^3}{c^3} \cdot \frac{k_BT}{h\nu} = \frac{8\pi\nu^2}{c^3}\,k_BT.$$
-
-Exactly the Rayleigh–Jeans law. Planck's formula recovers the classical result where classical physics was already right.
-
-**High-$\nu$ limit (quantum).** When $h\nu \gg k_BT$, $e^{h\nu/k_BT} \gg 1$, so the $-1$ is negligible, and
-
-$$u(\nu, T) \approx \frac{8\pi h\nu^3}{c^3}\,e^{-h\nu/k_BT}.$$
-
-The exponential kills the polynomial growth. Total energy is finite. No catastrophe.
-
-### Wien's Displacement Law from Planck
-
-Setting $\partial u / \partial \nu = 0$ (maximum of the Planck distribution) yields Wien's displacement law: the frequency of peak emission is proportional to temperature,
-
-$$\nu_{\max} = \alpha \frac{k_BT}{h},$$
-
-where $\alpha \approx 2.821$ (the solution to $xe^x/(e^x-1) = 3$, $x = h\nu/k_BT$). In wavelength form, the more familiar expression is
-
-$$\lambda_{\max} T = 2.898 \times 10^{-3}\ \text{m}\cdot\text{K}.$$
-
-At $T = 5778$ K (the Sun's photosphere), $\lambda_{\max} \approx 501$ nm — peak in the green part of the visible spectrum. At $T = 3000$ K (a hot tungsten filament), $\lambda_{\max} \approx 966$ nm — peak in the near-infrared, which is why incandescent bulbs are inefficient: most of their output is invisible.
-
-The constant Planck fitted to the Berlin data was $h = 6.55 \times 10^{-34}$ J·s. The current SI value (exact since the 2019 redefinition) is $h = 6.62607015 \times 10^{-34}$ J·s. His original fit was within 1%.
+Here is what is crucial to understand: Planck quantized the *oscillators in the walls*, not the electromagnetic field itself. In his picture, the field was still classical. The oscillators could only exchange energy with the field in chunks of $h\nu$, but between those exchanges the field did whatever Maxwell's equations said it should. Planck himself found this uncomfortable. He spent years trying to find a way around the discrete energies, to derive his formula without them. He never succeeded, because you cannot. But the step of saying that *the field itself* comes in discrete packets — that light is made of particles — was not his step to take.
 
 ---
 
-## Worked Example 1 — Planck vs. Rayleigh–Jeans at $T = 3000$ K, UV
+## What the Spectral Peak Tells You
 
-**Situation.** At what factor does the Planck distribution differ from the Rayleigh–Jeans law at $T = 3000$ K and $\nu = 3 \times 10^{15}$ Hz (ultraviolet, $\lambda \approx 100$ nm)?
+From the Planck distribution you can derive Wien's displacement law by finding where $\partial u/\partial\nu = 0$. The algebra is not hard — you get a transcendental equation whose solution is $x = h\nu/k_BT \approx 2.821$, so
 
-**Process.** Both formulas share the mode density $8\pi\nu^2/c^3$. The Rayleigh–Jeans average energy per mode is $k_BT$; Planck's is $h\nu / (e^{h\nu/k_BT} - 1)$. The ratio is:
+$$\nu_\text{max} = 2.821\,\frac{k_BT}{h}.$$
+
+The peak frequency is proportional to temperature. Double the temperature, double the peak frequency, halve the peak wavelength. At $T = 5778$ K (the Sun's photosphere), the peak wavelength is about 501 nm — green. At $T = 3000$ K (a tungsten filament), the peak is near 966 nm — infrared. Most of the light from an incandescent bulb is invisible, which is why we stopped making them.
+
+There is a subtlety worth noting. The peak *in frequency* and the peak *in wavelength* are not at the same place. If you convert $\nu_\text{max}$ to a wavelength via $\lambda = c/\nu$, you do not get $\lambda_\text{max}$ from Wien's law in wavelength form. This is not a contradiction — it is a consequence of the fact that $d\nu$ and $d\lambda$ are not proportional. The spectral density per unit frequency and the spectral density per unit wavelength are different functions. Both are legitimate; they describe the spectrum in different coordinates.
+
+---
+
+## Worked Example — Twenty Orders of Magnitude
+
+At $T = 3000$ K and $\nu = 3 \times 10^{15}$ Hz (ultraviolet), how wrong is Rayleigh–Jeans?
+
+Both formulas share the mode density $8\pi\nu^2/c^3$. The ratio of Planck to Rayleigh–Jeans is just the ratio of the average energies per mode:
 
 $$\frac{u_\text{Planck}}{u_\text{RJ}} = \frac{h\nu/k_BT}{e^{h\nu/k_BT} - 1}.$$
 
-Compute $h\nu$ and $k_BT$:
-- $h\nu = (6.626 \times 10^{-34})(3 \times 10^{15}) = 1.988 \times 10^{-18}\ \text{J} = 12.4\ \text{eV}.$
-- $k_BT = (1.381 \times 10^{-23})(3000) = 4.14 \times 10^{-20}\ \text{J} = 0.259\ \text{eV}.$
-- $x = h\nu/k_BT = 12.4/0.259 \approx 47.9.$
+Compute $h\nu = (6.626\times10^{-34})(3\times10^{15}) = 1.988\times10^{-18}$ J $= 12.4$ eV. And $k_BT = (1.381\times10^{-23})(3000) = 4.14\times10^{-20}$ J $= 0.259$ eV. So $x = h\nu/k_BT \approx 47.9$.
 
-So $e^x \approx e^{47.9} \approx 7 \times 10^{20}$, and the ratio is:
+Then $e^{47.9} \approx 7\times10^{20}$, and
 
-$$\frac{u_\text{Planck}}{u_\text{RJ}} = \frac{47.9}{7 \times 10^{20} - 1} \approx 6.8 \times 10^{-20}.$$
+$$\frac{u_\text{Planck}}{u_\text{RJ}} \approx \frac{47.9}{7\times10^{20}} \approx 7\times10^{-20}.$$
 
-**Resolution.** At UV frequencies and $T = 3000$ K, Planck predicts roughly $10^{-20}$ times the energy density that Rayleigh–Jeans predicts. Classical physics is wrong by twenty orders of magnitude. This is not a small correction; it is a complete breakdown.
-
-**The lesson.** The critical parameter is $x = h\nu / k_BT$. When $x \ll 1$, the quantum and classical formulae agree. When $x \gg 1$, they disagree catastrophically. The boundary $h\nu \sim k_BT$ is where quantization matters.
-
-**The limit.** This calculation treats the surface as a perfect blackbody. Real surfaces emit less than a blackbody at the same temperature by a factor called emissivity (0 to 1). The ratio $u_\text{Planck}/u_\text{RJ}$ is unchanged — it is a ratio of the two theoretical predictions, not a measurement.
+Twenty orders of magnitude. At UV frequencies and room-ish temperatures, classical physics is not approximately wrong. It is catastrophically, completely wrong. The parameter that controls this is $x = h\nu/k_BT$. When $x \ll 1$, the two theories agree. When $x \gg 1$, they disagree by factors that grow like $e^x$. The boundary $h\nu \sim k_BT$ marks where quantization starts to matter.
 
 ---
 
-## The Photoelectric Effect — A Different Crisis
+## A Completely Different Crisis
 
-The blackbody problem was about emission: what spectrum does a hot object radiate? The photoelectric effect was about absorption: what happens when light hits a metal? Heinrich Hertz discovered in 1887 that ultraviolet light striking a metal surface caused it to emit sparks (electrons, as Lenard established by 1902). The data told a story classical wave theory could not tell.
+While Planck was fitting curves in Berlin, Heinrich Hertz had noticed something odd. In 1887 — the same year he demonstrated the existence of electromagnetic waves, confirming Maxwell — he found that ultraviolet light striking a metal surface caused it to emit sparks. Philipp Lenard established by 1902 that the sparks were electrons. By 1914, Robert Millikan had measured everything there was to measure about the phenomenon. The data said three things, each one of them impossible to explain with wave theory:
 
-The experimental facts, established by Lenard (1902) and confirmed by Millikan (1914–1916):
+**First**, there is a threshold frequency. Below a certain $\nu_0$ that depends on the metal, no electrons are emitted — ever, at any intensity. A blinding arc lamp at red frequencies liberates nothing from sodium. A dim UV lamp liberates electrons immediately. Intensity is irrelevant; frequency is everything.
 
-1. **The threshold.** Electrons are ejected only if the light frequency exceeds a threshold $\nu_0$ that depends on the metal. Below $\nu_0$, no electrons are emitted — ever — no matter how intense the illumination. A dim UV lamp ejects electrons from sodium immediately. A blazing arc lamp at red frequencies ejects none.
+**Second**, the maximum kinetic energy of the ejected electrons depends on frequency but not on intensity. Double the brightness of the light, and you get twice as many electrons per second, but each electron has the same energy as before.
 
-2. **The kinetic energy rule.** Above threshold, the *maximum kinetic energy* of ejected electrons depends on frequency but not on intensity. Doubling the brightness of the light doubles the number of electrons per second but leaves their maximum energy unchanged.
+**Third**, emission begins with no measurable time delay — within nanoseconds, at any intensity above the threshold.
 
-3. **The time delay.** At any intensity above threshold, emission begins within nanoseconds. Classical wave theory predicts a delay — at very low intensities, the wave should take seconds or longer to deliver enough energy to eject one electron.
+Every one of these facts is inexplicable classically. In the wave picture, energy is delivered continuously and uniformly across the surface. There is no threshold — given enough time, any frequency at sufficient intensity should accumulate the energy needed to kick out an electron. The time delay should grow as intensity decreases. The kinetic energy should depend on how hard the wave is pushing, which means intensity. Classical physics gets every detail of this experiment wrong.
 
-Every one of these facts is inexplicable classically. Classical wave theory says energy is delivered continuously and uniformly across the surface; any frequency at sufficient intensity should eventually accumulate enough energy to eject electrons. The threshold frequency makes no sense in this picture.
+---
 
-### Einstein's Photon (1905)
+## Einstein's Light Quanta
 
-Albert Einstein's 1905 paper — published in the same year as special relativity and Brownian motion, in what is rightly called his *annus mirabilis* — proposed a simple, radical idea: light energy is not continuously distributed. It comes in discrete packets (he called them *Lichtquanten*, light quanta; we now say **photons**), each with energy
+In 1905, Einstein proposed something radical. Not just that oscillators exchange energy in discrete units — Planck had done that. Einstein proposed that light energy is *not continuously distributed at all*. It arrives in discrete packets, each with energy
 
 $$E = h\nu.$$
 
-A single photon, arriving at the surface, is absorbed by a single electron. If $h\nu$ is less than the binding energy of the electron to the metal — the **work function** $\Phi$ — the electron cannot escape, regardless of how many photons per second arrive (low $\nu$, high intensity). If $h\nu > \Phi$, the electron escapes with maximum kinetic energy
+He called them *Lichtquanten* — light quanta. We call them photons.
 
-$$K_{\max} = h\nu - \Phi.$$
+A single photon, arriving at a metal surface, is absorbed by a single electron. If $h\nu$ is less than the energy needed to pull the electron free of the metal — the **work function** $\Phi$ — the electron cannot escape, no matter how many photons per second you throw at the surface. If $h\nu > \Phi$, the electron escapes, and the excess energy becomes kinetic energy:
 
-The stopping potential $V_\text{stop}$ is the reverse voltage required to bring the fastest electrons to rest:
+$$K_\text{max} = h\nu - \Phi.$$
 
-$$eV_\text{stop} = K_{\max} = h\nu - \Phi.$$
+This is Einstein's photoelectric equation. The **stopping potential** $V_\text{stop}$ — the reverse voltage needed to halt the fastest electrons — satisfies
 
-This is Einstein's photoelectric equation. It predicts:
-- A linear relationship between $V_\text{stop}$ and $\nu$, with slope $h/e$.
-- A threshold at $\nu_0 = \Phi/h$, below which $V_\text{stop} = 0$ (no emission).
-- No dependence of $K_{\max}$ on intensity.
+$$eV_\text{stop} = K_\text{max} = h\nu - \Phi.$$
 
-All three predictions are correct. Einstein received the Nobel Prize in Physics for 1921 (awarded 1922) explicitly for this work — not for relativity.
+Everything follows. There is a threshold because a photon with $h\nu < \Phi$ simply cannot do the job — not "doesn't have quite enough energy if you add the next one up," but genuinely cannot do it, ever, because each photon acts alone. The kinetic energy depends on frequency because it depends on the photon energy $h\nu$, which is fixed by frequency alone. Intensity controls how many photons arrive per second, nothing more. The absence of time delay is natural: one photon, one electron, immediate.
 
-### Millikan's Confirmation
-
-Robert Millikan set out, around 1914, to disprove Einstein's equation. He considered the photon idea physically absurd. Over two years of painstaking experimentation with freshly scraped sodium, lithium, and potassium surfaces in vacuum, he measured $V_\text{stop}$ as a function of $\nu$ for multiple metals. Every metal gave the same slope: $h/e = 4.136 \times 10^{-15}$ V·s. The intercept gave $\Phi$ for each metal. Einstein's equation fit perfectly. Millikan published in 1916 (Phys. Rev. 7, 355) and won the Nobel Prize for 1923 (for the charge of the electron and, specifically, for this measurement of $h$).
-
-The work functions of some common metals, in eV: cesium (2.1), sodium (2.3), aluminum (4.1), copper (4.7), gold (5.1), platinum (6.35).
+Millikan set out around 1914 to disprove this. He thought the photon idea was absurd. He spent two years making extraordinarily careful measurements with freshly scraped metal surfaces in vacuum, measuring $V_\text{stop}$ as a function of $\nu$ for sodium, lithium, and potassium. Every metal gave the same slope: $h/e = 4.136\times10^{-15}$ V·s. Einstein's equation fit perfectly. Millikan published his confirmation in 1916, noted that the result was "obtained in spite of my personal conviction," and won the Nobel Prize in 1923 specifically for this measurement of $h$. Einstein won the Nobel Prize in 1921 specifically for the photoelectric effect — not for special relativity.
 
 ---
 
-## Worked Example 2 — Stopping Potential for UV on Sodium
+## Worked Example — Stopping Potential for UV on Sodium
 
-**Situation.** Ultraviolet light with wavelength $\lambda = 300$ nm ($\nu = c/\lambda$) strikes a sodium surface. The work function of sodium is $\Phi = 2.28$ eV. What is the stopping potential? Does a green ($\lambda = 546$ nm) beam eject electrons?
+Ultraviolet light with wavelength $\lambda = 300$ nm strikes sodium. The work function of sodium is $\Phi = 2.28$ eV. What is the stopping potential?
 
-**Process.**
-
-Step 1: find the photon energy. Use $E = h\nu = hc/\lambda$. The shortcut $hc = 1240\ \text{eV}\cdot\text{nm}$ is exact enough for this problem:
+The shortcut $hc = 1240$ eV·nm makes this fast:
 
 $$E = \frac{1240\ \text{eV}\cdot\text{nm}}{300\ \text{nm}} = 4.13\ \text{eV}.$$
 
-Step 2: apply Einstein's equation.
+Then $K_\text{max} = 4.13 - 2.28 = 1.85$ eV, and
 
-$$K_{\max} = E - \Phi = 4.13\ \text{eV} - 2.28\ \text{eV} = 1.85\ \text{eV}.$$
+$$V_\text{stop} = 1.85\ \text{V}.$$
 
-Step 3: the stopping potential equals $K_{\max}$ in electron-volts divided by the elementary charge (which cancels $e$):
-
-$$V_\text{stop} = \frac{K_{\max}}{e} = 1.85\ \text{V}.$$
-
-**The dead end.** A student might try: "doubling the intensity doubles the energy delivered, so $K_{\max}$ should double." This is wrong. Doubling intensity doubles the *number* of photons per second, not the energy of each photon. Each photon still has $E = h\nu$. The kinetic energy of each ejected electron is still $h\nu - \Phi$.
-
-**Green light.** $E = 1240/546 \approx 2.27$ eV. This is less than $\Phi = 2.28$ eV. No electrons are ejected. Not one. Not even with a 10,000 W lamp.
-
-**The lesson.** The threshold is frequency, not intensity. One photon of sufficient frequency ejects one electron; ten trillion photons of insufficient frequency eject none.
-
-**The limit.** This is for the *maximum* kinetic energy — electrons from the surface layer. Electrons deeper in the metal lose additional energy through collisions before reaching the surface; the measured $K$ distribution is a spread below $K_{\max}$, not a sharp line. The stopping potential selects the maximum, which is what Einstein's equation predicts.
+What about green light at $\lambda = 546$ nm? Then $E = 1240/546 \approx 2.27$ eV, which is slightly less than $\Phi = 2.28$ eV. No electrons. Not one. Not with a 10,000-watt lamp. The photon energy is below the threshold, and no number of sub-threshold photons adds up to one that works.
 
 ---
 
-## The Photon and Wave–Particle Duality
+## Wave and Particle — Not an Either/Or
 
-By 1905, the wave theory of light was not merely a hypothesis — it was the consensus of half a century of experimental confirmation. Young's 1801 double-slit experiment, Maxwell's electromagnetic theory (1865), Hertz's direct demonstration of electromagnetic waves (1887, the same year he discovered the photoelectric effect) — all of this established that light is a wave. Interference and diffraction are not compatible with a purely corpuscular picture.
+By 1905, the wave nature of light was not a hypothesis. Young's 1801 double-slit experiment, Maxwell's 1865 electromagnetic theory, Hertz's 1887 demonstration of radio waves — half a century of evidence established that light is a wave. Interference, diffraction, polarization: all of it is impossible with bullets. And yet, here was Einstein saying light comes in particles.
 
-And yet, the photoelectric effect requires that light energy be delivered in discrete chunks. It is not an either/or. Light has both wave properties (it interferes; it diffracts; its energy density is described by Maxwell's equations) and particle properties (it is absorbed in discrete quanta; each photon deposits $h\nu$ into a single electron).
+The resolution is not that light "sometimes" behaves as a wave and "sometimes" as a particle, switching between modes depending on which experiment you are doing. That formulation makes it sound as though light has two personalities it alternates between, which is not what is happening. The quantum mechanical description is that light is always described by a probability amplitude — a wave. The amplitude tells you where detection events are likely; the detection events themselves are discrete and localized. The wave is real. The particle is real. They are not two separate things.
 
-Arthur Holly Compton's 1923 experiment closed any remaining loophole. When X-rays (wavelength $\lambda \approx 0.071$ nm) scatter from graphite, the scattered X-rays have a longer wavelength than the incident X-rays. The shift is
+Arthur Compton's 1923 experiment closed the remaining loopholes. When X-rays scatter from graphite, the scattered X-rays have a longer wavelength than the incident ones. The wavelength shift is
 
 $$\Delta\lambda = \frac{h}{m_e c}(1 - \cos\theta),$$
 
-where $\theta$ is the scattering angle. The quantity $\lambda_C = h/(m_e c) = 2.426 \times 10^{-12}$ m is the **Compton wavelength** of the electron. This formula follows from treating the photon as a particle with momentum $p = h/\lambda = E/c$, undergoing elastic collision with an electron — classical wave theory (which predicts no wavelength shift) is unambiguous contradicted. Compton received the Nobel Prize in 1927.
-
-The modern resolution is not that light "sometimes" behaves as a wave and "sometimes" as a particle — as if it switches between modes. The quantum mechanical description is that light is always described by a probability amplitude (a quantum field); the wave interference governs where photons are *likely to be detected*; detection events are discrete. Chapter 3 will develop this picture for massive particles.
+where $\theta$ is the scattering angle and $h/(m_e c) = 2.426\times10^{-12}$ m is the Compton wavelength of the electron. This formula follows from treating the photon as a particle with momentum $p = h/\lambda = E/c$ and computing the elastic collision with an electron using relativistic kinematics. Classical wave theory predicts no wavelength shift — none at all. The experiment is unambiguous. Compton won the Nobel Prize in 1927.
 
 ---
 
-## Planck's Constant — The Quantum of Action
+## The Constant That Tells You When Quantum Mechanics Matters
 
-Two constants characterize the new physics:
+Two numbers define the quantum scale:
 
-$$h = 6.62607015 \times 10^{-34}\ \text{J}\cdot\text{s} \quad (\text{exact since the 2019 SI redefinition})$$
-$$\hbar = \frac{h}{2\pi} = 1.054571817 \times 10^{-34}\ \text{J}\cdot\text{s}.$$
+$$h = 6.62607015\times10^{-34}\ \text{J}\cdot\text{s}, \qquad \hbar = \frac{h}{2\pi} = 1.054571817\times10^{-34}\ \text{J}\cdot\text{s}.$$
 
-In electron-volts: $h = 4.136 \times 10^{-15}\ \text{eV}\cdot\text{s}$, $\hbar = 6.582 \times 10^{-16}\ \text{eV}\cdot\text{s}$. The shortcut $hc = 1240\ \text{eV}\cdot\text{nm}$ is exact to four significant figures.
+The unit is J·s — energy times time, or momentum times length. This is the unit of **action**, the same quantity that appears in Lagrangian mechanics. Planck's constant is not an energy. The energy is $h\nu$. The momentum is $h/\lambda$. Planck's constant is what you multiply frequency or divide wavelength by to get energy or momentum.
 
-The units of $h$ are J·s — energy times time, or equivalently momentum times length. This is the unit of **action** (the same quantity that appears in Lagrangian mechanics' principle of least action). Planck's constant is not an energy; it is an action. The energy is $h\nu$ (action × frequency). The momentum is $h/\lambda = \hbar k$ (action / length). Confusing $h$ with an energy is the most common dimensional-analysis error in this chapter.
-
-$h$ sets the scale at which quantum behavior matters. For any system, quantum effects become important when the relevant action — momentum × distance, or energy × time — is comparable to $h$. For an electron in a 1 nm potential well, the ground-state kinetic energy is of order $\hbar^2/(2m_e L^2) \approx 0.4$ eV — large enough to measure. For a 1 g marble in a 10 cm box, the corresponding energy is $\sim 10^{-65}$ J — utterly unobservable. Quantum mechanics is not wrong for macroscopic objects; it is just irrelevant.
+For any physical system, quantum mechanics becomes important when the relevant action — momentum times distance, energy times time — is comparable to $h$. For an electron in a 1-nanometer potential well, the ground-state kinetic energy is of order $\hbar^2/(2m_e L^2) \approx 0.4$ eV. Measurable. Important. For a 1-gram marble in a 10-centimeter box, the corresponding energy is roughly $10^{-65}$ J. Quantum mechanics is not wrong for macroscopic objects. It is exact for macroscopic objects. It is just that for objects with large mass and large dimensions, the quantum energy scales are so inconceivably small that classical mechanics is indistinguishable from the correct theory.
 
 ---
 
-## Common Misconceptions
+## What Planck Did Not Know
 
-**"Planck quantized the electromagnetic field itself."** No. Planck quantized the energies of the material oscillators in the cavity walls. He assumed the oscillators could only exchange energy with the field in multiples of $h\nu$. The electromagnetic field in his model was still classical. Einstein's 1905 step — that the *field itself* comes in discrete quanta — was a qualitatively different and far more radical claim. Planck resisted this interpretation for years.
+It is worth being clear about what actually happened in 1900, because the history gets garbled. Planck did not discover quantum mechanics. He found a formula that matched a curve, and he found a derivation for that formula that required discrete energy levels in the oscillators. He was explicit, in his original paper and for years afterward, that he hoped discrete energies were a mathematical trick — an artifact of his combinatorial counting — that could eventually be derived from classical physics without actually requiring discrete energies in nature. He was wrong, but he did not know he was wrong. He resisted the photon idea for years after Einstein proposed it.
 
-**"Brighter light means more energetic electrons."** Intensity (power per area) controls the rate of photon arrivals — photons per second per area — not the energy of each photon. Each photon has energy $h\nu$, fixed by frequency alone. Doubling intensity doubles the number of electrons ejected per second, but leaves $K_{\max} = h\nu - \Phi$ unchanged. A very bright red beam and a very dim UV beam: only the dim UV beam ejects electrons (if $h\nu_\text{UV} > \Phi$), and each ejected electron carries the same kinetic energy regardless of the beam's intensity.
+Einstein's 1905 step was qualitatively different. Where Planck quantized the material oscillators at the boundary of the cavity, Einstein quantized the electromagnetic field itself. This is a far more radical claim: not that matter exchanges energy with the field in chunks, but that the field energy is intrinsically discrete regardless of the matter it interacts with. Planck was not willing to say this. Einstein was. And Planck's discomfort with his own discovery is a useful reminder that finding the right formula and understanding what it means are two very different achievements.
 
-**"The threshold is a rough guideline — given enough time, sub-threshold light will eventually eject electrons."** This misconception confuses quantum photons with classical waves. Classically, energy accumulates; given long enough, any frequency would suffice. In the quantum picture, a single photon with $h\nu < \Phi$ simply cannot eject an electron — the energy packet is too small. You can wait for years; if every photon has $h\nu < \Phi$, the answer is zero electrons. The experimental evidence (Lenard 1902, Millikan 1914–16) is unambiguous. [verify: Lenard's 1902 results on threshold — the claim of "no electrons, ever" at sub-threshold intensity is the experimental finding; confirm citation.]
+The physical understanding of *why* oscillators have discrete energy levels had to wait for quantum mechanics proper — 1925 and 1926, Heisenberg and Schrödinger. In 1900, Planck had the formula. The mechanism behind it would take another quarter century.
 
-**"Wave-particle duality means light alternates between being a wave and a particle."** The photon is not a tiny ball that occasionally undergoes wave-like behavior. It is always a quantum object described by a probability amplitude. The amplitude (governed by Maxwell's equations) tells you where the photon is likely to be detected; the detection event itself is discrete and localized. The "wave" is the probability amplitude; the "particle" is the detection event. They are not two different modes of existence.
-
-**"$h$ has units of energy."** Planck's constant has units of J·s (energy × time = action). Energy is $E = h\nu$. If you find yourself writing $E = h$ without a frequency, check your algebra.
-
----
-
-## Exercises
-
-**1.1 — (Remember/Understand).** State in your own words the two assumptions that lead to the Rayleigh–Jeans law: (a) the mode counting and (b) equipartition. Which assumption does Planck change? Which does Einstein change? (Hint: they are different changes.)
-
-**1.2 — (Apply — calculation).** Light of wavelength 200 nm strikes a copper surface (work function $\Phi = 4.7$ eV). (a) Compute the photon energy using $E = hc/\lambda$ with $hc = 1240$ eV·nm. (b) Compute the maximum kinetic energy of ejected electrons. (c) Compute the stopping potential. (d) If the wavelength is doubled to 400 nm, what happens? Give a number if electrons are emitted; otherwise state clearly that no electrons are emitted.
-
-**1.3 — (Apply — calculation).** At temperature $T = 6000$ K (approximate solar surface), compute the ratio $u_\text{Planck}/u_\text{RJ}$ at frequency $\nu = 3 \times 10^{15}$ Hz (UV). Express your answer as a power of 10. At what frequency (approximately) does the ratio first drop below $10^{-5}$ at this temperature?
-
-**1.4 — (Analyze).** In Millikan's 1916 experiment, the slope of the $V_\text{stop}$ vs. $\nu$ graph is $h/e$, not $h$. (a) Why $h/e$ and not $h$? (b) Millikan measured the slope to be $4.124 \times 10^{-15}$ V·s. Using $e = 1.602 \times 10^{-19}$ C, compute $h$ from this measurement and compare it to the accepted value $6.626 \times 10^{-34}$ J·s. What is the percentage error? (c) The intercept of the $V_\text{stop}$ vs. $\nu$ line gives $-\Phi/e$. Millikan found the threshold frequency for sodium to be $\nu_0 = 5.52 \times 10^{14}$ Hz. Compute $\Phi$ in eV.
-
-**1.5 — (Evaluate — synthesis).** A student argues: "Since Planck's formula works perfectly and classical physics fails, Planck must have had physical insight into why quantization is correct." Is this right? Write a short paragraph explaining what Planck actually understood (and did not understand) in 1900, and why the physical interpretation of quantization had to wait for Einstein (1905) and later Bohr, Heisenberg, and Schrödinger.
-
-**1.6 — (Create — production exercise).** Complete the LLM Exercise (The +1) in the next section. Then: using the simulation, find the temperature at which the Planck peak frequency reaches the visible range (400–700 nm). Record the temperature and the peak wavelength. Compare to the known solar surface temperature and the color of the Sun as seen from space.
-
----
-
-## Still Puzzling
-
-- Planck arrived at his formula by a semi-combinatorial argument about discrete energy levels. He did not have a physical model for why oscillators should only exchange energy in multiples of $h\nu$. That explanation had to wait until 1925–1926 (quantum mechanics). This is a recurring pattern in the history of physics: the correct formula arrives before the correct mechanism.
-
-- The "photon" is a stable concept in non-relativistic quantum mechanics (this book), but its full description requires quantum field theory (QFT). In QFT, photons are excitations of the quantized electromagnetic field; they have no well-defined position operator and cannot be described by a wave function $\psi(x,t)$ in the usual sense. This book uses the photon as a stepping stone to the Schrödinger-equation description of massive particles, which *does* have a position representation.
-
-- The wave–particle duality of light remains philosophically contentious. The experimental facts (interference + discrete absorption) are not in dispute; what they mean about the nature of reality is. The Copenhagen interpretation, the many-worlds interpretation, pilot-wave theory, and QBism each give different answers. This book defers to Chapter 11 for a first look at interpretational issues; the present chapter presents the experimental situation only.
-
-- Compton scattering is treated here as a supporting argument for the photon picture. It is not covered in full; a complete treatment requires relativistic kinematics ($E = \sqrt{p^2c^2 + m^2c^4}$). If you want to derive the Compton formula, the calculation is in any modern physics text (e.g., Krane §3.5) and makes a good exercise for a student who has seen special relativity.
+<!-- → [TABLE: Work functions of common metals in eV — Cs 2.1, Na 2.28, K 2.3, Mg 3.7, Al 4.1, Ag 4.3, Fe 4.5, Cu 4.7, Ni 5.0, Au 5.1, Pt 6.35] -->
 
 ---
 
 ## The +1 — Simulation Exercise: Planck vs. Rayleigh–Jeans
 
-The deliverable: `01-blackbody.html`. A two-panel D3 plot showing $u(\nu, T)$ for both the Planck distribution and the Rayleigh–Jeans law on the same axes, with a temperature slider and a frequency cursor.
+The deliverable: `01-blackbody.html`. A D3 plot showing $u(\nu, T)$ for both the Planck distribution and the Rayleigh–Jeans law on the same axes, with a temperature slider and a frequency cursor.
 
 ### Updated `CLAUDE.md` Stanza for This Chapter
 
@@ -359,16 +272,6 @@ Then list the known LLM failure modes for this code:
 Confirm which you have guarded against.
 ````
 
-### Exploration Tasks
-
-**Task 1 — The classical limit.** Set $T = 5778$ K. Drag the cursor to the far left, where $\nu \sim 10^{12}$ Hz (microwave). The ratio $u_\text{Planck}/u_\text{RJ}$ should read close to 1. Drag the cursor to the right (UV). Watch the ratio collapse. At what frequency does the ratio first drop below $10^{-3}$? Record the corresponding wavelength and compare it to the boundaries of the visible spectrum.
-
-**Task 2 — The Sun.** At $T = 5778$ K, the Wien peak in frequency is near $3.4 \times 10^{14}$ Hz (near-IR). The Wien peak in wavelength ($\lambda_\text{max} = 2.898 \times 10^{-3}/T\ \text{m} \approx 501\ \text{nm}$) is in the green. These are not the same peak. Explain in two sentences why the frequency-domain peak and the wavelength-domain peak are different frequencies. (Hint: $d\nu \neq d\lambda$.)
-
-**Task 3 — Wien's law in action.** Drag $T$ from 1000 K to 10,000 K. Watch the Wien peak move. Confirm that $\nu_\text{max}$ scales linearly with $T$ (doubling $T$ should double $\nu_\text{max}$). At what $T$ does the Wien peak first enter the visible range (approximately $4 \times 10^{14}$ Hz)?
-
-**Task 4 — Catastrophe for real.** At $T = 1000$ K, $\nu = 10^{15}$ Hz (far UV): record the ratio $u_\text{Planck}/u_\text{RJ}$. Compute $h\nu/k_BT$ by hand. Verify it is consistent with the formula $u_\text{Planck}/u_\text{RJ} = (h\nu/k_BT)/(e^{h\nu/k_BT} - 1)$.
-
 ### Extension Prompt — Photoelectric Stopping Potential Plotter
 
 ````markdown
@@ -400,14 +303,14 @@ to within 0.1%.
 
 - Planck, M. (1901). "Ueber das Gesetz der Energieverteilung im Normalspectrum." *Annalen der Physik* 4, 553–563. — The original blackbody quantization paper. [verify: full journal citation; OCR from secondary sources.]
 - Einstein, A. (1905). "Über einen die Erzeugung und Verwandlung des Lichtes betreffenden heuristischen Gesichtspunkt." *Annalen der Physik* 17, 132–148. — The photoelectric effect paper introducing photons.
-- Millikan, R.A. (1916). "A direct photoelectric determination of Planck's h." *Physical Review* 7(3), 355–388. [doi:10.1103/PhysRev.7.355](https://doi.org/10.1103/PhysRev.7.355) — Millikan's confirmation of Einstein's equation.
-- Compton, A.H. (1923). "A quantum theory of the scattering of X-rays by light elements." *Physical Review* 21(5), 483–502. [doi:10.1103/PhysRev.21.483](https://doi.org/10.1103/PhysRev.21.483) — Compton scattering and the photon momentum.
-- NIST CODATA 2018 recommended values of fundamental physical constants. [physics.nist.gov/constants](https://physics.nist.gov/cgi-bin/cuu/Value?h) — source for $h$, $k_B$, $c$ used in this chapter.
-- Griffiths, D.J. (2018). *Introduction to Quantum Mechanics* (3rd ed.). Cambridge University Press. §1.2 (blackbody radiation, brief) — for historical framing; Griffiths begins with the wave function, so Ch 1 here precedes his Chapter 1.
-- Townsend, J.S. (2012). *A Modern Approach to Quantum Mechanics* (2nd ed.). University Science Books. §1.3 (photons, particle nature of light), §1.4 (probability and quantum nature) — confirms the three photoelectric experimental facts and the Einstein/Millikan sequence.
-- Krane, K.S. (2019). *Modern Physics* (4th ed.). Wiley. Chapter 3 — more extended treatment of photoelectric effect and Compton scattering with relativistic kinematics.
-- Nobel Prize facts: Einstein 1921 (awarded 1922) — [nobelprize.org/prizes/physics/1921/einstein/facts/](https://www.nobelprize.org/prizes/physics/1921/einstein/facts/); Millikan 1923 — [nobelprize.org/prizes/physics/1923/millikan/facts/](https://www.nobelprize.org/prizes/physics/1923/millikan/facts/); Compton 1927 — [nobelprize.org/prizes/physics/1927/compton/facts/](https://www.nobelprize.org/prizes/physics/1927/compton/facts/).
-- Hake, R.R. (1998). "Interactive-engagement versus traditional methods." *Am. J. Phys.* 66(1), 64–74. [doi:10.1119/1.18809](https://pubs.aip.org/aapt/ajp/article/66/1/64/1055076/Interactive-engagement-versus-traditional-methods) — pedagogical basis for simulation-first approach.
+- Millikan, R.A. (1916). "A direct photoelectric determination of Planck's h." *Physical Review* 7(3), 355–388. [doi:10.1103/PhysRev.7.355](https://doi.org/10.1103/PhysRev.7.355)
+- Compton, A.H. (1923). "A quantum theory of the scattering of X-rays by light elements." *Physical Review* 21(5), 483–502. [doi:10.1103/PhysRev.21.483](https://doi.org/10.1103/PhysRev.21.483)
+- NIST CODATA 2018 recommended values of fundamental physical constants. [physics.nist.gov/constants](https://physics.nist.gov/cgi-bin/cuu/Value?h)
+- Griffiths, D.J. (2018). *Introduction to Quantum Mechanics* (3rd ed.). Cambridge University Press. §1.2.
+- Townsend, J.S. (2012). *A Modern Approach to Quantum Mechanics* (2nd ed.). University Science Books. §1.3–1.4.
+- Krane, K.S. (2019). *Modern Physics* (4th ed.). Wiley. Chapter 3.
+- Nobel Prize facts: Einstein 1921 — [nobelprize.org/prizes/physics/1921/einstein/facts/](https://www.nobelprize.org/prizes/physics/1921/einstein/facts/); Millikan 1923 — [nobelprize.org/prizes/physics/1923/millikan/facts/](https://www.nobelprize.org/prizes/physics/1923/millikan/facts/); Compton 1927 — [nobelprize.org/prizes/physics/1927/compton/facts/](https://www.nobelprize.org/prizes/physics/1927/compton/facts/).
+- Hake, R.R. (1998). "Interactive-engagement versus traditional methods." *Am. J. Phys.* 66(1), 64–74. [doi:10.1119/1.18809](https://pubs.aip.org/aapt/ajp/article/66/1/64/1055076/Interactive-engagement-versus-traditional-methods)
 
 ---
 
