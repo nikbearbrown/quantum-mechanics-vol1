@@ -47,6 +47,9 @@ Why is this the right momentum operator, and not some other Hermitian combinatio
 
 <!-- → [DIAGRAM: Fourier duality diagram showing position space (ψ(x), operator −iℏ∂ₓ) ↔ momentum space (φ(p), operator ×p), with arrows labeled "Fourier transform" and "inverse Fourier transform"] -->
 
+![Fourier duality diagram showing position space (ψ(x), operator −iℏ∂ₓ) ↔ momentum space (φ(p), operator ×p), with arrows labeled "Fourier…](../images/09-operators-and-uncertainty-fig-01.png)
+*Figure 9.1 — Fourier duality diagram showing position space (ψ(x), operator −iℏ∂ₓ) ↔ momentum space (φ(p), operator ×p), with arrows labeled "Fourier…*
+
 ---
 
 ## Expectation Values and Variances
@@ -103,6 +106,9 @@ Because $[\hat{x}, \hat{p}] \neq 0$, position and momentum share no common eigen
 
 <!-- → [DIAGRAM: two-column visual contrast — classical phase space with a point (x, p) representing a state with simultaneous definite values, vs. quantum Hilbert space with eigenfunctions of x̂ (delta function) and p̂ (plane wave) shown side by side, illustrating that no state can be both] -->
 
+![two-column visual contrast — classical phase space with a point (x, p) representing a state with simultaneous definite values, vs. quantum…](../images/09-operators-and-uncertainty-fig-02.png)
+*Figure 9.2 — two-column visual contrast — classical phase space with a point (x, p) representing a state with simultaneous definite values, vs. quantum…*
+
 ---
 
 ## The Robertson Inequality
@@ -138,6 +144,9 @@ The **Kennard inequality** — proved by Kennard in 1927, placed in this general
 Notice what was dropped in Move 3: the anticommutator term $\tfrac{1}{4}\langle\{\hat{A}',\hat{B}'\}\rangle^2$, which is non-negative. Dropping it makes the bound weaker. Schrödinger (1930) retained it and got a tighter inequality. For the Gaussian, the anticommutator term happens to be zero, so both bounds agree. For other states — like the infinite square well — the Schrödinger bound is strictly tighter than Robertson. The exercises explore this.
 
 <!-- → [CHART: log-log plot of σ_p vs σ_x showing the Robertson boundary hyperbola σ_x σ_p = ℏ/2; mark the Gaussian as a point on the curve (ratio 1.000) and the infinite-well ground state as a point above it (ratio ≈ 1.136); draw arrow showing that as n increases in the well, the point moves further from the boundary] -->
+
+![log-log plot of σ_p vs σ_x showing the Robertson boundary hyperbola σ_x σ_p = ℏ/2](../images/09-operators-and-uncertainty-fig-03.png)
+*Figure 9.3 — log-log plot of σ_p vs σ_x showing the Robertson boundary hyperbola σ_x σ_p = ℏ/2*
 
 ---
 
@@ -335,3 +344,99 @@ Maassen, H., & Uffink, J. B. M. (1988). Generalized entropic uncertainty relatio
 Griffiths, D. J., & Schroeter, D. F. (2018). *Introduction to Quantum Mechanics* (3rd ed.). Cambridge University Press. §1.6, §3.5.
 
 Townsend, J. S. (2012). *A Modern Approach to Quantum Mechanics* (2nd ed.). University Science Books. §3.5.
+
+---
+
+## Running Project — Build the 1D Quantum Sandbox
+
+**This chapter adds:** the observables panel that turns the eigensolver's raw eigenvectors into physics — $\langle x\rangle$, $\langle p\rangle$, $\sigma_x$, $\sigma_p$, the ratio $\sigma_x\sigma_p/(\hbar/2)$, and a numerical commutator residual $[\hat x,\hat p]\psi - i\hbar\psi$ that checks the discretization itself — validated against the Gaussian (ratio 1.000) and the infinite-well ladder ($1.136 \to \pi/\sqrt3$).
+
+### Exercise R1 — When to Use AI
+**The judgment:** In this chapter's project work, AI assistance is appropriate for:
+- Implementing $\langle p\rangle = \int\psi^*(-i\hbar\partial_x\psi)\,dx$ and $\langle p^2\rangle = \int\psi^*(-\hbar^2\partial_x^2\psi)\,dx$ on the grid — *Why AI works here:* finite-difference reductions with exact targets from the Gaussian and the well.
+- Drafting the Robertson-boundary plot (the hyperbola $\sigma_x\sigma_p = \hbar/2$ with the state as a point) — *Why AI works here:* standard plotting, anchored by the Gaussian sitting exactly on the curve.
+**The tell:** You are using AI well when you have an independent way to check the output — here, the Gaussian ratio of 1.000 and the well-$n{=}1$ ratio of 1.136.
+
+### Exercise R2 — When NOT to Use AI
+**The judgment:** These tasks require your judgment; AI output here can't be trusted without redoing the work:
+- The sign of $\hat p = -i\hbar\partial_x$ — *Why AI fails here:* a flipped sign gives $\langle p\rangle < 0$ for a right-moving state; the magnitude is right, so it passes any check that does not test direction.
+- Whether the uncertainty *product* uses $\langle\hat A^2\rangle - \langle\hat A\rangle^2$ (both terms) rather than just $\langle\hat A^2\rangle$ — *Why AI fails here:* dropping $\langle\hat A\rangle^2$ inflates $\sigma_p$ for a state with $\langle p\rangle \neq 0$; the bug is invisible for symmetric states (where $\langle p\rangle = 0$) and only shows for moving packets.
+**The tell:** If you could not explain the result without the AI — if the AI is your *reason* rather than your *tool* — it did work that should have been yours.
+**Physics-judgment connection:** This trains checking computed uncertainties against the Robertson/Kennard bound and against exact analytic ratios, plus a numerical commutator residual that checks the grid representation of $[\hat x,\hat p] = i\hbar$.
+
+### Exercise R3 — LLM Exercise
+**What you're building this chapter:** the full observables/uncertainty panel and the commutator-residual self-check, run on the eigensolver's output.
+**Tool:** Claude chat — built on `observables.js`, `hamiltonian.js`; self-contained.
+**The Prompt:**
+```
+Using the Chapter 0 CLAUDE.md, constants.js, grid.js, observables.js,
+hamiltonian.js as binding context, build 09-operators-uncertainty.html.
+
+For any selected state (Gaussian with a, k_0; or infinite-well eigenstate n on
+[0,L] from the eigensolver), compute and display:
+  ⟨x⟩, ⟨x²⟩, σ_x; ⟨p⟩, ⟨p²⟩, σ_p (use p̂ = −iℏ∂_x, central difference);
+  the ratio σ_x σ_p /(ℏ/2) in a large readout;
+  a Robertson-boundary plot: the hyperbola σ_x σ_p = ℏ/2 and the current
+  state as a point (Gaussian ON the curve, well ABOVE it).
+
+COMMUTATOR RESIDUAL self-check: apply [x̂, p̂] to the current ψ on the grid
+([x̂,p̂]ψ = x̂(p̂ψ) − p̂(x̂ψ)) and display the max deviation from iℏ·ψ. It must
+read ≈ 0 (up to O(h²) grid error). Build this as a startup assertion.
+
+CRITICAL: p̂ = −iℏ∂_x — k_0 > 0 gives ⟨p⟩ > 0. σ_p² = ⟨p²⟩ − ⟨p⟩² (BOTH terms).
+VERIFY: Gaussian a=1 nm → ratio 1.000; well n=1, L=10 nm → ratio ≈ 1.136;
+well n=10 → ratio approaching π/√3 ≈ 1.814; commutator residual < 1e-3·ℏ.
+```
+**What this produces:** `09-operators-uncertainty.html` with the uncertainty panel, Robertson plot, and the commutator residual that validates the grid operators.
+**How to adapt:** *Your system:* add an FFT-based $\langle p\rangle$ as a cross-check against the finite-difference one. *ChatGPT/Gemini:* paste the dependency files. *Claude Project:* the uncertainty panel becomes the standard readout for every eigenstate.
+**Builds on:** the expectation values from Chapter 3, the eigensolver from Chapter 5.  **Next:** Chapter 10 adds projective measurement that collapses a state to an eigenstate.
+
+### Exercise R4 — CLI Exercise
+**What you're building this chapter:** an automated uncertainty-and-commutator test across known states.
+**Tool:** Claude Code — it can compute the ratios for the Gaussian and the well ladder and assert the commutator residual.
+**Skill level:** Advanced
+**Setup — confirm:**
+- [ ] `observables.js`, `hamiltonian.js`, `grid.js`, `constants.js`
+- [ ] Node.js available
+- [ ] The Chapter 3 sign rule for $\hat p$ in CLAUDE.md
+**The Task:**
+```
+Read observables.js. Write a Node script check-uncertainty.js that asserts:
+  (1) Gaussian a=1 nm, k_0=5 nm⁻¹: ⟨p⟩ > 0, σ_x σ_p /(ℏ/2) within 1% of 1.000;
+  (2) infinite-well n=1, L=10 nm: ratio within 1% of 1.136;
+  (3) infinite-well n=10: ratio within 5% of π/√3 ≈ 1.814;
+  (4) commutator residual: max |[x̂,p̂]ψ − iℏψ| / ℏ < 1e-3 on N = 500.
+Print all ratios and the residual. Do NOT loosen tolerances. If (3) fails high,
+check whether the grid resolves ψ_10 (10 half-waves need enough points).
+Append to PROJECT.md under "Verified": "Ch9 uncertainty: Gaussian 1.000,
+well n=1 1.136, n=10 →π/√3, commutator residual = <v>".
+```
+**Expected output:** `check-uncertainty.js`, printed ratios and residual, and a `PROJECT.md` line.
+**What to inspect:** the Gaussian saturating at 1.000, the well ratio climbing from 1.136 toward $\pi/\sqrt3$ as $n$ grows, and the commutator residual near zero — confirming the grid faithfully represents $[\hat x,\hat p] = i\hbar$.
+**If it goes wrong:** if $\langle p\rangle < 0$ for $k_0 > 0$, the $\hat p$ sign is flipped. If the $n=10$ ratio overshoots badly, $\psi_{10}$ is under-resolved (too few points per half-wave) — raise $N$, which loops back to the Chapter 2 resolution check.
+**CLAUDE.md / AGENTS.md note:** add: "Report $\sigma_x\sigma_p/(\hbar/2)$ for every eigenstate, and assert the commutator residual is near zero at startup — it certifies the grid's operator representation."
+
+### Exercise R5 — AI Validation Exercise
+**What you're validating:** the uncertainty panel and commutator residual from R3/R4.
+**Validation type:** Code + Numerical result
+**Risk level:** Medium — a sign or missing-term error is invisible for symmetric states and only surfaces for moving packets.
+**Setup:** use your own R3/R4 artifacts; ground truth is the Gaussian (1.000) and well (1.136, $\to\pi/\sqrt3$) ratios.
+**The Validation Task:** Evaluate against this checklist; mark Pass / Fail / Cannot determine with reasoning.
+```
+Validation Checklist — Operators, uncertainty, and the commutator residual
+□ Correctness: σ_p² = ⟨p²⟩ − ⟨p⟩² (both terms), with p̂ = −iℏ∂_x?
+□ Completeness: does it show the ratio AND the Robertson-boundary plot AND the residual?
+□ Scope: did it compute ⟨p⟩ from ψ*(p̂ψ), not from |ψ|² (which only works for x)?
+□ Physics criterion 1: Gaussian ratio = 1.000, well n=1 ratio ≈ 1.136?
+□ Physics criterion 2: commutator residual max|[x̂,p̂]ψ − iℏψ| < 1e-3·ℏ?
+□ Failure-mode check: any of —
+  - sign error in p̂ (⟨p⟩ < 0 for k_0 > 0)
+  - dropped ⟨A⟩² term (σ_p inflated for a moving packet)
+  - well ratio not approaching π/√3 (ψ_n under-resolved at high n)
+  - ratio reads 0.500 (divided by ℏ instead of ℏ/2)
+```
+**What to do with findings:** pass → use it as the standard eigenstate readout; one fail → fix the sign or restore the $\langle A\rangle^2$ term and re-run; multiple fails / cannot-determine → recompute $\sigma_p$ by hand for the well ground state ($\sigma_p = \pi\hbar/L$) and compare.
+**AI Use Disclosure (mandatory, two sentences):**
+> *1:* The AI implemented the position/momentum uncertainty panel, the Robertson-boundary plot, and the commutator residual self-check.
+> *2:* The AI could not determine whether the momentum sign and the variance definition were correct from the code alone — I verified $\langle p\rangle > 0$ for $k_0 > 0$ and the Gaussian/well ratios against analytic values myself.
+**Physics-judgment connection:** trains checking computed uncertainties against an exact bound and analytic ratios, plus a discretization self-check (commutator residual) that certifies the grid's operators before any spectrum is interpreted.

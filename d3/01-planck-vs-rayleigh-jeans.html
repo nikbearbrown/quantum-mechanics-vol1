@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Planck vs. Rayleigh–Jeans — the ultraviolet catastrophe</title>
+<style>
+  :root{ --ink:#121212; --secondary:#545454; --border:#D4D4D4;
+         --planck:#0072B2; --rj:#D55E00; --peak:#E69F00; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#fff;color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+  #chart{width:100%;max-width:760px;margin:0 auto}
+  .axis path,.axis line{stroke:var(--border)}
+  .axis text{fill:var(--secondary);font-size:11px;font-family:'JetBrains Mono',monospace}
+  .axis-title{fill:var(--secondary);font-size:12px}
+  .legend{font-size:12px;fill:var(--ink)}
+</style>
+</head>
+<body>
+<div id="chart" role="main"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script>
+// Figure (Vol 1, Ch 1, Critical/PQ): the classical Rayleigh–Jeans law diverges
+// (the ultraviolet catastrophe) while Planck's quantized law peaks and falls.
+// Dimensionless spectral density u(x), x = hν/kT.  Planck: x^3/(e^x − 1);
+// Rayleigh–Jeans (classical limit): x^2.  They agree only as x → 0.
+function draw(){
+  const el = document.getElementById('chart');
+  el.innerHTML='';
+  const W = el.clientWidth||720, H = Math.round(W*0.62);
+  const m = {top:28,right:24,bottom:48,left:56};
+  const iw = W-m.left-m.right, ih = H-m.top-m.bottom;
+  const svg = d3.select('#chart').append('svg')
+    .attr('width',W).attr('height',H)
+    .attr('role','img').attr('aria-labelledby','t d');
+  svg.append('title').attr('id','t').text('Planck versus Rayleigh–Jeans spectral density');
+  svg.append('desc').attr('id','d').text('The Rayleigh–Jeans curve rises without bound while the Planck curve peaks near x≈2.82 and falls; they coincide at small x.');
+  const g = svg.append('g').attr('transform',`translate(${m.left},${m.top})`);
+
+  const planck = x => x<1e-6 ? x*x : (x*x*x)/(Math.exp(x)-1);
+  const rj     = x => x*x;
+  const xs = d3.range(0.02, 6.0001, 0.02);
+  const yMax = 6.5; // clip RJ so the Planck shape stays readable
+  const x = d3.scaleLinear().domain([0,6]).range([0,iw]);
+  const y = d3.scaleLinear().domain([0,yMax]).range([ih,0]); // zero baseline
+
+  g.append('g').attr('class','axis').attr('transform',`translate(0,${ih})`).call(d3.axisBottom(x).ticks(7));
+  g.append('g').attr('class','axis').call(d3.axisLeft(y).ticks(6));
+  g.append('text').attr('class','axis-title').attr('x',iw).attr('y',ih+38).attr('text-anchor','end')
+    .text('x = hν / kT   (dimensionless frequency)');
+  g.append('text').attr('class','axis-title').attr('transform','rotate(-90)').attr('x',0).attr('y',-42).attr('text-anchor','end')
+    .text('spectral density  u(x)');
+
+  const line = f => d3.line().x(d=>x(d)).y(d=>y(Math.min(f(d),yMax)));
+  // Rayleigh–Jeans (diverges) — vermillion
+  g.append('path').datum(xs).attr('fill','none').attr('stroke','var(--rj)').attr('stroke-width',2.5)
+    .attr('d', line(rj));
+  // Planck — blue anchor
+  g.append('path').datum(xs).attr('fill','none').attr('stroke','var(--planck)').attr('stroke-width',2.5)
+    .attr('d', line(planck));
+  // Wien peak marker at x≈2.821
+  const xp=2.821, yp=planck(xp);
+  g.append('line').attr('x1',x(xp)).attr('x2',x(xp)).attr('y1',y(0)).attr('y2',y(yp))
+    .attr('stroke','var(--peak)').attr('stroke-dasharray','4 4').attr('aria-hidden','true');
+  g.append('circle').attr('cx',x(xp)).attr('cy',y(yp)).attr('r',3.5).attr('fill','var(--peak)');
+
+  // legend
+  const lg = g.append('g').attr('transform',`translate(${iw-220},6)`).attr('class','legend');
+  const items=[['Rayleigh–Jeans (classical)','var(--rj)'],['Planck (quantized)','var(--planck)'],['Wien peak  x≈2.82','var(--peak)']];
+  items.forEach((it,i)=>{const r=lg.append('g').attr('transform',`translate(0,${i*20})`);
+    r.append('rect').attr('width',22).attr('height',3).attr('y',-2).attr('fill',it[1]);
+    r.append('text').attr('x',30).attr('y',3).text(it[0]);});
+}
+draw();
+new ResizeObserver(()=>draw()).observe(document.getElementById('chart'));
+</script>
+</body>
+</html>

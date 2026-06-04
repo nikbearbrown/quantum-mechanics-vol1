@@ -9,6 +9,9 @@ This chapter works through the one-dimensional version of the same argument — 
 
 <!-- → [IMAGE: the Crommie–Lutz–Eigler STM image of the quantum corral (1993) — 48 iron atoms arranged in a ring on copper, with the standing-wave rings of electron density visible inside; caption should note this is a direct image of quantum confinement, not a schematic] -->
 
+![the Crommie–Lutz–Eigler STM image of the quantum corral (1993) — 48 iron atoms arranged in a ring on copper, with the standing-wave rings…](../images/05-the-infinite-square-well-fig-01.png)
+*Figure 5.1 — the Crommie–Lutz–Eigler STM image of the quantum corral (1993) — 48 iron atoms arranged in a ring on copper, with the standing-wave rings…*
+
 ---
 
 ## The Guitar String Analogy, and Why It Breaks Down
@@ -40,6 +43,9 @@ $$-\frac{\hbar^2}{2m}\frac{d^2\psi}{dx^2} = E\psi.$$
 Now ask: what values of $E$ are allowed?
 
 <!-- → [FIGURE: diagram of the infinite square well potential — V = ∞ for x ≤ 0 and x ≥ L shown as vertical walls, V = 0 between; the first three eigenstates drawn as sine curves offset to their respective energy levels; the n² energy spacing should be visible by eye] -->
+
+![diagram of the infinite square well potential — V = ∞ for x ≤ 0 and x ≥ L shown as vertical walls, V = 0 between](../images/05-the-infinite-square-well-fig-02.png)
+*Figure 5.2 — diagram of the infinite square well potential — V = ∞ for x ≤ 0 and x ≥ L shown as vertical walls, V = 0 between*
 
 ---
 
@@ -127,6 +133,9 @@ Quantitatively: for the ground state, $\sigma_p = \pi\hbar/L$ (computed from $\l
 
 <!-- → [FIGURE: ground-state and first-excited-state wave functions ψ₁ and ψ₂, and their probability densities |ψ₁|² and |ψ₂|², all four curves on the same x-axis from 0 to L; labels should indicate node count and the zero-point energy E₁ > 0; useful for making the zero-node / one-node distinction visually clear] -->
 
+![ground-state and first-excited-state wave functions ψ₁ and ψ₂, and their probability densities |ψ₁|² and |ψ₂|², all four curves on the same…](../images/05-the-infinite-square-well-fig-03.png)
+*Figure 5.3 — ground-state and first-excited-state wave functions ψ₁ and ψ₂, and their probability densities |ψ₁|² and |ψ₂|², all four curves on the same…*
+
 ---
 
 ## Time Evolution and the Sloshing State
@@ -168,6 +177,9 @@ $$\langle\hat{H}\rangle = \frac{1}{2}E_1 + \frac{1}{2}E_2 \approx \frac{0.377 + 
 Constant. The probability is sloshing; the energy is not. The $|c_n|^2$ — the weights on each eigenstate — are fixed by the initial state and do not change in time. What evolves is the relative phase between the terms, which modulates the interference pattern in $|\Psi|^2$ but leaves the energy budget unchanged.
 
 <!-- → [CHART: three-panel animation schematic — (1) |Ψ(x,t)|² at t = 0, t = T/4, t = T/2, t = 3T/4, showing the probability density sloshing left to right; (2) ⟨x⟩(t) as a function of time, oscillating between 0.320L and 0.680L; (3) ⟨H⟩(t) as a flat line — visually emphasizing that energy is constant while position expectation oscillates] -->
+
+![three-panel animation schematic — (1) |Ψ(x,t)|² at t = 0, t = T/4, t = T/2, t = 3T/4, showing the probability density sloshing left to right](../images/05-the-infinite-square-well-fig-04.png)
+*Figure 5.4 — three-panel animation schematic — (1) |Ψ(x,t)|² at t = 0, t = T/4, t = T/2, t = 3T/4, showing the probability density sloshing left to right*
 
 ---
 
@@ -278,3 +290,108 @@ Esaki, L., & Tsu, R. (1970). Superlattice and negative differential conductivity
 Fourier, J. B. J. (1822). *Théorie analytique de la chaleur*. Firmin Didot. (The Fourier sine series, established for heat conduction more than a century before quantum mechanics.)
 
 Stein, E. M., & Shakarchi, R. (2003). *Fourier Analysis: An Introduction*. Princeton University Press. Ch. 2–4. (Orthogonality, completeness, and convergence of the trigonometric basis.)
+
+---
+
+## Running Project — Build the 1D Quantum Sandbox
+
+**This chapter adds:** the heart of the eigensolver — the real, symmetric, tridiagonal Hamiltonian built from the central-difference stencil ($H_{jj} = 2t_k + V_j$, $H_{j,j\pm1} = -t_k$ with $t_k = \hbar^2/2mh^2$), its diagonalization into $\{E_n,\psi_n\}$, and the **golden test** that validates the whole machine against $E_n = n^2\pi^2\hbar^2/2mL^2$, i.e. $E_n/E_1 = n^2$ with no fitting parameters.
+
+### Exercise R1 — When to Use AI
+**The judgment:** In this chapter's project work, AI assistance is appropriate for:
+- Assembling the tridiagonal matrix from $t_k$, the diagonal $2t_k + V_j$, and the off-diagonals $-t_k$ over the interior $(N-2)$ points — *Why AI works here:* it is filling a banded matrix from a stated stencil, and the golden test gives an exact pass/fail.
+- Wiring `math.eigs()` (or a Numerov shooter) and sorting eigenvalues ascending — *Why AI works here:* calling a library and sorting is boilerplate; the ratios $E_n/E_1$ tell you instantly whether it worked.
+**The tell:** You are using AI well when you have an independent way to check the output — here, $E_2/E_1 = 4.000$, $E_3/E_1 = 9.000$ to three decimals, independent of any physical constant.
+
+### Exercise R2 — When NOT to Use AI
+**The judgment:** These tasks require your judgment; AI output here can't be trusted without redoing the work:
+- The factor in the kinetic coefficient — diagonal $\hbar^2/mh^2 = 2t_k$ vs off-diagonal $-t_k = -\hbar^2/2mh^2$, and $h^2$ not $h$ in the denominator — *Why AI fails here:* confusing $2t_k$ with $t_k$ is a factor-of-2 error that makes $E_1$ wrong while leaving $E_2/E_1 = 4$ intact; using $h$ instead of $h^2$ makes $E_1$ scale as $1/N$ instead of $1/N^2$. Both produce a clean-looking spectrum the AI will not flag.
+- Whether the returned eigenvectors carry physics normalization ($\sum|\psi_j|^2 h = 1$) — *Why AI fails here:* `math.eigs` returns Euclidean-normalized vectors; without the $1/\sqrt h$ correction the indicator reads $1/h \approx 250$, and the AI may "fix" it by the wrong power of $h$.
+**The tell:** If you could not explain the result without the AI — if the AI is your *reason* rather than your *tool* — it did work that should have been yours.
+**Physics-judgment connection:** This trains the golden discipline of the whole book — checking a numerical spectrum against the analytic $E_n = n^2 E_1$ before believing it, which catches the factor-of-2 and $h$-vs-$h^2$ errors that a plausible-looking plot hides.
+
+### Exercise R3 — LLM Exercise
+**What you're building this chapter:** the tridiagonal Hamiltonian builder, the eigensolver, and the golden-test validation table.
+**Tool:** Claude Project — the Hamiltonian builder is the load-bearing module every later potential reuses, so it belongs in persistent project context.
+**The Prompt:**
+```
+Using the Chapter 0 CLAUDE.md, constants.js, grid.js, and observables.js as
+binding context, build 05-infinite-well-eigensolver.html plus a reusable
+hamiltonian.js.
+
+hamiltonian.js exports buildTridiagonal(V, h, m): given a potential array V of
+length N and spacing h, build the (N−2)×(N−2) interior Hamiltonian with
+  t_k = ℏ²/(2 m h²),
+  diagonal H[j][j]   = 2 t_k + V[j],
+  off-diagonal H[j][j±1] = −t_k.
+(Boundary points j=0, N−1 are excluded → Dirichlet ψ_0 = ψ_{N−1} = 0.)
+Diagonalize with math.eigs (math.js from CDN; this is an approved addition).
+Sort eigenvalues ascending; normalize each eigenvector so Σ_j|ψ_j|² h = 1
+(divide the Euclidean eigenvector by √h, NOT h).
+
+05-...html: set V = 0 inside [0, L] with hard walls, L = 2 nm, m = m_e,
+N = 500. Plot V(x) (red), energy levels as green horizontal lines, |ψ_n|²
+offset to E_n. Show a validation TABLE: for n = 1..5, columns
+  E_n analytic (eV) | E_n numerical (eV) | E_n/E_1 numerical | fractional error.
+Analytic E_n = n²π²ℏ²/(2 m_e L²).
+
+THE GOLDEN TEST: assert E_2/E_1, E_3/E_1, E_4/E_1 equal 4, 9, 16 to three
+decimals, and fractional error on E_1 < 1e-4. Report pass/fail explicitly.
+Do NOT tune any constant to make the table match — if it fails, diagnose
+whether it is the t_k factor (2t_k vs t_k), the h-vs-h² denominator, or the
+eigenvector normalization (√h).
+```
+**What this produces:** `hamiltonian.js` (reused by every potential from Chapter 6 on) and `05-infinite-well-eigensolver.html` with the golden-test table.
+**How to adapt:** *Your system:* for >20 states keep `math.eigs`; for 3–5 states a Numerov shooter avoids the library. *ChatGPT/Gemini:* paste the dependency files. *Claude Project:* put `hamiltonian.js` in Project knowledge — it is the spine of the solver.
+**Builds on:** the ψ array and normalization from Chapter 3, the grid from Chapter 2.  **Next:** Chapter 6 feeds this builder an arbitrary $V(x)$ for finite wells and barriers.
+
+### Exercise R4 — CLI Exercise
+**What you're building this chapter:** the eigensolver with the golden test wired as an automated assertion.
+**Tool:** Claude Code — it can run the diagonalization and assert the $n^2$ ratios, failing loudly if the Hamiltonian factor is wrong.
+**Skill level:** Advanced
+**Setup — confirm:**
+- [ ] `hamiltonian.js`, `grid.js`, `constants.js`, `observables.js`
+- [ ] math.js available (CDN in the browser, or `npm i mathjs` for the script)
+- [ ] The CLAUDE.md rule that every spectrum ships with an analytic self-check
+**The Task:**
+```
+Read hamiltonian.js. Write a Node script golden-test.js that builds the
+infinite-well Hamiltonian (V = 0, L = 2 nm, m = m_e, N = 500), diagonalizes it,
+normalizes eigenvectors to Σ|ψ_j|² h = 1, and asserts:
+  (1) E_2/E_1, E_3/E_1, E_4/E_1, E_5/E_1 = 4, 9, 16, 25 to 3 decimals;
+  (2) |E_1_num − E_1_analytic| / E_1_analytic < 1e-4;
+  (3) Σ_j|ψ_1_j|² h = 1.000 ± 1e-3 and orthogonality |⟨ψ_1|ψ_2⟩| < 1e-8.
+Print the full n=1..5 comparison table. Do NOT adjust constants or tolerances
+to force a pass. If it fails, print which diagnostic (t_k factor, h², or √h
+normalization) is the likely cause. Append to PROJECT.md under "Verified":
+"Ch5 GOLDEN TEST: E_n/E_1 = 4/9/16/25 ✓, E_1 err = <v>".
+```
+**Expected output:** `golden-test.js`, a printed comparison table, an explicit PASS, and a `PROJECT.md` line marking the golden test.
+**What to inspect:** the ratios must be 4/9/16/25 *and* $E_1$ must match the analytic value — the ratios alone pass even with an $h$-vs-$h^2$ error, so the absolute $E_1$ check is what catches it.
+**If it goes wrong:** if ratios are perfect but $E_1$ is off by exactly 2×, the diagonal used $t_k$ instead of $2t_k$; if $E_1$ scales as $1/N$ rather than $1/N^2$ as you vary $N$, the denominator used $h$ not $h^2$. Diagnose by the symptom, then fix the stencil.
+**CLAUDE.md / AGENTS.md note:** add: "The infinite-well golden test ($E_n/E_1 = n^2$ AND $E_1$ matching analytic to <1e-4) must pass before any other potential is trusted. It is the regression gate for the eigensolver."
+
+### Exercise R5 — AI Validation Exercise
+**What you're validating:** the tridiagonal Hamiltonian and eigensolver against the analytic infinite-well spectrum — the golden test itself.
+**Validation type:** Numerical result
+**Risk level:** High — this is the module every other potential reuses, and the factor-of-2 / $h$-vs-$h^2$ errors are exactly the kind that pass a visual check.
+**Setup:** use your own R3/R4 artifacts; the analytic spectrum $E_n = n^2\pi^2\hbar^2/2m_eL^2$ is the fixed ground truth.
+**The Validation Task:** Evaluate against this checklist; mark Pass / Fail / Cannot determine with reasoning.
+```
+Validation Checklist — Tridiagonal Hamiltonian and the golden test
+□ Correctness: diagonal = 2t_k + V_j and off-diagonal = −t_k with t_k = ℏ²/(2mh²)?
+□ Completeness: does it show absolute E_n AND the E_n/E_1 ratios AND orthogonality?
+□ Scope: did it build the full N×N matrix instead of the (N−2)×(N−2) interior block?
+□ Physics criterion 1: E_2/E_1 = 4.000, E_3/E_1 = 9.000 to three decimals?
+□ Physics criterion 2: E_1 matches n²π²ℏ²/(2m_eL²) to < 1e-4 fractional error?
+□ Failure-mode check: any of —
+  - factor-of-2 (diagonal used t_k not 2t_k): ratios pass but E_1 is 2× wrong
+  - h-vs-h² in t_k: E_1 scales as 1/N instead of 1/N²
+  - unnormalized eigenvectors (Σ|ψ_j|² h reads 250 = 1/h instead of 1)
+  - ratios "correct" because the AI hardcoded n² instead of computing E_n
+```
+**What to do with findings:** pass → use it, and lock it as the regression gate; one fail → diagnose by symptom (ratios-pass-but-E₁-wrong ⇒ factor of 2; wrong $N$-scaling ⇒ $h$ vs $h^2$), fix the stencil, re-run; multiple fails / cannot-determine → rebuild the $5\times5$ Hamiltonian by hand for $N=7$ (Exercise 1 in the capstone) and compare entry by entry.
+**AI Use Disclosure (mandatory, two sentences):**
+> *1:* The AI built the tridiagonal Hamiltonian and called the eigensolver, producing the energies and eigenfunctions.
+> *2:* The AI could not determine whether the kinetic factor and eigenvector normalization were correct from the code alone — I confirmed it by checking the spectrum against $E_n = n^2E_1$ and the absolute $E_1$ against the analytic value.
+**Physics-judgment connection:** this *is* the golden test — checking a computed spectrum against the analytic $E_n = n^2E_1$ with no fitted parameters, the single most important verification discipline in the entire project.

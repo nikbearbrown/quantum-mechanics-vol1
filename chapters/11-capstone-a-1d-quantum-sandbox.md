@@ -11,6 +11,9 @@ By the end, you will have a sandbox that can reproduce every bound-state spectru
 
 <!-- → [IMAGE: screenshot or schematic of the finished sandbox UI — showing the potential plot with energy levels as horizontal lines, eigenfunctions offset vertically, the normalization indicator, and the mode selector; this is the deliverable and the reader should see what they are building toward] -->
 
+![screenshot or schematic of the finished sandbox UI — showing the potential plot with energy levels as horizontal lines, eigenfunctions…](../images/11-capstone-a-1d-quantum-sandbox-fig-01.png)
+*Figure 11.1 — screenshot or schematic of the finished sandbox UI — showing the potential plot with energy levels as horizontal lines, eigenfunctions…*
+
 ---
 
 ## What the Sandbox Does
@@ -50,6 +53,9 @@ Boundary conditions for a hard-wall problem: enforce $\psi_0 = \psi_{N-1} = 0$ b
 Diagonalize this matrix and you get $N-2$ eigenvalues and eigenvectors. The eigenvalues are the energies; the eigenvectors, each normalized so that $\sum_j|\psi_j|^2 \cdot h = 1$, are the discretized wave functions. The central-difference approximation introduces an error in the $n$-th eigenvalue that scales as $(nh/L)^2$ — for $N = 500$ points and the ground state, this is below $10^{-6}$ in fractional terms. The accuracy is more than sufficient for any physical purpose here.
 
 <!-- → [FIGURE: schematic of the tridiagonal Hamiltonian matrix — showing the diagonal entries 2t_k + V_j and the off-diagonal entries -t_k, with the boundary rows/columns greyed out to indicate Dirichlet conditions; this should make the structure of the discretization visually immediate] -->
+
+![schematic of the tridiagonal Hamiltonian matrix — showing the diagonal entries 2t_k + V_j and the off-diagonal entries -t_k, with the…](../images/11-capstone-a-1d-quantum-sandbox-fig-02.png)
+*Figure 11.2 — schematic of the tridiagonal Hamiltonian matrix — showing the diagonal entries 2t_k + V_j and the off-diagonal entries -t_k, with the…*
 
 The key number to remember for debugging: the diagonal entry is $\hbar^2/(mh^2)$, which is $2t_k$, not $t_k$. The off-diagonal is $-t_k = -\hbar^2/(2mh^2)$. If you confuse the two, your ground-state energy is off by a factor of two.
 
@@ -103,6 +109,9 @@ The second half of the FFT output (indices $N/2$ through $N-1$) corresponds to *
 
 <!-- → [FIGURE: diagram of the FFT output index mapping to physical wave vectors — showing indices 0 through N/2-1 mapping to positive k, and N/2 through N-1 mapping to negative k; the visual point is that the second half "wraps around" and must be corrected before applying the kinetic phase] -->
 
+![diagram of the FFT output index mapping to physical wave vectors — showing indices 0 through N/2-1 mapping to positive k, and N/2 through…](../images/11-capstone-a-1d-quantum-sandbox-fig-03.png)
+*Figure 11.3 — diagram of the FFT output index mapping to physical wave vectors — showing indices 0 through N/2-1 mapping to positive k, and N/2 through…*
+
 ---
 
 ## Defending the Physics
@@ -145,7 +154,7 @@ There is a dimensionless check that bypasses units entirely: the ratios $E_n/E_1
 
 The sandbox does no new physics. Every feature assembles a tool you already have.
 
-The Born rule from Chapter 1 is the reason you display $|\Psi|^2$ rather than $\Psi$ itself, and the reason the normalization integral must equal 1. The TISE from Chapter 2 is what the matrix eigensolver solves. The argument that quantization falls out of boundary conditions — made for the infinite well in Chapter 5 — is reproduced automatically by the matrix formulation: Dirichlet boundary conditions enforce $\psi_0 = \psi_{N-1} = 0$, and the only solutions are the discrete eigenvectors. The harmonic oscillator spectrum of Chapter 7 is recovered numerically by setting $V_j = \frac{1}{2}m\omega^2 x_j^2$. The Gaussian wave-packet dynamics of Chapter 8 — group velocity, spreading, the $1/\sigma_0^2$ spreading rate — can be watched in the time-evolution panel. The operators and expectation values of Chapter 9 give $\sigma_x$, $\sigma_p$, and $\langle\hat{H}\rangle$ from the numerical eigenstates. The tunneling of Chapter 6 appears when you time-evolve a wave packet against a finite barrier and watch the transmitted fraction appear on the other side.
+The Born rule from Chapter 3 is the reason you display $|\Psi|^2$ rather than $\Psi$ itself, and the reason the normalization integral must equal 1. The TISE from Chapter 4 is what the matrix eigensolver solves. The argument that quantization falls out of boundary conditions — made for the infinite well in Chapter 5 — is reproduced automatically by the matrix formulation: Dirichlet boundary conditions enforce $\psi_0 = \psi_{N-1} = 0$, and the only solutions are the discrete eigenvectors. The harmonic oscillator spectrum of Chapter 7 is recovered numerically by setting $V_j = \frac{1}{2}m\omega^2 x_j^2$. The Gaussian wave-packet dynamics of Chapter 8 — group velocity, spreading, the $1/\sigma_0^2$ spreading rate — can be watched in the time-evolution panel. The operators and expectation values of Chapter 9 give $\sigma_x$, $\sigma_p$, and $\langle\hat{H}\rangle$ from the numerical eigenstates. The tunneling of Chapter 6 appears when you time-evolve a wave packet against a finite barrier and watch the transmitted fraction appear on the other side.
 
 The synthesis is the point. You are not building something new. You are building a single machine that runs everything you already know, and then verifying that it agrees with what you already know.
 
@@ -309,3 +318,106 @@ Trefethen, L. N., & Bau, D. (1997). *Numerical Linear Algebra*. SIAM. Ch. 29–3
 Pfahnl, A. W. (2022). Finite difference method for visualizing quantum mechanics. *Journal of Chemical Education*, 99, 3647–3655. doi:10.1021/acs.jchemed.2c00557.
 
 Griffiths, D. J., & Schroeter, D. F. (2018). *Introduction to Quantum Mechanics* (3rd ed.). Cambridge University Press. Ch. 2. (The analytic benchmarks the sandbox validates against.)
+
+---
+
+## Running Project — Build the 1D Quantum Sandbox
+
+**This chapter integrates everything:** the per-chapter modules — the governing files and grid (Ch 0–2), the ψ array and Born-rule observables (Ch 3), the spectral propagator (Ch 4), the tridiagonal eigensolver and golden test (Ch 5), arbitrary $V(x)$ and tunneling (Ch 6), the oscillator validation (Ch 7), the unitary time-stepper (Ch 8), the uncertainty panel (Ch 9), and projective measurement (Ch 10) — assemble into one configurable sandbox with eigensolver and time-evolution modes, validated against $E_n = n^2 E_1$.
+
+### Exercise R1 — When to Use AI
+**The judgment:** In this capstone's integration work, AI assistance is appropriate for:
+- Wiring the already-validated modules together behind one UI (mode selector, potential picker, shared grid) — *Why AI works here:* each piece passed its own golden/analytic check, so integration is plumbing, and the full validation suite re-confirms it.
+- Drafting the validation-suite runner that executes all the per-chapter checks at once and prints a pass/fail table — *Why AI works here:* it is assembling existing assertions, each with a known target.
+**The tell:** You are using AI well when you have an independent way to check the output — here, the full suite: infinite-well $E_n/E_1 = n^2$, oscillator $E_n = (n+\tfrac12)\hbar\omega$, free-packet spreading $\sigma(t)$, and normalization fixed at 1.000.
+
+### Exercise R2 — When NOT to Use AI
+**The judgment:** These tasks require your judgment; AI output here can't be trusted without redoing the work:
+- Deciding the sandbox is "correct" because it runs and looks right — *Why AI fails here:* a program with visually plausible output is not a program that computes correct physics; only running the golden test against $E_n = n^2 E_1$ with no fitting parameters certifies it, and that judgment is yours.
+- Reconciling module interfaces where a sign, an $h$-weighting, or a unit convention differs between chapters — *Why AI fails here:* the AI will paper over a mismatch (e.g. a Euclidean-normalized eigenvector feeding a physics-normalized observable) to make the code run, producing a silent factor-of-$h$ error the suite must catch.
+**The tell:** If you could not explain the result without the AI — if the AI is your *reason* rather than your *tool* — it did work that should have been yours.
+**Physics-judgment connection:** This is the discipline the whole book has been building toward — refusing to believe a simulation until it reproduces a result you did not fit: $E_n = n^2 E_1$ for the infinite square well, the golden test that checks the entire pipeline at once.
+
+### Exercise R3 — LLM Exercise
+**What you're building this chapter:** the assembled sandbox — both modes, all potentials, one UI — from the per-chapter modules.
+**Tool:** Claude Project — the capstone loads every governing file and module from the project knowledge built across Chapters 0–10.
+**The Prompt:**
+```
+Using the full project context (CLAUDE.md, DESIGN.md, PROJECT.md, constants.js,
+grid.js, observables.js, hamiltonian.js, potentials.js, stepper.js, measure.js),
+assemble quantum-sandbox.html: one self-contained page with two modes.
+
+EIGENSOLVER MODE: pick a potential (infinite well, finite well, step, barrier,
+harmonic) via potentials.js → buildTridiagonal (hamiltonian.js) → diagonalize →
+normalize to Σ|ψ_j|² h = 1. Plot V(x) (red), energy levels (green), |ψ_n|²
+offset to E_n. Show the uncertainty panel (observables.js) for the selected n:
+⟨x⟩, ⟨p⟩, σ_x, σ_p, σ_xσ_p/(ℏ/2).
+
+TIME-EVOLUTION MODE: initialize a Gaussian packet, propagate with the unitary
+split-step stepper (stepper.js) under the chosen V(x). Animate |Ψ(x,t)|², pin
+the normalization indicator (must stay 1.000), show ⟨H⟩ (must stay flat).
+
+Reuse every module unchanged — do NOT re-derive any physics. The only new code
+is the UI wiring and a "Run validation suite" button that executes all the
+per-chapter checks and prints a pass/fail table (golden test, oscillator,
+spreading law, R+T=1, commutator residual, measurement convergence).
+
+After writing, list exactly which check certifies each mode.
+```
+**What this produces:** `quantum-sandbox.html` — the finished deliverable, plus a one-click validation suite.
+**How to adapt:** *Your system:* the same architecture extends to periodic ($V$ periodic, circulant matrix) or 2D ($N_xN_y$ matrix, iterative eigensolver) per the "What Comes After" section. *ChatGPT/Gemini:* paste all module files as a preamble. *Claude Project:* the assembled sandbox is the Project's capstone artifact.
+**Builds on:** every module from Chapters 0–10.  **Next:** Volume 2 reuses this eigensolver to build the hydrogen atom.
+
+### Exercise R4 — CLI Exercise
+**What you're building this chapter:** the full validation suite as a single command that gates the assembled sandbox.
+**Tool:** Claude Code — it can run every per-chapter check against the integrated code and produce one pass/fail report.
+**Skill level:** Advanced
+**Setup — confirm:**
+- [ ] All modules and their per-chapter check scripts (`golden-test.js`, `check-oscillator.js`, `check-stepper.js`, etc.)
+- [ ] math.js and an FFT available
+- [ ] Every per-chapter "Verified" line already in `PROJECT.md`
+**The Task:**
+```
+Read all module files and the per-chapter check scripts. Write a single
+validate-sandbox.js that runs, against the ASSEMBLED quantum-sandbox modules:
+  (1) GOLDEN TEST: infinite well N=500, L=2 nm, m_e → E_n/E_1 = 4/9/16/25 to
+      3 decimals AND E_1 within 1e-4 of analytic;
+  (2) oscillator → E_n = (n+½)ℏω, spacing ℏω within 1%;
+  (3) free-packet spreading → width matches σ(t) within 1%, norm 1.000 ± 1e-3;
+  (4) step/barrier → R+T = 1 within 1e-6;
+  (5) commutator residual < 1e-3·ℏ;
+  (6) measurement ensemble mean → ⟨A⟩.
+Print a single PASS/FAIL table. The suite must PASS without any tolerance being
+loosened or any constant nudged. Append to PROJECT.md under "Verified":
+"Ch11 SANDBOX VALIDATION SUITE: all checks PASS — golden test E_n=n²E_1 ✓".
+```
+**Expected output:** `validate-sandbox.js`, a full PASS/FAIL table, and the final `PROJECT.md` line certifying the deliverable.
+**What to inspect:** that the golden test ($E_n/E_1 = n^2$ AND absolute $E_1$) passes on the *integrated* code, not just the standalone Chapter 5 module — integration can introduce interface mismatches the standalone test never saw.
+**If it goes wrong:** if a check that passed in its own chapter now fails in the suite, an interface mismatch crept in during assembly — most likely a Euclidean-vs-physics normalization ($\sqrt h$) or a unit convention differing between modules. Trace the offending quantity back to its source module; do not patch the suite.
+**CLAUDE.md / AGENTS.md note:** add: "The sandbox is not 'done' until `validate-sandbox.js` passes every check with no loosened tolerance. The golden test ($E_n = n^2E_1$, no fitted parameters) is the final gate."
+
+### Exercise R5 — AI Validation Exercise
+**What you're validating:** the entire assembled sandbox, against the golden test and the full validation suite.
+**Validation type:** Agentic output (integrated multi-module system) + Numerical result
+**Risk level:** High — this is the whole deliverable; an undetected interface error means every downstream result (and Volume 2's atom) inherits it.
+**Setup:** use your own assembled `quantum-sandbox.html`; the fixed ground truth is $E_n = n^2\pi^2\hbar^2/2m_eL^2$, with no adjustable constants.
+**The Validation Task:** Evaluate against this checklist; mark Pass / Fail / Cannot determine with reasoning.
+```
+Validation Checklist — The assembled 1D Quantum Sandbox
+□ Correctness: do both modes (eigensolver, time-evolution) run on the SAME grid and V(x)?
+□ Completeness: does the validation suite cover well, oscillator, spreading, R+T, residual, measurement?
+□ Scope: did assembly re-derive or alter any module's physics (it should reuse them unchanged)?
+□ Physics criterion 1 (THE GOLDEN TEST): infinite well gives E_n/E_1 = 4.000/9.000/16.000
+  AND E_1 within 1e-4 of n²π²ℏ²/(2m_eL²), with NO fitting parameters?
+□ Physics criterion 2: normalization fixed at 1.000 and ⟨H⟩ flat in time-evolution mode?
+□ Failure-mode check: any of —
+  - integration interface error (a module that passed alone now fails in the suite)
+  - Euclidean-vs-physics normalization mismatch (√h) between eigensolver and observables
+  - non-unitary stepper slipped in during assembly (norm drifts)
+  - the suite "passing" because a tolerance was loosened or a constant nudged
+```
+**What to do with findings:** pass → the deliverable is certified; record what made it trustworthy (the golden test passed with no fitted parameters). One fail → trace the quantity to its source module, fix it there, re-run the whole suite. Multiple fails / cannot-determine → this is a "do it yourself" moment: rebuild the failing interface by hand and re-validate, since a sandbox that cannot pass the golden test is not a sandbox you can trust.
+**AI Use Disclosure (mandatory, two sentences):**
+> *1:* The AI wired the validated per-chapter modules into the two-mode sandbox and assembled the validation-suite runner.
+> *2:* The AI could not determine whether the integrated system actually computes correct physics rather than merely running — I certified it by confirming the golden test $E_n = n^2 E_1$ passes on the assembled code with no fitting parameters.
+**Physics-judgment connection:** this is the verification discipline the entire project exists to teach — never trust a simulation until it reproduces a result you did not fit. The infinite-well golden test, $E_n = n^2 E_1$, checks the whole pipeline at once, and passing it is what turns numerical theater into physics.

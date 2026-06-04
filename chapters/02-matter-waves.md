@@ -13,6 +13,9 @@ The committee consulted Einstein before approving the thesis. Einstein called th
 
 <!-- → [IMAGE: photograph or schematic of the Davisson–Germer apparatus — showing the electron gun, rotatable detector, and nickel crystal target; caption should note the accidental annealing that converted the sample to a single crystal] -->
 
+![photograph or schematic of the Davisson–Germer apparatus — showing the electron gun, rotatable detector, and nickel crystal target](../images/02-matter-waves-fig-01.png)
+*Figure 2.1 — photograph or schematic of the Davisson–Germer apparatus — showing the electron gun, rotatable detector, and nickel crystal target*
+
 ---
 
 ## The Formula and What It Means
@@ -57,9 +60,12 @@ The scattering angle measured from the forward beam in the Davisson–Germer geo
 
 This is the structure of a successful quantitative test: a parameter-free prediction from quantities measured entirely independently ($h$, $m_e$, $d$), compared against an angle measured in an unrelated experiment that was not even designed to test this prediction. The agreement is not approximate. It is exact when the physics is accounted for completely.
 
-Davisson and Germer did not fully understand what they had found until Davisson traveled to Europe and spoke with Max Born, James Franck, and others who had been digesting de Broglie's and Schrödinger's new wave mechanics. George Paget Thomson was doing similar experiments independently in Aberdeen, firing electrons through thin metal films and observing rings — Debye–Scherrer diffraction, the same geometry used for polycrystalline X-ray diffraction. Thomson and Davisson shared the 1937 Nobel Prize. [verify: Nobel Prize records, Davisson–Germer paper doi:10.1103/PhysRev.30.705]
+Davisson and Germer did not fully understand what they had found until Davisson traveled to Europe and spoke with Max Born, James Franck, and others who had been digesting de Broglie's and Schrödinger's new wave mechanics. George Paget Thomson was doing similar experiments independently in Aberdeen, firing electrons through thin metal films and observing rings — Debye–Scherrer diffraction, the same geometry used for polycrystalline X-ray diffraction. Thomson and Davisson shared the 1937 Nobel Prize. (Davisson–Germer, *Physical Review* **30**, 705–740 (1927). doi:10.1103/PhysRev.30.705)
 
 <!-- → [FIGURE: diagram of Bragg diffraction geometry applied to the Davisson–Germer case — showing incident and reflected electron beams, crystal planes separated by d = 0.091 nm, path-length difference of 2d sin θ, and the condition for constructive interference; contrast with a polycrystalline diffraction ring geometry for Thomson's version] -->
+
+![diagram of Bragg diffraction geometry applied to the Davisson–Germer case — showing incident and reflected electron beams, crystal planes…](../images/02-matter-waves-fig-02.png)
+*Figure 2.2 — diagram of Bragg diffraction geometry applied to the Davisson–Germer case — showing incident and reflected electron beams, crystal planes…*
 
 There is a point of logic worth making explicit. The Davisson–Germer experiment does not prove that electrons *are* waves in some classical sense — that they are extended oscillations in a medium, the way sound is. What it proves is that electrons produce interference and diffraction phenomena that can only be calculated using wave mechanics. The distinction matters because the same electron that produces a diffraction peak arrives at the detector as a localized event — a single click, a single dot.
 
@@ -75,9 +81,12 @@ At ten electrons, you see ten random-looking dots. Nothing suggests order. At tw
 
 The electrons did not interfere with each other. There was only ever one in the apparatus. Each electron arrived as a particle — a point — and contributed one dot to the pattern. Yet the distribution of those dots, accumulated over time, has the mathematical structure of wave interference. The conclusion is not optional: each individual electron's wave function passed through both arms of the apparatus simultaneously and interfered with itself. The dot on the detector is where the wave function collapsed upon measurement. The interference pattern is the accumulated probability, and that probability was determined by a wave that explored the full geometry on each individual pass.
 
-Tonomura's 1989 paper is the most famous demonstration of this kind, but the first single-electron buildup was demonstrated by Pier Giorgio Merli, Giulio Missiroli, and Gianfranco Pozzi in Bologna in 1974 (published 1976 in *American Journal of Physics*). Their experiment was voted one of the most beautiful in physics in a 2002 *Physics World* poll. The first experiment using physically nano-fabricated real double slits — actual slits cut in a membrane, not a biprism — was Bach et al. in 2013. [verify: Tonomura doi:10.1119/1.16104; Bach et al. doi:10.1088/1367-2630/15/3/033018]
+Tonomura's 1989 paper is the most famous demonstration of this kind, but the first single-electron buildup was demonstrated by Pier Giorgio Merli, Giulio Missiroli, and Gianfranco Pozzi in Bologna in 1974 (published 1976 in *American Journal of Physics*). Their experiment was voted one of the most beautiful in physics in a 2002 *Physics World* poll. The first experiment using physically nano-fabricated real double slits — actual slits cut in a membrane, not a biprism — was Bach et al. in 2013. (Tonomura et al., *Am. J. Phys.* **57**, 117–120 (1989). doi:10.1119/1.16104; Bach et al., *New J. Phys.* **15**, 033018 (2013). doi:10.1088/1367-2630/15/3/033018)
 
 <!-- → [CHART: sequence of detector images from the single-electron buildup — showing the pattern at approximately 10, 200, 6,000, and 70,000 electrons; this is the most important visual in the chapter and must show both the particle nature (individual dots) and wave nature (emerging fringes)] -->
+
+![sequence of detector images from the single-electron buildup — showing the pattern at approximately 10, 200, 6,000, and 70,000 electrons](../images/02-matter-waves-fig-03.png)
+*Figure 2.3 — sequence of detector images from the single-electron buildup — showing the pattern at approximately 10, 200, 6,000, and 70,000 electrons*
 
 Here is what the experiment rules out, and this is the part students most need to hear carefully. It rules out any model in which the electron follows a definite trajectory through one slit or the other. If electrons had definite trajectories, reducing the rate to one at a time would change nothing — you would get two bright regions behind the two slits, and nothing in between. You do not get that. You get fringes extending well into the geometric shadow. The pattern depends on the separation of both slits, even though each electron can only be detected at one place.
 
@@ -91,7 +100,7 @@ The de Broglie relation applies to everything. Not just electrons. Not just quan
 
 A proton accelerated through the same 54 V has 1836 times the electron's mass. Its momentum at the same kinetic energy is $\sqrt{1836}$ times larger, so its wavelength is $\sqrt{1836} \approx 43$ times smaller: about 4 pm. Still in the range where crystal diffraction is possible — neutron and proton diffraction are real techniques used in materials science.
 
-A $\text{C}_{60}$ buckyball — sixty carbon atoms, mass approximately 720 atomic mass units — was diffracted from a grating with 50 nm slits by Anton Zeilinger's group in Vienna in 1999. The de Broglie wavelength at the effusion temperature of 900 K comes out to roughly 250 fm (femtometers) — smaller than the molecule itself. Yet fringes appeared. The 2019 experiments by Fein and colleagues pushed this to molecules of approximately 2,000 atoms. [verify: Arndt et al. doi:10.1038/44348; Fein et al. doi:10.1038/s41567-019-0663-9]
+A $\text{C}_{60}$ buckyball — sixty carbon atoms, mass approximately 720 atomic mass units — was diffracted from a grating with 50 nm slits by Anton Zeilinger's group in Vienna in 1999. The de Broglie wavelength at the effusion temperature of 900 K comes out to roughly 250 fm (femtometers) — smaller than the molecule itself. Yet fringes appeared. The 2019 experiments by Fein and colleagues pushed this to molecules of approximately 2,000 atoms. (Arndt et al., *Nature* **401**, 680–682 (1999). doi:10.1038/44348; Fein et al., *Nat. Phys.* **15**, 1242–1245 (2019). doi:10.1038/s41567-019-0663-9)
 
 Now compute the wavelength of a 70 kg person walking at 1 m/s:
 
@@ -202,3 +211,98 @@ Fein, Y. Y., Geyer, P., Zwick, P., Kiałka, F., Pedalino, S., Mayor, M., Gerlich
 Townsend, J. S. (2012). *A Modern Approach to Quantum Mechanics* (2nd ed.). University Science Books.
 
 Griffiths, D. J., & Schroeter, D. F. (2018). *Introduction to Quantum Mechanics* (3rd ed.). Cambridge University Press.
+
+---
+
+## Running Project — Build the 1D Quantum Sandbox
+
+**This chapter adds:** the spatial grid the entire solver runs on — $N$ uniformly spaced points $x_j = x_\text{min} + j\,h$ with spacing $h = (x_\text{max} - x_\text{min})/(N-1)$ — sized so that the de Broglie wavelength $\lambda = h_\text{Planck}/p$ of the states you care about is resolved by enough grid points to avoid aliasing.
+
+### Exercise R1 — When to Use AI
+**The judgment:** In this chapter's project work, AI assistance is appropriate for:
+- Writing a `makeGrid(xMin, xMax, N)` helper that returns the array $x_j$ and the spacing $h$ — *Why AI works here:* this is a one-line utility, and you can check it against $h = (x_\text{max}-x_\text{min})/(N-1)$ by hand.
+- Drafting a "points per wavelength" diagnostic that reports $\lambda/h$ for a chosen $k$ — *Why AI works here:* it is arithmetic on the de Broglie relation you already command, easy to verify.
+**The tell:** You are using AI well when you have an independent way to check the output — here, the resolution rule $\lambda = 2\pi/k$ and the requirement of roughly $\geq 8$–10 grid points per wavelength.
+
+### Exercise R2 — When NOT to Use AI
+**The judgment:** These tasks require your judgment; AI output here can't be trusted without redoing the work:
+- Choosing $N$ and the grid bounds for a given physical problem — *Why AI fails here:* this is a physical-resolution call. The AI will pick round numbers, but whether $N$ resolves the shortest wavelength present ($\lambda_\text{min} = h_\text{Planck}/p_\text{max}$) is a judgment the AI has no way to verify, and an under-resolved grid produces a smooth, plausible, wrong spectrum.
+- Deciding whether the grid is wide enough to contain the states without truncation — *Why AI fails here:* too narrow a box clips the wave function at the boundary and shifts the energies; the output looks fine until you compare against an analytic value.
+**The tell:** If you could not explain the result without the AI — if the AI is your *reason* rather than your *tool* — it did work that should have been yours.
+**Physics-judgment connection:** This trains checking a numerical grid against the de Broglie wavelength of the physics it must represent — a resolution check that prevents aliasing and boundary truncation before any energy is computed.
+
+### Exercise R3 — LLM Exercise
+**What you're building this chapter:** the grid-construction module plus a de Broglie resolution diagnostic that tells you whether a chosen $N$ resolves the states.
+**Tool:** Claude chat — a small self-contained utility against the existing governing files; no persistent state beyond `constants.js`.
+**The Prompt:**
+```
+Using the Chapter 0 CLAUDE.md and the Chapter 1 constants.js as binding
+context, build grid.js and a small demo page 02-grid-resolution.html.
+
+grid.js exports makeGrid(xMin, xMax, N) returning { x: Float64Array, h: number }
+with x_j = xMin + j*h and h = (xMax − xMin)/(N − 1), plus a helper
+pointsPerWavelength(k, h) = (2π/k)/h that reports how many grid points cover
+one de Broglie wavelength λ = 2π/k (with p = ℏk).
+
+02-grid-resolution.html: sliders for N (50–2000), x-range (±5 to ±50 nm), and
+electron kinetic energy E (0.1–500 eV). From E compute p = √(2 m_e E),
+k = p/ℏ, λ = h_Planck/p, and display λ in nm and pointsPerWavelength. Color
+the readout green if ≥ 10 points/λ, yellow if 5–10, red if < 5. Plot a single
+sample plane wave Re(e^{ikx}) on the grid so under-resolution is visible as a
+jagged, aliased curve.
+
+Do NOT solve any Schrödinger equation here — this page only sizes the grid.
+After writing, list three checks I can run, including the 150 V electron case
+where λ ≈ 0.1 nm.
+```
+**What this produces:** `grid.js` (used by every solver mode from Chapter 3 on) and a page that shows, visually, when a grid is too coarse for the physics.
+**How to adapt:** *Your system:* if you work in atomic units elsewhere, keep `grid.js` in SI and convert at the display layer only. *ChatGPT/Gemini:* paste `constants.js` alongside the prompt. *Claude Project:* add `grid.js` to Project knowledge so Chapter 3's ψ array imports the same grid.
+**Builds on:** the constants and units harness from Chapter 1.  **Next:** Chapter 3 puts a complex ψ array on this grid and applies the Born rule.
+
+### Exercise R4 — CLI Exercise
+**What you're building this chapter:** a grid module with an automated resolution assertion you can run before any later eigensolver trusts the grid.
+**Tool:** Claude Code — it can add the module, run a resolution check across parameter values, and record the safe ranges in `PROJECT.md`.
+**Skill level:** Beginner
+**Setup — confirm:**
+- [ ] `constants.js` from Chapter 1
+- [ ] Node.js available
+- [ ] The CLAUDE.md self-check rule from Chapter 1
+**The Task:**
+```
+Read constants.js. Create grid.js with makeGrid(xMin, xMax, N) and
+pointsPerWavelength(k, h) as specified. Write a Node script check-grid.js that,
+for an electron at E = 150 eV (λ ≈ 0.1 nm) on x ∈ [−20 nm, +20 nm], finds the
+smallest N (multiple of 100) giving ≥ 10 points per de Broglie wavelength, and
+prints both N and the resulting points-per-λ. Do NOT change makeGrid's
+spacing formula. Append to PROJECT.md under "Verified":
+"Ch2 grid: 150 eV electron needs N ≥ <value> for 10 pts/λ on ±20 nm".
+```
+**Expected output:** `grid.js`, `check-grid.js`, a printed minimum $N$, and a `PROJECT.md` line.
+**What to inspect:** that doubling $N$ roughly doubles points-per-$\lambda$ (linear in $N$), confirming the spacing formula is right; and that the reported $\lambda$ matches the hand value $h_\text{Planck}/\sqrt{2m_eE} \approx 0.1$ nm at 150 eV.
+**If it goes wrong:** if points-per-$\lambda$ does not scale with $N$, the spacing used $(x_\text{max}-x_\text{min})/N$ instead of $/(N-1)$ — an off-by-one that silently mis-sizes the grid; fix the formula, not $N$.
+**CLAUDE.md / AGENTS.md note:** add: "Before any eigensolve, assert the grid resolves the shortest expected wavelength to ≥ 8 points; otherwise widen N or narrow the energy range."
+
+### Exercise R5 — AI Validation Exercise
+**What you're validating:** the grid module and resolution diagnostic from R3/R4.
+**Validation type:** Code + Numerical result
+**Risk level:** Low — the de Broglie relation gives an exact target $\lambda$ to check against.
+**Setup:** use your own R3/R4 artifacts.
+**The Validation Task:** Evaluate against this checklist; mark Pass / Fail / Cannot determine with reasoning.
+```
+Validation Checklist — Spatial grid and de Broglie resolution
+□ Correctness: is h = (xMax − xMin)/(N − 1), and x_0 = xMin, x_{N−1} = xMax?
+□ Completeness: does the page report λ, points-per-λ, AND flag under-resolution?
+□ Scope: did it sneak in a Schrödinger solve it was told to leave out?
+□ Physics criterion 1: at 150 V (E = 150 eV → 150 eV here is non-rel.), λ ≈ 0.1 nm?
+□ Physics criterion 2: does the aliased plane wave look jagged when pts/λ < 5?
+□ Failure-mode check: any of —
+  - fluent but wrong (off-by-one in h via /N instead of /(N−1))
+  - λ computed from kinetic energy with a missing factor of 2 (p = √(2mE))
+  - grid too narrow to contain the intended states (boundary truncation later)
+  - silent unit slip (k in nm⁻¹ vs m⁻¹ mismatched against ℏ in SI)
+```
+**What to do with findings:** pass → use it; one fail → fix the spacing or the $p = \sqrt{2mE}$ factor and re-run; multiple fails / cannot-determine → recompute $\lambda$ and the needed $N$ by hand, since the grid sizes everything downstream.
+**AI Use Disclosure (mandatory, two sentences):**
+> *1:* The AI wrote the grid-construction module and the de Broglie resolution diagnostic page.
+> *2:* The AI could not decide whether a given $N$ actually resolves the physics of interest — I made the resolution call against $\lambda = h/p$ myself, because an under-resolved grid yields a plausible but wrong spectrum.
+**Physics-judgment connection:** trains the habit of sizing a numerical grid against the de Broglie wavelength it must represent, catching aliasing and truncation before they corrupt a spectrum.

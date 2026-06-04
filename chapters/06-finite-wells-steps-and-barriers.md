@@ -41,6 +41,9 @@ The left side is a quarter-circle of radius $z_0$. The right side is a series of
 
 <!-- → [FIGURE: graphical solution plot — quarter-circle of radius z₀ intersecting z·tan(z) branches (even states) and −z·cot(z) branches (odd states); label each crossing with E₁, E₂, etc.; show two cases: z₀ = 3π/4 (two bound states) and z₀ = 3π/2 (four bound states)] -->
 
+![graphical solution plot — quarter-circle of radius z₀ intersecting z·tan(z) branches (even states) and −z·cot(z) branches (odd states)](../images/06-finite-wells-steps-and-barriers-fig-01.png)
+*Figure 6.1 — graphical solution plot — quarter-circle of radius z₀ intersecting z·tan(z) branches (even states) and −z·cot(z) branches (odd states)*
+
 Count the crossings and you learn something the infinite well never taught: the finite well has a **finite** number of bound states. The number is roughly $z_0/(\pi/2)$ rounded up — which means $N \approx (L/\pi\hbar)\sqrt{2mV_0}$ in physical units. Make the well shallower or narrower and levels disappear from the top. Make it deeper or wider and new levels appear. But there is always at least one — the finite square well always has a ground state, no matter how shallow. You can prove this graphically: the quarter-circle always intersects the first tangent branch at least once, no matter how small $z_0$.
 
 What does the wave function look like outside the well? It decays as $e^{-\kappa|x|}$. The characteristic length $1/\kappa = \hbar/\sqrt{2m|E|}$ is the penetration depth. A tightly-bound ground state with large $|E|$ has a small penetration depth — the wave function hugs the well. A loosely-bound state near $E = 0$ has a large penetration depth — the wave function leaks far beyond the classical turning points, extending into space where the particle classically has no business being.
@@ -48,6 +51,9 @@ What does the wave function look like outside the well? It decays as $e^{-\kappa
 This is not the wave function misbehaving. It is the wave function doing exactly what the Schrödinger equation requires.
 
 <!-- → [FIGURE: side-by-side wave functions for two bound states in a finite well — tightly bound ground state with short evanescent tails vs. weakly bound excited state with long evanescent tails; show classical turning points as dashed lines] -->
+
+![side-by-side wave functions for two bound states in a finite well — tightly bound ground state with short evanescent tails vs. weakly bound…](../images/06-finite-wells-steps-and-barriers-fig-02.png)
+*Figure 6.2 — side-by-side wave functions for two bound states in a finite well — tightly bound ground state with short evanescent tails vs. weakly bound…*
 
 As $V_0 \to \infty$, the penetration depth goes to zero and the energy levels recover the infinite-well values $n^2\pi^2\hbar^2/(2mL^2)$. The infinite well is just the limit of the finite well with infinitely impenetrable walls.
 
@@ -77,6 +83,9 @@ Here is the quantum surprise: $R \neq 0$ even though the particle has enough ene
 
 <!-- → [CHART: R(E) and T(E) vs E/V₀ for the potential step, linear axes — show R=1 for E<V₀, smooth transition at E=V₀, both curves approaching limiting values as E→∞] -->
 
+![R(E) and T(E) vs E/V₀ for the potential step, linear axes — show R=1 for E<V₀, smooth transition at E=V₀, both curves approaching limiting…](../images/06-finite-wells-steps-and-barriers-fig-03.png)
+*Figure 6.3 — R(E) and T(E) vs E/V₀ for the potential step, linear axes — show R=1 for E<V₀, smooth transition at E=V₀, both curves approaching limiting…*
+
 **When the particle does not have enough energy** ($E < V_0$): now $k_1 = \sqrt{2m(E-V_0)}/\hbar$ is imaginary. Write $\kappa = \sqrt{2m(V_0-E)}/\hbar$ (real, positive), and the bounded solution in region II is $\psi_{II} = Ce^{-\kappa x}$ — a decaying exponential. Matching gives $|B/A|^2 = 1$, so $R = 1$ and $T = 0$.
 
 Total reflection. But the wave function in region II is not zero. There is an evanescent tail penetrating the forbidden region with characteristic length $1/\kappa$. Probability density is present there — but no net current flows. The probability sloshes in and out of the step without transmitting. This is not tunneling — the barrier has infinite extent, so the evanescent tail never reaches a far edge where it can launch a transmitted wave.
@@ -99,6 +108,9 @@ $$T_\text{exact} = \left[1 + \frac{V_0^2\sinh^2(\kappa L)}{4E(V_0 - E)}\right]^{
 
 <!-- → [CHART: T(E) on log y-axis from 10⁻¹² to 1, showing T_exact (solid) and T_WKB (dashed) vs E/V₀ — both curves below barrier, resonance peaks above barrier, vertical line at E=V₀] -->
 
+![T(E) on log y-axis from 10⁻¹² to 1, showing T_exact (solid) and T_WKB (dashed) vs E/V₀ — both curves below barrier, resonance peaks above…](../images/06-finite-wells-steps-and-barriers-fig-04.png)
+*Figure 6.4 — T(E) on log y-axis from 10⁻¹² to 1, showing T_exact (solid) and T_WKB (dashed) vs E/V₀ — both curves below barrier, resonance peaks above…*
+
 This formula contains everything. The dependence on barrier height $V_0$, barrier width $L$, and particle energy $E$ is all there, exact, no approximations. Let me unpack what it says.
 
 For a thick barrier ($\kappa L \gg 1$), $\sinh(\kappa L) \approx e^{\kappa L}/2$, and the denominator is dominated by the exponential:
@@ -110,6 +122,9 @@ The WKB approximation (which I'll develop in Chapter 11) gives $T_\text{WKB} = e
 And the exponential is extraordinary. $T \propto e^{-2\kappa L}$. Double the barrier width and you square $e^{-2\kappa L}$ — the transmission plummets. A scanning tunneling microscope exploits this directly: one extra ångström of gap between tip and surface changes the tunneling current by a factor of $e^{2\kappa} \approx 7$ to $10$ depending on the material. That single decade of sensitivity per ångström is what makes atomic-resolution imaging possible — the instrument is a tunneling current meter, and the current is an exponential ruler.
 
 <!-- → [FIGURE: schematic of STM geometry — tip hovering over surface, tunneling gap d, wave function decaying exponentially in the gap, with annotation showing one-ångström change → factor-of-7 current change] -->
+
+![schematic of STM geometry — tip hovering over surface, tunneling gap d, wave function decaying exponentially in the gap, with annotation…](../images/06-finite-wells-steps-and-barriers-fig-05.png)
+*Figure 6.5 — schematic of STM geometry — tip hovering over surface, tunneling gap d, wave function decaying exponentially in the gap, with annotation…*
 
 **Above the barrier** ($E > V_0$): $\kappa$ becomes imaginary. Let $k_2 = \sqrt{2m(E-V_0)}/\hbar$, so $\kappa = ik_2$ and $\sinh(i\theta) = i\sin\theta$. The formula becomes:
 
@@ -152,6 +167,9 @@ The uncertainty relation $\Delta E\,\Delta t \geq \hbar/2$ does not license ener
 What happens is simpler and stranger than the pop-science story: the wave equation requires non-zero amplitude in the classically forbidden region, and when the barrier is finite, that amplitude reaches the far side and launches a transmitted wave. The transmitted amplitude is small because the decaying exponential has attenuated across the width $L$. That is all. The particle does not borrow anything. It passes through because the mathematics of partial differential equations does not know what "classically forbidden" means.
 
 <!-- → [FIGURE: energy diagram for rectangular barrier — flat total energy E as horizontal line, barrier region V₀ above E, wave function shown below: oscillatory in regions I and III, decaying in region II, with annotation "E is constant throughout; only the character of the solution changes"] -->
+
+![energy diagram for rectangular barrier — flat total energy E as horizontal line, barrier region V₀ above E, wave function shown below:…](../images/06-finite-wells-steps-and-barriers-fig-06.png)
+*Figure 6.6 — energy diagram for rectangular barrier — flat total energy E as horizontal line, barrier region V₀ above E, wave function shown below:…*
 
 ---
 
@@ -350,3 +368,105 @@ Eckle, P. et al. (2008). Attosecond ionization and tunneling delay time measurem
 Sainadh, U. S. et al. (2019). Attosecond angular streaking and tunnelling time in atomic hydrogen. *Nature*, 568, 75.
 
 PhysicsLibreTexts: "3.4 — Finite Square Well," UCD Physics 9HE. https://phys.libretexts.org/Courses/University_of_California_Davis/UCD:_Physics_9HE_-_Modern_Physics/03:_One-Dimensional_Potentials/3.4:_Finite_Square_Well
+
+---
+
+## Running Project — Build the 1D Quantum Sandbox
+
+**This chapter adds:** arbitrary potentials — the sandbox stops being hardwired to $V = 0$ and accepts any $V(x)$ array (finite well, step, rectangular barrier) into the same tridiagonal Hamiltonian — plus the transmission coefficient $T(E)$ and the tunneling check against the exact $T_\text{exact} = [1 + V_0^2\sinh^2(\kappa L)/4E(V_0-E)]^{-1}$.
+
+### Exercise R1 — When to Use AI
+**The judgment:** In this chapter's project work, AI assistance is appropriate for:
+- Writing potential-builder functions `finiteWell`, `step`, `rectBarrier` that return a $V_j$ array on the grid — *Why AI works here:* these are piecewise-constant array fills, and the bound-state count or $T(E)$ curve checks them.
+- Drafting the $T(E)$ plot with both $T_\text{exact}$ and $T_\text{WKB} = e^{-2\kappa L}$ on a log y-axis — *Why AI works here:* standard plotting, and the worked example ($V_0=5,L=5,E=1 \Rightarrow T\approx 9\times10^{-5}$) gives an exact anchor.
+**The tell:** You are using AI well when you have an independent way to check the output — here, $R + T = 1$ at every energy, and the exact/WKB ratio equaling the analytic prefactor $16E(V_0-E)/V_0^2$.
+
+### Exercise R2 — When NOT to Use AI
+**The judgment:** These tasks require your judgment; AI output here can't be trusted without redoing the work:
+- The sinh→sin switch when $E$ crosses $V_0$ — *Why AI fails here:* applying the $E<V_0$ formula above the barrier (or vice versa) gives a smooth, wrong $T(E)$ that still looks like a transmission curve; only your knowledge of which regime you are in catches it.
+- Using probability current (with the $k$ ratio) rather than bare amplitude ratios for the step — *Why AI fails here:* $T = |C/A|^2$ omits the $k_1/k_0$ speed factor and silently breaks $R + T = 1$; the AI will not notice because each piece looks reasonable.
+**The tell:** If you could not explain the result without the AI — if the AI is your *reason* rather than your *tool* — it did work that should have been yours.
+**Physics-judgment connection:** This trains checking a scattering result against a conservation law ($R + T = 1$ from probability current) and against an exact closed form ($T_\text{exact}$), the discipline that catches regime-switch and amplitude-vs-current errors.
+
+### Exercise R3 — LLM Exercise
+**What you're building this chapter:** the arbitrary-$V(x)$ interface plus the transmission and tunneling calculators.
+**Tool:** Claude chat — built on `hamiltonian.js` from Chapter 5; self-contained per scenario.
+**The Prompt:**
+```
+Using the Chapter 0 CLAUDE.md, constants.js, grid.js, observables.js, and the
+hamiltonian.js from Chapter 5 as binding context, build 06-barrier-explorer.html
+with three tabs.
+
+(1) FINITE WELL: a potentials.js helper finiteWell(x, L, V0) returns V_j
+    (−V0 inside |x|<L/2, 0 outside). Feed V into hamiltonian.js's
+    buildTridiagonal, diagonalize, and count/plot the bound states (E < 0).
+    Confirm the bound-state count matches the graphical condition
+    N ≈ ceil(z_0/(π/2)), z_0 = (L/2ℏ)√(2mV_0).
+
+(2) STEP: plot R(E) and T(E) for V = V0·θ(x). For E > V0,
+    k_0 = √(2mE)/ℏ, k_1 = √(2m(E−V0))/ℏ,
+    R = ((k_0−k_1)/(k_0+k_1))², T = 4k_0k_1/(k_0+k_1)².
+    Use PROBABILITY CURRENT (the k ratio), not |amplitude|². Log "R+T" to the
+    console at every E — it must equal 1.
+
+(3) BARRIER: plot T_exact and T_WKB on a LOG y-axis vs E/V0.
+    For E < V0: κ = √(2m(V0−E))/ℏ,
+      T_exact = 1/(1 + V0² sinh²(κL)/(4E(V0−E))),  T_WKB = exp(−2κL).
+    For E > V0: switch sinh(κL) → sin(k_2 L), κ → ik_2, k_2 = √(2m(E−V0))/ℏ.
+    BOX the two regimes separately; never apply the E<V0 formula when E>V0.
+
+VERIFY: V0=5 eV, L=5 Å, E=1 eV → T_exact ≈ 9×10⁻⁵, T_WKB ≈ 3.5×10⁻⁵,
+ratio ≈ 2.56 = 16E(V0−E)/V0². Report it.
+```
+**What this produces:** `potentials.js` (well/step/barrier builders, reused later) and `06-barrier-explorer.html` with bound-state, step, and tunneling tabs.
+**How to adapt:** *Your system:* any new $V(x)$ you write plugs into the same `buildTridiagonal`. *ChatGPT/Gemini:* paste `hamiltonian.js`. *Claude Project:* add `potentials.js` to Project knowledge.
+**Builds on:** the tridiagonal Hamiltonian from Chapter 5.  **Next:** Chapter 7 feeds the same builder the quadratic oscillator potential and validates $E_n = (n+\tfrac12)\hbar\omega$.
+
+### Exercise R4 — CLI Exercise
+**What you're building this chapter:** the tunneling calculator with automated $R+T=1$ and exact-vs-WKB checks.
+**Tool:** Claude Code — it can sweep energies, assert conservation, and record the worked-example values in `PROJECT.md`.
+**Skill level:** Intermediate
+**Setup — confirm:**
+- [ ] `hamiltonian.js`, `potentials.js`, `constants.js`
+- [ ] Node.js available
+- [ ] The CLAUDE.md rule boxing the $E<V_0$ and $E>V_0$ formulas separately
+**The Task:**
+```
+Read potentials.js. Write a Node script check-scattering.js that:
+  (1) for the STEP at V0 = 2 eV, sweeps E from 2.1 to 20 eV and asserts
+      R + T = 1 within 1e-9 at every E (probability-current form);
+  (2) for the BARRIER V0 = 5 eV, L = 5 Å, E = 1 eV, asserts
+      T_exact ≈ 9×10⁻⁵, T_WKB ≈ 3.5×10⁻⁵, and ratio ≈ 2.56 = 16E(V0−E)/V0²;
+  (3) confirms the sinh→sin switch: at E = V0 exactly, T_exact → 1 (limit κ→0).
+Do NOT loosen tolerances. Append to PROJECT.md under "Verified":
+"Ch6 scattering: R+T=1 ✓, barrier T_exact/T_WKB ratio = <v>".
+```
+**Expected output:** `check-scattering.js`, printed confirmations of $R+T=1$ and the ratio, and a `PROJECT.md` line.
+**What to inspect:** that $R+T=1$ holds to machine precision (a current-vs-amplitude error breaks it at the 1% level) and that the exact/WKB ratio equals the analytic prefactor 2.56 exactly.
+**If it goes wrong:** if $R+T \neq 1$ for the step, $T$ used $|C/A|^2$ without the $k_1/k_0$ factor — restore the current form. If $T(E)$ is discontinuous at $E = V_0$, the sinh→sin switch is missing or mis-placed.
+**CLAUDE.md / AGENTS.md note:** add: "Every scattering computation logs $R+T$; deviation from 1 by more than 1e-6 is a current-accounting bug, not numerics."
+
+### Exercise R5 — AI Validation Exercise
+**What you're validating:** the arbitrary-$V(x)$ scattering and tunneling code from R3/R4.
+**Validation type:** Numerical result
+**Risk level:** Medium — regime-switch errors are silent and the tunneling exponential makes magnitudes hard to eyeball.
+**Setup:** use your own R3/R4 artifacts.
+**The Validation Task:** Evaluate against this checklist; mark Pass / Fail / Cannot determine with reasoning.
+```
+Validation Checklist — Arbitrary V(x), transmission, and tunneling
+□ Correctness: does V(x) feed unchanged into buildTridiagonal (same eigensolver)?
+□ Completeness: are both T_exact and T_WKB shown, on a log y-axis?
+□ Scope: did the step use probability current (k ratio), not bare |amplitude|²?
+□ Physics criterion 1: R + T = 1 to < 1e-6 at every energy?
+□ Physics criterion 2: barrier (V0=5,L=5Å,E=1) gives T_exact≈9e-5, ratio 2.56?
+□ Failure-mode check: any of —
+  - E<V0 formula applied when E>V0 (sinh→sin switch missing)
+  - T = |F/A|² without the k ratio (R+T ≠ 1 for the step)
+  - linear T(E) axis hiding the exponential suppression
+  - finite well claiming infinitely many bound states (should be finite, ≈ z_0/(π/2))
+```
+**What to do with findings:** pass → use it; one fail → fix the regime switch or restore the current form and re-run the $R+T$ sweep; multiple fails / cannot-determine → recompute $T$ at one energy by hand from the matching conditions.
+**AI Use Disclosure (mandatory, two sentences):**
+> *1:* The AI wrote the potential builders and the step/barrier transmission and tunneling calculators.
+> *2:* The AI could not determine whether the sinh→sin regime switch and the probability-current accounting were correct — I verified $R+T=1$ and the exact-vs-WKB ratio against the closed forms myself.
+**Physics-judgment connection:** trains checking a scattering result against a conservation law and an exact analytic formula, catching regime-switch and current-accounting errors a plausible curve would hide.

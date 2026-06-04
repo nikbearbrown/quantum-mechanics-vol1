@@ -23,6 +23,9 @@ So what do we do with a free particle? We build something physically realizable:
 
 <!-- → [FIGURE: two panels side by side — (left) a single plane wave e^{ikx}, showing constant |ψ|² = 1 extending over the entire x-axis; (right) a Gaussian wave packet, showing the localized |ψ|² envelope with visible oscillations of Re(ψ) inside; the visual contrast between "delocalized eigenstate" and "normalizable physical state" is the conceptual hinge of the chapter] -->
 
+![two panels side by side — (left) a single plane wave e^{ikx}, showing constant |ψ|² = 1 extending over the entire x-axis](../images/08-the-free-particle-and-wave-packets-fig-01.png)
+*Figure 8.1 — two panels side by side — (left) a single plane wave e^{ikx}, showing constant |ψ|² = 1 extending over the entire x-axis*
+
 ---
 
 ## Building the Wave Packet
@@ -42,6 +45,9 @@ Why is the packet normalizable when none of its ingredients are? If $\phi(k)$ is
 The physical interpretation of $\phi(k)$: by the Born rule applied in momentum space, $|\phi(k)|^2\,dk$ is the probability of measuring momentum between $\hbar k$ and $\hbar(k+dk)$. Critically, $|\phi(k)|^2$ is **time-independent** — the momentum distribution never changes during free propagation. The phase of $\phi(k)$ evolves as $e^{-i\omega(k)t}$, but its modulus does not. Whatever momentum distribution you start with, you keep it forever. The packet spreads in position; it does not spread in momentum.
 
 <!-- → [CHART: two side-by-side panels showing a Gaussian wave packet at t = 0 and t = T — (left) |Ψ(x,t)|² in position space, showing the spreading envelope and shifted center; (right) |φ(k)|² in momentum space, showing an identical Gaussian at both times; the visual point is that position spreads while momentum is frozen] -->
+
+![two side-by-side panels showing a Gaussian wave packet at t = 0 and t = T — (left) |Ψ(x,t)|² in position space, showing the spreading…](../images/08-the-free-particle-and-wave-packets-fig-02.png)
+*Figure 8.2 — two side-by-side panels showing a Gaussian wave packet at t = 0 and t = T — (left) |Ψ(x,t)|² in position space, showing the spreading…*
 
 ---
 
@@ -80,6 +86,9 @@ The group velocity is exactly twice the phase velocity. This means: if you watch
 The phase velocity has no direct physical meaning for particle motion. It is not where the particle is, not how fast the particle moves, not a speed you would measure if you put a detector in the path. The group velocity is the physically meaningful speed. The phase velocity is an internal property of the wave structure.
 
 <!-- → [FIGURE: schematic time-sequence of a wave packet at three moments — showing the |ψ|² envelope advancing at v_g and a labeled crest advancing at v_ph = v_g/2; arrows and labels should make the two speeds visually distinguishable; this is the single most important figure for the phase vs. group velocity concept] -->
+
+![schematic time-sequence of a wave packet at three moments — showing the |ψ|² envelope advancing at v_g and a labeled crest advancing at…](../images/08-the-free-particle-and-wave-packets-fig-03.png)
+*Figure 8.3 — schematic time-sequence of a wave packet at three moments — showing the |ψ|² envelope advancing at v_g and a labeled crest advancing at…*
 
 ---
 
@@ -124,6 +133,9 @@ $$t_{2x} = \frac{2m\sigma_0^2}{\hbar}.$$
 This scales as $\sigma_0^2$: a packet twice as wide takes four times as long to double. It is also independent of $k_0$ — the mean momentum determines where the packet goes, not how fast it spreads. A fast packet and a slow packet of the same initial width spread at identical rates.
 
 <!-- → [CHART: three curves on the same axes — σ_x(t) vs. t for three initial widths σ₀ = 0.5, 1, 2 nm (electron mass) — showing the σ₀² scaling of the doubling time; x-axis in femtoseconds; the visual point is that tighter confinement means faster spreading] -->
+
+![three curves on the same axes — σ_x(t) vs. t for three initial widths σ₀ = 0.5, 1, 2 nm (electron mass) — showing the σ₀² scaling of the…](../images/08-the-free-particle-and-wave-packets-fig-04.png)
+*Figure 8.4 — three curves on the same axes — σ_x(t) vs. t for three initial widths σ₀ = 0.5, 1, 2 nm (electron mass) — showing the σ₀² scaling of the…*
 
 ---
 
@@ -250,3 +262,106 @@ Likharev, K. K. (2012). *Essential Graduate Physics — Quantum Mechanics*. Ston
 Fitzpatrick, R. (2015). *Introductory Quantum Mechanics*. University of Texas at Austin. §2.11.
 
 Pramana Editorial (2010). Understanding the spreading of a Gaussian wave packet. *Pramana — Journal of Physics*, 74(6), 867–874.
+
+---
+
+## Running Project — Build the 1D Quantum Sandbox
+
+**This chapter adds:** the time-evolution mode — a *unitary* numerical stepper (split-step Fourier, with the FFT $k$-grid sign flip) that propagates an arbitrary wave packet under any $V(x)$ — validated against the exact free-particle spreading $\sigma(t) = \sigma_0\sqrt{1 + (\hbar t/2m\sigma_0^2)^2}$ and the constant momentum distribution $|\phi(k)|^2$.
+
+### Exercise R1 — When to Use AI
+**The judgment:** In this chapter's project work, AI assistance is appropriate for:
+- Coding the split-step loop (half potential phase → FFT → kinetic phase → IFFT → half potential phase) — *Why AI works here:* it is a fixed five-step recipe, and the analytic Gaussian spreading gives an exact check on centroid and width.
+- Drafting the normalization-indicator monitor that flags any drift during evolution — *Why AI works here:* a per-frame reduction with an exact target (1.000 for a unitary stepper).
+**The tell:** You are using AI well when you have an independent way to check the output — here, the centroid at $x_0 + v_g t$ and the width matching $\sigma(t)$ to 1%.
+
+### Exercise R2 — When NOT to Use AI
+**The judgment:** These tasks require your judgment; AI output here can't be trusted without redoing the work:
+- The FFT $k$-grid mapping — the second half of the output ($m \geq N/2$) must map to *negative* $k_m = (2\pi/Nh)(m - N)$ — *Why AI fails here:* using the raw index $m$ gives the wrong kinetic energy to every negative-momentum component; the simulation looks correct for ten steps then corrupts at the grid scale, so it passes an early glance.
+- Rejecting explicit Euler — *Why AI fails here:* Euler is unconditionally unstable for the Schrödinger equation (norm grows every step), but it is the "obvious" first stepper an AI may reach for; the bug only shows in the normalization indicator climbing past 1.
+**The tell:** If you could not explain the result without the AI — if the AI is your *reason* rather than your *tool* — it did work that should have been yours.
+**Physics-judgment connection:** This trains checking a time-stepper against unitarity (normalization fixed at 1.000), against energy conservation, and against the exact analytic spreading law — the checks that distinguish a correct propagator from numerical theater.
+
+### Exercise R3 — LLM Exercise
+**What you're building this chapter:** the split-step Fourier propagator and its validation against analytic free-particle spreading.
+**Tool:** Claude Project — the unitary stepper is reused by every time-evolution scenario (tunneling, scattering), so it belongs in persistent context.
+**The Prompt:**
+```
+Using the Chapter 0 CLAUDE.md (complex as re/im arrays; unitary steppers only,
+never explicit Euler), constants.js, grid.js, observables.js as binding
+context, build 08-wavepacket-evolution.html plus a reusable stepper.js.
+
+stepper.js exports splitStep(re, im, V, h, m, dt) doing ONE unitary step:
+  1. half potential phase: ψ_j *= exp(−i V_j dt /(2ℏ));
+  2. FFT to k-space;
+  3. kinetic phase: ψ̂_m *= exp(−i ℏ k_m² dt /(2m)), where
+       k_m = (2π/(N h)) · (m < N/2 ? m : m − N)   ← SIGN FLIP for m ≥ N/2;
+  4. IFFT back to x-space;
+  5. half potential phase again.
+Each phase has modulus 1 → exactly unitary.
+
+08-...html: initialize a Gaussian (center x_0, width σ_0, mean k_0), V = 0,
+animate |Ψ(x,t)|². Pin a normalization indicator (must stay 1.000 ± 0.001).
+Overlay the analytic centroid x_0 + (ℏk_0/m)t and analytic width
+σ(t) = σ_0√(1 + (ℏt/(2mσ_0²))²); show live numerical centroid and width.
+Also plot |φ(k)|² and confirm it is constant in time (momentum conserved).
+
+VERIFY: centroid and width agree with analytic to < 1% over several spreading
+times; normalization never drifts. If it drifts up, you used explicit Euler or
+a non-unitary step — switch to split-step. If |Ψ|² develops grid-scale
+oscillations after ~10 steps, the k_m sign flip is missing.
+```
+**What this produces:** `stepper.js` (the unitary propagator) and `08-wavepacket-evolution.html` validating it against the exact spreading law.
+**How to adapt:** *Your system:* for hard-wall problems swap split-step for Crank-Nicolson (Thomas solve); both are unitary. *ChatGPT/Gemini:* paste the dependency files and the $k_m$ rule explicitly. *Claude Project:* keep `stepper.js` in Project knowledge.
+**Builds on:** the ψ array and observables from Chapter 3; arbitrary $V(x)$ from Chapter 6.  **Next:** Chapter 9 reads $\langle x\rangle,\langle p\rangle,\Delta x\Delta p$ off the evolving state.
+
+### Exercise R4 — CLI Exercise
+**What you're building this chapter:** the unitary stepper with automated unitarity and spreading-law checks.
+**Tool:** Claude Code — it can step a packet forward, assert the norm holds and the width matches $\sigma(t)$.
+**Skill level:** Advanced
+**Setup — confirm:**
+- [ ] `stepper.js`, `grid.js`, `constants.js`, `observables.js`
+- [ ] An FFT available (a small radix-2 FFT in JS, or a vetted dependency)
+- [ ] The CLAUDE.md rule forbidding explicit Euler
+**The Task:**
+```
+Read stepper.js. Write a Node script check-stepper.js that:
+  (1) evolves a free Gaussian (σ_0 = 2 nm, k_0 = 5 nm⁻¹, electron) for 200
+      steps and asserts ∫|Ψ|²dx stays 1.000 ± 1e-3 at EVERY step (unitarity);
+  (2) asserts the numerical width matches σ(t) = σ_0√(1+(ℏt/2mσ_0²)²) to < 1%
+      at t = the doubling time t_2x = 2mσ_0²/ℏ;
+  (3) asserts |φ(k)|² is unchanged (momentum distribution constant);
+  (4) asserts ⟨H⟩ drift < 0.1% over the run.
+Do NOT loosen tolerances. If norm climbs, the stepper is non-unitary — report
+it. Append to PROJECT.md under "Verified": "Ch8 stepper: unitary ✓,
+width matches σ(t) ✓, ⟨H⟩ drift = <v>%".
+```
+**Expected output:** `check-stepper.js`, confirmation of unitarity and spreading-law agreement, and a `PROJECT.md` line.
+**What to inspect:** the norm pinned at 1.000 across all steps, the width tracking $\sigma(t)$, and $|\phi(k)|^2$ frozen — the three independent signatures of a correct free-particle propagator.
+**If it goes wrong:** if the norm climbs above 1 within ~50 steps, it is explicit Euler or a non-unitary scheme — replace it. If $|\Psi|^2$ grows grid-scale wiggles, the $k_m$ sign flip for $m \geq N/2$ is missing — that is the single most common split-step bug.
+**CLAUDE.md / AGENTS.md note:** add: "The time-evolution stepper must be unitary: norm fixed at 1.000 and $\langle\hat H\rangle$ flat. Any upward norm drift means explicit Euler crept in — reject it."
+
+### Exercise R5 — AI Validation Exercise
+**What you're validating:** the split-step unitary propagator from R3/R4.
+**Validation type:** Code + Numerical result
+**Risk level:** High — a non-unitary stepper or a wrong $k$-grid silently corrupts every time-evolution result the sandbox produces.
+**Setup:** use your own R3/R4 artifacts; ground truth is the analytic $\sigma(t)$ and constant $|\phi(k)|^2$.
+**The Validation Task:** Evaluate against this checklist; mark Pass / Fail / Cannot determine with reasoning.
+```
+Validation Checklist — Unitary time-evolution stepper
+□ Correctness: are all three split-step phases applied (½V, T, ½V) with modulus 1?
+□ Completeness: does it monitor norm AND ⟨H⟩ AND |φ(k)|² during evolution?
+□ Scope: did it use a unitary scheme (split-step / Crank-Nicolson), not Euler?
+□ Physics criterion 1: ∫|Ψ|²dx stays 1.000 ± 1e-3 at every step?
+□ Physics criterion 2: numerical width matches σ(t) = σ_0√(1+(ℏt/2mσ_0²)²) to <1%?
+□ Failure-mode check: any of —
+  - explicit Euler (norm climbs above 1 within ~50 steps)
+  - FFT k-grid sign flip missing (grid-scale corruption after ~10 steps)
+  - |φ(k)|² changing in time (momentum not conserved → kinetic phase wrong)
+  - centroid moving at v_g/2 instead of v_g (phase vs group velocity confusion)
+```
+**What to do with findings:** pass → use it as the time-evolution engine; one fail → fix the $k_m$ mapping or replace the stepper, then re-run the unitarity sweep; multiple fails / cannot-determine → step the packet by hand for a few steps and compare the norm and centroid against the analytic values.
+**AI Use Disclosure (mandatory, two sentences):**
+> *1:* The AI implemented the split-step Fourier propagator and the spreading-law overlay.
+> *2:* The AI could not determine whether the FFT $k$-grid sign flip and unitarity were correct from the code alone — I verified the norm stayed 1.000 and the width matched $\sigma(t)$ against the analytic law myself.
+**Physics-judgment connection:** trains checking a time-stepper against unitarity, energy conservation, and an exact analytic spreading law — the discipline that separates a real propagator from one that merely animates plausibly.

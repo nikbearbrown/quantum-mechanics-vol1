@@ -324,12 +324,113 @@ After writing:
 
 ## References
 
-- Griffiths, D.J., *Introduction to Quantum Mechanics*, 3rd ed., §2.3–2.4. [verify]
+- Griffiths, D.J., *Introduction to Quantum Mechanics*, 3rd ed., §2.3–2.4.
 - Sakurai, J.J. and Napolitano, J., *Modern Quantum Mechanics*, 3rd ed., §2.3.
-- Glauber, R.J., "The Quantum Theory of Optical Coherence," *Physical Review* **130**, 2529 (1963); "Coherent and Incoherent States of the Radiation Field," *Physical Review* **131**, 2766 (1963). [verify — confirm journal volumes and page numbers]
+- Glauber, R.J., "The Quantum Theory of Optical Coherence," *Physical Review* **130**, 2529 (1963); "Coherent and Incoherent States of the Radiation Field," *Physical Review* **131**, 2766 (1963).
 - Lamoreaux, S.K., "Demonstration of the Casimir Force in the 0.6 to 6 μm Range," *Physical Review Letters* **78**, 5 (1997).
 - DLMF §18, National Institute of Standards and Technology. Hermite polynomials. https://dlmf.nist.gov/18
 
 ---
 
 *Chapter 8 follows: the hydrogen atom. The Coulomb potential is not quadratic, so the harmonic oscillator algebra does not apply directly — but the method does. Angular momentum ladder operators will provide the quantum numbers $\ell$ and $m_\ell$; the radial equation provides the principal quantum number $n$. The spectrum $E_n = -13.6\ \text{eV}/n^2$ is the goal.*
+
+---
+
+## Running Project — Build the 1D Quantum Sandbox
+
+**This chapter adds:** a second independent validation of the eigensolver — feed the tridiagonal Hamiltonian the quadratic potential $V_j = \tfrac12 m\omega^2 x_j^2$ and confirm it returns the equally spaced spectrum $E_n = (n+\tfrac12)\hbar\omega$, with the ground state Gaussian and $\sigma_x\sigma_p = \hbar/2$ — proving the solver is correct on a smooth potential, not just hard walls.
+
+### Exercise R1 — When to Use AI
+**The judgment:** In this chapter's project work, AI assistance is appropriate for:
+- Writing the harmonic potential builder $V_j = \tfrac12 m\omega^2 x_j^2$ and feeding it to the existing eigensolver — *Why AI works here:* a one-line array fill into a module already validated by the golden test, with $E_n = (n+\tfrac12)\hbar\omega$ as the exact check.
+- Drafting the level-spacing and $\sigma_x\sigma_p$ readouts — *Why AI works here:* simple reductions with exact targets (uniform spacing $\hbar\omega$; ground-state product exactly $\hbar/2$).
+**The tell:** You are using AI well when you have an independent way to check the output — here, equal spacing $E_{n+1} - E_n = \hbar\omega$ and the Kennard-saturating ground state.
+
+### Exercise R2 — When NOT to Use AI
+**The judgment:** These tasks require your judgment; AI output here can't be trusted without redoing the work:
+- Whether the grid is wide enough — at least $\pm 5x_0$ with $x_0 = \sqrt{\hbar/m\omega}$ — *Why AI fails here:* a grid that truncates the Gaussian tails pushes the eigenvalues slightly high and breaks the uniform spacing, but the spectrum still looks like a ladder; only checking the spacing against $\hbar\omega$ reveals it.
+- Whether to validate against $(n+\tfrac12)\hbar\omega$ or accept "looks evenly spaced" — *Why AI fails here:* a half-quantum offset error (ground state at $\hbar\omega$ instead of $\hbar\omega/2$) is a physical-correctness call the AI may miss, since the *spacing* is unaffected.
+**The tell:** If you could not explain the result without the AI — if the AI is your *reason* rather than your *tool* — it did work that should have been yours.
+**Physics-judgment connection:** This trains checking a numerical spectrum against a different analytic ladder ($E_n = (n+\tfrac12)\hbar\omega$) and against a limiting/boundary condition (grid wide enough that the tails are not truncated).
+
+### Exercise R3 — LLM Exercise
+**What you're building this chapter:** the harmonic-oscillator validation of the eigensolver and the $\sigma_x\sigma_p$ ground-state check.
+**Tool:** Claude chat — built on `hamiltonian.js` and `observables.js`; self-contained.
+**The Prompt:**
+```
+Using the Chapter 0 CLAUDE.md, constants.js, grid.js, observables.js,
+potentials.js, and hamiltonian.js as binding context, build
+07-oscillator-validation.html.
+
+Add to potentials.js: harmonic(x, m, omega) returns V_j = 0.5·m·omega²·x_j².
+Feed it into buildTridiagonal, diagonalize, normalize eigenvectors to
+Σ|ψ_j|² h = 1. Use a grid x ∈ [−x_max, +x_max] with x_max ≥ 6·x_0,
+x_0 = √(ℏ/(mω)), and N = 600.
+
+Display:
+  - V(x) parabola (red), energy levels E_n (green), |ψ_n|² offset to E_n,
+    for n = 0..6;
+  - a TABLE: E_n numerical | E_n analytic (n+½)ℏω | spacing E_{n+1}−E_n vs ℏω;
+  - σ_x, σ_p, and σ_x σ_p for the GROUND STATE (must read ℏ/2).
+
+VALIDATE explicitly: level spacing uniform to within 1% of ℏω; ground-state
+σ_x σ_p within 1% of ℏ/2; ground-state wave function Gaussian (no nodes).
+If the spacing drifts at high n, tell me whether the grid is too narrow
+(tails truncated) rather than nudging ω. Use m = m_e, ω = 1e14 rad/s.
+```
+**What this produces:** `07-oscillator-validation.html` and an extended `potentials.js`, demonstrating the eigensolver is correct on a smooth potential.
+**How to adapt:** *Your system:* raise $x_\text{max}$ if high-$n$ spacing drifts. *ChatGPT/Gemini:* paste the dependency modules. *Claude Project:* the harmonic builder joins `potentials.js` in Project knowledge.
+**Builds on:** the eigensolver and golden test from Chapter 5; the observables from Chapter 3.  **Next:** Chapter 8 adds time evolution so wave packets move in any $V(x)$.
+
+### Exercise R4 — CLI Exercise
+**What you're building this chapter:** an automated oscillator-spectrum test as a second eigensolver gate.
+**Tool:** Claude Code — it can diagonalize the harmonic Hamiltonian and assert the ladder and uncertainty product.
+**Skill level:** Advanced
+**Setup — confirm:**
+- [ ] `hamiltonian.js`, `potentials.js` (with `harmonic`), `observables.js`
+- [ ] math.js available
+- [ ] The Chapter 5 golden test already passing (the prerequisite gate)
+**The Task:**
+```
+Read hamiltonian.js and potentials.js. Write a Node script
+check-oscillator.js that builds the harmonic Hamiltonian (m = m_e,
+ω = 1e14 rad/s, x_max = 6 x_0, N = 600), diagonalizes, normalizes
+eigenvectors, and asserts:
+  (1) E_0 = ½ℏω within 1% (the half-quantum, NOT ℏω);
+  (2) spacing E_{n+1} − E_n = ℏω within 1% for n = 0..5;
+  (3) ground-state σ_x σ_p within 1% of ℏ/2;
+  (4) ground state has zero nodes (Gaussian).
+Print the spacing table. If spacing drifts at high n, report whether widening
+x_max fixes it (do this automatically and say so) — do NOT change ω.
+Append to PROJECT.md under "Verified": "Ch7 oscillator: E_n=(n+½)ℏω ✓,
+ground σ_xσ_p = <v>·(ℏ/2)".
+```
+**Expected output:** `check-oscillator.js`, a printed spacing table, an explicit PASS, and a `PROJECT.md` line.
+**What to inspect:** the ground state at $\tfrac12\hbar\omega$ (not $\hbar\omega$), uniform spacing, and the $\sigma_x\sigma_p$ product landing on $\hbar/2$ — the same minimum-uncertainty signature the Gaussian gave in Chapter 3.
+**If it goes wrong:** if the spacing is uniform but every level is offset, the half-quantum is mishandled — check $E_0$. If high-$n$ levels are systematically too high, the grid truncates the tails; widen $x_\text{max}$, do not retune $\omega$.
+**CLAUDE.md / AGENTS.md note:** add: "The eigensolver must pass BOTH the infinite-well golden test (hard walls) AND the oscillator test (smooth potential, $E_n=(n+\tfrac12)\hbar\omega$) before any production spectrum is reported."
+
+### Exercise R5 — AI Validation Exercise
+**What you're validating:** the harmonic-oscillator spectrum and ground-state uncertainty from R3/R4.
+**Validation type:** Numerical result
+**Risk level:** Medium — a grid-truncation or half-quantum error is subtle and would undermine confidence in the solver on real (non-square) potentials.
+**Setup:** use your own R3/R4 artifacts; ground truth is $E_n = (n+\tfrac12)\hbar\omega$.
+**The Validation Task:** Evaluate against this checklist; mark Pass / Fail / Cannot determine with reasoning.
+```
+Validation Checklist — Harmonic oscillator eigensolver validation
+□ Correctness: V_j = ½ m ω² x_j² fed into the SAME buildTridiagonal as the well?
+□ Completeness: does it show both the spacing AND the ground-state σ_xσ_p?
+□ Scope: is the grid ≥ ±5 x_0 so the tails are not truncated?
+□ Physics criterion 1: E_0 = ½ℏω and spacing = ℏω within 1%?
+□ Physics criterion 2: ground-state σ_x σ_p within 1% of ℏ/2 (Kennard saturated)?
+□ Failure-mode check: any of —
+  - half-quantum error (ground state at ℏω instead of ½ℏω)
+  - grid too narrow (high-n eigenvalues too high, spacing drifts up)
+  - eigenvectors unnormalized (σ_x σ_p off by a factor of h)
+  - the AI quoting (n+½)ℏω instead of computing E_n from the matrix
+```
+**What to do with findings:** pass → use it as the second eigensolver gate; one fail → fix the grid width or normalization and re-run; multiple fails / cannot-determine → confirm by hand that $E_1 - E_0 = \hbar\omega$ for the lowest two computed levels.
+**AI Use Disclosure (mandatory, two sentences):**
+> *1:* The AI added the harmonic potential and ran it through the eigensolver, reporting the spectrum and ground-state uncertainty product.
+> *2:* The AI could not determine whether the grid width was sufficient or the half-quantum was handled correctly — I verified $E_0 = \tfrac12\hbar\omega$, uniform spacing, and $\sigma_x\sigma_p = \hbar/2$ against the analytic results myself.
+**Physics-judgment connection:** trains checking a numerical spectrum against a second analytic ladder and against a boundary condition (adequate grid width), proving the eigensolver is correct on a smooth potential and not just by coincidence on hard walls.

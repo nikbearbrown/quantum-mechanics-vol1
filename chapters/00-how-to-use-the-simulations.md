@@ -475,8 +475,120 @@ When this extension renders correctly, you have seen the central fact this chapt
 - McKagan, S.B., Perkins, K.K., & Wieman, C.E. (2010). "Design and validation of the Quantum Mechanics Conceptual Survey." *Phys. Rev. ST PER* 6, 020121. [doi:10.1103/PhysRevSTPER.6.020121](https://journals.aps.org/prper/abstract/10.1103/PhysRevSTPER.6.020121) — the QMCS instrument for assessing conceptual understanding.
 - Kovesi, P. (2015). "Good colour maps: How to design them." [arXiv:1509.03700](https://arxiv.org/abs/1509.03700) — the perceptual-uniformity argument for Viridis and RdBu over rainbow/jet palettes.
 - Borland, D. & Taylor, R.M. (2007). "Rainbow color map (still) considered harmful." *IEEE CG&A* 27(2), 14–17. [doi:10.1109/MCG.2007.323435](https://doi.org/10.1109/MCG.2007.323435) — companion evidence on colormap perceptual distortion.
-- D3.js v7 documentation. [d3js.org](https://d3js.org) — CDN URL to verify at publication: `https://d3js.org/d3.v7.min.js`. [verify: confirm URL is still live at time of print.]
+- D3.js v7 documentation. [d3js.org](https://d3js.org) — CDN URL confirmed live: `https://d3js.org/d3.v7.min.js`.
 
 ---
 
 *The next chapter tells you what the wave packet you just built is actually saying. You watched a blue curve drift and spread. Now we figure out what it means.*
+
+---
+
+## Running Project — Build the 1D Quantum Sandbox
+
+**This chapter adds:** the project skeleton — the three Brutalist governing files (`CLAUDE.md`, `DESIGN.md`, `PROJECT.md`), the SI-units convention, the `{re, im}` complex-array storage rule, and the normalization indicator that every later piece of the sandbox will be judged against.
+
+### Exercise R1 — When to Use AI
+**The judgment:** In this chapter's project work, AI assistance is appropriate for:
+- Drafting the `CLAUDE.md` / `DESIGN.md` / `PROJECT.md` files from your dictated rules — *Why AI works here:* reformatting your stated conventions into clean Markdown is boilerplate; you can read every line back and confirm it says what you meant.
+- Scaffolding the SVG plotting and slider wiring for the first wave-packet page — *Why AI works here:* this is generating standard D3 boilerplate against a fixed spec, and the analytic Gaussian gives you an independent check on the output.
+**The tell:** You are using AI well when you have an independent way to check the output — here, the analytic closed form $\sigma(t) = \sqrt{a^2/2 + \hbar^2 t^2/(2m^2a^2)}$ and the normalization integral that must read 1.000.
+
+### Exercise R2 — When NOT to Use AI
+**The judgment:** These tasks require your judgment; AI output here can't be trusted without redoing the work:
+- Deciding which rules belong in `CLAUDE.md` (behavior) versus `DESIGN.md` (appearance) — *Why AI fails here:* this is a design-architecture call about your own debugging workflow; the AI will produce a plausible split that may scatter behavioral rules into the visual file, and nothing in the output flags the mistake.
+- Choosing the units convention and the meaning of the normalization indicator — *Why AI fails here:* a physical-validity call. The AI can write `∫|ψ|²dx` in a corner, but whether it reads 1.000 because the physics is right or because of a compensating bug is a judgment only you can make.
+**The tell:** If you could not explain the result without the AI — if the AI is your *reason* rather than your *tool* — it did work that should have been yours.
+**Physics-judgment connection:** This trains the habit of checking a numerical result against normalization (∑|ψ|²·h = 1) and against an analytic closed form before believing the picture on screen.
+
+### Exercise R3 — LLM Exercise
+**What you're building this chapter:** the three governing Markdown files plus the analytic free-particle wave-packet page, which together fix every convention the sandbox inherits.
+**Tool:** Claude Project — the three governing files are persistent context that every subsequent chapter's prompt loads, which is exactly what a Project's knowledge files are for.
+**The Prompt:**
+```
+You are setting up a single-page JavaScript/D3 quantum-mechanics simulation
+project that will grow, one chapter at a time, into a configurable 1D
+Schrödinger solver. Produce three Markdown governing files and one HTML file.
+
+CLAUDE.md (coding constitution): single self-contained HTML file, no build
+step; D3 v7 from CDN; SVG only (one <path> per curve); physics as pure
+functions, not classes; SI units internally, displayed in nm/fs/eV; complex
+wave functions stored as two parallel Float64Arrays (re, im) — never collapsed
+to a real array; analytic time evolution where a closed form exists, and if a
+numerical Schrödinger stepper is ever needed it must be unitary (Crank-Nicolson
+or split-step), never explicit Euler; every page shows a normalization
+indicator ∫|ψ|²dx that reads 1.000 and turns red if it strays by >1%.
+
+DESIGN.md (visual constitution): |ψ|² blue filled; Re ψ orange solid; Im ψ
+gray dashed; V(x) red; energy levels green horizontal; turning points purple
+dashed. Viridis for unsigned 2D maps, RdBu for signed; never rainbow/jet.
+Monospace for numeric readouts. Every axis labeled with physical units.
+
+PROJECT.md (project state): owner, course, status "Chapter 0 — sandbox
+skeleton", a "Built so far" list (empty), a "Verified" list (empty), and the
+default conventions (electron mass m_e = 9.109e-31 kg; default grid N points
+on a stated x-range).
+
+Then build 00-wave-packet.html: a free-particle Gaussian wave packet using the
+ANALYTIC complex solution
+  ψ(x,t) = (1/(πa²))^(1/4) (a/γ(t))^(1/2) exp(i k₀ x − i ω₀ t)
+           exp(−(x − v_g t)²/(2 γ(t)²)),
+  γ(t) = a (1 + iℏt/(ma²))^(1/2),  ω₀ = ℏk₀²/(2m),  v_g = ℏk₀/m.
+Three stacked SVG panels (Re ψ, Im ψ, |ψ|²) sharing an x-axis, sliders for a
+and k₀, a pinned normalization indicator, and live readouts of v_g and σ(t).
+Do NOT integrate the time-dependent Schrödinger equation numerically — the
+closed form is exact. After writing, list four browser checks I can run.
+```
+**What this produces:** `CLAUDE.md`, `DESIGN.md`, `PROJECT.md`, and `00-wave-packet.html` — the skeleton every later sandbox piece bolts onto.
+**How to adapt:** *Your system:* if you prefer dark mode, set the palette in `DESIGN.md` only and re-run. *ChatGPT/Gemini:* paste the three files as a preamble in every session since they lack a persistent Project store. *Claude Project:* put the three files in the Project's knowledge, not in the message, so they bind every chapter without re-pasting.
+**Builds on:** nothing — this is the foundation.  **Next:** Chapter 2 turns de Broglie's $\lambda = h/p$ into the spatial grid the solver runs on.
+
+### Exercise R4 — CLI Exercise
+**What you're building this chapter:** a verified project directory with the three governing files and the wave-packet page, committed so later chapters extend a known-good base.
+**Tool:** Claude Code — it can create the files on disk, run a normalization check, and leave the directory in a state you can diff and version-control.
+**Skill level:** Beginner
+**Setup — confirm:**
+- [ ] `00-wave-packet.html` from the R3 prompt (or let Claude Code generate it)
+- [ ] Node.js or a browser available to open the HTML
+- [ ] A `CLAUDE.md` in the project root with the coding-constitution rules above
+**The Task:**
+```
+In the project directory, confirm CLAUDE.md, DESIGN.md, and PROJECT.md exist
+and match the conventions stated in CLAUDE.md (SI units, {re, im} storage,
+normalization indicator, no explicit Euler). Do NOT edit the physics in
+00-wave-packet.html. Add a tiny standalone Node script check-norm.js that
+reproduces the analytic |ψ(x,0)|² on a grid of N = 500 points over
+x ∈ [−20 nm, +20 nm] and prints the trapezoidal integral ∫|ψ|²dx. Run it and
+report the number; it must read 1.000 ± 0.001. Append one line to PROJECT.md
+under "Verified": "Ch0 wave packet: ∫|ψ|²dx = <value>". Leave all .html
+physics untouched.
+```
+**Expected output:** a `check-norm.js` script, a printed normalization value near 1.000, and one new line in `PROJECT.md`.
+**What to inspect:** that the integral uses the $h$-weighted trapezoidal rule (spacing $h = 40\,\text{nm}/(N-1)$), and that the printed value is 1.000, not 250 or 0.004 (those would signal a missing or doubled $h$ factor).
+**If it goes wrong:** if the integral reads ~250, the script summed $|\psi|^2$ without multiplying by the grid spacing $h$ — the single most common normalization bug, and the one that will haunt the eigensolver in Chapter 5. Fix the weighting, don't rescale ψ.
+**CLAUDE.md / AGENTS.md note:** add a standing rule: "Every normalization integral is ∑ⱼ|ψⱼ|²·h, not ∑ⱼ|ψⱼ|². State h explicitly in the code."
+
+### Exercise R5 — AI Validation Exercise
+**What you're validating:** the `00-wave-packet.html` page and the three governing files the AI produced in R3.
+**Validation type:** Code + Numerical result
+**Risk level:** Low — there is an exact analytic answer to check against, so failures are catchable.
+**Setup:** use your own R3/R4 artifacts.
+**The Validation Task:** Evaluate against this checklist; mark Pass / Fail / Cannot determine with reasoning.
+```
+Validation Checklist — How to Use the Simulations (sandbox skeleton)
+□ Correctness: does ψ use the complex γ(t) form, so Im ψ is non-zero for k₀ ≠ 0?
+□ Completeness: are all three governing files present, and does CLAUDE.md
+  forbid explicit Euler and mandate {re, im} storage?
+□ Scope: did it add a build step, npm, or a non-D3 library it was told not to?
+□ Normalization: does ∫|ψ|²dx read 1.000 ± 0.001 at t = 0 and stay there as t runs?
+□ Group velocity: does the live centroid move at v_g = ℏk₀/m (check at t = 10 fs)?
+□ Failure-mode check: any of —
+  - fluent but wrong (static plot that looks animated, or |ψ|² that ignores spreading)
+  - dropped imaginary part (Im ψ ≡ 0 for k₀ ≠ 0)
+  - normalization read without the h weighting (indicator reads ~250 or ~0.004)
+  - silent unit swap (natural units ℏ = m = 1 with no UI note)
+```
+**What to do with findings:** pass → use it, note that the analytic form made it trustworthy; one fail → revise the prompt to re-state the γ(t) form explicitly, re-run, document the change; multiple fails / cannot-determine → do the wave-packet math yourself and have the AI only wire the plot.
+**AI Use Disclosure (mandatory, two sentences):**
+> *1:* The AI drafted the three governing Markdown files and the D3 wave-packet page from my dictated conventions and the analytic ψ(x,t) formula.
+> *2:* The AI could not determine whether the normalization indicator read 1.000 because the physics was correct or because of a compensating h-weighting error — I verified that independently against the trapezoidal integral.
+**Physics-judgment connection:** establishes the discipline that anchors the whole project — never trust a simulation's picture until its normalization integral and its analytic limit both check out.

@@ -15,6 +15,9 @@ Max Born introduced this in 1926, in a paper on quantum scattering. His original
 
 <!-- → [FIGURE: timeline showing Born's 1926 paper → footnote correction → Nobel 1954, with the two expressions ψ and |ψ|² side by side] -->
 
+![timeline showing Born's 1926 paper → footnote correction → Nobel 1954, with the two expressions ψ and |ψ|² side by side](../images/03-the-wave-function-fig-01.png)
+*Figure 3.1 — timeline showing Born's 1926 paper → footnote correction → Nobel 1954, with the two expressions ψ and |ψ|² side by side*
+
 The density $|\psi|^2$ can exceed 1 — it is per unit length, not a dimensionless probability. Confusing the value of the density at a point with a probability is a unit error, and it is the single most common first mistake. Memorize the distinction now and you will avoid a particular class of wrong answers for the rest of the course.
 
 ---
@@ -32,6 +35,9 @@ That $i$ on the left side is structural, not cosmetic. Suppose $\psi$ were purel
 You saw this on the screen. The orange curve was Re$\,\psi$. The gray dashed curve was Im$\,\psi$. Both were non-trivial; the imaginary part led the real part by a quarter cycle. If you could freeze the wave function, set Im$\,\psi = 0$, and take one time step under the Schrödinger equation, the imaginary part would rebuild itself immediately. The orange curve cannot live alone.
 
 <!-- → [FIGURE: three-panel SVG showing Re ψ (orange), Im ψ (gray dashed), and |ψ|² (blue filled) for a Gaussian wave packet with k₀ ≠ 0, making the quarter-cycle phase relationship visible] -->
+
+![three-panel SVG showing Re ψ (orange), Im ψ (gray dashed), and |ψ|² (blue filled) for a Gaussian wave packet with k₀ ≠ 0, making the…](../images/03-the-wave-function-fig-02.png)
+*Figure 3.2 — three-panel SVG showing Re ψ (orange), Im ψ (gray dashed), and |ψ|² (blue filled) for a Gaussian wave packet with k₀ ≠ 0, making the…*
 
 To see what the imaginary part carries, consider the Gaussian wave packet with central momentum $\hbar k_0$:
 
@@ -80,6 +86,9 @@ where
 $$J(x,t) = \frac{\hbar}{m}\,\mathrm{Im}\!\left(\psi^*\frac{\partial\psi}{\partial x}\right).$$
 
 <!-- → [DIAGRAM: conservation law analogy — fluid continuity equation alongside the quantum probability continuity equation, showing structural identity] -->
+
+![conservation law analogy — fluid continuity equation alongside the quantum probability continuity equation, showing structural identity](../images/03-the-wave-function-fig-03.png)
+*Figure 3.3 — conservation law analogy — fluid continuity equation alongside the quantum probability continuity equation, showing structural identity*
 
 This is the continuity equation — the same equation that governs the flow of any conserved quantity: mass, charge, energy. Probability flows like a fluid with current $J$. Integrate over all $x$: the boundary terms at $\pm\infty$ vanish for any normalizable $\psi$, so $\frac{d}{dt}\int|\psi|^2\,dx = 0$. Normalization is permanent.
 
@@ -130,6 +139,9 @@ The product is exactly $\hbar/2$. Every other normalizable wave function gives a
 Notice the trade-off directly in the formulas. $\sigma_x \propto a$; $\sigma_p \propto 1/a$. Narrow the wave packet in space — smaller $a$ — and the momentum spread widens proportionally. The product is locked. This is not a technological limitation. You cannot engineer around it, because it follows from the mathematics of Fourier transforms, not from imperfect instruments.
 
 <!-- → [CHART: parametric plot of σ_x vs σ_p as a varies from 0.2 to 4 nm for the Gaussian wave packet, showing the hyperbola σ_x σ_p = ℏ/2 and the Gaussian sitting exactly on it] -->
+
+![parametric plot of σ_x vs σ_p as a varies from 0.2 to 4 nm for the Gaussian wave packet, showing the hyperbola σ_x σ_p = ℏ/2 and the…](../images/03-the-wave-function-fig-04.png)
+*Figure 3.4 — parametric plot of σ_x vs σ_p as a varies from 0.2 to 4 nm for the Gaussian wave packet, showing the hyperbola σ_x σ_p = ℏ/2 and the…*
 
 ---
 
@@ -320,3 +332,100 @@ Sakurai, J. J., & Napolitano, J. (2021). *Modern Quantum Mechanics* (3rd ed.). C
 Ballentine, L. E. (2014). *Quantum Mechanics: A Modern Development* (2nd ed.). World Scientific. §3.1.
 
 Feynman, R. P., Leighton, R. B., & Sands, M. (1965). *The Feynman Lectures on Physics*, Vol. III. Addison-Wesley. §1-1.
+
+---
+
+## Running Project — Build the 1D Quantum Sandbox
+
+**This chapter adds:** the wave-function data structure and the Born-rule machinery — the complex ψ stored as two parallel `Float64Array`s on the grid, the $h$-weighted normalization $\sum_j|\psi_j|^2 h = 1$, the $|\psi|^2$ plot, and the expectation values $\langle x\rangle$, $\langle p\rangle$, $\sigma_x$, $\sigma_p$ that every later mode reports.
+
+### Exercise R1 — When to Use AI
+**The judgment:** In this chapter's project work, AI assistance is appropriate for:
+- Writing the normalization routine $\texttt{norm} = \sum_j(\text{re}_j^2 + \text{im}_j^2)\,h$ and the rescaling by $1/\sqrt{\texttt{norm}}$ — *Why AI works here:* it is a short reduction over arrays, checkable against the analytic Gaussian where $\sigma_x = a/\sqrt2$.
+- Drafting the $|\psi|^2$ SVG panel and the live numeric readouts — *Why AI works here:* standard plotting boilerplate, and the Gaussian gives exact target values for $\langle x\rangle$, $\sigma_x$, and the ratio $\sigma_x\sigma_p/(\hbar/2) = 1$.
+**The tell:** You are using AI well when you have an independent way to check the output — here, the Gaussian saturating the Kennard bound at exactly $\hbar/2$.
+
+### Exercise R2 — When NOT to Use AI
+**The judgment:** These tasks require your judgment; AI output here can't be trusted without redoing the work:
+- The sign of the momentum operator $\hat p = -i\hbar\,\partial_x$ — *Why AI fails here:* a flipped sign ($+i\hbar\partial_x$) gives $\langle p\rangle < 0$ for a right-moving packet; the number is finite and plausible, so nothing flags it except your own knowledge that $k_0 > 0$ must give $\langle p\rangle > 0$.
+- Whether to divide the eigenvector by $\sqrt h$ when converting Euclidean to physics normalization — *Why AI fails here:* a factor-of-$h$ error makes the indicator read $1/h \approx 250$ instead of 1; the AI may "fix" it by dividing by $h$ (wrong) instead of $\sqrt h$ (right), and both make some test pass.
+**The tell:** If you could not explain the result without the AI — if the AI is your *reason* rather than your *tool* — it did work that should have been yours.
+**Physics-judgment connection:** This trains checking against normalization ($\sum|\psi_j|^2 h = 1$) and against a saturated analytic bound ($\sigma_x\sigma_p = \hbar/2$ for the Gaussian), the two anchors that catch sign and factor-of-$h$ errors.
+
+### Exercise R3 — LLM Exercise
+**What you're building this chapter:** the ψ-array + Born-rule core — normalization, $|\psi|^2$ display, and the $\langle x\rangle,\langle p\rangle,\sigma_x,\sigma_p$ readouts.
+**Tool:** Claude chat — a focused module built on the existing grid and constants; no new persistent state.
+**The Prompt:**
+```
+Using the Chapter 0 CLAUDE.md (complex stored as two Float64Arrays re, im),
+constants.js, and grid.js as binding context, build 03-probability-explorer.html.
+
+Represent ψ on the grid from grid.js as parallel re[], im[] arrays. Implement:
+  - normalize(re, im, h): norm = Σ_j (re_j² + im_j²) · h; divide both arrays by
+    √norm. Return the pre-normalization norm so I can see it.
+  - expectations: ⟨x⟩ = Σ x_j |ψ_j|² h; ⟨x²⟩ likewise; σ_x = √(⟨x²⟩−⟨x⟩²).
+    ⟨p⟩ and ⟨p²⟩ via p̂ = −iℏ ∂_x using a central difference for ∂_x:
+    ⟨p⟩ = Σ Re[ ψ_j* (−iℏ)(ψ_{j+1}−ψ_{j−1})/(2h) ] h. σ_p analogously.
+  - Display ⟨x⟩, σ_x, ⟨p⟩, σ_p, and the DIMENSIONLESS ratio σ_x σ_p /(ℏ/2)
+    in a large readout, plus the normalization indicator (must read 1.000).
+
+Wave-function dropdown: (1) Gaussian (1/(πa²))^(1/4) e^{−x²/2a²} e^{ik₀x} with
+sliders a, k₀; (2) infinite-well eigenstate √(2/L) sin(nπx/L) with sliders n, L.
+Three stacked panels: Re ψ (orange), Im ψ (gray dashed), |ψ|² (blue filled).
+
+CRITICAL: p̂ = −iℏ ∂_x — k₀ > 0 MUST give ⟨p⟩ > 0. The ratio must read 1.000
+for the Gaussian (if it reads 0.500 you divided by ℏ not ℏ/2). After writing,
+list the checks for the Gaussian (a=1 nm, k₀=10 nm⁻¹): σ_x≈0.707 nm, ratio=1.000.
+```
+**What this produces:** `03-probability-explorer.html` and the reusable `normalize` / `expectations` functions every later mode calls.
+**How to adapt:** *Your system:* if you later add an FFT-based $\langle p\rangle$, keep the finite-difference version as a cross-check. *ChatGPT/Gemini:* paste `grid.js` and `constants.js` with the prompt. *Claude Project:* store the normalize/expectations functions in Project knowledge.
+**Builds on:** the spatial grid from Chapter 2.  **Next:** Chapter 4 attaches the time-evolution phase $e^{-iE_nt/\hbar}$ to states on this ψ array.
+
+### Exercise R4 — CLI Exercise
+**What you're building this chapter:** a tested expectation-value module with assertions tied to the Gaussian and the infinite-well analytic values.
+**Tool:** Claude Code — it can run the expectation values against known states and record the ratios in `PROJECT.md`.
+**Skill level:** Intermediate
+**Setup — confirm:**
+- [ ] `grid.js`, `constants.js`, and the ψ-array convention from Chapter 0
+- [ ] Node.js available
+- [ ] The CLAUDE.md normalization rule ($\sum|\psi_j|^2 h$, state $h$ explicitly)
+**The Task:**
+```
+Implement normalize(re, im, h) and computeExpectations(re, im, x, h) in a
+module observables.js. Write a Node script check-observables.js that:
+  (1) builds a Gaussian a = 1 nm, k₀ = 10 nm⁻¹ on N = 500, x ∈ [−20,20] nm,
+      normalizes it, and asserts σ_x ≈ 0.707 nm, ⟨p⟩ > 0, and
+      σ_x σ_p /(ℏ/2) within 1% of 1.000;
+  (2) builds the infinite-well n=1, L=10 nm state and asserts the ratio ≈ 1.136.
+Print all four numbers. Do NOT loosen the tolerances to force a pass. Append to
+PROJECT.md under "Verified": "Ch3 observables: Gaussian ratio=<v>, well n=1 ratio=<v>".
+```
+**Expected output:** `observables.js`, `check-observables.js`, printed ratios near 1.000 and 1.136, and a `PROJECT.md` line.
+**What to inspect:** that the Gaussian ratio is 1.000 (not 0.500 — that signals dividing by $\hbar$ instead of $\hbar/2$) and that $\langle p\rangle$ is positive for $k_0 > 0$.
+**If it goes wrong:** if the well ratio comes out 1.000 instead of 1.136, the code is reusing the Gaussian's analytic $\sigma_p$ instead of computing $\langle p^2\rangle$ from the actual state — recompute $\langle p^2\rangle$ numerically from $\hat p^2$, don't paste a formula.
+**CLAUDE.md / AGENTS.md note:** add: "Every observable routine ships with the Gaussian (ratio 1.000) and infinite-well n=1 (ratio ≈ 1.136) as regression checks."
+
+### Exercise R5 — AI Validation Exercise
+**What you're validating:** the normalization and expectation-value code from R3/R4.
+**Validation type:** Code + Numerical result
+**Risk level:** Medium — a sign or factor-of-$h$ error here propagates into every spectrum and uncertainty the sandbox later reports.
+**Setup:** use your own R3/R4 artifacts.
+**The Validation Task:** Evaluate against this checklist; mark Pass / Fail / Cannot determine with reasoning.
+```
+Validation Checklist — ψ array, Born rule, and expectation values
+□ Correctness: is normalization Σ|ψ_j|² h (h-weighted), not Σ|ψ_j|²?
+□ Completeness: are ⟨x⟩, ⟨p⟩, σ_x, σ_p, AND the ratio σ_xσ_p/(ℏ/2) all shown with units?
+□ Scope: did the |ψ|² panel show a signed curve (ψ vs |ψ|² render swap)?
+□ Physics criterion 1: Gaussian a=1 nm gives σ_x≈0.707 nm and ratio = 1.000?
+□ Physics criterion 2: ⟨p⟩ > 0 for k₀ > 0 (correct sign of p̂ = −iℏ∂_x)?
+□ Failure-mode check: any of —
+  - sign error in p̂ (⟨p⟩ < 0 for a right-moving packet)
+  - unnormalized state (indicator reads ~250 = 1/h, or ~0.004 = h)
+  - ratio reads 0.500 (divided by ℏ instead of ℏ/2)
+  - lost imaginary part (Im ψ ≡ 0 for a k₀ ≠ 0 Gaussian)
+```
+**What to do with findings:** pass → use it; one fail → fix the single sign or $h$ factor and re-run both regression states; multiple fails / cannot-determine → recompute $\langle p\rangle$ and the norm by hand for the Gaussian, since these functions underpin every later validation.
+**AI Use Disclosure (mandatory, two sentences):**
+> *1:* The AI implemented the complex ψ storage, the $h$-weighted normalization, and the position/momentum expectation values and uncertainty ratio.
+> *2:* The AI could not determine whether the momentum sign and the $\sqrt h$ normalization factor were correct from the code alone — I verified $\langle p\rangle > 0$ for $k_0 > 0$ and the Gaussian ratio of 1.000 against the analytic values myself.
+**Physics-judgment connection:** trains checking numerical observables against normalization and against an analytic minimum-uncertainty state, the discipline that catches sign and factor-of-$h$ errors before they spread.
