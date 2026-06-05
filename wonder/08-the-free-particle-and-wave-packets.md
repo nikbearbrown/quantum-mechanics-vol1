@@ -1,25 +1,25 @@
 # Chapter 8 — The Free Particle and Wave Packets
 *Why a particle with perfectly sharp momentum has no location at all.*
 
-Start with the simplest possible quantum mechanics problem. No potential anywhere. A particle moving freely through empty space. You already know how to set up the Schrödinger equation and you have every reason to expect a clean answer.
+Let's do the easiest quantum problem there is. No potential, nothing in the way — just a particle drifting through empty space. You already know how to write down the Schrödinger equation, and you have every right to expect a tidy, unsurprising answer. So let's get it, and then let's watch it misbehave.
 
-The time-independent equation inside a region where $V = 0$ is
+Where $V = 0$, the time-independent equation is
 
 $$-\frac{\hbar^2}{2m}\frac{d^2\psi}{dx^2} = E\psi,$$
 
-and the solutions come immediately: $\psi_k(x) = Ae^{ikx}$ with $k = \sqrt{2mE}/\hbar$. Every positive real $k$ works. Every momentum $p = \hbar k$ is a valid eigenstate. The time-dependent version is
+and the solutions show up without a fight: $\psi_k(x) = Ae^{ikx}$ with $k = \sqrt{2mE}/\hbar$. Every positive real $k$ is allowed. Every momentum $p = \hbar k$ is a perfectly good eigenstate. The time-dependent version is
 
 $$\Psi_k(x,t) = Ae^{i(kx-\omega t)}, \qquad \omega = \frac{\hbar k^2}{2m}.$$
 
-Now try to normalize it. Compute $|\Psi_k|^2$:
+So far so good. Now try to normalize it. Compute $|\Psi_k|^2$:
 
 $$|\Psi_k|^2 = |A|^2.$$
 
-Constant. Everywhere. The probability density is the same at $x = 0$ and at $x = 10^{26}$ meters. Integrate over all space: $\int_{-\infty}^\infty |A|^2\,dx = \infty$. The plane wave cannot be normalized on the whole real line for any nonzero $A$. A free particle with perfectly sharp momentum $p = \hbar k$ is literally everywhere at once — uniformly spread across all of space with no preference for any location.
+Constant. Everywhere. The same at $x = 0$ as at $x = 10^{26}$ meters out past the edge of anything. Integrate it over all of space and you get $\int_{-\infty}^\infty |A|^2\,dx = \infty$. The plane wave just refuses to be normalized on the whole real line for any $A$ that isn't zero. Read what that is saying: a free particle with perfectly sharp momentum $p = \hbar k$ is *literally everywhere at once* — smeared uniformly across all of space, with no preference for any spot over any other.
 
-This is not a mathematical glitch to be patched. It is a direct consequence of the uncertainty principle. If the momentum is perfectly sharp, $\sigma_p = 0$, then the Kennard inequality $\sigma_x\sigma_p \geq \hbar/2$ forces $\sigma_x = \infty$. Non-normalizability is just infinite position uncertainty wearing a different hat.
+Now, do not reach for a patch to fix this. It is not a glitch. It is the uncertainty principle showing its face. If the momentum is razor-sharp, $\sigma_p = 0$, then the Kennard inequality $\sigma_x\sigma_p \geq \hbar/2$ leaves no choice: $\sigma_x = \infty$. The non-normalizability *is* infinite position uncertainty, just wearing a different hat.
 
-So what do we do with a free particle? We build something physically realizable: a **wave packet**, constructed by superposing plane waves with nearby momenta, so that they interfere constructively in one region and cancel everywhere else. The result is a localized, normalizable object that moves and spreads in a way that makes exact contact with classical mechanics — in the right limit.
+So what on earth do we do with a free particle? We build something we can actually hold: a **wave packet**. We stack up plane waves with momenta close to each other, arranged so they reinforce in one little region and cancel out everywhere else. The result is a localized, normalizable lump that moves and spreads — and, in the right limit, shakes hands with classical mechanics exactly.
 
 <!-- → [FIGURE: two panels side by side — (left) a single plane wave e^{ikx}, showing constant |ψ|² = 1 extending over the entire x-axis; (right) a Gaussian wave packet, showing the localized |ψ|² envelope with visible oscillations of Re(ψ) inside; the visual contrast between "delocalized eigenstate" and "normalizable physical state" is the conceptual hinge of the chapter] -->
 
@@ -30,19 +30,19 @@ So what do we do with a free particle? We build something physically realizable:
 
 ## Building the Wave Packet
 
-The most general solution to the free-particle Schrödinger equation is a superposition of all plane waves:
+The most general solution of the free-particle equation is a pile of all the plane waves at once:
 
 $$\Psi(x,t) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}\phi(k)\,e^{i(kx-\omega(k)t)}\,dk, \qquad \omega(k) = \frac{\hbar k^2}{2m}.$$
 
-The function $\phi(k)$ is the **momentum-space wave function** — or equivalently, the Fourier amplitude. It encodes how much of each plane wave goes into the superposition. At $t = 0$, this is the Fourier transform pair:
+The function $\phi(k)$ is the **momentum-space wave function** — equivalently, the Fourier amplitude. It says how much of each plane wave you threw into the mix. At $t = 0$ it is one half of a Fourier transform pair:
 
 $$\Psi(x,0) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}\phi(k)\,e^{ikx}\,dk, \qquad \phi(k) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}\Psi(x,0)\,e^{-ikx}\,dx.$$
 
-Given any initial wave function, you compute $\phi(k)$ by Fourier transform, attach the phase factor $e^{-i\omega(k)t}$ to each component, and transform back. Free-particle time evolution is exact and complete in this form.
+Hand me any starting wave function and the recipe is fixed: Fourier-transform to get $\phi(k)$, slap the phase $e^{-i\omega(k)t}$ onto each piece, transform back. That is the whole of free-particle time evolution, exact, nothing left out.
 
-Why is the packet normalizable when none of its ingredients are? If $\phi(k)$ is concentrated near $k_0$ with spread $\Delta k$, the Fourier theorem guarantees that $\Psi(x,0)$ is localized with spatial spread $\Delta x \sim 1/\Delta k$. A localized function is normalizable. The plane waves cancel each other everywhere except near the packet's center — destructive interference does the work that the individual waves cannot do alone.
+But why is the packet normalizable when not one of its ingredients is? Here is the magic. If $\phi(k)$ huddles near $k_0$ with a spread $\Delta k$, the Fourier theorem promises that $\Psi(x,0)$ is localized with a spatial width $\Delta x \sim 1/\Delta k$. And a localized function *is* normalizable. The plane waves wipe each other out everywhere except near the center of the packet — the destructive interference does the job that no single wave could do alone.
 
-The physical interpretation of $\phi(k)$: by the Born rule applied in momentum space, $|\phi(k)|^2\,dk$ is the probability of measuring momentum between $\hbar k$ and $\hbar(k+dk)$. Critically, $|\phi(k)|^2$ is **time-independent** — the momentum distribution never changes during free propagation. The phase of $\phi(k)$ evolves as $e^{-i\omega(k)t}$, but its modulus does not. Whatever momentum distribution you start with, you keep it forever. The packet spreads in position; it does not spread in momentum.
+And what does $\phi(k)$ mean physically? Apply the Born rule, but in momentum space: $|\phi(k)|^2\,dk$ is the probability of measuring a momentum between $\hbar k$ and $\hbar(k+dk)$. Here is the part to underline. $|\phi(k)|^2$ is **time-independent** — the momentum distribution never changes while the particle drifts freely. The *phase* of $\phi(k)$ winds along as $e^{-i\omega(k)t}$, but its size does not move at all. Whatever spread of momenta you start with, you keep, forever. The packet spreads in position. It does not spread in momentum. Hold on to that asymmetry — it is the heart of the chapter.
 
 <!-- → [CHART: two side-by-side panels showing a Gaussian wave packet at t = 0 and t = T — (left) |Ψ(x,t)|² in position space, showing the spreading envelope and shifted center; (right) |φ(k)|² in momentum space, showing an identical Gaussian at both times; the visual point is that position spreads while momentum is frozen] -->
 
@@ -53,7 +53,7 @@ The physical interpretation of $\phi(k)$: by the Born rule applied in momentum s
 
 ## Phase Velocity and Group Velocity
 
-A single plane wave $e^{i(kx-\omega t)}$ has a crest — a surface of constant phase — at $kx - \omega t = \text{const}$. That crest moves at
+A single plane wave $e^{i(kx-\omega t)}$ has a crest — a surface of fixed phase — wherever $kx - \omega t = \text{const}$. That crest slides along at
 
 $$v_{ph} = \frac{\omega}{k}.$$
 
@@ -61,13 +61,13 @@ For a free non-relativistic particle, $\omega = \hbar k^2/2m$, so
 
 $$v_{ph} = \frac{\hbar k}{2m} = \frac{p}{2m}.$$
 
-The classical velocity is $v_{cl} = p/m$. The phase velocity is exactly half the classical velocity. The wave crests travel at half the speed you would classically assign to the particle. Something is wrong — or rather, the phase velocity is the wrong thing to be looking at.
+The classical velocity is $v_{cl} = p/m$. So the phase velocity is exactly *half* the classical velocity. The crests crawl along at half the speed you would classically hand the particle. Now this is strange. How can that be right? The answer is that we are looking at the wrong thing entirely — the phase velocity was never the speed of the particle to begin with.
 
-The particle is not a single crest. The particle is the *envelope* of the packet — the blob of probability. To find how that envelope moves, consider a packet sharply peaked at $k_0$. Taylor-expand the dispersion relation around $k_0$:
+The particle is not one crest. The particle is the *envelope* of the packet — the blob of probability. So let's find how the blob moves. Take a packet sharply peaked at $k_0$ and Taylor-expand the dispersion relation around $k_0$:
 
 $$\omega(k) = \omega_0 + \omega_0'(k-k_0) + \tfrac{1}{2}\omega_0''(k-k_0)^2 + \cdots$$
 
-Substitute into the superposition integral. The factor $e^{i(k_0 x - \omega_0 t)}$ pulls out as a carrier wave, and the remaining integral over the envelope becomes a function of the combination $x - \omega_0' t$. The envelope is centered where this combination is zero: at $x = \omega_0' t$. The **group velocity** is
+Push this into the superposition integral. The factor $e^{i(k_0 x - \omega_0 t)}$ pulls out front as a carrier wave, and the leftover integral over the envelope turns into a function of the single combination $x - \omega_0' t$. So the envelope sits wherever that combination is zero — that is, at $x = \omega_0' t$. The **group velocity** is
 
 $$v_g = \frac{d\omega}{dk}\bigg|_{k_0}.$$
 
@@ -75,15 +75,15 @@ For the free particle, $d\omega/dk = \hbar k/m$, so
 
 $$v_g = \frac{\hbar k_0}{m} = \frac{p_0}{m}.$$
 
-This is the classical velocity. The packet's center of mass moves exactly as Newton's first law predicts. The free-particle quantum wave packet is classical, in the sense of expectation values of position.
+*That* is the classical velocity. The center of the packet marches along exactly the way Newton's first law says it should. In the language of expectation values of position, the free-particle quantum packet is classical.
 
-Now compare the two speeds. For the free particle:
+Now stack the two speeds up against each other. For the free particle:
 
 $$\frac{v_g}{v_{ph}} = \frac{\hbar k_0/m}{\hbar k_0/2m} = 2.$$
 
-The group velocity is exactly twice the phase velocity. This means: if you watch the simulation, the envelope (the $|\Psi|^2$ blob) moves at speed $v_g$, while the individual wave crests inside it — the wiggles of Re $\Psi$ — move at $v_{ph} = v_g/2$. The envelope outruns its own internal oscillations. Individual crests continuously enter the packet from behind and emerge at the front. You can watch this happen. It is not an artifact; it is what the mathematics predicts, and it is confirmed in experiment.
+The group velocity is twice the phase velocity. And here is what that means when you actually watch the simulation: the envelope — the $|\Psi|^2$ blob — glides along at $v_g$, while the little wiggles inside it, the crests of Re $\Psi$, crawl at $v_{ph} = v_g/2$. The envelope outruns its own ripples. Crests are forever being born at the back of the packet and dying at the front. You can sit and watch it happen. It is not a rendering bug; it is what the mathematics demands, and the experiments back it up.
 
-The phase velocity has no direct physical meaning for particle motion. It is not where the particle is, not how fast the particle moves, not a speed you would measure if you put a detector in the path. The group velocity is the physically meaningful speed. The phase velocity is an internal property of the wave structure.
+The phase velocity, then, has no direct say in where the particle is. It is not the particle's location, not its speed, not anything a detector in the path would clock. The group velocity is the speed that means something. The phase velocity is just a feature of the internal grain of the wave.
 
 <!-- → [FIGURE: schematic time-sequence of a wave packet at three moments — showing the |ψ|² envelope advancing at v_g and a labeled crest advancing at v_ph = v_g/2; arrows and labels should make the two speeds visually distinguishable; this is the single most important figure for the phase vs. group velocity concept] -->
 
@@ -98,19 +98,19 @@ The second derivative of the dispersion relation is
 
 $$\frac{d^2\omega}{dk^2} = \frac{\hbar}{m}.$$
 
-This is nonzero. Different Fourier components travel at slightly different group velocities — higher-$k$ components move faster than lower-$k$ ones. Over time, the components drift apart and the packet spreads.
+And it is not zero. That single fact is the source of all the spreading. Different Fourier pieces travel at slightly different group velocities — the higher-$k$ ones a bit faster than the lower-$k$ ones. So as time goes by, the pieces drift apart from one another, and the packet smears out.
 
-For a Gaussian initial state — the natural choice, because it saturates the uncertainty bound and yields an exactly solvable integral — the spreading can be computed in closed form. Take
+For a Gaussian starting state — the natural pick, because it sits right on the uncertainty bound and the integral actually closes — you can work out the spreading in closed form. Take
 
 $$\Psi(x,0) = \left(\frac{1}{\pi\sigma_0^2}\right)^{1/4}\exp\!\left(-\frac{x^2}{2\sigma_0^2}\right)e^{ik_0 x},$$
 
-a Gaussian of position-space width $\sigma_0$, centered at the origin, with mean wavenumber $k_0$. Its Fourier transform is also Gaussian:
+a Gaussian of position width $\sigma_0$, centered at the origin, with mean wavenumber $k_0$. Its Fourier transform is also a Gaussian:
 
 $$\phi(k) = \left(\frac{\sigma_0^2}{\pi}\right)^{1/4}\exp\!\left(-\frac{\sigma_0^2(k-k_0)^2}{2}\right),$$
 
-with momentum-space width $\Delta k = 1/(2\sigma_0)$, giving $\sigma_x(0)\,\sigma_p = \sigma_0 \cdot \hbar/(2\sigma_0) = \hbar/2$. The Gaussian starts exactly at the uncertainty bound — minimum uncertainty, as tight as quantum mechanics allows.
+with momentum width $\Delta k = 1/(2\sigma_0)$, giving $\sigma_x(0)\,\sigma_p = \sigma_0 \cdot \hbar/(2\sigma_0) = \hbar/2$. The Gaussian launches exactly on the bound — minimum uncertainty, as tight as the theory allows.
 
-Attach $e^{-i\omega(k)t}$ and perform the Gaussian integral by completing the square. The result is:
+Attach $e^{-i\omega(k)t}$, complete the square in the Gaussian integral, and out comes:
 
 $$|\Psi(x,t)|^2 = \frac{1}{\sigma(t)\sqrt{\pi}}\exp\!\left(-\frac{(x - v_g t)^2}{\sigma(t)^2}\right),$$
 
@@ -118,19 +118,19 @@ where
 
 $$\boxed{\sigma(t) = \sigma_0\sqrt{1 + \left(\frac{\hbar t}{2m\sigma_0^2}\right)^2}.}$$
 
-The packet remains Gaussian for all time, but its width grows. A few things to read off immediately.
+So the packet stays Gaussian for all time, but it fattens. A few things jump straight off the page.
 
-The center is at $x = v_g t = (\hbar k_0/m)t$ — classical motion, exactly. The momentum distribution $|\phi(k)|^2$ does not appear in this expression at all, because it has not changed. Only the position distribution has spread.
+The center sits at $x = v_g t = (\hbar k_0/m)t$ — classical motion, no correction. The momentum distribution $|\phi(k)|^2$ does not appear anywhere in this expression, because it never changed. Only the position spread has grown.
 
-At $t = 0$, $\sigma_x\sigma_p = (\sigma_0/\sqrt{2}) \cdot (\hbar\Delta k\sqrt{2}) = \hbar/2$. For $t > 0$, $\sigma_x$ grows while $\sigma_p$ stays fixed, so $\sigma_x\sigma_p > \hbar/2$. The packet moves away from the minimum-uncertainty condition as it spreads.
+At $t = 0$, $\sigma_x\sigma_p = (\sigma_0/\sqrt{2}) \cdot (\hbar\Delta k\sqrt{2}) = \hbar/2$. For $t > 0$, $\sigma_x$ grows while $\sigma_p$ holds fixed, so $\sigma_x\sigma_p > \hbar/2$. The packet drifts away from the minimum-uncertainty condition as it spreads.
 
-The spreading is caused by **dispersion** — $d^2\omega/dk^2 \neq 0$ — not by the uncertainty principle. The uncertainty principle is a constraint on the state at each instant; it says nothing about dynamics. A light pulse in vacuum has $\omega = ck$, so $d^2\omega/dk^2 = 0$, and it propagates without spreading at all. A coherent state of the harmonic oscillator (Chapter 7) also fails to spread, despite living in a dispersive system — the restoring potential cancels the dispersion exactly. For the free particle there is no potential, no restoring force, and the spreading is unavoidable.
+Now — and this is a distinction students get backward constantly — the spreading is caused by **dispersion**, the fact that $d^2\omega/dk^2 \neq 0$. It is *not* caused by the uncertainty principle. The uncertainty principle is a snapshot rule — a constraint on the state at each frozen instant — and it says nothing whatever about how the state changes in time. Want proof? A light pulse in vacuum has $\omega = ck$, so $d^2\omega/dk^2 = 0$, and it sails along without spreading at all. A coherent state of the harmonic oscillator (Chapter 7) also refuses to spread, even though it lives in a dispersive system — the restoring potential cancels the dispersion exactly. For the free particle there is no potential, no restoring pull, and so the spreading cannot be stopped.
 
-Define the **doubling time** — the time for $\sigma_x$ to grow by a factor of $\sqrt{2}$ — by setting $\sigma(t)^2 = 2\sigma_0^2$:
+Define the **doubling time** — the time for $\sigma_x$ to grow by $\sqrt{2}$ — by setting $\sigma(t)^2 = 2\sigma_0^2$:
 
 $$t_{2x} = \frac{2m\sigma_0^2}{\hbar}.$$
 
-This scales as $\sigma_0^2$: a packet twice as wide takes four times as long to double. It is also independent of $k_0$ — the mean momentum determines where the packet goes, not how fast it spreads. A fast packet and a slow packet of the same initial width spread at identical rates.
+It scales as $\sigma_0^2$: a packet twice as wide takes four times as long to double. And it does not depend on $k_0$ at all — the mean momentum sets *where* the packet goes, not how fast it spreads. A fast packet and a slow packet of the same starting width spread at identical rates. Sit with that one for a second; it is counterintuitive and it is true.
 
 <!-- → [CHART: three curves on the same axes — σ_x(t) vs. t for three initial widths σ₀ = 0.5, 1, 2 nm (electron mass) — showing the σ₀² scaling of the doubling time; x-axis in femtoseconds; the visual point is that tighter confinement means faster spreading] -->
 
@@ -161,13 +161,13 @@ One more check: the mean momentum $k_0$ does not appear in $t_{2x}$ at all. An e
 
 ## The Scales That Make Quantum Mechanics Invisible
 
-Plug a 1 mg grain of sand into the same formula, localized to $\sigma_x(0) = 1\,\mu\text{m}$:
+Now drop a 1 mg grain of sand into the very same formula, pinned to $\sigma_x(0) = 1\,\mu\text{m}$, and watch what comes out:
 
 $$t_{2x} = \frac{2\times10^{-6}\,\text{kg}\times(10^{-6}\,\text{m})^2}{10^{-34}\,\text{J\,s}} \approx 2\times10^{16}\,\text{s.}$$
 
-This is roughly $6\times10^{8}$ years — hundreds of millions of years, far longer than any laboratory experiment. The quantum spreading is present in principle and observationally indistinguishable from zero. Quantum mechanics does not have a special rule for large objects; it has the same formula, and the formula gives an absurdly long timescale. The classical limit is not a philosophical decision; it is a number.
+That is roughly $6\times10^{8}$ years — hundreds of millions of years, longer than any experiment anyone will ever run. The quantum spreading is there in principle, and it is observationally indistinguishable from zero. And here is the point I want to drive home: quantum mechanics does not keep a separate rulebook for big things. It is the *same formula*, and the formula simply spits out a ridiculous timescale. The classical limit is not a decision somebody made or a line somebody drew. It is a number.
 
-The dividing line is the ratio of the doubling time to any physically relevant timescale. For an electron in an atom, $t_{2x}$ is on the order of femtoseconds to attoseconds — quantum effects dominate completely. For a marble, $t_{2x}$ exceeds the age of the universe — classical mechanics is exact for every practical purpose. The transition between the two regimes is smooth and computable, not mysterious.
+What sets the dividing line is the ratio of the doubling time to whatever timescale you actually care about. For an electron in an atom, $t_{2x}$ is femtoseconds down to attoseconds — quantum effects run the whole show. For a marble, $t_{2x}$ outlasts the age of the universe — classical mechanics is exact for any purpose you will ever have. And the crossover between the two is smooth and computable, not some mystical threshold where one world ends and another begins.
 
 <!-- → [TABLE: doubling times for five systems — columns: object, mass, σ₀, t_{2x}; rows: hydrogen 1s orbital (~0.5 Å), electron in 1 nm quantum dot (~1 nm), C₆₀ at 900 K (~2.5 pm), dust grain (1 μg, σ₀ = 100 nm), marble (1 g, σ₀ = 1 μm); the goal is to make the twenty-order-of-magnitude range visceral] -->
 
@@ -175,15 +175,15 @@ The dividing line is the ratio of the doubling time to any physically relevant t
 
 ## What the Free Particle Teaches About the Wave Function
 
-The free particle is the purest test case for the Fourier structure of quantum mechanics, and it teaches three things that carry forward into every more complicated problem.
+The free particle is the cleanest possible test case for the Fourier skeleton underneath quantum mechanics, and it leaves us with three lessons that follow into every harder problem.
 
-First: energy eigenstates are not always normalizable. The infinite square well's eigenstates were localized by the walls; the free particle's eigenstates are not. Physical states are always normalizable, but they are not always energy eigenstates. A physical free particle is a superposition — a wave packet — not a plane wave.
+First: energy eigenstates are not always normalizable. The infinite square well's eigenstates got penned in by the walls; the free particle's eigenstates have no walls and run off to infinity. Physical states are always normalizable, but they are not always energy eigenstates. A real free particle is a superposition — a wave packet — not a plane wave.
 
-Second: time evolution is a phase rotation in Fourier space. Each $\phi(k)$ component acquires the factor $e^{-i\omega(k)t}$. The modulus $|\phi(k)|^2$ is untouched. This means the momentum distribution is a conserved quantity for the free particle — it cannot change if there is no force to change it. The corresponding classical statement is that momentum is conserved in the absence of a force. The quantum statement is the same, expressed as the constancy of $|\phi(k)|^2$.
+Second: time evolution is nothing but a phase rotation in Fourier space. Each $\phi(k)$ piece picks up the factor $e^{-i\omega(k)t}$, and the size $|\phi(k)|^2$ is left untouched. So for the free particle, the momentum distribution is conserved — it cannot change when there is no force to change it. The classical version of that sentence is "momentum is conserved when there is no force." The quantum version is the same sentence, said as "the constancy of $|\phi(k)|^2$."
 
-Third: the relationship between localization and momentum spread is exact and quantitative. To localize a particle within $\Delta x$, you must superpose momenta over a range $\Delta p \sim \hbar/\Delta x$. Tight localization requires broad momentum content. Broad momentum content means the Fourier components travel at a range of speeds and separate quickly. There is no way to localize a particle and also prevent it from spreading, because the two requirements are in direct tension. The uncertainty principle is not a limitation of measurement technology; it is a structural feature of waves.
+Third: the trade between localization and momentum spread is exact and quantitative, not vague. To pin a particle inside $\Delta x$, you must blend momenta over a range $\Delta p \sim \hbar/\Delta x$. Tight localization demands broad momentum content. Broad momentum content means the Fourier pieces travel at a spread of speeds and pull apart fast. There is no arrangement that localizes a particle *and* stops it from spreading, because the two demands are pulling in opposite directions. The uncertainty principle is not a shortcoming of your equipment; it is built into what waves are.
 
-The Fourier relationship $\Delta x \cdot \Delta k \sim 1$ is a theorem of harmonic analysis, proved in the nineteenth century for completely classical reasons. Quantum mechanics did not invent it. What quantum mechanics did was identify $p = \hbar k$ and interpret $|\phi(k)|^2$ as a probability distribution. The mathematics of wave packets was already there; the physical interpretation of what was waving was new.
+And the relation $\Delta x \cdot \Delta k \sim 1$ is a theorem of harmonic analysis, proved in the nineteenth century for reasons that had nothing to do with quantum anything. Quantum mechanics did not discover it. What quantum mechanics did was name $p = \hbar k$ and read $|\phi(k)|^2$ as a probability. The mathematics of wave packets was sitting there the whole time. What was new was the physical answer to the question — what is it that's waving?
 
 ---
 

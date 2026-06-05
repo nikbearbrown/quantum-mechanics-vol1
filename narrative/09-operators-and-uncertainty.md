@@ -1,49 +1,49 @@
 # Chapter 9 — Operators and Uncertainty
 *The algebra that makes measurement outcomes real — and makes two of them incompatible.*
 
-Here is an experiment you can do, at least in principle. Take an electron. Prepare it in exactly the same state a thousand times — same apparatus, same procedure, identical initial conditions. Measure its position each time. You get a thousand different numbers. Make a histogram. The histogram has a mean $\langle x\rangle$ and a spread $\sigma_x$.
+Here is an experiment you could run, at least in principle. Take an electron. Prepare it in exactly the same state a thousand times — same apparatus, same procedure, identical initial conditions. Measure its position each time. You get a thousand different numbers. Build a histogram. It has a mean $\langle x\rangle$ and a spread $\sigma_x$.
 
-Now do it again: another thousand identically prepared copies, but this time measure momentum. Another histogram, another mean $\langle p\rangle$, another spread $\sigma_p$.
+Now run it again: another thousand identically prepared copies, but this time measure momentum. Another histogram, another mean $\langle p\rangle$, another spread $\sigma_p$.
 
-Here is what you find: no matter how cleverly you prepare the state, the product $\sigma_x\sigma_p$ is never smaller than $\hbar/2$. You can narrow the position distribution as much as you like, but the momentum distribution widens to compensate. No single copy of the electron is measured twice. No measurement disturbs any other measurement. The limitation is in the state itself, before any apparatus touches it.
+And here is what you find, every time: no matter how cunningly you prepare the state, the product $\sigma_x\sigma_p$ is never smaller than $\hbar/2$. Squeeze the position distribution as narrow as you please, and the momentum distribution fattens to make up for it. No single copy of the electron is ever measured twice. No measurement disturbs any other measurement. The limitation lives in the state itself, before any apparatus has so much as touched it.
 
-The question is what in the mathematics produces this bound. The answer is the structure of operators — and specifically the relationship between the operators for position and momentum. That relationship has a name, and once you see it, the inequality falls out in about half a page.
+The question Heisenberg, Kennard, and Robertson had to answer in the late 1920s was: what in the mathematics produces this bound? The answer is the structure of operators — and specifically the relationship between the operators for position and momentum. That relationship has a name, and once you see it, the inequality drops out in about half a page.
 
 ---
 
 ## Observables as Operators
 
-In quantum mechanics, every physical observable is represented by a linear operator $\hat{A}$ that maps wave functions to wave functions:
+In quantum mechanics every physical observable is represented by a linear operator $\hat{A}$ that carries wave functions to wave functions:
 
 $$\hat{A}(\alpha\psi + \beta\phi) = \alpha\hat{A}\psi + \beta\hat{A}\phi.$$
 
-Why operators? Because we need a rule for extracting a number — an average measurement outcome — from a wave function. The expectation value $\langle\hat{A}\rangle = \int\psi^*(\hat{A}\psi)\,dx$ is that rule.
+Why operators at all? Because we need a rule for squeezing a number — an average measurement outcome — out of a wave function. The expectation value $\langle\hat{A}\rangle = \int\psi^*(\hat{A}\psi)\,dx$ is that rule.
 
-But not every linear operator qualifies as an observable. The requirement is **Hermiticity**: for any two normalizable wave functions $\psi$ and $\phi$,
+But not every linear operator earns the title of observable. The requirement is **Hermiticity**: for any two normalizable wave functions $\psi$ and $\phi$,
 
 $$\int_{-\infty}^{\infty}\phi^*\,(\hat{A}\psi)\,dx = \int_{-\infty}^{\infty}(\hat{A}\phi)^*\,\psi\,dx.$$
 
-Hermiticity has three consequences that earn their keep. First: eigenvalues of a Hermitian operator are real. Since measurement outcomes are real numbers, this is not optional. Second: eigenstates with distinct eigenvalues are orthogonal — the measurement outcomes live in an orthogonal basis. Third (the spectral theorem): the eigenstates form a complete set, so any state can be expanded as $|\psi\rangle = \sum_n c_n|a_n\rangle$, where the probability of obtaining outcome $a_n$ is $|c_n|^2$. This is the Born rule in operator language.
+Hermiticity buys three things, each of which pays its way. First: the eigenvalues of a Hermitian operator are real. Since measurement outcomes are real numbers, that is not negotiable. Second: eigenstates with distinct eigenvalues are orthogonal — the outcomes occupy an orthogonal basis. Third, the spectral theorem: the eigenstates form a complete set, so any state expands as $|\psi\rangle = \sum_n c_n|a_n\rangle$, with the probability of obtaining outcome $a_n$ equal to $|c_n|^2$. That is the Born rule written in operator language.
 
 <!-- → [TABLE: comparison table — classical observable (real-valued function on phase space) vs. quantum observable (Hermitian operator on Hilbert space); rows: mathematical object, measurement outcome, state with definite value, condition for simultaneous definiteness] -->
 
-The position operator is uncomplicated: $(\hat{x}\psi)(x) = x\psi(x)$. Multiplication by the real number $x$. Hermitian by inspection.
+The position operator is the soul of simplicity: $(\hat{x}\psi)(x) = x\psi(x)$. Multiplication by the real number $x$. Hermitian on inspection.
 
 The momentum operator is:
 
 $$\hat{p} = -i\hbar\frac{\partial}{\partial x}.$$
 
-The factors $-i$ and $\hbar$ are not decorative. Check Hermiticity by computing $\int\phi^*(\hat{p}\psi)\,dx$:
+The factors $-i$ and $\hbar$ are not garnish. Check Hermiticity by working out $\int\phi^*(\hat{p}\psi)\,dx$:
 
 $$\int_{-\infty}^{\infty}\phi^*\!\left(-i\hbar\frac{\partial\psi}{\partial x}\right)dx.$$
 
-Integrate by parts. The boundary term $\phi^*\psi\big|_{-\infty}^{\infty}$ vanishes because normalizable wave functions go to zero at $\pm\infty$. What remains:
+Integrate by parts. The boundary term $\phi^*\psi\big|_{-\infty}^{\infty}$ dies, because normalizable wave functions vanish at $\pm\infty$. What is left:
 
 $$= \int_{-\infty}^{\infty}\!\left(i\hbar\frac{\partial\phi^*}{\partial x}\right)\psi\,dx = \int_{-\infty}^{\infty}\!\left(-i\hbar\frac{\partial\phi}{\partial x}\right)^*\psi\,dx = \int_{-\infty}^{\infty}(\hat{p}\phi)^*\psi\,dx.$$
 
-Hermitian. The factor of $-i$ is what makes it work: without it, the derivative $\partial_x$ would be anti-Hermitian and its eigenvalues would be imaginary — not measurable.
+Hermitian. The factor of $-i$ is the very thing that makes it work: strip it away and the derivative $\partial_x$ becomes anti-Hermitian, its eigenvalues imaginary — and therefore unmeasurable.
 
-Why is this the right momentum operator, and not some other Hermitian combination of derivatives? The cleanest reason is Fourier analysis. A plane wave $e^{ipx/\hbar}$ is the eigenfunction of $-i\hbar\partial_x$ with eigenvalue $p$: differentiating $e^{ipx/\hbar}$ pulls down $ip/\hbar$, and $-i\hbar \cdot ip/\hbar = p$. In momentum space, $\hat{p}$ is multiplication by $p$. In position space, it is differentiation. The Fourier transform connects the two representations, and $-i\hbar\partial_x$ is the unique Hermitian first-order differential operator that matches multiplication-by-$p$ in momentum space.
+Why is this the right momentum operator and not some other Hermitian arrangement of derivatives? The cleanest argument is Fourier analysis. A plane wave $e^{ipx/\hbar}$ is the eigenfunction of $-i\hbar\partial_x$ with eigenvalue $p$: differentiating $e^{ipx/\hbar}$ pulls down $ip/\hbar$, and $-i\hbar \cdot ip/\hbar = p$. In momentum space $\hat{p}$ is plain multiplication by $p$; in position space it is differentiation. The Fourier transform stitches the two pictures together, and $-i\hbar\partial_x$ is the unique Hermitian first-order differential operator that matches multiplication-by-$p$ in momentum space.
 
 <!-- → [DIAGRAM: Fourier duality diagram showing position space (ψ(x), operator −iℏ∂ₓ) ↔ momentum space (φ(p), operator ×p), with arrows labeled "Fourier transform" and "inverse Fourier transform"] -->
 
@@ -58,29 +58,29 @@ Given a Hermitian operator $\hat{A}$ and a normalized state $\psi$, the expectat
 
 $$\langle\hat{A}\rangle = \int_{-\infty}^{\infty}\psi^*(x)\,(\hat{A}\psi)(x)\,dx.$$
 
-For position, $\hat{A} = \hat{x}$, this reduces to $\int x|\psi|^2\,dx$ — the centroid of the probability density. For momentum, $\hat{A} = \hat{p}$, it becomes $\int\psi^*(-i\hbar\partial_x\psi)\,dx$, and now the sign matters.
+For position, $\hat{A} = \hat{x}$, this collapses to $\int x|\psi|^2\,dx$ — the centroid of the probability density. For momentum, $\hat{A} = \hat{p}$, it becomes $\int\psi^*(-i\hbar\partial_x\psi)\,dx$, and now the sign earns its keep.
 
 Take the Gaussian wave packet $\psi = Ne^{-x^2/2a^2}e^{ik_0 x}$. Differentiate:
 
 $$\partial_x\psi = \psi\!\left(-\frac{x}{a^2} + ik_0\right), \qquad -i\hbar\partial_x\psi = \psi\!\left(\frac{i\hbar x}{a^2} + \hbar k_0\right).$$
 
-Integrate against $\psi^*$. The term $i\hbar x/a^2$ is odd times the symmetric density $|\psi|^2$ — it integrates to zero. What survives is $\hbar k_0 \int|\psi|^2\,dx = \hbar k_0$. A packet moving right with $k_0 > 0$ has $\langle p\rangle = \hbar k_0 > 0$.
+Integrate against $\psi^*$. The term $i\hbar x/a^2$ is odd, multiplying the symmetric density $|\psi|^2$ — it integrates to zero. What survives is $\hbar k_0 \int|\psi|^2\,dx = \hbar k_0$. A packet moving right with $k_0 > 0$ has $\langle p\rangle = \hbar k_0 > 0$.
 
-If you use $+i\hbar\partial_x$ instead — the wrong sign — you get $-\hbar k_0 < 0$. Wrong direction. The minus sign in $\hat{p} = -i\hbar\partial_x$ is load-bearing, not a convention.
+Use $+i\hbar\partial_x$ instead — the wrong sign — and you get $-\hbar k_0 < 0$. Wrong direction. The minus sign in $\hat{p} = -i\hbar\partial_x$ is load-bearing, not a convention you may shrug off.
 
 The variance of observable $\hat{A}$ in state $\psi$ is:
 
 $$\sigma_A^2 = \langle\hat{A}^2\rangle - \langle\hat{A}\rangle^2 = \langle(\hat{A} - \langle\hat{A}\rangle)^2\rangle.$$
 
-This is the spread of measurement outcomes across many identically prepared copies of the state. It is not uncertainty in any single measurement — it is the width of the histogram.
+This is the spread of measurement outcomes across many identically prepared copies of the state. It is not the uncertainty in any single measurement — it is the width of the histogram.
 
 ---
 
 ## The Canonical Commutation Relation
 
-The **commutator** of two operators is $[\hat{A}, \hat{B}] \equiv \hat{A}\hat{B} - \hat{B}\hat{A}$. If it is zero, the operators commute and share a common eigenbasis — both observables can have definite values simultaneously. If it is nonzero, they cannot.
+The **commutator** of two operators is $[\hat{A}, \hat{B}] \equiv \hat{A}\hat{B} - \hat{B}\hat{A}$. If it vanishes, the operators commute and share a common eigenbasis — both observables can hold definite values at once. If it does not vanish, they cannot.
 
-Compute $[\hat{x}, \hat{p}]$ by acting on a test function $\psi$:
+Compute $[\hat{x}, \hat{p}]$ by letting it act on a test function $\psi$:
 
 $$[\hat{x},\hat{p}]\psi = \hat{x}(\hat{p}\psi) - \hat{p}(\hat{x}\psi).$$
 
@@ -92,7 +92,7 @@ Second term: $\hat{x}$ multiplies first, giving $x\psi$, then $\hat{p}$ differen
 
 $$\hat{p}(\hat{x}\psi) = -i\hbar\frac{\partial}{\partial x}(x\psi) = -i\hbar\!\left(\psi + x\frac{\partial\psi}{\partial x}\right) = -i\hbar\psi - i\hbar x\frac{\partial\psi}{\partial x}.$$
 
-The product rule generates an extra $-i\hbar\psi$. Subtract first term minus second:
+The product rule manufactures an extra $-i\hbar\psi$. Subtract first term minus second:
 
 $$[\hat{x},\hat{p}]\psi = -i\hbar x\frac{\partial\psi}{\partial x} - \left(-i\hbar\psi - i\hbar x\frac{\partial\psi}{\partial x}\right) = i\hbar\psi.$$
 
@@ -100,9 +100,9 @@ Since this holds for any $\psi$:
 
 $$\boxed{[\hat{x}, \hat{p}] = i\hbar.}$$
 
-This is the **canonical commutation relation** — the single algebraic fact that separates quantum mechanics from classical mechanics. In classical mechanics, position and momentum Poisson-commute: $\{x, p\} = 1$, no factor of $i\hbar$, no incompatibility. The canonical commutation relation is the quantum version, and the $i\hbar$ is not removable. Everything that follows about uncertainty is a consequence of this one line.
+This is the **canonical commutation relation** — the single algebraic fact that divides quantum mechanics from classical mechanics. Classically, position and momentum Poisson-commute: $\{x, p\} = 1$, no factor of $i\hbar$, no incompatibility anywhere. The canonical commutation relation is the quantum descendant, and the $i\hbar$ cannot be removed. Everything that follows about uncertainty is a consequence of this one line. When Born, Heisenberg, and Jordan first wrote the analogous matrix relation in 1925, they recognized it as the new mechanics in a single equation.
 
-Because $[\hat{x}, \hat{p}] \neq 0$, position and momentum share no common eigenbasis. Any state with definite position (a Dirac delta in $x$) is infinitely spread in momentum; any state with definite momentum (a plane wave) is infinitely spread in position. The incompatibility is not about measurement — it is algebraic, baked into the operators themselves.
+Because $[\hat{x}, \hat{p}] \neq 0$, position and momentum share no common eigenbasis. Any state with definite position (a Dirac delta in $x$) is infinitely spread in momentum; any state with definite momentum (a plane wave) is infinitely spread in position. The incompatibility has nothing to do with measurement — it is algebraic, stamped into the operators themselves.
 
 <!-- → [DIAGRAM: two-column visual contrast — classical phase space with a point (x, p) representing a state with simultaneous definite values, vs. quantum Hilbert space with eigenfunctions of x̂ (delta function) and p̂ (plane wave) shown side by side, illustrating that no state can be both] -->
 
@@ -113,7 +113,7 @@ Because $[\hat{x}, \hat{p}] \neq 0$, position and momentum share no common eigen
 
 ## The Robertson Inequality
 
-Here is the theorem that connects the commutator to the uncertainty bound. No measurement is performed; no particle is disturbed. The proof is linear algebra.
+Here is the theorem that ties the commutator to the uncertainty bound. No measurement is performed; no particle is disturbed. The proof is linear algebra and nothing else. Howard Percy Robertson published it in 1929, generalizing the special case Kennard had proved two years before.
 
 **Robertson inequality (1929).** For any two Hermitian operators $\hat{A}$, $\hat{B}$ and any state $\psi$:
 
@@ -139,9 +139,9 @@ Plug in $\hat{A} = \hat{x}$, $\hat{B} = \hat{p}$, $[\hat{x},\hat{p}] = i\hbar$:
 
 $$\sigma_x\,\sigma_p \geq \frac{1}{2}|i\hbar| = \frac{\hbar}{2}.$$
 
-The **Kennard inequality** — proved by Kennard in 1927, placed in this general algebraic framework by Robertson in 1929. It is a theorem derived from the canonical commutation relation and Cauchy-Schwarz. No experiment features in the proof. The bound is established by the preparation of the state, not by measurement.
+The **Kennard inequality** — proved by Earle Kennard in 1927, then folded into this general algebraic frame by Robertson in 1929. It is a theorem derived from the canonical commutation relation and Cauchy-Schwarz. No experiment appears in the proof. The bound is fixed by the preparation of the state, not by any act of measurement.
 
-Notice what was dropped in Move 3: the anticommutator term $\tfrac{1}{4}\langle\{\hat{A}',\hat{B}'\}\rangle^2$, which is non-negative. Dropping it makes the bound weaker. Schrödinger (1930) retained it and got a tighter inequality. For the Gaussian, the anticommutator term happens to be zero, so both bounds agree. For other states — like the infinite square well — the Schrödinger bound is strictly tighter than Robertson. The exercises explore this.
+Notice what got thrown away in Move 3: the anticommutator term $\tfrac{1}{4}\langle\{\hat{A}',\hat{B}'\}\rangle^2$, which is non-negative. Discarding it weakens the bound. Schrödinger, in 1930, kept it and got a tighter inequality. For the Gaussian the anticommutator term happens to vanish, so the two bounds coincide. For other states — the infinite square well among them — the Schrödinger bound is strictly tighter than Robertson. The exercises take this further.
 
 <!-- → [CHART: log-log plot of σ_p vs σ_x showing the Robertson boundary hyperbola σ_x σ_p = ℏ/2; mark the Gaussian as a point on the curve (ratio 1.000) and the infinite-well ground state as a point above it (ratio ≈ 1.136); draw arrow showing that as n increases in the well, the point moves further from the boundary] -->
 
@@ -152,7 +152,7 @@ Notice what was dropped in Move 3: the anticommutator term $\tfrac{1}{4}\langle\
 
 ## A Worked Calculation: The Infinite Square Well
 
-In Chapter 3 I computed $\sigma_x\sigma_p = \hbar/2$ for the Gaussian. Let me do it for a different state — the infinite-square-well ground state — to show the bound is satisfied but not saturated.
+In Chapter 3 I computed $\sigma_x\sigma_p = \hbar/2$ for the Gaussian. Let me run the same machinery on a different state — the infinite-square-well ground state — to show the bound holds but is not hit.
 
 The state on $[0,L]$ is $\psi_1(x) = \sqrt{2/L}\,\sin(\pi x/L)$.
 
@@ -168,9 +168,9 @@ $$\sigma_x^2 = L^2\!\left(\frac{1}{3} - \frac{1}{2\pi^2}\right) - \frac{L^2}{4} 
 
 So $\sigma_x \approx 0.181\,L$.
 
-**Momentum mean.** The ground state is a standing wave — equal superposition of $e^{i\pi x/L}$ (rightward) and $e^{-i\pi x/L}$ (leftward). Equal and opposite contributions cancel: $\langle p\rangle = 0$. Confirm by direct integral: the integrand $\sin(\pi x/L)\cdot\cos(\pi x/L) = \tfrac{1}{2}\sin(2\pi x/L)$ integrates to zero over a full period.
+**Momentum mean.** The ground state is a standing wave — an equal superposition of $e^{i\pi x/L}$ (rightward) and $e^{-i\pi x/L}$ (leftward). The equal and opposite contributions cancel: $\langle p\rangle = 0$. Confirm by direct integral: the integrand $\sin(\pi x/L)\cdot\cos(\pi x/L) = \tfrac{1}{2}\sin(2\pi x/L)$ integrates to zero over a full period.
 
-**$\langle p^2\rangle$.** Here is an operator-algebra shortcut that beats direct integration. The TISE says $\hat{H}\psi_1 = E_1\psi_1$ with $E_1 = \pi^2\hbar^2/(2mL^2)$. Inside the well, $\hat{H} = \hat{p}^2/2m$, so $\hat{p}^2\psi_1 = 2mE_1\psi_1 = (\hbar\pi/L)^2\psi_1$. Therefore:
+**$\langle p^2\rangle$.** Here is an operator-algebra shortcut that beats slogging through the integral. The TISE says $\hat{H}\psi_1 = E_1\psi_1$ with $E_1 = \pi^2\hbar^2/(2mL^2)$. Inside the well $\hat{H} = \hat{p}^2/2m$, so $\hat{p}^2\psi_1 = 2mE_1\psi_1 = (\hbar\pi/L)^2\psi_1$. Therefore:
 
 $$\langle p^2\rangle = \left(\frac{\hbar\pi}{L}\right)^2\int|\psi_1|^2\,dx = \left(\frac{\hbar\pi}{L}\right)^2.$$
 
@@ -180,9 +180,9 @@ $$\langle p^2\rangle = \left(\frac{\hbar\pi}{L}\right)^2\int|\psi_1|^2\,dx = \le
 
 $$\sigma_x\sigma_p \approx 0.181\,L \cdot \frac{\hbar\pi}{L} = 0.181\pi\hbar \approx 0.568\,\hbar.$$
 
-Since $\hbar/2 = 0.500\,\hbar$, the product exceeds the bound. The ratio $\sigma_x\sigma_p/(\hbar/2) \approx 1.136$.
+Since $\hbar/2 = 0.500\,\hbar$, the product overshoots the bound. The ratio $\sigma_x\sigma_p/(\hbar/2) \approx 1.136$.
 
-Why doesn't the square-well ground state saturate the bound? The saturation condition requires $\hat{A}'|\psi\rangle = i\lambda\hat{B}'|\psi\rangle$ for some real $\lambda$ — that is, the Cauchy-Schwarz step must hold with equality, which demands the two vectors be proportional. For $\hat{A}' = \hat{x} - \langle x\rangle$ and $\hat{B}' = \hat{p} - \langle p\rangle$, this condition translates to a differential equation whose only normalizable solution is the Gaussian. The square-well ground state has hard walls requiring $\psi(0) = \psi(L) = 0$ — it cannot be Gaussian. So its product $\sigma_x\sigma_p$ is strictly above $\hbar/2$.
+Why doesn't the square-well ground state saturate? The saturation condition demands $\hat{A}'|\psi\rangle = i\lambda\hat{B}'|\psi\rangle$ for some real $\lambda$ — the Cauchy-Schwarz step must hold with equality, which requires the two vectors to be proportional. For $\hat{A}' = \hat{x} - \langle x\rangle$ and $\hat{B}' = \hat{p} - \langle p\rangle$, this translates into a differential equation whose only normalizable solution is the Gaussian. The square-well ground state has hard walls forcing $\psi(0) = \psi(L) = 0$ — it cannot be Gaussian. So its product $\sigma_x\sigma_p$ sits strictly above $\hbar/2$.
 
 Open `01-probability-explorer.html` from Chapter 3, select the infinite-well, set $n = 1$, $L = 10$ nm. The ratio should read approximately $1.136$. That number is this calculation, done numerically.
 
@@ -190,11 +190,11 @@ Open `01-probability-explorer.html` from Chapter 3, select the infinite-well, se
 
 ## What the Uncertainty Principle Is Not About
 
-There is a story told in many textbooks — Heisenberg's gamma-ray microscope — in which a photon used to locate an electron kicks it, disturbing its momentum in an uncontrollable way. The story is physically illuminating. But it describes a different statement from the Kennard inequality.
+There is a story told in countless textbooks — Heisenberg's gamma-ray microscope — in which a photon sent to locate an electron kicks it, jolting its momentum in an uncontrollable way. The story is physically illuminating, and Heisenberg himself reached for it. But it describes a different statement from the Kennard inequality.
 
-The Kennard inequality is about *preparation*, not measurement. Prepare a million copies of the same state. Measure position on half, momentum on the other half. No copy is measured twice. No particle is kicked by any photon. And yet $\sigma_x\sigma_p \geq \hbar/2$. The bound is set by the shape of $\psi$, before any measurement begins.
+The Kennard inequality is about *preparation*, not measurement. Prepare a million copies of the same state. Measure position on half, momentum on the other half. No copy is measured twice. No particle is kicked by any photon. And still $\sigma_x\sigma_p \geq \hbar/2$. The bound is fixed by the shape of $\psi$, before any measurement begins.
 
-The microscope story describes an *error-disturbance* relation: if I measure position with precision $\epsilon$, the act of measurement introduces a momentum disturbance $\eta$, and $\epsilon\cdot\eta$ satisfies some bound. Ozawa formalized this in 2003 and proved the relation has a different form from Kennard's. Erhart et al. tested both experimentally in 2012. They are different inequalities with different mathematical forms and different physical interpretations. Conflating them is the most persistent conceptual error in introductory quantum mechanics.
+The microscope story describes an *error-disturbance* relation: if I measure position with precision $\epsilon$, the act of measuring introduces a momentum disturbance $\eta$, and $\epsilon\cdot\eta$ obeys some bound. Masanao Ozawa formalized this in 2003 and proved that the relation takes a different form from Kennard's. Erhart and collaborators tested both experimentally in 2012. They are different inequalities with different mathematical forms and different physical meanings. Confusing the two is the most stubborn conceptual error in introductory quantum mechanics.
 
 ---
 
@@ -280,11 +280,11 @@ VERIFY.
 
 ## Still Puzzling
 
-The Robertson inequality drops the anticommutator term to get a cleaner bound. The Schrödinger inequality (1930) retains it and is strictly tighter for most states and most operator pairs. Which states saturate the Schrödinger bound — and whether they have a clean physical characterization beyond "not Gaussian" — remains an active question in the research literature.
+The Robertson inequality discards the anticommutator term to win a cleaner bound. The Schrödinger inequality (1930) keeps it and is strictly tighter for most states and most operator pairs. Which states saturate the Schrödinger bound — and whether they have a clean physical characterization beyond "not Gaussian" — remains an open question in the research literature.
 
-The Robertson framework measures uncertainty through variance. But variance is not the only defensible measure of spread. The entropic uncertainty relations of Maassen and Uffink (1988) replace $\sigma_A^2$ with the Shannon entropy $H(A)$ of the measurement distribution, giving $H(x) + H(p) \geq \log(e\pi\hbar)$. Entropic bounds are tighter than variance-based Robertson for non-Gaussian states and are central to quantum information theory and cryptography. They are graduate-level content but worth knowing exist.
+The Robertson framework gauges uncertainty through variance. But variance is not the only defensible measure of spread. The entropic uncertainty relations of Maassen and Uffink (1988) swap $\sigma_A^2$ for the Shannon entropy $H(A)$ of the measurement distribution, yielding $H(x) + H(p) \geq \log(e\pi\hbar)$. Entropic bounds are tighter than variance-based Robertson for non-Gaussian states and sit at the center of quantum information theory and cryptography. They are graduate-level content but worth knowing exist.
 
-The error-disturbance relations — Ozawa (2003), tested by Erhart et al. (2012) and Rozema et al. (2012) — describe what happens when you measure one observable and ask how much the act of measurement disturbs a subsequent measurement of the other. They require weak measurements and quantum tomography to test. The conceptual boundary between preparation uncertainty (Robertson) and disturbance uncertainty (Ozawa-type) is important and not yet standard in most undergraduate curricula.
+The error-disturbance relations — Ozawa (2003), tested by Erhart et al. (2012) and Rozema et al. (2012) — describe what happens when you measure one observable and ask how much that act disturbs a subsequent measurement of the other. Testing them takes weak measurements and quantum tomography. The conceptual boundary between preparation uncertainty (Robertson) and disturbance uncertainty (Ozawa-type) matters, and it is not yet standard in most undergraduate curricula.
 
 ---
 

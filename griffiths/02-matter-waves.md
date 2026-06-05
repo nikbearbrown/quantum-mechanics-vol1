@@ -1,15 +1,15 @@
 # Chapter 2 — Matter Waves: de Broglie, Davisson–Germer, and the Double Slit
 *The accident that proved every moving thing is also a wave.*
 
-The year is 1926 and Lester Germer has a problem he doesn't yet recognize as a discovery. He and Clinton Davisson had been firing electrons at a nickel surface for months, recording where they scattered. The results were deeply uninteresting: a smooth, featureless blob of electrons bouncing off at all angles, exactly what you'd expect from billiard balls hitting a rough wall. Then a liquid-air flask exploded near the apparatus. The vacuum tube cracked. Oxygen flooded in, oxidized the nickel, and ruined weeks of work. To clean the surface, they annealed the target — heated it slowly until the oxide burned away. When they resumed measurements, the smooth blob was gone. In its place: sharp peaks at specific angles.
+It is 1926, and Lester Germer has a problem he does not yet know is a discovery. He and Clinton Davisson had spent months firing electrons at a nickel surface and recording where they bounced. The results were spectacularly dull: a smooth, featureless smear of electrons scattering off in every direction, exactly what billiard balls do against a rough wall. Then a flask of liquid air burst near the apparatus. The vacuum tube cracked, oxygen rushed in, the nickel oxidized, and weeks of work were ruined. To clean the target they annealed it — heated it slowly until the oxide cooked away. When they started measuring again, the smooth smear had vanished. In its place stood sharp peaks at particular angles.
 
-They had, by accident, converted polycrystalline nickel into a single crystal. A single crystal has regular atomic planes — the same orderly planes that William Lawrence Bragg had shown would diffract X-rays. The electrons, it turned out, were doing exactly what X-rays do when they scatter from a crystal lattice. Not because Davisson and Germer planned this experiment. Because physics required it.
+What they had done, by accident, was convert polycrystalline nickel into a single crystal. A single crystal has regular atomic planes — the same orderly planes that William Lawrence Bragg had shown would diffract X-rays. The electrons were doing precisely what X-rays do when they scatter from a lattice. Not because anyone planned the experiment that way. Because physics left them no choice.
 
-Two years earlier, a doctoral student in Paris had predicted something like it. Louis-Victor de Broglie argued, in a thesis his committee nearly rejected, that if light waves can behave like particles — which Einstein had shown in 1905, invoking the photoelectric effect — then matter particles ought to behave like waves. The reasoning had a clean symmetry. Einstein showed electromagnetic waves carry momentum $p = h/\lambda$, where $h$ is Planck's constant. De Broglie simply reversed it: a particle with momentum $p$ should have an associated wavelength
+Two years earlier, a graduate student in Paris had predicted as much. Louis-Victor de Broglie argued, in a thesis his committee nearly rejected, that if light waves can behave like particles — as Einstein had shown in 1905 through the photoelectric effect — then matter particles ought to behave like waves. The symmetry is clean. Einstein had shown that electromagnetic waves carry momentum $p = h/\lambda$, with $h$ Planck's constant. De Broglie simply ran it backward: a particle of momentum $p$ should carry a wavelength
 
 $$\lambda = \frac{h}{p}.$$
 
-The committee consulted Einstein before approving the thesis. Einstein called the idea brilliant. De Broglie received the Nobel Prize in 1929 — the only one ever awarded specifically for a doctoral thesis. The Davisson–Germer accident, understood in that light, was the confirmation. And the confirmation raised a question that turned out to be harder than the formula: what, exactly, is doing the waving?
+The committee, unsure what to make of it, consulted Einstein before approving the thesis. Einstein called the idea brilliant. De Broglie received the Nobel Prize in 1929 — still the only one ever awarded for a doctoral thesis. Seen in that light, the Davisson–Germer accident was the confirmation. And it raised a question that proved harder than the formula itself: what, exactly, is doing the waving?
 
 <!-- → [IMAGE: photograph or schematic of the Davisson–Germer apparatus — showing the electron gun, rotatable detector, and nickel crystal target; caption should note the accidental annealing that converted the sample to a single crystal] -->
 
@@ -20,7 +20,7 @@ The committee consulted Einstein before approving the thesis. Einstein called th
 
 ## The Formula and What It Means
 
-Start with what de Broglie actually wrote. For a non-relativistic particle with kinetic energy $K$ and mass $m$, momentum and energy are related by $K = p^2/2m$, so $p = \sqrt{2mK}$. Substituting:
+Begin with what de Broglie actually wrote. For a non-relativistic particle of mass $m$ and kinetic energy $K$, momentum and energy obey $K = p^2/2m$, so $p = \sqrt{2mK}$. Substitute:
 
 $$\lambda = \frac{h}{\sqrt{2mK}}.$$
 
@@ -28,87 +28,87 @@ For a charged particle of charge $e$ accelerated from rest through a potential d
 
 $$\lambda = \frac{h}{\sqrt{2meV}}.$$
 
-For electrons specifically — you will find yourself computing this constantly — the numbers reduce to a useful shortcut:
+For electrons specifically — and you will compute this often enough to memorize it — the numbers collapse to a tidy shortcut:
 
 $$\lambda_{\text{electron}} \approx \frac{1.226\text{ nm}}{\sqrt{V\text{ (in volts)}}}.$$
 
-At 150 volts, $\lambda \approx 0.1$ nm. One tenth of a nanometer. One ångström. This is not a coincidence — it is approximately the spacing between atoms in a solid. If you want a wave to diffract from a crystal, its wavelength must be comparable to the crystal's spacing. X-rays can do this because their wavelengths are in the ångström range. The de Broglie formula tells you that electrons accelerated through a few hundred volts land in exactly the same range. This is why Davisson and Germer could see diffraction at all, and why Bragg's law — developed entirely for X-rays — worked without modification for electrons.
+At 150 volts, $\lambda \approx 0.1$ nm. A tenth of a nanometer. One ångström. That is no coincidence — it is about the spacing between atoms in a solid. For a wave to diffract from a crystal, its wavelength must be comparable to the crystal's spacing. X-rays manage because their wavelengths sit in the ångström range. The de Broglie formula says electrons pushed through a few hundred volts land in the same range. That is why Davisson and Germer saw diffraction at all, and why Bragg's law — built entirely for X-rays — worked for electrons without a single modification.
 
-Here is what the wavelength is not: it is not the physical size of the electron. The classical electron radius is roughly $2.8 \times 10^{-15}$ m — eight orders of magnitude smaller than the 0.167 nm de Broglie wavelength of a 54 eV electron. The wavelength is a property of the electron's state of motion, not its physical extent. This distinction matters enormously when students first encounter the idea, because the intuitive picture — some small ball with ripples around it — is wrong. The wave and the particle are not separable components of the same thing. The wave *is* the thing, in the sense that it is the only object that evolves deterministically between observations.
+Now what the wavelength is *not*: it is not the physical size of the electron. The classical electron radius is about $2.8 \times 10^{-15}$ m — eight orders of magnitude below the 0.167 nm de Broglie wavelength of a 54 eV electron. The wavelength is a property of the electron's state of motion, not its physical extent. The distinction trips up nearly everyone at first, because the intuitive picture — a tiny ball with ripples around it — is simply wrong. The wave and the particle are not detachable parts of one object. The wave *is* the object, in the sense that it is the only thing that evolves deterministically between observations.
 
 <!-- → [TABLE: de Broglie wavelengths for several particles — columns: particle, mass, speed or energy, λ; rows: electron at 54 eV (the Davisson–Germer case), proton at same kinetic energy, C₆₀ buckyball at 900 K, 70 kg person walking at 1 m/s; the last row makes the classical limit visceral] -->
 
-De Broglie's idea was not purely abstract. The argument has a logical structure worth tracing. Einstein's special relativity required that energy and momentum transform as a four-vector. De Broglie noticed that frequency and wave vector (the spatial frequency $1/\lambda$) also transform as a four-vector. For a photon, the relationship $E = h\nu$ connects these two four-vectors by the single constant $h$. De Broglie asserted that the same constant connects them for any particle. It was a symmetry argument, not an empirical fit. The experiments came later.
+De Broglie's argument was not pure abstraction, and its logic is worth tracing. Special relativity requires energy and momentum to transform together as a four-vector. De Broglie noticed that frequency and wave vector (the spatial frequency $1/\lambda$) also transform as a four-vector. For a photon, $E = h\nu$ ties the two four-vectors together through the single constant $h$. De Broglie asserted that the same constant ties them together for any particle. It was a symmetry argument, not a fit to data. The data came afterward.
 
 ---
 
 ## The Davisson–Germer Experiment
 
-Reconstruct the 1927 result from first principles, and you see exactly why it is convincing.
+Rebuild the 1927 result from first principles and you see exactly why it convinces.
 
-Davisson and Germer found a sharp diffraction peak at 50° for electrons accelerated through 54 V. The de Broglie wavelength at 54 eV is:
+Davisson and Germer found a sharp diffraction peak at 50° for electrons accelerated through 54 V. The de Broglie wavelength at 54 eV:
 
 $$p = \sqrt{2 \times (9.109 \times 10^{-31}) \times (54 \times 1.602 \times 10^{-19})} = 3.970 \times 10^{-24}\text{ kg m s}^{-1}$$
 
 $$\lambda = \frac{6.626 \times 10^{-34}}{3.970 \times 10^{-24}} \approx 0.167\text{ nm.}$$
 
-The relevant crystal planes in nickel are the (111) planes of the face-centered cubic lattice, with spacing $d = 0.091$ nm. Bragg's law for first-order diffraction:
+The relevant planes in nickel are the (111) planes of the face-centered cubic lattice, with spacing $d = 0.091$ nm. Bragg's law for first-order diffraction:
 
 $$2d\sin\theta_{\text{Bragg}} = \lambda \implies \sin\theta_{\text{Bragg}} = \frac{0.167}{2 \times 0.091} = 0.918 \implies \theta_{\text{Bragg}} \approx 66.6°.$$
 
-The scattering angle measured from the forward beam in the Davisson–Germer geometry converts to approximately 47° — close to the observed 50°. The small residual discrepancy is not a failure of de Broglie. It arises because electrons entering a metal crystal experience an attractive inner potential, which slightly accelerates them and shortens their wavelength inside the crystal. Correcting for this inner potential brings the prediction into exact agreement.
+Converting the Bragg angle into the scattering angle measured from the forward beam in the Davisson–Germer geometry gives about 47° — close to the observed 50°. The small leftover discrepancy is not a failure of de Broglie. It comes from the attractive inner potential that electrons feel on entering the metal, which speeds them up and shortens their wavelength inside the crystal. Correct for the inner potential and the prediction lands exactly.
 
-This is the structure of a successful quantitative test: a parameter-free prediction from quantities measured entirely independently ($h$, $m_e$, $d$), compared against an angle measured in an unrelated experiment that was not even designed to test this prediction. The agreement is not approximate. It is exact when the physics is accounted for completely.
+This is the anatomy of a good quantitative test: a parameter-free prediction built from independently measured quantities ($h$, $m_e$, $d$), checked against an angle measured in a wholly unrelated experiment that was never even designed to test it. The agreement is not loose. Account for the physics fully and it is exact.
 
-Davisson and Germer did not fully understand what they had found until Davisson traveled to Europe and spoke with Max Born, James Franck, and others who had been digesting de Broglie's and Schrödinger's new wave mechanics. George Paget Thomson was doing similar experiments independently in Aberdeen, firing electrons through thin metal films and observing rings — Debye–Scherrer diffraction, the same geometry used for polycrystalline X-ray diffraction. Thomson and Davisson shared the 1937 Nobel Prize. (Davisson–Germer, *Physical Review* **30**, 705–740 (1927). doi:10.1103/PhysRev.30.705)
+Davisson and Germer did not fully grasp what they had until Davisson traveled to Europe and talked with Max Born, James Franck, and others who had been chewing on de Broglie's and Schrödinger's new wave mechanics. George Paget Thomson was running similar experiments independently in Aberdeen, firing electrons through thin metal films and seeing rings — Debye–Scherrer diffraction, the same geometry used for polycrystalline X-ray work. Thomson and Davisson shared the 1937 Nobel Prize. (Davisson–Germer, *Physical Review* **30**, 705–740 (1927). doi:10.1103/PhysRev.30.705)
 
 <!-- → [FIGURE: diagram of Bragg diffraction geometry applied to the Davisson–Germer case — showing incident and reflected electron beams, crystal planes separated by d = 0.091 nm, path-length difference of 2d sin θ, and the condition for constructive interference; contrast with a polycrystalline diffraction ring geometry for Thomson's version] -->
 
 ![diagram of Bragg diffraction geometry applied to the Davisson–Germer case — showing incident and reflected electron beams, crystal planes…](../images/02-matter-waves-fig-02.png)
 *Figure 2.2 — diagram of Bragg diffraction geometry applied to the Davisson–Germer case — showing incident and reflected electron beams, crystal planes…*
 
-There is a point of logic worth making explicit. The Davisson–Germer experiment does not prove that electrons *are* waves in some classical sense — that they are extended oscillations in a medium, the way sound is. What it proves is that electrons produce interference and diffraction phenomena that can only be calculated using wave mechanics. The distinction matters because the same electron that produces a diffraction peak arrives at the detector as a localized event — a single click, a single dot.
+A logical point worth stating outright. The Davisson–Germer experiment does not prove that electrons *are* waves in any classical sense — that they are extended oscillations in some medium, the way sound is. What it proves is that electrons produce interference and diffraction that can only be computed with wave mechanics. The distinction matters, because the same electron that builds a diffraction peak arrives at the detector as a single localized event — one click, one dot.
 
 ---
 
 ## Single Electrons, One at a Time
 
-The hardest version of the experiment — and therefore the most instructive — is what Akira Tonomura and colleagues at Hitachi performed in 1989. They built a double-slit setup using an electron biprism: a fine wire held at positive potential that splits an electron beam into two coherent paths, physically equivalent to two slits. They reduced the beam intensity until fewer than one electron was in the apparatus at any moment. Each electron struck a position-sensitive detector and was recorded as a single localized dot.
+The most demanding version of the experiment — and so the most instructive — is the one Akira Tonomura and colleagues at Hitachi carried out in 1989. They built a double-slit setup from an electron biprism: a fine wire held at positive potential that splits an electron beam into two coherent paths, the physical equivalent of two slits. They dialed the intensity down until, at any instant, fewer than one electron was inside the apparatus. Each electron hit a position-sensitive detector and registered as a single localized dot.
 
-Watch the pattern build:
+Watch the pattern assemble:
 
-At ten electrons, you see ten random-looking dots. Nothing suggests order. At two hundred electrons, there is faint clustering but no clear pattern. At six thousand, stripes begin to emerge. At seventy thousand, the result is unambiguous: a sharp, clean interference pattern of alternating bright and dark fringes — exactly the pattern predicted by treating the electron as a wave passing through both paths simultaneously.
+At ten electrons you have ten random-looking dots, with no hint of order. At two hundred, faint clustering and still no clear pattern. At six thousand, stripes begin to surface. At seventy thousand, the verdict is unmistakable: a sharp, clean interference pattern of alternating bright and dark fringes — exactly what you get by treating the electron as a wave passing through both paths at once.
 
-The electrons did not interfere with each other. There was only ever one in the apparatus. Each electron arrived as a particle — a point — and contributed one dot to the pattern. Yet the distribution of those dots, accumulated over time, has the mathematical structure of wave interference. The conclusion is not optional: each individual electron's wave function passed through both arms of the apparatus simultaneously and interfered with itself. The dot on the detector is where the wave function collapsed upon measurement. The interference pattern is the accumulated probability, and that probability was determined by a wave that explored the full geometry on each individual pass.
+The electrons did not interfere with one another. There was never more than one in the apparatus. Each arrived as a particle — a point — and laid down one dot. Yet the accumulated distribution of those dots has the mathematical structure of wave interference. The conclusion is not optional: each individual electron's wave function passed through both arms of the apparatus and interfered with itself. The dot is where the wave function collapsed on measurement. The interference pattern is the accumulated probability, and that probability was set by a wave that explored the full geometry on every single pass.
 
-Tonomura's 1989 paper is the most famous demonstration of this kind, but the first single-electron buildup was demonstrated by Pier Giorgio Merli, Giulio Missiroli, and Gianfranco Pozzi in Bologna in 1974 (published 1976 in *American Journal of Physics*). Their experiment was voted one of the most beautiful in physics in a 2002 *Physics World* poll. The first experiment using physically nano-fabricated real double slits — actual slits cut in a membrane, not a biprism — was Bach et al. in 2013. (Tonomura et al., *Am. J. Phys.* **57**, 117–120 (1989). doi:10.1119/1.16104; Bach et al., *New J. Phys.* **15**, 033018 (2013). doi:10.1088/1367-2630/15/3/033018)
+Tonomura's 1989 paper is the most celebrated demonstration of this kind, but the first single-electron buildup was shown by Pier Giorgio Merli, Giulio Missiroli, and Gianfranco Pozzi in Bologna in 1974 (published 1976 in the *American Journal of Physics*). Their experiment was voted one of the most beautiful in physics in a 2002 *Physics World* poll. The first experiment using physically nano-fabricated real double slits — actual slits cut in a membrane, not a biprism — was Bach et al. in 2013. (Tonomura et al., *Am. J. Phys.* **57**, 117–120 (1989). doi:10.1119/1.16104; Bach et al., *New J. Phys.* **15**, 033018 (2013). doi:10.1088/1367-2630/15/3/033018)
 
 <!-- → [CHART: sequence of detector images from the single-electron buildup — showing the pattern at approximately 10, 200, 6,000, and 70,000 electrons; this is the most important visual in the chapter and must show both the particle nature (individual dots) and wave nature (emerging fringes)] -->
 
 ![sequence of detector images from the single-electron buildup — showing the pattern at approximately 10, 200, 6,000, and 70,000 electrons](../images/02-matter-waves-fig-03.png)
 *Figure 2.3 — sequence of detector images from the single-electron buildup — showing the pattern at approximately 10, 200, 6,000, and 70,000 electrons*
 
-Here is what the experiment rules out, and this is the part students most need to hear carefully. It rules out any model in which the electron follows a definite trajectory through one slit or the other. If electrons had definite trajectories, reducing the rate to one at a time would change nothing — you would get two bright regions behind the two slits, and nothing in between. You do not get that. You get fringes extending well into the geometric shadow. The pattern depends on the separation of both slits, even though each electron can only be detected at one place.
+Here is what the experiment rules out, and this is the part to read carefully. It rules out any model in which the electron follows a definite path through one slit or the other. If electrons had definite trajectories, slowing the rate to one at a time would change nothing — you would get two bright bands behind the two slits and nothing in between. You do not get that. You get fringes reaching well into the geometric shadow. The pattern depends on the separation of both slits, even though each electron is only ever detected at a single place.
 
-There is a temptation to say: perhaps the electron really does go through one slit, but the act of not detecting it at the other slit somehow disturbs the outcome. This is not a live option. You can make the slits arbitrarily wide and the detector arbitrarily gentle, and the interference persists as long as you do not acquire information about which slit the electron used. What destroys interference is not physical disturbance — it is information.
+There is a tempting escape: perhaps the electron really does pass through one slit, and the act of *not* detecting it at the other somehow nudges the outcome. This is not a live option. Make the slits as wide as you like and the detector as gentle as you like, and the interference survives — provided you acquire no information about which slit the electron took. What destroys interference is not physical disturbance. It is information.
 
 ---
 
 ## Why Human-Scale Objects Don't Diffract
 
-The de Broglie relation applies to everything. Not just electrons. Not just quantum particles. Everything with momentum has an associated wavelength. The question is only whether that wavelength is large enough to matter.
+The de Broglie relation applies to everything. Not just electrons. Not just "quantum particles." Anything with momentum carries a wavelength. The only question is whether that wavelength is large enough to matter.
 
-A proton accelerated through the same 54 V has 1836 times the electron's mass. Its momentum at the same kinetic energy is $\sqrt{1836}$ times larger, so its wavelength is $\sqrt{1836} \approx 43$ times smaller: about 4 pm. Still in the range where crystal diffraction is possible — neutron and proton diffraction are real techniques used in materials science.
+A proton accelerated through the same 54 V has 1836 times the electron's mass. At equal kinetic energy its momentum is $\sqrt{1836}$ times larger, so its wavelength is $\sqrt{1836} \approx 43$ times smaller: about 4 pm. Still within reach of crystal diffraction — neutron and proton diffraction are genuine tools in materials science.
 
-A $\text{C}_{60}$ buckyball — sixty carbon atoms, mass approximately 720 atomic mass units — was diffracted from a grating with 50 nm slits by Anton Zeilinger's group in Vienna in 1999. The de Broglie wavelength at the effusion temperature of 900 K comes out to roughly 2.5 pm (picometers) — smaller than the molecule itself. Yet fringes appeared. The 2019 experiments by Fein and colleagues pushed this to molecules of approximately 2,000 atoms. (Arndt et al., *Nature* **401**, 680–682 (1999). doi:10.1038/44348; Fein et al., *Nat. Phys.* **15**, 1242–1245 (2019). doi:10.1038/s41567-019-0663-9)
+A $\text{C}_{60}$ buckyball — sixty carbon atoms, mass about 720 atomic mass units — was diffracted from a 50 nm grating by Anton Zeilinger's group in Vienna in 1999. At the effusion temperature of 900 K its de Broglie wavelength comes out near 2.5 pm — smaller than the molecule itself. Fringes appeared anyway. The 2019 experiments of Fein and colleagues pushed this to molecules of roughly 2,000 atoms. (Arndt et al., *Nature* **401**, 680–682 (1999). doi:10.1038/44348; Fein et al., *Nat. Phys.* **15**, 1242–1245 (2019). doi:10.1038/s41567-019-0663-9)
 
 Now compute the wavelength of a 70 kg person walking at 1 m/s:
 
 $$\lambda = \frac{6.626 \times 10^{-34}}{70 \times 1} \approx 10^{-35}\text{ m.}$$
 
-This is roughly twenty orders of magnitude smaller than a proton. No physical slit, no crystal lattice, no instrument of any kind could resolve a wavelength this small. Quantum interference is not absent for large objects — it is present but utterly invisible. Quantum mechanics does not break down at human scales. It becomes indistinguishable from classical mechanics because the wavelengths are so small that no physically realizable grating or aperture could reveal the fringe structure.
+That is some twenty orders of magnitude below a proton. No slit, no lattice, no instrument of any kind could resolve a wavelength this small. Quantum interference is not absent for large objects — it is present and utterly invisible. Quantum mechanics does not switch off at human scales. It simply becomes indistinguishable from classical mechanics, because the wavelengths are so small that no physically realizable aperture could ever expose the fringes.
 
-This is Bohr's correspondence principle made concrete: quantum mechanics contains classical mechanics as a limiting case when the action of the system is much larger than $\hbar$. The de Broglie wavelength makes that limit quantitative and immediate. You do not need a philosophical argument. You just need to compute $h/p$.
+This is Bohr's correspondence principle made concrete: quantum mechanics contains classical mechanics as the limit in which the system's action greatly exceeds $\hbar$. The de Broglie wavelength turns that limit into something quantitative and immediate. You do not need a philosophical argument. You need to compute $h/p$.
 
 <!-- → [INFOGRAPHIC: scale comparison — showing λ for electron at 54 eV (0.167 nm), thermal neutron (~1 Å), C₆₀ at 900 K (~2.5 pm), and 70 kg person walking (10⁻³⁵ m), placed on a logarithmic scale alongside reference lengths: proton radius, hydrogen atom, visible light wavelength, human hair; the goal is to make viscerally clear why quantum wavelengths are measurable for small particles and invisible for large ones] -->
 
@@ -116,15 +116,15 @@ This is Bohr's correspondence principle made concrete: quantum mechanics contain
 
 ## What the Wave Function Is Not Yet
 
-De Broglie told you there is a wave. He did not tell you what it is a wave of. That is the harder question, and it was answered — provisionally, controversially — by Max Born in 1926, the same year Davisson's tube cracked. Born proposed that the wave function $\psi(x,t)$ is not a physical wave in space, like a water wave or a sound wave. Its square modulus, $|\psi(x,t)|^2$, is a probability density: the probability of finding the particle at position $x$ at time $t$ if you look.
+De Broglie told you there is a wave. He did not tell you what it is a wave *of*. That is the harder question, and it was answered — provisionally, and amid controversy — by Max Born in 1926, the same year Davisson's tube cracked. Born proposed that the wave function $\psi(x,t)$ is not a physical wave in space, like water or sound. Its squared modulus, $|\psi(x,t)|^2$, is a probability density: the probability of finding the particle at position $x$ at time $t$, should you look.
 
-This interpretation is not derivable from the de Broglie relation. It is a separate postulate, and it is the one that makes quantum mechanics genuinely strange. The wave function is a wave of probability amplitude — complex-valued, not directly observable, but real in the sense that it predicts observable interference.
+This interpretation does not follow from the de Broglie relation. It is a separate postulate, and it is the one that makes quantum mechanics genuinely strange. The wave function is a wave of probability amplitude — complex-valued, not directly observable, yet real in the sense that it predicts observable interference.
 
-The Tonomura experiment makes Born's rule visible. The interference pattern that builds up, dot by dot, is exactly the pattern $|\psi|^2$ predicts. The dots are random — you cannot predict where any individual electron will land. But their distribution, after many electrons, converges to $|\psi|^2$ computed from the wave equation. The randomness is not ignorance of hidden variables. It is, as far as anyone can tell, irreducible.
+The Tonomura experiment makes Born's rule visible. The pattern that builds up, dot by dot, is exactly what $|\psi|^2$ predicts. The dots themselves are random — you cannot say where any individual electron will land. But their accumulated distribution converges to $|\psi|^2$ computed from the wave equation. The randomness is not ignorance of hidden variables. So far as anyone can tell, it is irreducible.
 
-The connection between the de Broglie wavelength and the wave function $\psi$ is not an analogy. A state of definite momentum $p$ corresponds to a plane wave $\psi(x) \propto e^{ipx/\hbar}$ — a function that oscillates with spatial period $\lambda = h/p = 2\pi\hbar/p$. This is precisely de Broglie's wavelength, recovered as the spatial period of the quantum state. Chapter 3 takes up what the wave function means precisely, how it is normalized, and why $|\psi|^2$ gives probabilities. Chapter 4 gives the equation that governs how $\psi$ evolves.
+The link between the de Broglie wavelength and the wave function $\psi$ is not an analogy. A state of definite momentum $p$ corresponds to a plane wave $\psi(x) \propto e^{ipx/\hbar}$ — a function oscillating with spatial period $\lambda = h/p = 2\pi\hbar/p$. That is precisely de Broglie's wavelength, recovered as the spatial period of the quantum state. Chapter 3 takes up what the wave function means precisely, how it is normalized, and why $|\psi|^2$ gives probabilities. Chapter 4 supplies the equation that governs how $\psi$ evolves.
 
-One forward puzzle worth carrying into those chapters: a state of definite momentum has a perfectly definite wavelength. But a plane wave $e^{ipx/\hbar}$ extends over all space — it has no localization at all. To build a particle that is localized — one that sits in some finite region — you must superpose plane waves with many different momenta. Superposing a range of momenta $\Delta p$ produces localization within a spatial width $\Delta x \sim h/\Delta p$. This is not a theorem of quantum mechanics. It is a theorem of Fourier analysis, and it will become, in the next chapter, the Heisenberg uncertainty principle.
+Carry one forward puzzle into those chapters. A state of definite momentum has a perfectly definite wavelength. But a plane wave $e^{ipx/\hbar}$ stretches across all of space — it has no localization whatever. To build a particle confined to a finite region, you must superpose plane waves of many different momenta. Spread the momenta over a range $\Delta p$ and the result is localized within a width $\Delta x \sim h/\Delta p$. This is not a theorem of quantum mechanics. It is a theorem of Fourier analysis, and in the next chapter it becomes the Heisenberg uncertainty principle.
 
 ---
 

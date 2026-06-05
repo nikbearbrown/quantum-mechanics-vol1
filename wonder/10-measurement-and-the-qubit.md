@@ -1,0 +1,382 @@
+# Chapter 10 — Measurement, Superposition, and the Qubit
+
+Picture an afternoon in Göttingen, 1925. Werner Heisenberg has run off to the island of Helgoland to escape his hay fever, and he has brought a problem with him: how do you build a theory of atomic transitions using only quantities you can actually observe — not electron orbits that nobody has ever laid eyes on? He is about to invent matrix mechanics. But underneath his calculation sits a deeper question, one that every physicist who comes after him will have to stare down: when you measure something quantum, what actually happens?
+
+Not in the abstract. Not as philosophy. Concretely: you run the experiment, you get a number — what were the rules that produced it?
+
+---
+
+## The Measurement Postulate
+
+Let $\hat{A}$ be a Hermitian observable with discrete eigenvalues $\{a_n\}$ and orthonormal eigenstates $\{|a_n\rangle\}$. When you measure $\hat{A}$ on a system in state $|\psi\rangle$, three things happen:
+
+**1.** The only possible outcomes are the eigenvalues $a_n$. Nothing between them. Not a superposition of them. Exactly one.
+
+**2.** The probability of getting $a_n$ is
+
+$$\boxed{P(a_n) = |\langle a_n|\psi\rangle|^2.}$$
+
+This is the Born rule. The inner product $\langle a_n|\psi\rangle$ is a complex amplitude; its modulus squared is the probability. Geometrically, $P(a_n)$ is the squared projection of $|\psi\rangle$ onto $|a_n\rangle$.
+
+**3.** Immediately after the measurement returns $a_n$, the state is $|a_n\rangle$.
+
+This is collapse. Not a metaphor — the state-update rule.
+
+The probabilities sum to 1 by the completeness of the eigenstates:
+
+$$\sum_n P(a_n) = \sum_n |\langle a_n|\psi\rangle|^2 = \langle\psi|\!\left(\sum_n |a_n\rangle\langle a_n|\right)\!|\psi\rangle = \langle\psi|\hat{I}|\psi\rangle = 1.$$
+
+Nothing leaks. The interpretation of collapse is contested — "Still Puzzling" at the end of the chapter has the current state of that debate. The practical content is not in dispute: once you have outcome $a_n$, you predict everything that follows using $|a_n\rangle$.
+
+---
+
+## The Two-State System
+
+The simplest place where all of this is computable by hand is the qubit: a two-dimensional complex Hilbert space $\mathbb{C}^2$. Pick a basis $\{|0\rangle, |1\rangle\}$. The most general normalized state is
+
+$$|\psi\rangle = \alpha|0\rangle + \beta|1\rangle, \qquad \alpha, \beta \in \mathbb{C}, \qquad |\alpha|^2 + |\beta|^2 = 1.$$
+
+Two real numbers fix the state, up to a global phase. An electron's spin, a photon's polarization, the two lowest levels of a superconducting circuit — every one of these is a physical qubit. And the wonderful thing is that the mathematics is identical for all of them. Learn it once here and you have learned it everywhere.
+
+The standard observables on a qubit are the Pauli operators:
+
+$$\sigma_x = \begin{pmatrix}0 & 1\\1 & 0\end{pmatrix}, \qquad \sigma_y = \begin{pmatrix}0 & -i\\i & 0\end{pmatrix}, \qquad \sigma_z = \begin{pmatrix}1 & 0\\0 & -1\end{pmatrix}.$$
+
+Each is Hermitian, each squares to the identity, each has eigenvalues $\pm 1$. Their commutators: $[\sigma_i, \sigma_j] = 2i\epsilon_{ijk}\sigma_k$, so for example $[\sigma_x, \sigma_z] = -2i\sigma_y \neq 0$. They do not commute — which means measuring one and then another in a different order gives you different results. That non-commuting is going to be the whole story in a moment.
+
+One warning about $\sigma_y$: the upper-right entry is $-i$, not $+i$. This is the single most common sign error in qubit calculations. The matrix is Hermitian even though it looks antisymmetric as a real matrix, because Hermitian means equal to the *conjugate* transpose — the transpose of $\sigma_y$ is $-\sigma_y$, but the conjugate transpose is $+\sigma_y$. The $i$ does the work. Any code doing qubit calculations should check $\sigma_y^\dagger = \sigma_y$ at startup, before anything else.
+
+---
+
+## The Stern-Gerlach Experiment
+
+In 1922, Otto Stern and Walther Gerlach sent silver atoms through a lopsided magnetic field. Classical physics had a clear prediction: a smear — a continuous band of deflections, because the magnetic moments should point every which way over a continuous range. What landed on the plate was two spots. Just two.
+
+The field gradient pushes with a force set by $\mu_z$, the component of the magnetic moment along the field axis. If angular momentum were classical, $\mu_z$ would run continuously and the deposit would be a streak. Instead: two spots, at $\mu_z = \pm\mu_B$. The Born rule is not some abstraction here. It is written in silver, on a glass plate.
+
+The observable is $\hat{S}_z = (\hbar/2)\sigma_z$, with eigenvalues $\pm\hbar/2$. An atom in state $|\psi\rangle = \alpha|\!\uparrow\rangle + \beta|\!\downarrow\rangle$ lands in the upper spot with probability $|\alpha|^2$ and the lower with $|\beta|^2$. Let only the upper beam through, and the atoms that remain are all in state $|\!\uparrow\rangle$ — collapsed, certain, ready to be used again.
+
+The real fun is in chaining the experiments. Three arrangements:
+
+**Z then Z.** Take the $|\!\uparrow\rangle$ beam from a first Z apparatus and run it into a second one. Every atom lands in the upper spot. Probability 1. If you already know the result of a $\hat{S}_z$ measurement, measuring $\hat{S}_z$ again hands you the same answer — collapse holds.
+
+**Z then X.** The $\hat{S}_x$ eigenstates are $|\pm x\rangle = (|\!\uparrow\rangle \pm |\!\downarrow\rangle)/\sqrt{2}$. An atom in $|\!\uparrow\rangle$ is an equal mix of both $\hat{S}_x$ eigenstates, so an X measurement now gives you 50/50. The atom that was *certainly* spin-up in Z is *completely* uncertain in X. Watch the certainty evaporate.
+
+**Z then X then Z.** After the X measurement the state collapses to $|+x\rangle$ or $|-x\rangle$. Either way, that state is a 50/50 superposition back in the Z basis: $|+x\rangle = (|\!\uparrow\rangle + |\!\downarrow\rangle)/\sqrt{2}$. So the final Z measurement comes out random again. The middle X measurement *erased* the Z information you had. Measure Z, then X, then Z — and the Z certainty you started with is simply gone.
+
+This is not sloppy instruments or imperfect alignment. It is $[\sigma_x, \sigma_z] \neq 0$ made flesh. You cannot hold definite values for both at once, and the experiment shows you exactly that.
+
+---
+
+## The Bloch Sphere
+
+Every normalized qubit state (up to a global phase) can be written as
+
+$$|\psi\rangle = \cos\!\left(\frac{\theta}{2}\right)|0\rangle + e^{i\phi}\sin\!\left(\frac{\theta}{2}\right)|1\rangle, \qquad \theta \in [0, \pi], \quad \phi \in [0, 2\pi).$$
+
+The factor is $\theta/2$ — not $\theta$ — and you have to get this right. Check it: at $\theta = 0$ you get $|0\rangle$; at $\theta = \pi$ you get $e^{i\phi}|1\rangle$, which is $|1\rangle$ up to a global phase. At $\theta = \pi/2$ you get the equatorial state $(|0\rangle + e^{i\phi}|1\rangle)/\sqrt{2}$. Use $\theta$ instead of $\theta/2$ and the south pole shows up at $\theta = \pi/2$ instead of $\theta = \pi$, and everything is thrown off.
+
+Each state lands on a point of the unit sphere through the Bloch vector:
+
+$$\vec{r} = \bigl(\langle\sigma_x\rangle,\, \langle\sigma_y\rangle,\, \langle\sigma_z\rangle\bigr) = (\sin\theta\cos\phi,\, \sin\theta\sin\phi,\, \cos\theta).$$
+
+North pole ($\theta = 0$): state $|0\rangle$, $\langle\sigma_z\rangle = +1$. South pole ($\theta = \pi$): state $|1\rangle$, $\langle\sigma_z\rangle = -1$. Equator ($\theta = \pi/2$): equal superpositions, $\langle\sigma_z\rangle = 0$. The azimuthal angle $\phi$ is the relative phase between $|0\rangle$ and $|1\rangle$, and it is physically real: different values of $\phi$ at the same $\theta$ give different $\langle\sigma_x\rangle$ and $\langle\sigma_y\rangle$, which you can detect with the right measurement. The global phase is unobservable; the relative phase is not. That distinction matters, and the sphere shows it to you geometrically.
+
+For pure states, $|\vec{r}|^2 = 1$ exactly. That makes a handy runtime check: compute the three expectation values and confirm the Bloch vector has unit length.
+
+The $\theta/2$ in the state turns into $\theta$ on the sphere through the double-angle identities. It also means a full $2\pi$ turn of the state vector corresponds to only a $\pi$ turn of the Bloch vector — the state picks up a factor of $-1$, invisible in any expectation value but visible in interference. Neutron interferometry has actually measured it. The minus sign is real.
+
+---
+
+## Worked Example — Predicting Measurement Statistics
+
+Let
+
+$$|\psi\rangle = \frac{\sqrt{3}}{2}|0\rangle + \frac{i}{2}|1\rangle.$$
+
+Check normalization: $3/4 + 1/4 = 1$. In the Bloch parametrization: $\cos(\theta/2) = \sqrt{3}/2$ gives $\theta = \pi/3$; the coefficient of $|1\rangle$ is $i/2 = e^{i\pi/2}/2$, so $\phi = \pi/2$.
+
+**Measuring $\sigma_z$.**
+
+$$P(\sigma_z = +1) = |\langle 0|\psi\rangle|^2 = 3/4, \qquad P(\sigma_z = -1) = |\langle 1|\psi\rangle|^2 = 1/4.$$
+
+Expectation value: $\langle\sigma_z\rangle = (+1)(3/4) + (-1)(1/4) = 1/2$. From the Bloch vector: $\langle\sigma_z\rangle = \cos\theta = \cos(\pi/3) = 1/2$. Consistent. Variance: $\sigma_{\sigma_z}^2 = 1 - (1/2)^2 = 3/4$.
+
+Post-measurement states: if $+1$, collapse to $|0\rangle$; subsequent $\sigma_z$ gives $+1$ with probability 1. If $-1$, collapse to $|1\rangle$; subsequent $\sigma_z$ gives $-1$ with probability 1.
+
+**Measuring $\sigma_x$.**
+
+The $\sigma_x$ eigenstates are $|\pm x\rangle = (|0\rangle \pm |1\rangle)/\sqrt{2}$.
+
+$$P(\sigma_x = +1) = |\langle +x|\psi\rangle|^2 = \left|\frac{1}{\sqrt{2}}\cdot\frac{\sqrt{3}}{2} + \frac{1}{\sqrt{2}}\cdot\frac{i}{2}\right|^2 = \frac{3+1}{8} = \frac{1}{2}.$$
+
+So $\langle\sigma_x\rangle = 0$. From the Bloch vector: $\sin\theta\cos\phi = \sin(\pi/3)\cos(\pi/2) = 0$. Consistent.
+
+**Measuring $\sigma_y$.**
+
+The $\sigma_y$ eigenstates are $|{\pm}y\rangle = (|0\rangle \pm i|1\rangle)/\sqrt{2}$.
+
+$$P(\sigma_y = +1) = \left|\frac{1}{\sqrt{2}}\cdot\frac{\sqrt{3}}{2} + \frac{-i}{\sqrt{2}}\cdot\frac{i}{2}\right|^2 = \left|\frac{\sqrt{3}/2 + 1/2}{\sqrt{2}}\right|^2 = \frac{(\sqrt{3}+1)^2}{8} = \frac{2+\sqrt{3}}{4} \approx 0.933.$$
+
+So $\langle\sigma_y\rangle \approx 0.933 - 0.067 = \sqrt{3}/2$. Bloch vector: $\sin(\pi/3)\sin(\pi/2) = \sqrt{3}/2$. Consistent.
+
+**The Robertson bound.**
+
+$[\sigma_x, \sigma_z] = -2i\sigma_y$, so the bound on $\sigma_{\sigma_x}\sigma_{\sigma_z}$ is $|\langle\sigma_y\rangle| = \sqrt{3}/2$. We computed $\sigma_{\sigma_z} = \sqrt{3}/2$. For $\sigma_{\sigma_x}$: $\langle\sigma_x\rangle = 0$ and $\sigma_x^2 = \hat{I}$, so $\sigma_{\sigma_x} = 1$.
+
+Product: $1 \cdot \sqrt{3}/2 = \sqrt{3}/2$. Bound: $\sqrt{3}/2$. They are equal — the Robertson bound is saturated. This state is the $\sigma_y$ eigenstate (confirmed by $P(\sigma_y = +1) \approx 0.933$). The $\sigma_y$ eigenstate maximizes the product $\sigma_{\sigma_x}\sigma_{\sigma_z}$ for the $(\sigma_x, \sigma_z)$ pair, because a point on the Bloch sphere that lies entirely along the $y$-axis is equidistant from all $x$-axis and $z$-axis eigenstates.
+
+**What changes for a generic state.** Pick $\theta = \pi/4$, $\phi = 0$. Then $\langle\sigma_y\rangle = 0$, and the Robertson bound gives $\sigma_{\sigma_x}\sigma_{\sigma_z} \geq 0$ — trivially satisfied by any non-negative numbers. Computing explicitly: $\sigma_{\sigma_x} = \sigma_{\sigma_z} = 1/\sqrt{2}$, product $= 1/2$, bound $= 0$. The bound holds but is not tight. The Robertson bound is a property of the state, not a fixed number. The simulation exercise makes this visible.
+
+---
+
+## Still Puzzling
+
+The measurement postulate is the most fought-over piece of quantum mechanics. Not its predictions — those have been confirmed to ridiculous precision for a hundred years — but what it *means*.
+
+**Decoherence** (Zurek, 2003) explains why you never catch a macroscopic object in superposition: it gets entangled with countless environmental degrees of freedom and loses its interference fringes on timescales far faster than anyone could resolve. Decoherence tells you why you never see a cat in superposition without having to invoke a separate axiom of collapse. But it does not tell you why *this* outcome rather than *that* one happens on any given run. [contested]
+
+**The Born rule** is a postulate in this book — we just wrote it down. Gleason's theorem (1957) shows it is the unique probability measure on Hilbert space consistent with non-contextuality, so in a sense the structure of the theory forces it on you. Zurek's envariance argument and various many-worlds derivations try to push further still. None of them is universally accepted as having settled the matter. [contested]
+
+**Weak measurement** (Aharonov, Albert, and Vaidman, 1988) stretches the standard postulate to measurements with very feeble coupling, producing "weak values" that can sit outside the eigenvalue range entirely. These have been seen in the lab and connect to the Leggett-Garg inequalities. The framework extends the postulate; it does not overthrow it.
+
+The honest thing to tell a student is this: the measurement postulate gives correct predictions, every time. What it *means* — whether collapse is physical, or merely informational, or something that emerges from a deeper layer we have not found — is genuinely, openly unsettled. Volume 4 is where quantum mechanics works flawlessly and nobody fully agrees on why.
+
+---
+
+## The +1 — Simulation Exercise
+
+The deliverable: `11-qubit-measurement.html` — an interactive Bloch sphere with measurement statistics.
+
+### Part A — CLAUDE.md amendment
+
+Add this stanza to your existing `CLAUDE.md` before running the simulation prompt:
+
+````markdown
+## Chapter 10 — Qubit Measurement and Bloch Sphere
+
+- Pauli matrices EXACTLY as follows (verify at startup):
+    sigma_x = [[0,1],[1,0]]
+    sigma_y = [[0,-i],[i,0]]   ← UPPER-RIGHT is -i
+    sigma_z = [[1,0],[0,-1]]
+  For each M: compute M.dagger() (conjugate transpose) and verify M.dagger() === M.
+  Compute M @ M and verify === I (identity). sigma_y sign error is failure mode #1.
+
+- State parametrization: |psi> = cos(theta/2)|0> + exp(i*phi)*sin(theta/2)|1>.
+  Factor of theta/2 (NOT theta) is mandatory.
+  Test: theta=0 => |0>; theta=pi => |1>; theta=pi/2,phi=0 => (|0>+|1>)/sqrt(2).
+
+- Born rule: P(outcome = a_n) = |<a_n|psi>|^2. NEVER P = |psi|^2 directly.
+  Eigenstates for each Pauli:
+    sigma_z: |+> = [1,0], |-> = [0,1]
+    sigma_x: |+> = [1,1]/sqrt(2), |-> = [1,-1]/sqrt(2)
+    sigma_y: |+> = [1,i]/sqrt(2), |-> = [1,-i]/sqrt(2)
+
+- Bloch vector: r = (sin(theta)*cos(phi), sin(theta)*sin(phi), cos(theta)).
+  Runtime check: |r|^2 within 1e-6 of 1. Display as three bar charts [-1, +1].
+
+- Measurement simulation: N outcomes per operator sampled via inverse CDF
+  (u uniform [0,1); +1 if u < P(+1), else -1). Compute sample std devs.
+  Compare product to Robertson bound |<[A,B]>|/2 computed analytically.
+  Label: "N independent measurements on N independent copies. No copy measured twice."
+
+- Collapse: after user clicks "Measure", collapse the displayed state to the
+  eigenstate corresponding to the sampled outcome. Show the collapsed state on
+  the Bloch sphere. Add a "Reset to original state" button.
+````
+
+### Part B — The simulation prompt
+
+````
+SHOW.
+The qubit measurement postulate:
+  For observable A with eigenstates {|a_n>} and eigenvalues {a_n}:
+  (1) Outcomes are eigenvalues only.
+  (2) P(a_n) = |<a_n|psi>|^2.
+  (3) Post-measurement state is |a_n>.
+  Expectation value: <A> = sum_n a_n P(a_n) = <psi|A|psi>.
+  Standard deviation: sigma_A^2 = <A^2> - <A>^2 = 1 - <A>^2  (for Paulis, since A^2 = I).
+
+The qubit state parametrized as:
+  |psi> = cos(theta/2)|0> + exp(i*phi)*sin(theta/2)|1>
+  Bloch vector: r = (sin(theta)cos(phi), sin(theta)sin(phi), cos(theta))
+  |r|^2 = 1 for all pure states.
+
+Robertson bound: sigma_A * sigma_B >= (1/2)|<[A,B]>|.
+  For sigma_x and sigma_z: [sigma_x, sigma_z] = -2i*sigma_y, so bound = |<sigma_y>|.
+
+SAY.
+Produce a single file `11-qubit-measurement.html`.
+
+Layout (SVG 1200 x 700):
+
+Left panel (500 x 700): Bloch sphere.
+  - Translucent sphere silhouette (unit sphere, dashed outline at latitude and longitude circles).
+  - Axes x, y, z labeled, ticks at +/-1.
+  - State vector arrow from origin to Bloch vector; solid in front, dashed behind the sphere center plane.
+  - Colored dots at key states: |0> (north), |1> (south), |+x>, |-x>, |+y>, |-y>.
+  - Current state labeled with (theta, phi) values.
+  - After measurement: collapsed state shown as a new arrow in red.
+
+Center panel (300 x 700): Controls and numerical readouts.
+  - theta slider (0 to pi), phi slider (0 to 2*pi). Current values shown.
+  - Three bar charts: <sigma_x>, <sigma_y>, <sigma_z>, each in [-1, 1].
+  - Normalization indicator: |alpha|^2 + |beta|^2 (must read 1.000).
+  - "Measure sigma_z / sigma_x / sigma_y" buttons. On click: sample one outcome,
+    display it prominently, collapse the Bloch vector to the eigenstate.
+  - "Reset" button: return to pre-measurement state.
+
+Right panel (400 x 700): Measurement statistics.
+  - Two observable dropdowns (sigma_x / sigma_y / sigma_z).
+  - N slider (100 to 5000).
+  - "Run ensemble" button. On click: sample N outcomes for observable A on half
+    and N outcomes for observable B on the other half, draw histograms.
+  - Below histograms: sigma_A, sigma_B, sigma_A*sigma_B, Robertson bound |<[A,B]>|/2.
+  - Ratio = product / bound (label: must be >= 1).
+  - Label: "These are N independent measurements on N independent copies
+    of the same state. No copy is measured twice."
+
+CONSTRAIN.
+- D3 v7 from CDN. SVG only. Vanilla JS. No 3D library.
+- 3D Bloch sphere via orthographic projection (hand-rolled). View angle: 30 deg elevation, 20 deg azimuth.
+- Runtime sanity checks at startup: sigma_y hermiticity, |r|^2 = 1, P(+)+P(-) = 1.
+- Bloch sphere rotatable by mouse drag (optional; document as a bonus).
+
+VERIFY.
+After writing, confirm:
+(a) State |0> (theta=0): sigma_z bar shows +1, others show 0. Single-shot measurement
+    of sigma_z gives +1 with probability 1.
+(b) State |+y> (theta=pi/2, phi=pi/2): sigma_y bar shows +1, sigma_x and sigma_z bars
+    show 0. Ensemble with sigma_x and sigma_z at N=1000: both histograms approximately
+    50/50, product approximately 1, Robertson bound = |<sigma_y>| = 1.
+(c) State |0> ensemble measurement of sigma_x and sigma_z: product = 0, Robertson
+    bound = 0. Ratio undefined or labeled as ">= 1 trivially."
+(d) Clicking "Measure sigma_x" on state |0> collapses to |+x> or |-x> randomly;
+    subsequent sigma_x measure on the collapsed state gives same result with probability 1.
+````
+
+### Part C — Exploration tasks
+
+**The Born rule is geometry.** Set the state to $|0\rangle$ (north pole). Slowly drag $\theta$ toward $\pi/2$ while watching the $\sigma_z$ bar chart. Note $\langle\sigma_z\rangle = \cos\theta$ decreasing from $+1$ toward $0$ and $P(\sigma_z = -1) = \sin^2(\theta/2)$ rising from 0 toward $1/2$. Drag to the south pole: $P(\sigma_z = -1) = 1$. You are watching the Born rule as a geometric projection.
+
+**The phase is real.** Set $\theta = \pi/2$. Drag $\phi$ from $0$ to $2\pi$. The $\langle\sigma_z\rangle$ bar stays at 0 throughout — an equatorial state always gives 50/50 on $\sigma_z$. But watch $\langle\sigma_x\rangle = \cos\phi$ and $\langle\sigma_y\rangle = \sin\phi$ rotate through their full ranges. The relative phase $\phi$ is invisible to $\sigma_z$ but fully visible to $\sigma_x$ and $\sigma_y$. This is the operational meaning of "the phase is observable."
+
+**The Robertson bound is state-dependent.** Run the ensemble measurement for $(\sigma_x, \sigma_z)$ with $N = 2000$. At $\theta = 0$: product $\approx 0$, bound $= 0$. At $\theta = \pi/2, \phi = \pi/2$: product $\approx 1$, bound $\approx 1$. At $\theta = \pi/4, \phi = 0$: somewhere in between. The bound moves with the state.
+
+**Sequential measurement and memory loss.** Click "Measure $\sigma_z$" on the initial state $|+x\rangle$. Record the outcome. Click "Measure $\sigma_x$" on the collapsed state. The result is random — the Z measurement erased the X information. Reset and repeat five times. The post-Z state always gives 50/50 on X, regardless of whether Z returned $+1$ or $-1$.
+
+---
+
+## References
+
+- Dirac, P.A.M. (1930). *The Principles of Quantum Mechanics*. Oxford University Press.
+- Sakurai, J.J. and Napolitano, J. (2021). *Modern Quantum Mechanics*, 3rd ed. Cambridge University Press. Ch. 1–2.
+- Townsend, J.S. (2012). *A Modern Approach to Quantum Mechanics*, 2nd ed. University Science Books. Ch. 1–3.
+- Gerlach, W. and Stern, O. (1922). "Das magnetische Moment des Silberatoms." *Zeitschrift für Physik*, 9, 353–355.
+- Zurek, W.H. (2003). "Decoherence, einselection, and the quantum origins of the classical." *Reviews of Modern Physics*, 75, 715–775.
+- Aharonov, Y., Albert, D.Z., and Vaidman, L. (1988). "How the result of a measurement of a component of the spin of a spin-½ particle can turn out to be 100." *Physical Review Letters*, 60, 1351.
+- Werner, S.A., Colella, R., Overhauser, A.W., and Eagen, C.F. (1975). "Observation of the phase shift of a neutron due to precession in a magnetic field." *Physical Review Letters*, 35, 1053.
+- Gleason, A.M. (1957). "Measures on the closed subspaces of a Hilbert space." *Journal of Mathematics and Mechanics*, 6, 885–893.
+
+---
+
+*The story continues in Volume 4: entanglement. Two qubits whose joint state cannot be written as a product of individual qubit states — the Bell states — violate the CHSH inequality, ruling out local hidden variables. The measurement postulate for composite systems, partial traces, and density matrices.*
+
+---
+
+## Running Project — Build the 1D Quantum Sandbox
+
+**This chapter adds:** projective measurement — the Born-rule sampler that, given a state and an observable, returns an eigenvalue with probability $|\langle a_n|\psi\rangle|^2$ and collapses the state to $|a_n\rangle$ — letting the sandbox simulate measurement outcomes on its eigenstates (and on the qubit), with the ensemble statistics checked against $\langle\hat A\rangle$ and the Robertson bound.
+
+### Exercise R1 — When to Use AI
+**The judgment:** In this chapter's project work, AI assistance is appropriate for:
+- Writing the projective-measurement sampler (compute $P(a_n) = |\langle a_n|\psi\rangle|^2$, draw an outcome by inverse-CDF, collapse to $|a_n\rangle$) — *Why AI works here:* a standard sampling routine, checked because the empirical mean must converge to $\langle\hat A\rangle$.
+- Drafting the Bloch-sphere display and the ensemble-histogram panel — *Why AI works here:* plotting boilerplate with exact targets ($|0\rangle$ gives $\langle\sigma_z\rangle = +1$, equatorial states give 50/50).
+**The tell:** You are using AI well when you have an independent way to check the output — here, the sample mean approaching $\langle\hat A\rangle = \langle\psi|\hat A|\psi\rangle$ and $\sum_n P(a_n) = 1$.
+
+### Exercise R2 — When NOT to Use AI
+**The judgment:** These tasks require your judgment; AI output here can't be trusted without redoing the work:
+- The sign in $\sigma_y = \begin{psmallmatrix}0 & -i\\ i & 0\end{psmallmatrix}$ (upper-right is $-i$) and the $\theta/2$ in the Bloch parametrization — *Why AI fails here:* the $+i$ sign error and the $\theta$-vs-$\theta/2$ slip are the two most common qubit bugs; both produce a unit-modulus state that passes normalization but mislocates it on the sphere.
+- Whether $P(a_n) = |\langle a_n|\psi\rangle|^2$ (projection) rather than $|\psi|^2$ directly — *Why AI fails here:* the Born rule is a projection onto the *observable's* eigenbasis; computing $|\psi|^2$ in the computational basis gives wrong probabilities for $\sigma_x$ or $\sigma_y$, and the histogram still looks like a distribution.
+**The tell:** If you could not explain the result without the AI — if the AI is your *reason* rather than your *tool* — it did work that should have been yours.
+**Physics-judgment connection:** This trains checking sampled measurement statistics against the analytic expectation value ($\langle\hat A\rangle$), against probability conservation ($\sum P = 1$), and against the Robertson bound — plus startup assertions on the operator definitions ($\sigma_y^\dagger = \sigma_y$, $|\vec r| = 1$).
+
+### Exercise R3 — LLM Exercise
+**What you're building this chapter:** the projective-measurement sampler and the qubit/Bloch-sphere measurement page.
+**Tool:** Claude chat — a self-contained finite-dimensional module; the Pauli algebra needs no persistent grid state.
+**The Prompt:**
+```
+Using the Chapter 0 CLAUDE.md and constants.js as binding context, build
+11-qubit-measurement.html plus a reusable measure.js.
+
+measure.js exports measure(psi, eigenstates, eigenvalues): compute
+P(a_n) = |⟨a_n|psi⟩|², draw one outcome by inverse-CDF over P, and return
+{outcome, collapsedState = |a_n⟩}. Also exports ensemble(psi, A, N) returning
+N sampled outcomes and the sample mean/std.
+
+11-...html: qubit state |ψ⟩ = cos(θ/2)|0⟩ + e^{iφ} sin(θ/2)|1⟩ (θ/2, NOT θ),
+sliders θ ∈ [0,π], φ ∈ [0,2π). Pauli matrices EXACTLY:
+  σ_x=[[0,1],[1,0]], σ_y=[[0,-i],[i,0]] (UPPER-RIGHT −i), σ_z=[[1,0],[0,-1]].
+At startup assert σ_y† = σ_y and σ_i² = I. Bloch vector
+r = (sinθcosφ, sinθsinφ, cosθ); assert |r|² = 1.
+Show ⟨σ_x⟩,⟨σ_y⟩,⟨σ_z⟩ bars; "Measure σ_z/σ_x/σ_y" buttons that sample one
+outcome and collapse the displayed state; an "Run ensemble" panel that samples
+N outcomes for two observables, draws histograms, and prints σ_A, σ_B,
+σ_Aσ_B, and the Robertson bound |⟨[A,B]⟩|/2.
+
+VERIFY: |0⟩ → σ_z bar +1, single σ_z measurement gives +1 w.p. 1;
+|+y⟩ (θ=π/2,φ=π/2) → σ_x,σ_z ensembles ~50/50, product ≈ 1 = Robertson bound.
+```
+**What this produces:** `measure.js` (the Born-rule sampler, usable on eigenstates too) and `11-qubit-measurement.html`.
+**How to adapt:** *Your system:* apply the same `measure.js` to position eigenstates of the 1D solver to simulate position measurement collapse. *ChatGPT/Gemini:* paste the Pauli definitions explicitly. *Claude Project:* keep `measure.js` in Project knowledge.
+**Builds on:** the Born rule from Chapter 3, the Robertson bound from Chapter 9.  **Next:** Chapter 11 assembles every module into the full sandbox and runs the golden test on the whole system.
+
+### Exercise R4 — CLI Exercise
+**What you're building this chapter:** the measurement sampler with automated convergence and Robertson-bound checks.
+**Tool:** Claude Code — it can run large ensembles and assert the sample mean converges to $\langle\hat A\rangle$.
+**Skill level:** Intermediate
+**Setup — confirm:**
+- [ ] `measure.js`, `constants.js`
+- [ ] Node.js available
+- [ ] The CLAUDE.md startup assertions for $\sigma_y$ Hermiticity and $|\vec r| = 1$
+**The Task:**
+```
+Read measure.js. Write a Node script check-measure.js that:
+  (1) verifies σ_y† = σ_y and σ_i² = I (fail loudly if σ_y upper-right is +i);
+  (2) for |ψ⟩ = (√3/2)|0⟩ + (i/2)|1⟩, asserts P(σ_z=+1) = 3/4, ⟨σ_z⟩ = 1/2,
+      and that an N=10000 σ_z ensemble mean is within 0.03 of 1/2;
+  (3) for |+y⟩, asserts the (σ_x, σ_z) product equals the Robertson bound
+      |⟨σ_y⟩| = 1 within 5% at N = 5000;
+  (4) confirms Σ_n P(a_n) = 1 for all three observables.
+Do NOT loosen tolerances. Append to PROJECT.md under "Verified":
+"Ch10 measurement: ⟨σ_z⟩ sample = <v>, Robertson saturated ✓".
+```
+**Expected output:** `check-measure.js`, printed sample means and bound check, and a `PROJECT.md` line.
+**What to inspect:** the sample mean converging to the analytic $\langle\hat A\rangle$ as $N$ grows (Born rule working), and the $|+y\rangle$ state saturating the Robertson bound for $(\sigma_x,\sigma_z)$.
+**If it goes wrong:** if probabilities don't sum to 1 or are wrong for $\sigma_x$/$\sigma_y$, the sampler projected onto the computational basis instead of the observable's eigenbasis — project onto the eigenstates of the measured operator. If $\sigma_y$ Hermiticity fails, the upper-right entry is $+i$; fix it.
+**CLAUDE.md / AGENTS.md note:** add: "Measurement sampling projects onto the eigenbasis of the measured observable, not the computational basis. Assert $\sum P = 1$ and the empirical mean → $\langle\hat A\rangle$."
+
+### Exercise R5 — AI Validation Exercise
+**What you're validating:** the projective-measurement sampler and qubit page from R3/R4.
+**Validation type:** Code + Numerical result
+**Risk level:** Medium — wrong-basis projection or the $\sigma_y$ sign produces a plausible histogram with wrong probabilities.
+**Setup:** use your own R3/R4 artifacts; ground truth is the analytic $P(a_n)$ and $\langle\hat A\rangle$.
+**The Validation Task:** Evaluate against this checklist; mark Pass / Fail / Cannot determine with reasoning.
+```
+Validation Checklist — Projective measurement and the qubit
+□ Correctness: P(a_n) = |⟨a_n|ψ⟩|² (projection onto the observable's eigenbasis)?
+□ Completeness: does it show collapse, ensemble histograms, AND the Robertson bound?
+□ Scope: σ_y upper-right = −i, and Bloch uses θ/2 not θ?
+□ Physics criterion 1: |0⟩ gives ⟨σ_z⟩ = +1; equatorial states give 50/50 on σ_z?
+□ Physics criterion 2: sample mean → ⟨ψ|A|ψ⟩ as N grows, and Σ P = 1?
+□ Failure-mode check: any of —
+  - σ_y sign error (+i instead of −i): σ_y† ≠ σ_y
+  - θ vs θ/2: south pole appears at θ=π/2 instead of π
+  - P computed as |ψ|² in computational basis (wrong for σ_x, σ_y)
+  - collapse not applied (repeated σ_z after a σ_z result not deterministic)
+```
+**What to do with findings:** pass → use it, and apply the same sampler to position eigenstates; one fail → fix the $\sigma_y$ sign or the eigenbasis projection and re-run the convergence test; multiple fails / cannot-determine → compute $P(\sigma_x=+1)$ by hand for the worked-example state and compare.
+**AI Use Disclosure (mandatory, two sentences):**
+> *1:* The AI implemented the Born-rule measurement sampler, the collapse rule, and the Bloch-sphere display.
+> *2:* The AI could not determine whether it projected onto the correct eigenbasis or got the $\sigma_y$ sign right — I verified $\sum P = 1$, the sample mean converging to $\langle\hat A\rangle$, and $\sigma_y^\dagger = \sigma_y$ myself.
+**Physics-judgment connection:** trains checking sampled measurement statistics against the analytic expectation value and probability conservation, with startup assertions on the operator definitions that catch the classic qubit sign and angle errors.
