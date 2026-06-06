@@ -172,15 +172,6 @@ What actually happens is both simpler and stranger than the borrowing story. The
 
 ---
 
-## LLM Exercises
-
-### The deliverable
-
-`06-barrier-explorer.html` — a single self-contained HTML file with three tabs: **Bound States** (graphical solution for the finite well), **Step** ($R$ and $T$ vs. $E$ for a potential step), and **Barrier** ($T_\text{exact}$ and $T_\text{WKB}$ vs. $E$, plus an animated wave packet on a rectangular barrier).
-
-### CLAUDE.md amendment for this chapter
-
-````markdown
 ## Chapter 6 — Finite Wells, Steps, and Barriers
 
 BARRIER AND STEP PHYSICS RULES
@@ -305,14 +296,6 @@ After writing the file, check:
 
 ---
 
-## Still Puzzling
-
-**How long does tunneling take?** The formula for $T$ tells us the probability of crossing, but not how long the particle spends inside the barrier. The literature offers several competing definitions of "tunneling time" — the dwell time, the phase time, the Büttiker-Landauer time, the Larmor clock time — and they do not agree with one another. Attosecond-streaking experiments (Eckle et al., 2008; Sainadh et al., 2019) have measured a quantity, but its theoretical interpretation is still debated. This chapter hands you $T$. It does not hand you a tunneling time, because the framework for that is still incomplete.
-
-**Does tunneling allow faster-than-light signaling?** Popular accounts sometimes claim that a tunneled pulse can have a group velocity exceeding $c$, so that information moves faster than light. What really occurs is pulse reshaping. The barrier preferentially transmits the leading edge of the incident pulse, an edge that was already present before the barrier. The front of the pulse never exceeds $c$; the barrier simply favors its early part. No information travels faster than $c$.
-
----
-
 ## Exercises
 
 **Warm-up**
@@ -368,104 +351,3 @@ Sainadh, U. S. et al. (2019). Attosecond angular streaking and tunnelling time i
 
 PhysicsLibreTexts: "3.4 — Finite Square Well," UCD Physics 9HE. https://phys.libretexts.org/Courses/University_of_California_Davis/UCD:_Physics_9HE_-_Modern_Physics/03:_One-Dimensional_Potentials/3.4:_Finite_Square_Well
 
----
-
-## Running Project — Build the 1D Quantum Sandbox
-
-**This chapter adds:** arbitrary potentials — the sandbox stops being hardwired to $V = 0$ and accepts any $V(x)$ array (finite well, step, rectangular barrier) into the same tridiagonal Hamiltonian — plus the transmission coefficient $T(E)$ and the tunneling check against the exact $T_\text{exact} = [1 + V_0^2\sinh^2(\kappa L)/4E(V_0-E)]^{-1}$.
-
-### Exercise R1 — When to Use AI
-**The judgment:** In this chapter's project work, AI assistance is appropriate for:
-- Writing potential-builder functions `finiteWell`, `step`, `rectBarrier` that return a $V_j$ array on the grid — *Why AI works here:* these are piecewise-constant array fills, and the bound-state count or $T(E)$ curve checks them.
-- Drafting the $T(E)$ plot with both $T_\text{exact}$ and $T_\text{WKB} = e^{-2\kappa L}$ on a log y-axis — *Why AI works here:* standard plotting, and the worked example ($V_0=5,L=5,E=1 \Rightarrow T\approx 9\times10^{-5}$) gives an exact anchor.
-**The tell:** You are using AI well when you have an independent way to check the output — here, $R + T = 1$ at every energy, and the exact/WKB ratio equaling the analytic prefactor $16E(V_0-E)/V_0^2$.
-
-### Exercise R2 — When NOT to Use AI
-**The judgment:** These tasks require your judgment; AI output here can't be trusted without redoing the work:
-- The sinh→sin switch when $E$ crosses $V_0$ — *Why AI fails here:* applying the $E<V_0$ formula above the barrier (or vice versa) gives a smooth, wrong $T(E)$ that still looks like a transmission curve; only your knowledge of which regime you are in catches it.
-- Using probability current (with the $k$ ratio) rather than bare amplitude ratios for the step — *Why AI fails here:* $T = |C/A|^2$ omits the $k_1/k_0$ speed factor and silently breaks $R + T = 1$; the AI will not notice because each piece looks reasonable.
-**The tell:** If you could not explain the result without the AI — if the AI is your *reason* rather than your *tool* — it did work that should have been yours.
-**Physics-judgment connection:** This trains checking a scattering result against a conservation law ($R + T = 1$ from probability current) and against an exact closed form ($T_\text{exact}$), the discipline that catches regime-switch and amplitude-vs-current errors.
-
-### Exercise R3 — LLM Exercise
-**What you're building this chapter:** the arbitrary-$V(x)$ interface plus the transmission and tunneling calculators.
-**Tool:** Claude chat — built on `hamiltonian.js` from Chapter 5; self-contained per scenario.
-**The Prompt:**
-```
-Using the Chapter 0 CLAUDE.md, constants.js, grid.js, observables.js, and the
-hamiltonian.js from Chapter 5 as binding context, build 06-barrier-explorer.html
-with three tabs.
-
-(1) FINITE WELL: a potentials.js helper finiteWell(x, L, V0) returns V_j
-    (−V0 inside |x|<L/2, 0 outside). Feed V into hamiltonian.js's
-    buildTridiagonal, diagonalize, and count/plot the bound states (E < 0).
-    Confirm the bound-state count matches the graphical condition
-    N ≈ ceil(z_0/(π/2)), z_0 = (L/2ℏ)√(2mV_0).
-
-(2) STEP: plot R(E) and T(E) for V = V0·θ(x). For E > V0,
-    k_0 = √(2mE)/ℏ, k_1 = √(2m(E−V0))/ℏ,
-    R = ((k_0−k_1)/(k_0+k_1))², T = 4k_0k_1/(k_0+k_1)².
-    Use PROBABILITY CURRENT (the k ratio), not |amplitude|². Log "R+T" to the
-    console at every E — it must equal 1.
-
-(3) BARRIER: plot T_exact and T_WKB on a LOG y-axis vs E/V0.
-    For E < V0: κ = √(2m(V0−E))/ℏ,
-      T_exact = 1/(1 + V0² sinh²(κL)/(4E(V0−E))),  T_WKB = exp(−2κL).
-    For E > V0: switch sinh(κL) → sin(k_2 L), κ → ik_2, k_2 = √(2m(E−V0))/ℏ.
-    BOX the two regimes separately; never apply the E<V0 formula when E>V0.
-
-VERIFY: V0=5 eV, L=5 Å, E=1 eV → T_exact ≈ 9×10⁻⁵, T_WKB ≈ 3.5×10⁻⁵,
-ratio ≈ 2.56 = 16E(V0−E)/V0². Report it.
-```
-**What this produces:** `potentials.js` (well/step/barrier builders, reused later) and `06-barrier-explorer.html` with bound-state, step, and tunneling tabs.
-**How to adapt:** *Your system:* any new $V(x)$ you write plugs into the same `buildTridiagonal`. *ChatGPT/Gemini:* paste `hamiltonian.js`. *Claude Project:* add `potentials.js` to Project knowledge.
-**Builds on:** the tridiagonal Hamiltonian from Chapter 5.  **Next:** Chapter 7 feeds the same builder the quadratic oscillator potential and validates $E_n = (n+\tfrac12)\hbar\omega$.
-
-### Exercise R4 — CLI Exercise
-**What you're building this chapter:** the tunneling calculator with automated $R+T=1$ and exact-vs-WKB checks.
-**Tool:** Claude Code — it can sweep energies, assert conservation, and record the worked-example values in `PROJECT.md`.
-**Skill level:** Intermediate
-**Setup — confirm:**
-- [ ] `hamiltonian.js`, `potentials.js`, `constants.js`
-- [ ] Node.js available
-- [ ] The CLAUDE.md rule boxing the $E<V_0$ and $E>V_0$ formulas separately
-**The Task:**
-```
-Read potentials.js. Write a Node script check-scattering.js that:
-  (1) for the STEP at V0 = 2 eV, sweeps E from 2.1 to 20 eV and asserts
-      R + T = 1 within 1e-9 at every E (probability-current form);
-  (2) for the BARRIER V0 = 5 eV, L = 5 Å, E = 1 eV, asserts
-      T_exact ≈ 9×10⁻⁵, T_WKB ≈ 3.5×10⁻⁵, and ratio ≈ 2.56 = 16E(V0−E)/V0²;
-  (3) confirms the sinh→sin switch: at E = V0 exactly, T_exact → 1 (limit κ→0).
-Do NOT loosen tolerances. Append to PROJECT.md under "Verified":
-"Ch6 scattering: R+T=1 ✓, barrier T_exact/T_WKB ratio = <v>".
-```
-**Expected output:** `check-scattering.js`, printed confirmations of $R+T=1$ and the ratio, and a `PROJECT.md` line.
-**What to inspect:** that $R+T=1$ holds to machine precision (a current-vs-amplitude error breaks it at the 1% level) and that the exact/WKB ratio equals the analytic prefactor 2.56 exactly.
-**If it goes wrong:** if $R+T \neq 1$ for the step, $T$ used $|C/A|^2$ without the $k_1/k_0$ factor — restore the current form. If $T(E)$ is discontinuous at $E = V_0$, the sinh→sin switch is missing or mis-placed.
-**CLAUDE.md / AGENTS.md note:** add: "Every scattering computation logs $R+T$; deviation from 1 by more than 1e-6 is a current-accounting bug, not numerics."
-
-### Exercise R5 — AI Validation Exercise
-**What you're validating:** the arbitrary-$V(x)$ scattering and tunneling code from R3/R4.
-**Validation type:** Numerical result
-**Risk level:** Medium — regime-switch errors are silent and the tunneling exponential makes magnitudes hard to eyeball.
-**Setup:** use your own R3/R4 artifacts.
-**The Validation Task:** Evaluate against this checklist; mark Pass / Fail / Cannot determine with reasoning.
-```
-Validation Checklist — Arbitrary V(x), transmission, and tunneling
-□ Correctness: does V(x) feed unchanged into buildTridiagonal (same eigensolver)?
-□ Completeness: are both T_exact and T_WKB shown, on a log y-axis?
-□ Scope: did the step use probability current (k ratio), not bare |amplitude|²?
-□ Physics criterion 1: R + T = 1 to < 1e-6 at every energy?
-□ Physics criterion 2: barrier (V0=5,L=5Å,E=1) gives T_exact≈9e-5, ratio 2.56?
-□ Failure-mode check: any of —
-  - E<V0 formula applied when E>V0 (sinh→sin switch missing)
-  - T = |F/A|² without the k ratio (R+T ≠ 1 for the step)
-  - linear T(E) axis hiding the exponential suppression
-  - finite well claiming infinitely many bound states (should be finite, ≈ z_0/(π/2))
-```
-**What to do with findings:** pass → use it; one fail → fix the regime switch or restore the current form and re-run the $R+T$ sweep; multiple fails / cannot-determine → recompute $T$ at one energy by hand from the matching conditions.
-**AI Use Disclosure (mandatory, two sentences):**
-> *1:* The AI wrote the potential builders and the step/barrier transmission and tunneling calculators.
-> *2:* The AI could not determine whether the sinh→sin regime switch and the probability-current accounting were correct — I verified $R+T=1$ and the exact-vs-WKB ratio against the closed forms myself.
-**Physics-judgment connection:** trains checking a scattering result against a conservation law and an exact analytic formula, catching regime-switch and current-accounting errors a plausible curve would hide.

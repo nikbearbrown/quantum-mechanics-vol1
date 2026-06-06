@@ -24,7 +24,7 @@ The probabilities sum to 1 by the completeness of the eigenstates:
 
 $$\sum_n P(a_n) = \sum_n |\langle a_n|\psi\rangle|^2 = \langle\psi|\!\left(\sum_n |a_n\rangle\langle a_n|\right)\!|\psi\rangle = \langle\psi|\hat{I}|\psi\rangle = 1.$$
 
-Nothing leaks. The interpretation of collapse is contested, and the "Still Puzzling" section at the end of the chapter lays out where that debate currently stands. The practical content, however, is settled: after obtaining outcome $a_n$, we predict all subsequent measurements using $|a_n\rangle$.
+Nothing leaks. The interpretation of collapse is contested. The practical content, however, is settled: after obtaining outcome $a_n$, we predict all subsequent measurements using $|a_n\rangle$.
 
 ---
 
@@ -128,29 +128,6 @@ Product: $1 \cdot \sqrt{3}/2 = \sqrt{3}/2$. Bound: $\sqrt{3}/2$. They are equal 
 
 ---
 
-## Still Puzzling
-
-The measurement postulate is the most contested piece of quantum mechanics. Not its predictions, which have been confirmed to extraordinary precision for a century, but its interpretation.
-
-**Decoherence** (Zurek, 2003) explains why macroscopic superpositions go unobserved: they become entangled with environmental degrees of freedom and lose their interference fringes on timescales far shorter than anything we can resolve. Decoherence accounts for why we never see a cat in superposition without our having to invoke an axiom of collapse. What it does not explain is why one particular outcome, rather than the other, occurs in any given run. [contested]
-
-**The Born rule** is a postulate in this book. Gleason's theorem (1957) shows it is the unique probability measure on Hilbert space consistent with non-contextuality, so in a sense the structure of the theory forces it. Zurek's envariance argument and various many-worlds derivations try to go further. None of these is universally accepted as settling the matter. [contested]
-
-**Weak measurement** (Aharonov, Albert, and Vaidman, 1988) extends the standard postulate to measurements with very weak coupling, producing "weak values" that can lie outside the eigenvalue range. These have been observed experimentally and connect to Leggett-Garg inequalities. The framework extends the postulate rather than replacing it.
-
-The honest statement for the student is this. The measurement postulate gives correct predictions. What it means — whether collapse is physical, informational, or emergent from something deeper — remains genuinely open. Volume 4 is where quantum mechanics works perfectly and no one fully agrees on why.
-
----
-
-## The +1 — Simulation Exercise
-
-The deliverable: `11-qubit-measurement.html` — an interactive Bloch sphere with measurement statistics.
-
-### Part A — CLAUDE.md amendment
-
-Add this stanza to your existing `CLAUDE.md` before running the simulation prompt:
-
-````markdown
 ## Chapter 10 — Qubit Measurement and Bloch Sphere
 
 - Pauli matrices EXACTLY as follows (verify at startup):
@@ -280,101 +257,3 @@ After writing, confirm:
 
 *The story continues in Volume 4: entanglement. Two qubits whose joint state cannot be written as a product of individual qubit states — the Bell states — violate the CHSH inequality, ruling out local hidden variables. The measurement postulate for composite systems, partial traces, and density matrices.*
 
----
-
-## Running Project — Build the 1D Quantum Sandbox
-
-**This chapter adds:** projective measurement — the Born-rule sampler that, given a state and an observable, returns an eigenvalue with probability $|\langle a_n|\psi\rangle|^2$ and collapses the state to $|a_n\rangle$ — letting the sandbox simulate measurement outcomes on its eigenstates (and on the qubit), with the ensemble statistics checked against $\langle\hat A\rangle$ and the Robertson bound.
-
-### Exercise R1 — When to Use AI
-**The judgment:** In this chapter's project work, AI assistance is appropriate for:
-- Writing the projective-measurement sampler (compute $P(a_n) = |\langle a_n|\psi\rangle|^2$, draw an outcome by inverse-CDF, collapse to $|a_n\rangle$) — *Why AI works here:* a standard sampling routine, checked because the empirical mean must converge to $\langle\hat A\rangle$.
-- Drafting the Bloch-sphere display and the ensemble-histogram panel — *Why AI works here:* plotting boilerplate with exact targets ($|0\rangle$ gives $\langle\sigma_z\rangle = +1$, equatorial states give 50/50).
-**The tell:** You are using AI well when you have an independent way to check the output — here, the sample mean approaching $\langle\hat A\rangle = \langle\psi|\hat A|\psi\rangle$ and $\sum_n P(a_n) = 1$.
-
-### Exercise R2 — When NOT to Use AI
-**The judgment:** These tasks require your judgment; AI output here can't be trusted without redoing the work:
-- The sign in $\sigma_y = \left(\begin{smallmatrix}0 & -i\\ i & 0\end{smallmatrix}\right)$ (upper-right is $-i$) and the $\theta/2$ in the Bloch parametrization — *Why AI fails here:* the $+i$ sign error and the $\theta$-vs-$\theta/2$ slip are the two most common qubit bugs; both produce a unit-modulus state that passes normalization but mislocates it on the sphere.
-- Whether $P(a_n) = |\langle a_n|\psi\rangle|^2$ (projection) rather than $|\psi|^2$ directly — *Why AI fails here:* the Born rule is a projection onto the *observable's* eigenbasis; computing $|\psi|^2$ in the computational basis gives wrong probabilities for $\sigma_x$ or $\sigma_y$, and the histogram still looks like a distribution.
-**The tell:** If you could not explain the result without the AI — if the AI is your *reason* rather than your *tool* — it did work that should have been yours.
-**Physics-judgment connection:** This trains checking sampled measurement statistics against the analytic expectation value ($\langle\hat A\rangle$), against probability conservation ($\sum P = 1$), and against the Robertson bound — plus startup assertions on the operator definitions ($\sigma_y^\dagger = \sigma_y$, $|\vec r| = 1$).
-
-### Exercise R3 — LLM Exercise
-**What you're building this chapter:** the projective-measurement sampler and the qubit/Bloch-sphere measurement page.
-**Tool:** Claude chat — a self-contained finite-dimensional module; the Pauli algebra needs no persistent grid state.
-**The Prompt:**
-```
-Using the Chapter 0 CLAUDE.md and constants.js as binding context, build
-11-qubit-measurement.html plus a reusable measure.js.
-
-measure.js exports measure(psi, eigenstates, eigenvalues): compute
-P(a_n) = |⟨a_n|psi⟩|², draw one outcome by inverse-CDF over P, and return
-{outcome, collapsedState = |a_n⟩}. Also exports ensemble(psi, A, N) returning
-N sampled outcomes and the sample mean/std.
-
-11-...html: qubit state |ψ⟩ = cos(θ/2)|0⟩ + e^{iφ} sin(θ/2)|1⟩ (θ/2, NOT θ),
-sliders θ ∈ [0,π], φ ∈ [0,2π). Pauli matrices EXACTLY:
-  σ_x=[[0,1],[1,0]], σ_y=[[0,-i],[i,0]] (UPPER-RIGHT −i), σ_z=[[1,0],[0,-1]].
-At startup assert σ_y† = σ_y and σ_i² = I. Bloch vector
-r = (sinθcosφ, sinθsinφ, cosθ); assert |r|² = 1.
-Show ⟨σ_x⟩,⟨σ_y⟩,⟨σ_z⟩ bars; "Measure σ_z/σ_x/σ_y" buttons that sample one
-outcome and collapse the displayed state; an "Run ensemble" panel that samples
-N outcomes for two observables, draws histograms, and prints σ_A, σ_B,
-σ_Aσ_B, and the Robertson bound |⟨[A,B]⟩|/2.
-
-VERIFY: |0⟩ → σ_z bar +1, single σ_z measurement gives +1 w.p. 1;
-|+y⟩ (θ=π/2,φ=π/2) → σ_x,σ_z ensembles ~50/50, product ≈ 1 = Robertson bound.
-```
-**What this produces:** `measure.js` (the Born-rule sampler, usable on eigenstates too) and `11-qubit-measurement.html`.
-**How to adapt:** *Your system:* apply the same `measure.js` to position eigenstates of the 1D solver to simulate position measurement collapse. *ChatGPT/Gemini:* paste the Pauli definitions explicitly. *Claude Project:* keep `measure.js` in Project knowledge.
-**Builds on:** the Born rule from Chapter 3, the Robertson bound from Chapter 9.  **Next:** Chapter 11 assembles every module into the full sandbox and runs the golden test on the whole system.
-
-### Exercise R4 — CLI Exercise
-**What you're building this chapter:** the measurement sampler with automated convergence and Robertson-bound checks.
-**Tool:** Claude Code — it can run large ensembles and assert the sample mean converges to $\langle\hat A\rangle$.
-**Skill level:** Intermediate
-**Setup — confirm:**
-- [ ] `measure.js`, `constants.js`
-- [ ] Node.js available
-- [ ] The CLAUDE.md startup assertions for $\sigma_y$ Hermiticity and $|\vec r| = 1$
-**The Task:**
-```
-Read measure.js. Write a Node script check-measure.js that:
-  (1) verifies σ_y† = σ_y and σ_i² = I (fail loudly if σ_y upper-right is +i);
-  (2) for |ψ⟩ = (√3/2)|0⟩ + (i/2)|1⟩, asserts P(σ_z=+1) = 3/4, ⟨σ_z⟩ = 1/2,
-      and that an N=10000 σ_z ensemble mean is within 0.03 of 1/2;
-  (3) for |+y⟩, asserts the (σ_x, σ_z) product equals the Robertson bound
-      |⟨σ_y⟩| = 1 within 5% at N = 5000;
-  (4) confirms Σ_n P(a_n) = 1 for all three observables.
-Do NOT loosen tolerances. Append to PROJECT.md under "Verified":
-"Ch10 measurement: ⟨σ_z⟩ sample = <v>, Robertson saturated ✓".
-```
-**Expected output:** `check-measure.js`, printed sample means and bound check, and a `PROJECT.md` line.
-**What to inspect:** the sample mean converging to the analytic $\langle\hat A\rangle$ as $N$ grows (Born rule working), and the $|+y\rangle$ state saturating the Robertson bound for $(\sigma_x,\sigma_z)$.
-**If it goes wrong:** if probabilities don't sum to 1 or are wrong for $\sigma_x$/$\sigma_y$, the sampler projected onto the computational basis instead of the observable's eigenbasis — project onto the eigenstates of the measured operator. If $\sigma_y$ Hermiticity fails, the upper-right entry is $+i$; fix it.
-**CLAUDE.md / AGENTS.md note:** add: "Measurement sampling projects onto the eigenbasis of the measured observable, not the computational basis. Assert $\sum P = 1$ and the empirical mean → $\langle\hat A\rangle$."
-
-### Exercise R5 — AI Validation Exercise
-**What you're validating:** the projective-measurement sampler and qubit page from R3/R4.
-**Validation type:** Code + Numerical result
-**Risk level:** Medium — wrong-basis projection or the $\sigma_y$ sign produces a plausible histogram with wrong probabilities.
-**Setup:** use your own R3/R4 artifacts; ground truth is the analytic $P(a_n)$ and $\langle\hat A\rangle$.
-**The Validation Task:** Evaluate against this checklist; mark Pass / Fail / Cannot determine with reasoning.
-```
-Validation Checklist — Projective measurement and the qubit
-□ Correctness: P(a_n) = |⟨a_n|ψ⟩|² (projection onto the observable's eigenbasis)?
-□ Completeness: does it show collapse, ensemble histograms, AND the Robertson bound?
-□ Scope: σ_y upper-right = −i, and Bloch uses θ/2 not θ?
-□ Physics criterion 1: |0⟩ gives ⟨σ_z⟩ = +1; equatorial states give 50/50 on σ_z?
-□ Physics criterion 2: sample mean → ⟨ψ|A|ψ⟩ as N grows, and Σ P = 1?
-□ Failure-mode check: any of —
-  - σ_y sign error (+i instead of −i): σ_y† ≠ σ_y
-  - θ vs θ/2: south pole appears at θ=π/2 instead of π
-  - P computed as |ψ|² in computational basis (wrong for σ_x, σ_y)
-  - collapse not applied (repeated σ_z after a σ_z result not deterministic)
-```
-**What to do with findings:** pass → use it, and apply the same sampler to position eigenstates; one fail → fix the $\sigma_y$ sign or the eigenbasis projection and re-run the convergence test; multiple fails / cannot-determine → compute $P(\sigma_x=+1)$ by hand for the worked-example state and compare.
-**AI Use Disclosure (mandatory, two sentences):**
-> *1:* The AI implemented the Born-rule measurement sampler, the collapse rule, and the Bloch-sphere display.
-> *2:* The AI could not determine whether it projected onto the correct eigenbasis or got the $\sigma_y$ sign right — I verified $\sum P = 1$, the sample mean converging to $\langle\hat A\rangle$, and $\sigma_y^\dagger = \sigma_y$ myself.
-**Physics-judgment connection:** trains checking sampled measurement statistics against the analytic expectation value and probability conservation, with startup assertions on the operator definitions that catch the classic qubit sign and angle errors.
