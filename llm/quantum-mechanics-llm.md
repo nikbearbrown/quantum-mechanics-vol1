@@ -9,7 +9,7 @@
 ## Chapter 00: Quantum Mechanics
 *Source: `chapters/00-frontmatter.md`*
 
-> **Section not yet authored.** No `### Exercise 3 — LLM Exercise` block found in this chapter file.
+> **Section not yet authored.** No `## LLM Exercises` / `### Exercise R3 — LLM Exercise` block found in this chapter file.
 > To add this section, edit the source chapter file directly.
 
 ---
@@ -17,103 +17,614 @@
 ## Chapter 00: Chapter 0 — How to Use the Simulations
 *Source: `chapters/00-how-to-use-the-simulations.md`*
 
-> **Section not yet authored.** No `### Exercise 3 — LLM Exercise` block found in this chapter file.
-> To add this section, edit the source chapter file directly.
+### Exercise R3 — LLM Exercise
+**What you're building this chapter:** the three governing Markdown files plus the analytic free-particle wave-packet page, which together fix every convention the sandbox inherits.
+**Tool:** Claude Project — the three governing files are persistent context that every subsequent chapter's prompt loads, which is exactly what a Project's knowledge files are for.
+**The Prompt:**
+```
+You are setting up a single-page JavaScript/D3 quantum-mechanics simulation
+project that will grow, one chapter at a time, into a configurable 1D
+Schrödinger solver. Produce three Markdown governing files and one HTML file.
+
+CLAUDE.md (coding constitution): single self-contained HTML file, no build
+step; D3 v7 from CDN; SVG only (one <path> per curve); physics as pure
+functions, not classes; SI units internally, displayed in nm/fs/eV; complex
+wave functions stored as two parallel Float64Arrays (re, im) — never collapsed
+to a real array; analytic time evolution where a closed form exists, and if a
+numerical Schrödinger stepper is ever needed it must be unitary (Crank-Nicolson
+or split-step), never explicit Euler; every page shows a normalization
+indicator ∫|ψ|²dx that reads 1.000 and turns red if it strays by >1%.
+
+DESIGN.md (visual constitution): |ψ|² blue filled; Re ψ orange solid; Im ψ
+gray dashed; V(x) red; energy levels green horizontal; turning points purple
+dashed. Viridis for unsigned 2D maps, RdBu for signed; never rainbow/jet.
+Monospace for numeric readouts. Every axis labeled with physical units.
+
+PROJECT.md (project state): owner, course, status "Chapter 0 — sandbox
+skeleton", a "Built so far" list (empty), a "Verified" list (empty), and the
+default conventions (electron mass m_e = 9.109e-31 kg; default grid N points
+on a stated x-range).
+
+Then build 00-wave-packet.html: a free-particle Gaussian wave packet using the
+ANALYTIC complex solution
+  ψ(x,t) = (1/(πa²))^(1/4) (a/γ(t))^(1/2) exp(i k₀ x − i ω₀ t)
+           exp(−(x − v_g t)²/(2 γ(t)²)),
+  γ(t) = a (1 + iℏt/(ma²))^(1/2),  ω₀ = ℏk₀²/(2m),  v_g = ℏk₀/m.
+Three stacked SVG panels (Re ψ, Im ψ, |ψ|²) sharing an x-axis, sliders for a
+and k₀, a pinned normalization indicator, and live readouts of v_g and σ(t).
+Do NOT integrate the time-dependent Schrödinger equation numerically — the
+closed form is exact. After writing, list four browser checks I can run.
+```
+**What this produces:** `CLAUDE.md`, `DESIGN.md`, `PROJECT.md`, and `00-wave-packet.html` — the skeleton every later sandbox piece bolts onto.
+**How to adapt:** *Your system:* if you prefer dark mode, set the palette in `DESIGN.md` only and re-run. *ChatGPT/Gemini:* paste the three files as a preamble in every session since they lack a persistent Project store. *Claude Project:* put the three files in the Project's knowledge, not in the message, so they bind every chapter without re-pasting.
+**Builds on:** nothing — this is the foundation.  **Next:** Chapter 2 turns de Broglie's $\lambda = h/p$ into the spatial grid the solver runs on.
 
 ---
 
 ## Chapter 01: Chapter 1 — Why Classical Physics Failed: Blackbody, Photoelectric, and the Photon
 *Source: `chapters/01-why-classical-physics-failed.md`*
 
-> **Section not yet authored.** No `### Exercise 3 — LLM Exercise` block found in this chapter file.
-> To add this section, edit the source chapter file directly.
+### Exercise R3 — LLM Exercise
+**What you're building this chapter:** a shared constants/units module and a blackbody page whose numerical integral self-validates against $\sigma T^4$.
+**Tool:** Claude chat — this is a self-contained artifact built against a fixed spec; no persistent project state is needed beyond the governing files already in place.
+**The Prompt:**
+```
+Using the CLAUDE.md and DESIGN.md governing files from Chapter 0 as binding
+context, do two things.
+
+(1) Create a constants module constants.js exporting exact SI values:
+    h = 6.62607015e-34 J·s, hbar = 1.054571817e-34 J·s,
+    kB = 1.380649e-23 J/K, c = 2.99792458e8 m/s,
+    m_e = 9.1093837015e-31 kg, eV = 1.602176634e-19 J,
+    plus helpers J_to_eV, eV_to_J, nm_to_m, m_to_nm. Comment the source (CODATA).
+
+(2) Build 01-blackbody.html plotting, on the same axes, the Planck law
+    u_Planck(ν,T) = (8π h ν³ / c³) / (exp(hν/kBT) − 1)
+    and Rayleigh–Jeans u_RJ(ν,T) = (8π ν² / c³) kB T,
+    with a temperature slider (1000–10000 K). Use a LOG-spaced ν grid of
+    N = 500 points on [1e12, 1e16] Hz. Guard the exponential: if hν/kBT > 700,
+    return 0. Clip the Rayleigh–Jeans curve at 3× the Planck maximum.
+    Add a Wien-peak marker at ν_max = 2.821 kB T / h.
+
+SELF-CHECK (this is the point): numerically integrate u_Planck over the grid
+and display "numerical / (4σT⁴/c)" using σ = 5.670374e-8 W·m⁻²·K⁻⁴. It must
+read > 0.99 at T = 5778 K. If it does not, tell me whether the error is the
+grid (too narrow / linear) or a wrong constant — do not silently rescale.
+```
+**What this produces:** `constants.js` (reused by every later sandbox page) and `01-blackbody.html` with a live integral-vs-analytic ratio readout.
+**How to adapt:** *Your system:* if you display energies in eV elsewhere, route every conversion through `constants.js` so there is one source of truth. *ChatGPT/Gemini:* re-paste the constants block each session. *Claude Project:* add `constants.js` to the Project knowledge so later chapters import rather than re-declare it.
+**Builds on:** the governing files and units convention from Chapter 0.  **Next:** Chapter 2 uses these constants to turn $\lambda = h/p$ into the solver's spatial grid.
 
 ---
 
 ## Chapter 02: Chapter 2 — Matter Waves: de Broglie, Davisson–Germer, and the Double Slit
 *Source: `chapters/02-matter-waves.md`*
 
-> **Section not yet authored.** No `### Exercise 3 — LLM Exercise` block found in this chapter file.
-> To add this section, edit the source chapter file directly.
+## LLM Exercises
+
+The following exercises are designed to be worked with a large language model as a thinking partner — not to get the answer, but to check reasoning, generate counterexamples, and push on the boundaries of your understanding.
+
+1. Ask an LLM to explain the Davisson–Germer experiment as if to someone who has never heard of wave-particle duality. Then ask it to identify the single most important conceptual step in the explanation. Do you agree with its choice?
+
+2. The de Broglie relation $\lambda = h/p$ was proposed by analogy with photons. Ask an LLM: what would it mean for the analogy to *fail*? What experimental result would have shown that $\lambda = h/p$ does not apply to electrons? Use this to think about what the Davisson–Germer experiment actually proved.
+
+3. Tonomura's experiment is often described as showing that a single electron "goes through both slits at once." Ask an LLM whether this phrase is accurate, misleading, or somewhere in between — and why. Compare its answer to what the Born rule actually says about the wave function before and after measurement.
+
+4. Ask an LLM to work through the de Broglie wavelength calculation for a thermal neutron at room temperature ($k_BT$ at $T = 293$ K, neutron mass $1.675 \times 10^{-27}$ kg). Then ask it: why is neutron diffraction used to locate hydrogen atoms in protein crystals when X-ray diffraction struggles with this task? Evaluate whether its reasoning is physically correct.
+
+5. The 2019 Fein et al. experiment showed diffraction for molecules of approximately 2,000 atoms. Ask an LLM: what physical mechanism limits how large an object can show quantum interference? What is "decoherence," and why does it become more severe for larger, warmer objects? Ask it to give a concrete numerical estimate for when decoherence becomes important.
+
+### Exercise R3 — LLM Exercise
+**What you're building this chapter:** the grid-construction module plus a de Broglie resolution diagnostic that tells you whether a chosen $N$ resolves the states.
+**Tool:** Claude chat — a small self-contained utility against the existing governing files; no persistent state beyond `constants.js`.
+**The Prompt:**
+```
+Using the Chapter 0 CLAUDE.md and the Chapter 1 constants.js as binding
+context, build grid.js and a small demo page 02-grid-resolution.html.
+
+grid.js exports makeGrid(xMin, xMax, N) returning { x: Float64Array, h: number }
+with x_j = xMin + j*h and h = (xMax − xMin)/(N − 1), plus a helper
+pointsPerWavelength(k, h) = (2π/k)/h that reports how many grid points cover
+one de Broglie wavelength λ = 2π/k (with p = ℏk).
+
+02-grid-resolution.html: sliders for N (50–2000), x-range (±5 to ±50 nm), and
+electron kinetic energy E (0.1–500 eV). From E compute p = √(2 m_e E),
+k = p/ℏ, λ = h_Planck/p, and display λ in nm and pointsPerWavelength. Color
+the readout green if ≥ 10 points/λ, yellow if 5–10, red if < 5. Plot a single
+sample plane wave Re(e^{ikx}) on the grid so under-resolution is visible as a
+jagged, aliased curve.
+
+Do NOT solve any Schrödinger equation here — this page only sizes the grid.
+After writing, list three checks I can run, including the 150 V electron case
+where λ ≈ 0.1 nm.
+```
+**What this produces:** `grid.js` (used by every solver mode from Chapter 3 on) and a page that shows, visually, when a grid is too coarse for the physics.
+**How to adapt:** *Your system:* if you work in atomic units elsewhere, keep `grid.js` in SI and convert at the display layer only. *ChatGPT/Gemini:* paste `constants.js` alongside the prompt. *Claude Project:* add `grid.js` to Project knowledge so Chapter 3's ψ array imports the same grid.
+**Builds on:** the constants and units harness from Chapter 1.  **Next:** Chapter 3 puts a complex ψ array on this grid and applies the Born rule.
 
 ---
 
 ## Chapter 03: Chapter 3 — The Wave Function and Born's Rule
 *Source: `chapters/03-the-wave-function.md`*
 
-> **Section not yet authored.** No `### Exercise 3 — LLM Exercise` block found in this chapter file.
-> To add this section, edit the source chapter file directly.
+## LLM Exercises
+
+### The Probability Explorer
+
+The deliverable for this chapter is `03-probability-explorer.html`: a wave-function gallery with three stacked SVG panels (Re $\psi$, Im $\psi$, $|\psi|^2$) and a live numerical panel showing $\langle x\rangle$, $\langle p\rangle$, $\sigma_x$, $\sigma_p$, and the ratio $\sigma_x\sigma_p/(\hbar/2)$ — which reads 1.000 for the Gaussian.
+
+````
+SHOW.
+The Born rule for a one-dimensional particle:
+  P(x, t) dx = |ψ(x, t)|² dx,  with ∫ |ψ|² dx = 1.
+Position and momentum expectation values:
+  ⟨x⟩  = ∫ x |ψ|² dx
+  ⟨x²⟩ = ∫ x² |ψ|² dx
+  ⟨p⟩  = ∫ ψ* (−i ℏ ∂/∂x) ψ dx
+  ⟨p²⟩ = ∫ ψ* (−ℏ² ∂²/∂x²) ψ dx
+  σ_x = √(⟨x²⟩ − ⟨x⟩²),  σ_p = √(⟨p²⟩ − ⟨p⟩²).
+Uncertainty principle: σ_x σ_p ≥ ℏ/2, saturated by the Gaussian.
+
+Wave function gallery (selectable by dropdown):
+  1. Gaussian: ψ(x) = (1/(πa²))^(1/4) exp(−x²/(2a²)) exp(i k₀ x)
+     — sliders: a (0.1 to 5 nm), k₀ (−20 to +20 nm⁻¹)
+  2. Infinite-well eigenstate n (within 0 ≤ x ≤ L):
+     ψ_n(x) = √(2/L) sin(nπx/L) for n = 1..10
+     — sliders: n (1..10 integer), L (1 to 20 nm)
+  3. Double Gaussian:
+     ψ(x) ∝ exp(−(x−d)²/(2σ²)) + exp(−(x+d)²/(2σ²))
+     — sliders: d (separation, 0.5 to 5 nm), σ (0.2 to 2 nm)
+  4. Square pulse: ψ(x) = 1/√w for −w/2 < x < w/2, else 0
+     — slider: w (0.5 to 10 nm)
+
+SAY.
+Produce a single file `03-probability-explorer.html`.
+
+Layout:
+  Left column (700 px wide):
+    Three stacked SVG panels (each 130 px tall) sharing an x-axis:
+      Top:    Re ψ(x)   in orange
+      Middle: Im ψ(x)   in gray dashed
+      Bottom: |ψ(x)|²   in blue filled
+  Right column (300 px wide), live numerical readouts:
+      ∫|ψ|² dx       (normalization indicator, must read 1.000)
+      ⟨x⟩            (in nm)
+      ⟨x²⟩           (in nm²)
+      σ_x            (in nm)
+      ⟨p⟩            (in ℏ/nm)
+      ⟨p²⟩           (in (ℏ/nm)²)
+      σ_p            (in ℏ/nm)
+      σ_x σ_p / (ℏ/2)   (DIMENSIONLESS, prominent, large font)
+  Below: wave-function dropdown + sliders that update based on selection.
+
+CONSTRAIN.
+- D3 v7 from CDN. SVG only. Vanilla JS. Single self-contained .html file.
+- N = 500 grid points on x ∈ [−20 nm, +20 nm].
+- ⟨x⟩, ⟨x²⟩, ∫|ψ|² via Simpson's rule.
+- ⟨p⟩, ⟨p²⟩, σ_p via FFT (fft-js from CDN). FFT convention documented.
+  Forward convention: sum_n ψ_n e^(−i k_m x_n) · Δx / √(2πℏ). Comment it.
+- Complex storage: every ψ array is two parallel Float64Arrays (re, im).
+  NEVER collapse to a real-only function.
+- Momentum operator p̂ = −i ℏ ∂/∂x. Sign is critical: k₀ > 0 must give ⟨p⟩ > 0.
+- The σ_x σ_p / (ℏ/2) display must read 1.000 for the Gaussian.
+  If it reads 0.500, you divided by ℏ instead of ℏ/2 — fix.
+- For the square pulse: σ_p diverges (Fourier transform decays as 1/p).
+  Display the ratio as "undefined," not as a large finite number.
+- Every numerical display must include units.
+
+VERIFY.
+After writing the file, provide four checks:
+(a) Gaussian with a = 1 nm, k₀ = 10 nm⁻¹:
+    σ_x = 1/√2 ≈ 0.707 nm; σ_p = ℏ/(√2 · 1 nm) ≈ 0.707 ℏ/nm; ratio = 1.000.
+(b) Gaussian with a = 0.5 nm, k₀ = 10 nm⁻¹:
+    σ_x = 0.354 nm; σ_p doubles; product unchanged; ratio = 1.000.
+(c) Infinite-well n=1 in L=10 nm:
+    ⟨x⟩ = 5 nm by symmetry;
+    σ_x = L · √(1/12 − 1/(2π²)) ≈ 1.81 nm;
+    σ_p = πℏ/L ≈ 0.314 ℏ/nm; ratio ≈ 1.136.
+(d) Double Gaussian d = 2 nm, σ = 0.5 nm:
+    ⟨x⟩ = 0 by symmetry; probability in [−0.5 nm, +0.5 nm] is small.
+
+Then list known LLM failure modes and confirm which you have guarded against:
+  - ψ vs. |ψ|² render swap (|ψ|² panel showing a signed curve).
+  - Lost imaginary part (Im ψ = 0 for k₀ ≠ 0 Gaussian).
+  - Sign error in p̂ (⟨p⟩ < 0 for k₀ > 0).
+  - Simpson drift: ⟨x⟩ not at center for symmetric ψ.
+  - FFT convention mismatch: σ_p off by √(2π) or √ℏ.
+  - Missing units on numerical readouts.
+  - σ_x σ_p / (ℏ/2) = 0.500 for Gaussian (dividing by ℏ not ℏ/2).
+````
+
+### Exploration Tasks
+
+**Saturate the bound.** Select the Gaussian. Vary $a$ from 0.2 nm to 4 nm. Watch $\sigma_x$ change. Watch $\sigma_p$ change inversely. Watch $\sigma_x\sigma_p/(\hbar/2)$ stay locked at 1.000. Write down what this confirms about the relationship between the width in position space and the width in momentum space.
+
+**Exceed the bound.** Switch to the infinite-well eigenstate, $n = 1$, $L = 10$ nm. The ratio should read approximately 1.136. Now run $n$ from 2 to 10. As $n$ grows, $\sigma_p$ grows (higher energy means larger momentum spread) while $\sigma_x$ changes little. Does $\sigma_x\sigma_p/(\hbar/2)$ grow without bound, approach a limit, or oscillate? Predict first, then check.
+
+**The double-peaked trap.** Select the double Gaussian with $d = 2$ nm, $\sigma = 0.3$ nm. $\langle x\rangle$ reads 0. Look at $|\psi|^2$: the probability of finding the particle within $\pm 0.5$ nm of $x = 0$ is small — the peaks are at $\pm 2$ nm. Write one sentence explaining what this tells you about using $\langle x\rangle$ as a prediction for a single measurement.
+
+**The square-pulse singularity.** Select the square pulse, width $w = 2$ nm. $\sigma_x$ is finite. $\sigma_p$ should display as "undefined." This is not a bug — the Fourier transform of a discontinuous square pulse decays as $1/p$, making $\int p^2|\phi(p)|^2\,dp$ diverge. The divergence is real physics; it reflects the infinite amount of momentum required to produce sharp edges in position space.
+
+### Exercise R3 — LLM Exercise
+**What you're building this chapter:** the ψ-array + Born-rule core — normalization, $|\psi|^2$ display, and the $\langle x\rangle,\langle p\rangle,\sigma_x,\sigma_p$ readouts.
+**Tool:** Claude chat — a focused module built on the existing grid and constants; no new persistent state.
+**The Prompt:**
+```
+Using the Chapter 0 CLAUDE.md (complex stored as two Float64Arrays re, im),
+constants.js, and grid.js as binding context, build 03-probability-explorer.html.
+
+Represent ψ on the grid from grid.js as parallel re[], im[] arrays. Implement:
+  - normalize(re, im, h): norm = Σ_j (re_j² + im_j²) · h; divide both arrays by
+    √norm. Return the pre-normalization norm so I can see it.
+  - expectations: ⟨x⟩ = Σ x_j |ψ_j|² h; ⟨x²⟩ likewise; σ_x = √(⟨x²⟩−⟨x⟩²).
+    ⟨p⟩ and ⟨p²⟩ via p̂ = −iℏ ∂_x using a central difference for ∂_x:
+    ⟨p⟩ = Σ Re[ ψ_j* (−iℏ)(ψ_{j+1}−ψ_{j−1})/(2h) ] h. σ_p analogously.
+  - Display ⟨x⟩, σ_x, ⟨p⟩, σ_p, and the DIMENSIONLESS ratio σ_x σ_p /(ℏ/2)
+    in a large readout, plus the normalization indicator (must read 1.000).
+
+Wave-function dropdown: (1) Gaussian (1/(πa²))^(1/4) e^{−x²/2a²} e^{ik₀x} with
+sliders a, k₀; (2) infinite-well eigenstate √(2/L) sin(nπx/L) with sliders n, L.
+Three stacked panels: Re ψ (orange), Im ψ (gray dashed), |ψ|² (blue filled).
+
+CRITICAL: p̂ = −iℏ ∂_x — k₀ > 0 MUST give ⟨p⟩ > 0. The ratio must read 1.000
+for the Gaussian (if it reads 0.500 you divided by ℏ not ℏ/2). After writing,
+list the checks for the Gaussian (a=1 nm, k₀=10 nm⁻¹): σ_x≈0.707 nm, ratio=1.000.
+```
+**What this produces:** `03-probability-explorer.html` and the reusable `normalize` / `expectations` functions every later mode calls.
+**How to adapt:** *Your system:* if you later add an FFT-based $\langle p\rangle$, keep the finite-difference version as a cross-check. *ChatGPT/Gemini:* paste `grid.js` and `constants.js` with the prompt. *Claude Project:* store the normalize/expectations functions in Project knowledge.
+**Builds on:** the spatial grid from Chapter 2.  **Next:** Chapter 4 attaches the time-evolution phase $e^{-iE_nt/\hbar}$ to states on this ψ array.
 
 ---
 
 ## Chapter 04: Chapter 4 — The Schrödinger Equation and Stationary States
 *Source: `chapters/04-the-schrodinger-equation.md`*
 
-> **Section not yet authored.** No `### Exercise 3 — LLM Exercise` block found in this chapter file.
-> To add this section, edit the source chapter file directly.
+### Exercise R3 — LLM Exercise
+**What you're building this chapter:** the spectral propagator that rotates eigenstate phases and the energy-conservation diagnostic.
+**Tool:** Claude chat — built on the ψ array and observables from Chapter 3; self-contained.
+**The Prompt:**
+```
+Using the Chapter 0 CLAUDE.md, constants.js, grid.js, and the observables.js
+from Chapter 3 as binding context, build 04-stationary-states.html.
+
+Eigenstates of the infinite well: ψ_n(x) = √(2/L) sin(nπx/L) on [0,L],
+E_n = n²π²ℏ²/(2mL²). Let the user set real magnitudes c_1..c_4 and phases
+θ_1..θ_4, then auto-normalize so Σ|c_n|² = 1.
+
+Time evolution (ANALYTIC, spectral): each frame, form
+  Ψ(x,t) = Σ_n c_n e^{iθ_n} ψ_n(x) e^{−i E_n t/ℏ}
+as re[]/im[] arrays. Do NOT integrate the TDSE numerically — phase rotation
+is exact. Phase sign is exp(−iE_n t/ℏ).
+
+Display: three panels (Re Ψ, Im Ψ, |Ψ|², all animated); ⟨x⟩(t) live;
+⟨H⟩ = Σ|c_n|² E_n in eV (flag red if it drifts > 0.1%); normalization (1.000);
+a "Stationary?" indicator that reads YES only when exactly one c_n ≠ 0.
+
+VERIFY in your answer: with c_1 = 1 alone, Re Ψ and Im Ψ oscillate but |Ψ|²
+is FROZEN and "Stationary?" reads YES; with c_1 = c_2 = 1/√2, |Ψ|² sloshes,
+⟨x⟩(t) swings, ⟨H⟩ stays constant, "Stationary?" reads NO.
+```
+**What this produces:** `04-stationary-states.html` and the reusable phase-rotation propagator the eigensolver mode reuses to animate any spectrum.
+**How to adapt:** *Your system:* swap the well eigenstates for any $\{\psi_n, E_n\}$ the eigensolver returns later. *ChatGPT/Gemini:* paste the dependency files. *Claude Project:* keep the propagator in Project knowledge so Chapter 5's eigensolver can drive it.
+**Builds on:** the ψ array and expectation values from Chapter 3.  **Next:** Chapter 5 generates the $\{\psi_n, E_n\}$ this propagator animates, by diagonalizing the Hamiltonian.
 
 ---
 
 ## Chapter 05: Chapter 5 — The Infinite Square Well
 *Source: `chapters/05-the-infinite-square-well.md`*
 
-> **Section not yet authored.** No `### Exercise 3 — LLM Exercise` block found in this chapter file.
-> To add this section, edit the source chapter file directly.
+## LLM Exercises
+
+The following exercises are designed to be worked with a large language model as a thinking partner — not to get the answer, but to check reasoning, expose failure modes, and push at the edges of what the chapter established.
+
+1. Ask an LLM to derive the quantized energy levels of the infinite square well from scratch, starting only from the TISE and the boundary conditions. Read the derivation carefully. At which step does it introduce quantization? Is it a postulate or a consequence? Compare its route to the eight steps above.
+
+2. The chapter claims that the cross integral $\int_0^L x\,\psi_1(x)\psi_2(x)\,dx = -16L/(9\pi^2)$. Ask an LLM to verify this by carrying out the integration by parts in detail. Check every step. If it gets a different sign or coefficient, locate the error.
+
+3. Ask an LLM: "If I prepare an electron in the ground state of a 1 nm infinite square well, and then suddenly double the well width to 2 nm, what happens?" It should compute the overlap integrals $c_n = \langle\psi_n^{(2\text{nm})}|\psi_1^{(1\text{nm})}\rangle$ and identify which eigenstates of the new well have nonzero weight. Ask it to explain why $c_n = 0$ for even $n$ by symmetry. Evaluate whether its symmetry argument is correct.
+
+4. Ask an LLM to explain the Gibbs phenomenon — the ringing artifact that appears when a truncated Fourier series tries to represent a function with a discontinuity — and why it appears in the "draw your own $\psi$" simulation when $n_\text{max}$ is small. Ask whether the Gibbs ringing constitutes a physical prediction or a mathematical artifact, and whether it would matter for a probability distribution.
+
+5. The chapter's sloshing calculation says that for $c_1 = c_2 = 1/\sqrt{2}$ with both coefficients real and positive, the initial state is left-heavy and $\langle x\rangle$ first moves rightward. Ask an LLM to verify this, and then ask it what happens if you change $c_2$ to $-1/\sqrt{2}$ (i.e., flip the sign of the second coefficient). Does the initial direction of sloshing change? Does the energy expectation value change? Use its answer to probe whether it understands the difference between the phase of a coefficient and its magnitude.
+
+### Exercise R3 — LLM Exercise
+**What you're building this chapter:** the tridiagonal Hamiltonian builder, the eigensolver, and the golden-test validation table.
+**Tool:** Claude Project — the Hamiltonian builder is the load-bearing module every later potential reuses, so it belongs in persistent project context.
+**The Prompt:**
+```
+Using the Chapter 0 CLAUDE.md, constants.js, grid.js, and observables.js as
+binding context, build 05-infinite-well-eigensolver.html plus a reusable
+hamiltonian.js.
+
+hamiltonian.js exports buildTridiagonal(V, h, m): given a potential array V of
+length N and spacing h, build the (N−2)×(N−2) interior Hamiltonian with
+  t_k = ℏ²/(2 m h²),
+  diagonal H[j][j]   = 2 t_k + V[j],
+  off-diagonal H[j][j±1] = −t_k.
+(Boundary points j=0, N−1 are excluded → Dirichlet ψ_0 = ψ_{N−1} = 0.)
+Diagonalize with math.eigs (math.js from CDN; this is an approved addition).
+Sort eigenvalues ascending; normalize each eigenvector so Σ_j|ψ_j|² h = 1
+(divide the Euclidean eigenvector by √h, NOT h).
+
+05-...html: set V = 0 inside [0, L] with hard walls, L = 2 nm, m = m_e,
+N = 500. Plot V(x) (red), energy levels as green horizontal lines, |ψ_n|²
+offset to E_n. Show a validation TABLE: for n = 1..5, columns
+  E_n analytic (eV) | E_n numerical (eV) | E_n/E_1 numerical | fractional error.
+Analytic E_n = n²π²ℏ²/(2 m_e L²).
+
+THE GOLDEN TEST: assert E_2/E_1, E_3/E_1, E_4/E_1 equal 4, 9, 16 to three
+decimals, and fractional error on E_1 < 1e-4. Report pass/fail explicitly.
+Do NOT tune any constant to make the table match — if it fails, diagnose
+whether it is the t_k factor (2t_k vs t_k), the h-vs-h² denominator, or the
+eigenvector normalization (√h).
+```
+**What this produces:** `hamiltonian.js` (reused by every potential from Chapter 6 on) and `05-infinite-well-eigensolver.html` with the golden-test table.
+**How to adapt:** *Your system:* for >20 states keep `math.eigs`; for 3–5 states a Numerov shooter avoids the library. *ChatGPT/Gemini:* paste the dependency files. *Claude Project:* put `hamiltonian.js` in Project knowledge — it is the spine of the solver.
+**Builds on:** the ψ array and normalization from Chapter 3, the grid from Chapter 2.  **Next:** Chapter 6 feeds this builder an arbitrary $V(x)$ for finite wells and barriers.
 
 ---
 
 ## Chapter 06: Chapter 6 — Finite Wells, Steps, and Barriers
 *Source: `chapters/06-finite-wells-steps-and-barriers.md`*
 
-> **Section not yet authored.** No `### Exercise 3 — LLM Exercise` block found in this chapter file.
-> To add this section, edit the source chapter file directly.
+## LLM Exercises
+
+### The deliverable
+
+`06-barrier-explorer.html` — a single self-contained HTML file with three tabs: **Bound States** (graphical solution for the finite well), **Step** ($R$ and $T$ vs. $E$ for a potential step), and **Barrier** ($T_\text{exact}$ and $T_\text{WKB}$ vs. $E$, plus an animated wave packet on a rectangular barrier).
+
+### CLAUDE.md amendment for this chapter
+
+````markdown
+
+### Exercise R3 — LLM Exercise
+**What you're building this chapter:** the arbitrary-$V(x)$ interface plus the transmission and tunneling calculators.
+**Tool:** Claude chat — built on `hamiltonian.js` from Chapter 5; self-contained per scenario.
+**The Prompt:**
+```
+Using the Chapter 0 CLAUDE.md, constants.js, grid.js, observables.js, and the
+hamiltonian.js from Chapter 5 as binding context, build 06-barrier-explorer.html
+with three tabs.
+
+(1) FINITE WELL: a potentials.js helper finiteWell(x, L, V0) returns V_j
+    (−V0 inside |x|<L/2, 0 outside). Feed V into hamiltonian.js's
+    buildTridiagonal, diagonalize, and count/plot the bound states (E < 0).
+    Confirm the bound-state count matches the graphical condition
+    N ≈ ceil(z_0/(π/2)), z_0 = (L/2ℏ)√(2mV_0).
+
+(2) STEP: plot R(E) and T(E) for V = V0·θ(x). For E > V0,
+    k_0 = √(2mE)/ℏ, k_1 = √(2m(E−V0))/ℏ,
+    R = ((k_0−k_1)/(k_0+k_1))², T = 4k_0k_1/(k_0+k_1)².
+    Use PROBABILITY CURRENT (the k ratio), not |amplitude|². Log "R+T" to the
+    console at every E — it must equal 1.
+
+(3) BARRIER: plot T_exact and T_WKB on a LOG y-axis vs E/V0.
+    For E < V0: κ = √(2m(V0−E))/ℏ,
+      T_exact = 1/(1 + V0² sinh²(κL)/(4E(V0−E))),  T_WKB = exp(−2κL).
+    For E > V0: switch sinh(κL) → sin(k_2 L), κ → ik_2, k_2 = √(2m(E−V0))/ℏ.
+    BOX the two regimes separately; never apply the E<V0 formula when E>V0.
+
+VERIFY: V0=5 eV, L=5 Å, E=1 eV → T_exact ≈ 9×10⁻⁵, T_WKB ≈ 3.5×10⁻⁵,
+ratio ≈ 2.56 = 16E(V0−E)/V0². Report it.
+```
+**What this produces:** `potentials.js` (well/step/barrier builders, reused later) and `06-barrier-explorer.html` with bound-state, step, and tunneling tabs.
+**How to adapt:** *Your system:* any new $V(x)$ you write plugs into the same `buildTridiagonal`. *ChatGPT/Gemini:* paste `hamiltonian.js`. *Claude Project:* add `potentials.js` to Project knowledge.
+**Builds on:** the tridiagonal Hamiltonian from Chapter 5.  **Next:** Chapter 7 feeds the same builder the quadratic oscillator potential and validates $E_n = (n+\tfrac12)\hbar\omega$.
 
 ---
 
 ## Chapter 07: Chapter 7 — The Quantum Harmonic Oscillator
 *Source: `chapters/07-the-harmonic-oscillator.md`*
 
-> **Section not yet authored.** No `### Exercise 3 — LLM Exercise` block found in this chapter file.
-> To add this section, edit the source chapter file directly.
+### Exercise R3 — LLM Exercise
+**What you're building this chapter:** the harmonic-oscillator validation of the eigensolver and the $\sigma_x\sigma_p$ ground-state check.
+**Tool:** Claude chat — built on `hamiltonian.js` and `observables.js`; self-contained.
+**The Prompt:**
+```
+Using the Chapter 0 CLAUDE.md, constants.js, grid.js, observables.js,
+potentials.js, and hamiltonian.js as binding context, build
+07-oscillator-validation.html.
+
+Add to potentials.js: harmonic(x, m, omega) returns V_j = 0.5·m·omega²·x_j².
+Feed it into buildTridiagonal, diagonalize, normalize eigenvectors to
+Σ|ψ_j|² h = 1. Use a grid x ∈ [−x_max, +x_max] with x_max ≥ 6·x_0,
+x_0 = √(ℏ/(mω)), and N = 600.
+
+Display:
+  - V(x) parabola (red), energy levels E_n (green), |ψ_n|² offset to E_n,
+    for n = 0..6;
+  - a TABLE: E_n numerical | E_n analytic (n+½)ℏω | spacing E_{n+1}−E_n vs ℏω;
+  - σ_x, σ_p, and σ_x σ_p for the GROUND STATE (must read ℏ/2).
+
+VALIDATE explicitly: level spacing uniform to within 1% of ℏω; ground-state
+σ_x σ_p within 1% of ℏ/2; ground-state wave function Gaussian (no nodes).
+If the spacing drifts at high n, tell me whether the grid is too narrow
+(tails truncated) rather than nudging ω. Use m = m_e, ω = 1e14 rad/s.
+```
+**What this produces:** `07-oscillator-validation.html` and an extended `potentials.js`, demonstrating the eigensolver is correct on a smooth potential.
+**How to adapt:** *Your system:* raise $x_\text{max}$ if high-$n$ spacing drifts. *ChatGPT/Gemini:* paste the dependency modules. *Claude Project:* the harmonic builder joins `potentials.js` in Project knowledge.
+**Builds on:** the eigensolver and golden test from Chapter 5; the observables from Chapter 3.  **Next:** Chapter 8 adds time evolution so wave packets move in any $V(x)$.
 
 ---
 
 ## Chapter 08: Chapter 8 — The Free Particle and Wave Packets
 *Source: `chapters/08-the-free-particle-and-wave-packets.md`*
 
-> **Section not yet authored.** No `### Exercise 3 — LLM Exercise` block found in this chapter file.
-> To add this section, edit the source chapter file directly.
+## LLM Exercises
+
+The following exercises are designed to be worked with a large language model as a thinking partner — not to obtain answers, but to test reasoning, expose failure modes, and push at the edges of what the chapter established.
+
+1. Ask an LLM to explain why the free-particle plane wave cannot be normalized, and to connect this to the uncertainty principle. Ask it specifically: is non-normalizability a practical limitation, or is it a fundamental physical statement? Evaluate whether its answer distinguishes between the mathematical fact (integral diverges) and the physical content (infinite position uncertainty).
+
+2. The chapter states that $|\phi(k)|^2$ is time-independent during free propagation. Ask an LLM to prove this from the time-evolution formula $\phi(k,t) = \phi(k,0)e^{-i\omega(k)t}$. Then ask it: does this mean momentum is conserved? In what sense? Is $\langle p\rangle$ constant? Is $\sigma_p$ constant? Are these the same statement?
+
+3. Ask an LLM to derive the group velocity for a general dispersion relation $\omega(k)$, using the stationary-phase argument. Then ask it: for what dispersion relation does $v_g = v_{ph}$? What does a packet look like in that case — does it spread? Give a physical example. Evaluate whether its example is physically accurate.
+
+4. A student claims: "The Gaussian wave packet at $t = 0$ has $\sigma_x\sigma_p = \hbar/2$, so it is a minimum-uncertainty state. But after it spreads, $\sigma_x$ is larger. So either $\sigma_p$ must increase to keep the product at $\hbar/2$, or the uncertainty principle is violated." Ask an LLM to identify the error in this reasoning. Evaluate whether its response correctly distinguishes between the uncertainty principle as a constraint on each instant versus a statement about time evolution.
+
+5. Ask an LLM to explain what "dispersion" means in the context of wave packets, and to give three physical examples of dispersive media (where $d^2\omega/dk^2 \neq 0$) and one non-dispersive example. For each dispersive case, ask whether packets spread faster or slower than the free quantum particle. Evaluate the accuracy of its examples.
+
+### Exercise R3 — LLM Exercise
+**What you're building this chapter:** the split-step Fourier propagator and its validation against analytic free-particle spreading.
+**Tool:** Claude Project — the unitary stepper is reused by every time-evolution scenario (tunneling, scattering), so it belongs in persistent context.
+**The Prompt:**
+```
+Using the Chapter 0 CLAUDE.md (complex as re/im arrays; unitary steppers only,
+never explicit Euler), constants.js, grid.js, observables.js as binding
+context, build 08-wavepacket-evolution.html plus a reusable stepper.js.
+
+stepper.js exports splitStep(re, im, V, h, m, dt) doing ONE unitary step:
+  1. half potential phase: ψ_j *= exp(−i V_j dt /(2ℏ));
+  2. FFT to k-space;
+  3. kinetic phase: ψ̂_m *= exp(−i ℏ k_m² dt /(2m)), where
+       k_m = (2π/(N h)) · (m < N/2 ? m : m − N)   ← SIGN FLIP for m ≥ N/2;
+  4. IFFT back to x-space;
+  5. half potential phase again.
+Each phase has modulus 1 → exactly unitary.
+
+08-...html: initialize a Gaussian (center x_0, width σ_0, mean k_0), V = 0,
+animate |Ψ(x,t)|². Pin a normalization indicator (must stay 1.000 ± 0.001).
+Overlay the analytic centroid x_0 + (ℏk_0/m)t and analytic width
+σ(t) = σ_0√(1 + (ℏt/(2mσ_0²))²); show live numerical centroid and width.
+Also plot |φ(k)|² and confirm it is constant in time (momentum conserved).
+
+VERIFY: centroid and width agree with analytic to < 1% over several spreading
+times; normalization never drifts. If it drifts up, you used explicit Euler or
+a non-unitary step — switch to split-step. If |Ψ|² develops grid-scale
+oscillations after ~10 steps, the k_m sign flip is missing.
+```
+**What this produces:** `stepper.js` (the unitary propagator) and `08-wavepacket-evolution.html` validating it against the exact spreading law.
+**How to adapt:** *Your system:* for hard-wall problems swap split-step for Crank-Nicolson (Thomas solve); both are unitary. *ChatGPT/Gemini:* paste the dependency files and the $k_m$ rule explicitly. *Claude Project:* keep `stepper.js` in Project knowledge.
+**Builds on:** the ψ array and observables from Chapter 3; arbitrary $V(x)$ from Chapter 6.  **Next:** Chapter 9 reads $\langle x\rangle,\langle p\rangle,\Delta x\Delta p$ off the evolving state.
 
 ---
 
 ## Chapter 09: Chapter 9 — Operators and Uncertainty
 *Source: `chapters/09-operators-and-uncertainty.md`*
 
-> **Section not yet authored.** No `### Exercise 3 — LLM Exercise` block found in this chapter file.
-> To add this section, edit the source chapter file directly.
+## LLM Exercises
+
+### Part A — CLAUDE.md amendment for this chapter
+
+````markdown
+
+### Exercise R3 — LLM Exercise
+**What you're building this chapter:** the full observables/uncertainty panel and the commutator-residual self-check, run on the eigensolver's output.
+**Tool:** Claude chat — built on `observables.js`, `hamiltonian.js`; self-contained.
+**The Prompt:**
+```
+Using the Chapter 0 CLAUDE.md, constants.js, grid.js, observables.js,
+hamiltonian.js as binding context, build 09-operators-uncertainty.html.
+
+For any selected state (Gaussian with a, k_0; or infinite-well eigenstate n on
+[0,L] from the eigensolver), compute and display:
+  ⟨x⟩, ⟨x²⟩, σ_x; ⟨p⟩, ⟨p²⟩, σ_p (use p̂ = −iℏ∂_x, central difference);
+  the ratio σ_x σ_p /(ℏ/2) in a large readout;
+  a Robertson-boundary plot: the hyperbola σ_x σ_p = ℏ/2 and the current
+  state as a point (Gaussian ON the curve, well ABOVE it).
+
+COMMUTATOR RESIDUAL self-check: apply [x̂, p̂] to the current ψ on the grid
+([x̂,p̂]ψ = x̂(p̂ψ) − p̂(x̂ψ)) and display the max deviation from iℏ·ψ. It must
+read ≈ 0 (up to O(h²) grid error). Build this as a startup assertion.
+
+CRITICAL: p̂ = −iℏ∂_x — k_0 > 0 gives ⟨p⟩ > 0. σ_p² = ⟨p²⟩ − ⟨p⟩² (BOTH terms).
+VERIFY: Gaussian a=1 nm → ratio 1.000; well n=1, L=10 nm → ratio ≈ 1.136;
+well n=10 → ratio ≈ 18.08 (grows as ≈ 1.814·n); commutator residual < 1e-3·ℏ.
+```
+**What this produces:** `09-operators-uncertainty.html` with the uncertainty panel, Robertson plot, and the commutator residual that validates the grid operators.
+**How to adapt:** *Your system:* add an FFT-based $\langle p\rangle$ as a cross-check against the finite-difference one. *ChatGPT/Gemini:* paste the dependency files. *Claude Project:* the uncertainty panel becomes the standard readout for every eigenstate.
+**Builds on:** the expectation values from Chapter 3, the eigensolver from Chapter 5.  **Next:** Chapter 10 adds projective measurement that collapses a state to an eigenstate.
 
 ---
 
 ## Chapter 10: Chapter 10 — Measurement, Superposition, and the Qubit
 *Source: `chapters/10-measurement-and-the-qubit.md`*
 
-> **Section not yet authored.** No `### Exercise 3 — LLM Exercise` block found in this chapter file.
-> To add this section, edit the source chapter file directly.
+### Exercise R3 — LLM Exercise
+**What you're building this chapter:** the projective-measurement sampler and the qubit/Bloch-sphere measurement page.
+**Tool:** Claude chat — a self-contained finite-dimensional module; the Pauli algebra needs no persistent grid state.
+**The Prompt:**
+```
+Using the Chapter 0 CLAUDE.md and constants.js as binding context, build
+11-qubit-measurement.html plus a reusable measure.js.
+
+measure.js exports measure(psi, eigenstates, eigenvalues): compute
+P(a_n) = |⟨a_n|psi⟩|², draw one outcome by inverse-CDF over P, and return
+{outcome, collapsedState = |a_n⟩}. Also exports ensemble(psi, A, N) returning
+N sampled outcomes and the sample mean/std.
+
+11-...html: qubit state |ψ⟩ = cos(θ/2)|0⟩ + e^{iφ} sin(θ/2)|1⟩ (θ/2, NOT θ),
+sliders θ ∈ [0,π], φ ∈ [0,2π). Pauli matrices EXACTLY:
+  σ_x=[[0,1],[1,0]], σ_y=[[0,-i],[i,0]] (UPPER-RIGHT −i), σ_z=[[1,0],[0,-1]].
+At startup assert σ_y† = σ_y and σ_i² = I. Bloch vector
+r = (sinθcosφ, sinθsinφ, cosθ); assert |r|² = 1.
+Show ⟨σ_x⟩,⟨σ_y⟩,⟨σ_z⟩ bars; "Measure σ_z/σ_x/σ_y" buttons that sample one
+outcome and collapse the displayed state; an "Run ensemble" panel that samples
+N outcomes for two observables, draws histograms, and prints σ_A, σ_B,
+σ_Aσ_B, and the Robertson bound |⟨[A,B]⟩|/2.
+
+VERIFY: |0⟩ → σ_z bar +1, single σ_z measurement gives +1 w.p. 1;
+|+y⟩ (θ=π/2,φ=π/2) → σ_x,σ_z ensembles ~50/50, product ≈ 1 = Robertson bound.
+```
+**What this produces:** `measure.js` (the Born-rule sampler, usable on eigenstates too) and `11-qubit-measurement.html`.
+**How to adapt:** *Your system:* apply the same `measure.js` to position eigenstates of the 1D solver to simulate position measurement collapse. *ChatGPT/Gemini:* paste the Pauli definitions explicitly. *Claude Project:* keep `measure.js` in Project knowledge.
+**Builds on:** the Born rule from Chapter 3, the Robertson bound from Chapter 9.  **Next:** Chapter 11 assembles every module into the full sandbox and runs the golden test on the whole system.
 
 ---
 
 ## Chapter 11: Chapter 11 — Capstone: A 1D Quantum Sandbox
 *Source: `chapters/11-capstone-a-1d-quantum-sandbox.md`*
 
-> **Section not yet authored.** No `### Exercise 3 — LLM Exercise` block found in this chapter file.
-> To add this section, edit the source chapter file directly.
+## LLM Exercises
+
+The following exercises are designed to be worked with a large language model as a collaborator — not to generate the simulation (you should write that yourself), but to understand the algorithms, debug your implementation, and check your reasoning.
+
+1. Ask an LLM to explain the Numerov method from first principles: where does the $5/12$ and $1/12$ come from? Ask it to derive the recursion by expanding $\psi_{j\pm1}$ in Taylor series around $x_j$ to fourth order, applying the TISE to eliminate $\psi''$, and solving for $\psi_{j+1}$. Check the derivation step by step. If it skips steps, ask it to fill them in.
+
+2. Ask an LLM to explain why the Crank-Nicolson scheme is exactly unitary for a Hermitian Hamiltonian. Specifically: write the Cayley form of the update matrix, take its adjoint, and show the product with its adjoint is the identity. Ask the LLM to do this algebra explicitly. Then ask: under what conditions does the split-step method fail to be exactly unitary?
+
+3. Your sandbox produces an eigenstate with normalization $\sum_j|\psi_j|^2 h = 0.0040$ instead of 1. You suspect either the eigenvector is unnormalized or there is a factor of $h$ error. Ask an LLM to explain the difference between Euclidean normalization ($\sum|\psi_j|^2 = 1$) and physics normalization ($\sum|\psi_j|^2 h = 1$), and how to convert between them. Ask it to identify the exact fix and why multiplying by $1/\sqrt{h}$ (not $1/h$) is correct.
+
+4. You run the infinite-square-well eigensolver and find $E_2/E_1 = 3.99$ instead of 4.00. Ask an LLM: is this within expected numerical error for $N = 500$? What is the analytic formula for the central-difference error in the $n$-th eigenvalue? At what $N$ would you expect $E_2/E_1$ to equal 4.000 to four decimal places? Ask it to derive the error formula from the central-difference approximation, and check whether the derivation is correct.
+
+5. Ask an LLM to describe three physical phenomena you could study with the 1D quantum sandbox that are not explicitly covered in this volume — problems where you would set up a potential, run the eigensolver or time evolution, and extract physically meaningful results. For each, ask it to specify the potential $V(x)$, the observable of interest, and the expected qualitative result. Evaluate whether the proposed observables are actually extractable from the sandbox's output.
+
+### Exercise R3 — LLM Exercise
+**What you're building this chapter:** the assembled sandbox — both modes, all potentials, one UI — from the per-chapter modules.
+**Tool:** Claude Project — the capstone loads every governing file and module from the project knowledge built across Chapters 0–10.
+**The Prompt:**
+```
+Using the full project context (CLAUDE.md, DESIGN.md, PROJECT.md, constants.js,
+grid.js, observables.js, hamiltonian.js, potentials.js, stepper.js, measure.js),
+assemble quantum-sandbox.html: one self-contained page with two modes.
+
+EIGENSOLVER MODE: pick a potential (infinite well, finite well, step, barrier,
+harmonic) via potentials.js → buildTridiagonal (hamiltonian.js) → diagonalize →
+normalize to Σ|ψ_j|² h = 1. Plot V(x) (red), energy levels (green), |ψ_n|²
+offset to E_n. Show the uncertainty panel (observables.js) for the selected n:
+⟨x⟩, ⟨p⟩, σ_x, σ_p, σ_xσ_p/(ℏ/2).
+
+TIME-EVOLUTION MODE: initialize a Gaussian packet, propagate with the unitary
+split-step stepper (stepper.js) under the chosen V(x). Animate |Ψ(x,t)|², pin
+the normalization indicator (must stay 1.000), show ⟨H⟩ (must stay flat).
+
+Reuse every module unchanged — do NOT re-derive any physics. The only new code
+is the UI wiring and a "Run validation suite" button that executes all the
+per-chapter checks and prints a pass/fail table (golden test, oscillator,
+spreading law, R+T=1, commutator residual, measurement convergence).
+
+After writing, list exactly which check certifies each mode.
+```
+**What this produces:** `quantum-sandbox.html` — the finished deliverable, plus a one-click validation suite.
+**How to adapt:** *Your system:* the same architecture extends to periodic ($V$ periodic, circulant matrix) or 2D ($N_xN_y$ matrix, iterative eigensolver) per the "What Comes After" section. *ChatGPT/Gemini:* paste all module files as a preamble. *Claude Project:* the assembled sandbox is the Project's capstone artifact.
+**Builds on:** every module from Chapters 0–10.  **Next:** Volume 2 reuses this eigensolver to build the hydrogen atom.
 
 ---
 
-## Chapter 99: 99 Back Matter
+## Chapter 99: 99-back-matter.md
 *Source: `chapters/99-back-matter.md`*
 
-> **Section not yet authored.** No `### Exercise 3 — LLM Exercise` block found in this chapter file.
+> **Section not yet authored.** No `## LLM Exercises` / `### Exercise R3 — LLM Exercise` block found in this chapter file.
 > To add this section, edit the source chapter file directly.
 
 ---

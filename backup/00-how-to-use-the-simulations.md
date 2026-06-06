@@ -2,7 +2,7 @@
 
 ## TL;DR
 
-In this chapter we set up the tools. We write three short governing Markdown files (`CLAUDE.md`, `DESIGN.md`, `PROJECT.md`), use a four-move prompt (Show / Say / Constrain / Verify) with Claude, and end up with a free-particle Gaussian wave packet animating in a browser — all before the book introduces any new physics. Think of this as installing the toolchain that every later LLM Exercise depends on. The packet you build is already doing real physics — dispersion, group velocity, spreading — but we explain that physics properly in Chapters 1 and 2. Here it is just a vehicle for learning the workflow.
+You will build three governing Markdown files (`CLAUDE.md`, `DESIGN.md`, `PROJECT.md`), paste a four-move prompt (Show / Say / Constrain / Verify) into Claude, and have a free-particle Gaussian wave packet animating in your browser before this book introduces a single new piece of physics. This chapter is the toolchain installation: every subsequent LLM Exercise inherits these files. The physics the wave packet is doing — dispersion, group velocity, spreading — arrives properly in Chapters 1 and 2; here it is a vehicle.
 
 ---
 
@@ -20,37 +20,37 @@ By the end of this chapter you will be able to:
 
 ## The Problem Before the Physics
 
-You will meet one particular image many times in this book: a blue filled curve drifting to the right, orange ripples sliding backward through it, and a number in the corner reading `1.000`. At this point none of it has a meaning yet, and that is intentional — Chapter 1 supplies the meaning. The reason to build it now is practical. Quantum mechanics is unusually hard to absorb from words alone, because its objects have no everyday counterpart. A standard textbook hands you the symbols but gives you no way to hold the thing, rotate it, or push on it with a slider. We add a third object alongside the text and the equations: a simulation you assembled yourself, governed by physics you can derive, that reacts when you change its parameters.
+Here is an image you will see many times in this book: a blue filled curve drifting to the right while orange ripples slip backward through it, and a number in the corner that reads `1.000`. You do not yet know what any of it means. That is fine — Chapter 1 will tell you. The reason to see it *first* is that quantum mechanics is hard to learn from words. The objects have no classical analogue, and the standard textbook gives you no way to hold them, turn them, poke them with a slider. This book gives you a third object alongside the text and the mathematics: a simulation you built, governed by physics you can derive, that responds when you change parameters.
 
-So the problem this chapter solves is not a physics problem at all. It is a setup problem. Before simulations can teach you physics, you need a dependable, repeatable way to produce them. Our tool is Claude, or any capable large language model. Our method is the four-move prompt. Our stability comes from three Markdown files you write once and reuse for the whole book. Installing that apparatus is the entire job today.
+The problem this chapter solves is not a physics problem. It is a logistics problem. Before you can use simulations to learn physics, you need a stable, repeatable way to produce them. The tool is Claude (or any capable LLM). The method is the four-move prompt. The stability comes from three Markdown files you write once and carry through the whole book. That is the apparatus we are installing today.
 
-When you reach the end of this chapter, a file named `00-wave-packet.html` will be sitting on your computer. Open it and press play. The blue blob drifts; the orange ripples slip backward through it. Notice the small confusion of watching something you cannot yet name — that feeling is exactly where Chapter 1 begins, by handing you the name.
+By the time you close this chapter, you will have a file called `00-wave-packet.html` on your machine. Open it. Press play. Watch the blue blob drift. Watch the orange ripples slip backward through it. Feel the mild confusion of watching something you cannot yet name. Chapter 1 will name it.
 
 ---
 
 ## The Brutalist System — Three Files, One Apparatus
 
-We borrow the word *Brutalist* from architecture, where it names a style that leaves its structural materials on display instead of hiding them behind ornament — the concrete, the steel, the pipes are all visible. We apply the same idea to code. The rules that govern our simulations live in plain Markdown files you can open, read, edit, and put under version control. Nothing important is locked away inside a tool you do not control.
+The name *Brutalist* is borrowed from architecture, where it refers to a style that exposes its structural materials rather than hiding them behind decoration. A Brutalist building shows you the concrete, the steel, the pipes. The Brutalist system in this book is the same idea applied to code: the rules governing the simulations live in plain Markdown files you can read, edit, and version-control. Nothing is buried in a tool you do not own.
 
-The work is divided across three files.
+Three files do all the work.
 
 ### `CLAUDE.md` — The Coding Constitution
 
-Claude reads this file before every coding prompt. It pins down the runtime (a modern browser, no build step), the library (D3 v7 from a CDN), the drawing surface (SVG only — not Canvas, not WebGL), how parameters get exposed (HTML `<input type="range">` sliders that fire on `input`), the animation loop (`requestAnimationFrame`), how complex wave functions are stored (`{re, im}` objects or two parallel `Float64Array`s), the units convention (SI internally, physical units on screen), and the normalization indicator (every simulation prints $\int |\psi|^2\,dx$ and warns if it strays from 1 by more than 1%).
+This is the file Claude reads before every coding prompt. It specifies: the runtime (a modern browser, no build step), the library (D3 v7 loaded from CDN), the drawing surface (SVG only — not Canvas, not WebGL), the parameter exposure convention (HTML `<input type="range">` sliders firing on `input`), the animation loop (`requestAnimationFrame`), the storage convention for complex wave functions (`{re, im}` objects or two parallel `Float64Array`s), the units convention (SI internally, physical units displayed), and the normalization indicator (every simulation prints $\int |\psi|^2\,dx$ and warns if it strays from 1 by more than 1%).
 
-Three of these rules are worth pausing on.
+Three of these rules deserve explanation.
 
-**SVG, not Canvas.** A one-dimensional wave function is a curve. A probability density is a curve. A potential is a curve. SVG draws curves natively — one `<path>` element per curve, a vector representation that scales cleanly. Canvas would make you manage a pixel buffer and rebuild axes by hand. D3 v7 is built around SVG, so the match is natural and the resulting code is easy to read.
+**SVG, not Canvas.** A one-dimensional wave function is a curve. A probability density is a curve. A potential is a curve. SVG draws curves natively — one `<path>` element per curve, vector representation that scales cleanly. Canvas forces you to manage a pixel buffer and reimplement axes from scratch. D3 v7 is built around SVG. The match is natural and the resulting code is readable.
 
-**Functions, not classes.** The physics at the core of a simulation is mostly a pure function that turns parameters into an array of values: `computeWavefunction(x, t, params)` returns a typed array. Wrapping that in a class hides the structure and raises lifecycle questions — when do you instantiate, when do you destroy? Plain functions are easier to read, change, and debug.
+**Functions, not classes.** The simulation core is mostly a pure function from parameters to an array of values: `computeWavefunction(x, t, params)` returns a typed array. Wrapping this in a class hides the structure and creates lifecycle questions (when do you instantiate? when do you destroy?). Plain functions are easier to read, modify, and debug.
 
-**The normalization indicator.** Every simulation displays $\int |\psi|^2\,dx$ in a corner of the screen, and it should read `1.000`. When it drifts, something has gone wrong: the model may have introduced a numerical error, you may have pushed a parameter outside its physical range, or there may be a bug. The indicator is the simulation's lie detector, and you should never ship a simulation without it.
+**The normalization indicator.** Every simulation displays $\int |\psi|^2\,dx$ in a corner of the screen. It should read `1.000`. If it drifts, something is wrong: either the LLM introduced a numerical error, or you changed a parameter outside the physical range, or there is a bug. The indicator is the simulation's lie detector. Do not ship any simulation without it.
 
 ### `DESIGN.md` — The Visual Constitution
 
-`DESIGN.md` governs what a simulation *looks like*: colors, fonts, axis labels, slider styling, colormap choices. We keep it separate from `CLAUDE.md` because visual decisions and behavioral decisions fail in different ways. To change the color palette, you edit `DESIGN.md` alone and the physics stays untouched.
+`DESIGN.md` governs what the simulation *looks like*: colors, fonts, axis labels, slider styling, colormap choices. It is separated from `CLAUDE.md` because visual decisions and behavioral decisions break differently. If you want to change the color palette, you edit `DESIGN.md` alone; the physics is untouched.
 
-Here are the color commitments this book makes, with the reasoning behind each:
+The color commitments this book makes, and why:
 
 - $|\psi|^2$ in blue (filled): it is the panel you look at most. Blue reads well against both light and dark backgrounds.
 - $\mathrm{Re}\,\psi$ in orange (solid line): it oscillates and goes negative; orange on a neutral background stays readable.
@@ -63,19 +63,19 @@ For two-dimensional density maps: **Viridis** for unsigned quantities (it is mon
 
 ### `PROJECT.md` — The Project State
 
-Claude reads `PROJECT.md` to remember the project. It stays short — a few hundred words — and records which chapter you are working on, which simulations exist and have been verified, which parameter ranges you used, and what is currently broken. Each time you finish a simulation you add a line; each time you fix a bug you note it.
+`PROJECT.md` is the file Claude reads to remember the project. It is short — a few hundred words — and lists: which chapter you are working on, which simulations exist and have been verified, which parameter ranges were used, what is broken. Every time you finish a simulation, you add a line. Every time you fix a bug, you note it.
 
-Students tend to forget this file exists. We urge you not to, for a simple reason: Claude carries no memory from one session to the next. Return in three weeks to extend the Chapter 3 simulation and the model has forgotten every parameter, every convention, every fact you verified. `PROJECT.md` is that memory. Without it, every extension prompt starts over from nothing. With it, the extension prompt is five lines.
+Students forget this file exists. Don't. The reason is simple: Claude has no persistent memory between sessions. When you return in three weeks to extend the Chapter 3 simulation, the model has forgotten every parameter, every convention, every verified fact. `PROJECT.md` is the memory. Without it, every extension prompt starts from scratch. With it, the extension prompt is five lines.
 
 ### Why Three Files, Not One
 
-The obvious question is why not fold everything into a single `CLAUDE.md`.
+The natural question: why not put everything in one `CLAUDE.md`?
 
-The first answer is token economy. In Chapter 7, a request for a simulation should not force the model to re-read slider-styling rules. The Chapter 7 prompt loads `CLAUDE.md` (behavior) and `PROJECT.md` (state), and refers to `DESIGN.md` by name without quoting it. The visual rules still apply; they just are not consuming context.
+Token economy. In Chapter 7, a simulation request should not force the model to re-read slider-styling rules. The chapter-7 prompt loads `CLAUDE.md` (behavior) and `PROJECT.md` (state), and references `DESIGN.md` by name without quoting it. The visual rules are still in force; they are not burning context.
 
-The same split helps you debug. When a simulation comes out wrong, you can ask: is this a behavioral problem (wrong physics, wrong animation) or a visual one (wrong color, wrong layout)? Knowing which, you know which file to open. The three-file structure serves debugging as much as it serves token economy.
+The same split helps you debug. When the simulation looks wrong, ask: behavioral problem (wrong physics, wrong animation) or visual problem (wrong color, wrong layout)? You know which file to open. The three-file split is for debugging as much as for token economy.
 
-**The "bureaucracy" misconception.** These files are not bureaucracy. They are the reason every chapter's simulation stays consistent and debuggable. Skip them and you rediscover the same conventions every week and end up with twelve visually incompatible simulations. The files write the rules down once, so you stop relitigating them.
+**The "bureaucracy" misconception.** The files are not bureaucracy. They are the reason every chapter's simulation is consistent and debuggable. Without them, you rediscover the same conventions every week and produce twelve visually incompatible simulations. The files make the rules explicit so you stop relitigating them.
 
 ---
 
@@ -83,13 +83,13 @@ The same split helps you debug. When a simulation comes out wrong, you can ask: 
 
 A prompt to Claude is a specification, not a wish. The four-move structure below is the one this book uses for every LLM Exercise. It is short, it is testable, and it is why most chapter simulations work on the first or second try.
 
-**Show.** Paste the artifact — the actual equation, in LaTeX if needed, not a description of it. If you want the wave function $\psi(x, 0) = (1/(\pi a^2))^{1/4}\,e^{-x^2/(2a^2)}\,e^{ik_0 x}$, put that formula in the prompt. Do not write "a Gaussian wave packet" and hope. Vague descriptions are the number-one cause of bad LLM-generated code, because the model has to guess what you meant, and the guess is often wrong. LLMs hallucinate phase factors when they are not given the analytic expression.
+**Show.** Paste the artifact. The equation — in LaTeX if needed, not a description of it. If you want the wave function $\psi(x, 0) = (1/(\pi a^2))^{1/4}\,e^{-x^2/(2a^2)}\,e^{ik_0 x}$, put that formula in the prompt. Do not write "a Gaussian wave packet" and hope. Vague descriptions are the number-one cause of bad LLM-generated code because the model must guess what you meant, and the guess is often wrong. LLMs hallucinate phase factors when not given the analytic expression.
 
-**Say.** State the deliverable in one sentence, naming the audience and format: *"Produce a single HTML file I can open in Chrome with sliders for $\sigma$ and $k_0$ that animates $|\psi|^2$ in real time."* The use case ("open in Chrome," "single file") fixes the shape of the output. Leave it out and you may get a Python notebook.
+**Say.** State the deliverable in one sentence with the audience and format: *"Produce a single HTML file I can open in Chrome with sliders for $\sigma$ and $k_0$ that animates $|\psi|^2$ in real time."* The use case ("open in Chrome," "single file") fixes the shape of the output. Without it, you may get a Python notebook.
 
-**Constrain.** Name the constraints. D3 v7 from CDN. Single file. No build step. SVG only. Normalization indicator visible. Constraints shrink the model's search space and cut down on hallucination. The `CLAUDE.md` constraints are already in force; the Constrain move names only the additional constraints specific to this simulation.
+**Constrain.** Name the constraints. D3 v7 from CDN. Single file. No build step. SVG only. Normalization indicator visible. Constraints shrink the model's search space and reduce hallucination. The `CLAUDE.md` constraints are already in force; the Constrain move names only additional constraints specific to this simulation.
 
-**Verify.** Ask Claude what to check. *"Tell me four things I should verify in the browser to confirm the physics is correct."* This turns Claude from an oracle into a collaborator. You get back a rubric: *(a) centroid at $x=0$ at $t=0$; (b) centroid moves at $v_g$; (c) $\sigma(t)$ grows as predicted; (d) normalization stays at 1.000.* You apply that rubric to the rendered output, and if a check fails you know what to fix. The Verify move is the habit this whole chapter is trying to build, because the verification stack is your immune response against LLM hallucination.
+**Verify.** Ask Claude what to check. *"Tell me four things I should verify in the browser to confirm the physics is correct."* This converts Claude from oracle to collaborator. You get back a rubric: *(a) centroid at $x=0$ at $t=0$; (b) centroid moves at $v_g$; (c) $\sigma(t)$ grows as predicted; (d) normalization stays at 1.000.* You apply it to the rendered output. If a check fails, you know what to fix. The Verify move is the chapter-zero habit. The verification stack is the immune response against LLM hallucination.
 
 ---
 
@@ -193,13 +193,13 @@ In 15 femtoseconds the packet doubles in width.
 
 ## Still Puzzling
 
-- The Brutalist file split (CLAUDE / DESIGN / PROJECT) rests on a clean principle, yet the boundaries between the files are not always obvious. Consider a slider's keyboard-accessibility rule: does it belong in `CLAUDE.md` (behavior) or `DESIGN.md` (appearance)? Our answer is behavior — accessibility rules govern how a component responds, not how it looks. But we acknowledge the boundary is genuinely fuzzy, and we ask you to write down and defend your choice in `CLAUDE.md`.
+- The Brutalist file split (CLAUDE / DESIGN / PROJECT) is principled, but the boundaries are not always obvious. When does a slider's keyboard-accessibility rule belong in `CLAUDE.md` (behavior) versus `DESIGN.md` (appearance)? The answer is: behavior. Accessibility rules govern how the component responds, not how it looks. But the book acknowledges this is a fuzzy boundary and asks you to document your choice in `CLAUDE.md`.
 
-- The verification stack reliably catches arithmetic errors. What it does not catch is a *conceptual* error that happens to produce numerically plausible output. A simulation that swaps the labels "Re $\psi$" and "Im $\psi$," for instance, passes every quantitative check. The only defense is the visual check, and that check works only if you already know what the correct picture looks like — which is exactly why Chapter 1 opens by pointing directly at what you built here.
+- The verification stack catches arithmetic errors. It does not catch *conceptual* errors that produce numerically plausible output. A simulation that swaps the labels "Re $\psi$" and "Im $\psi$" will pass every quantitative check. The visual check is the only defense, and it requires you to already know what the correct picture looks like — which is why Chapter 1 begins by pointing directly at what you built here.
 
-- Even with `CLAUDE.md` in the prompt, LLM-generated simulation code drifts in style between sessions. We treat re-running the same prompt as a normal part of the workflow rather than a sign of failure. We should be candid that this has not been studied systematically in a quantum mechanics curriculum; the broader claim that LLM-assisted interactive learning improves conceptual gains over static text still awaits a careful replication study at the upper-division level.
+- LLM-generated simulation code drifts in style between sessions even with `CLAUDE.md` in the prompt. The book treats re-running the same prompt as part of the workflow. This has not been systematically studied in the quantum mechanics curriculum setting; the claim that LLM-assisted interactive learning improves conceptual gains over static text awaits a careful replication study at the upper-division level.
 
-- This chapter does not teach JavaScript. Its goal is narrower: to teach you to read and modify what Claude produces. Whether that is enough for the more demanding chapters ahead — Chapter 8 on the harmonic oscillator, Chapter 12's capstone sandbox — is an open empirical question, and the first run of this course is what will answer it.
+- This chapter does not teach JavaScript. It teaches you to read and modify what Claude produces. Whether that is sufficient for Chapters 8 (harmonic oscillator) and 12 (capstone sandbox) remains an open empirical question that the first run of this course will answer.
 
 ---
 

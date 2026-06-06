@@ -1,8 +1,6 @@
 # Chapter 10 — Measurement, Superposition, and the Qubit
 
-In the summer of 1925, Werner Heisenberg, suffering from hay fever, retreated to the island of Helgoland with a problem. He wanted a theory of atomic transitions built only from quantities one could actually observe, rather than from electron orbits no one had ever seen. The result was matrix mechanics. Underneath his calculation lay a deeper question that every physicist after him would have to face: when we measure something quantum, what actually happens?
-
-We mean this concretely, not philosophically. We run an experiment, we get a result — what were the rules that produced it?
+In this chapter we examine what happens when we make a measurement in quantum mechanics. The question is a practical one: when we run an experiment and get a result, what rules governed that outcome? We will state those rules precisely, apply them to two-level systems called qubits, and examine what the formalism says — and does not say — about what happens to the system during a measurement.
 
 ---
 
@@ -296,7 +294,7 @@ After writing, confirm:
 
 ### Exercise R2 — When NOT to Use AI
 **The judgment:** These tasks require your judgment; AI output here can't be trusted without redoing the work:
-- The sign in $\sigma_y = \begin{psmallmatrix}0 & -i\\ i & 0\end{psmallmatrix}$ (upper-right is $-i$) and the $\theta/2$ in the Bloch parametrization — *Why AI fails here:* the $+i$ sign error and the $\theta$-vs-$\theta/2$ slip are the two most common qubit bugs; both produce a unit-modulus state that passes normalization but mislocates it on the sphere.
+- The sign in $\sigma_y = \left(\begin{smallmatrix}0 & -i\\ i & 0\end{smallmatrix}\right)$ (upper-right is $-i$) and the $\theta/2$ in the Bloch parametrization — *Why AI fails here:* the $+i$ sign error and the $\theta$-vs-$\theta/2$ slip are the two most common qubit bugs; both produce a unit-modulus state that passes normalization but mislocates it on the sphere.
 - Whether $P(a_n) = |\langle a_n|\psi\rangle|^2$ (projection) rather than $|\psi|^2$ directly — *Why AI fails here:* the Born rule is a projection onto the *observable's* eigenbasis; computing $|\psi|^2$ in the computational basis gives wrong probabilities for $\sigma_x$ or $\sigma_y$, and the histogram still looks like a distribution.
 **The tell:** If you could not explain the result without the AI — if the AI is your *reason* rather than your *tool* — it did work that should have been yours.
 **Physics-judgment connection:** This trains checking sampled measurement statistics against the analytic expectation value ($\langle\hat A\rangle$), against probability conservation ($\sum P = 1$), and against the Robertson bound — plus startup assertions on the operator definitions ($\sigma_y^\dagger = \sigma_y$, $|\vec r| = 1$).

@@ -1,16 +1,14 @@
 # Chapter 4 — The Schrödinger Equation and Stationary States
 
-In January 1926, Erwin Schrödinger set himself a clear problem. He had been reading de Broglie's 1924 thesis, which claimed that matter has wave properties, and he wanted to know: if matter is a wave, what is its wave equation?
-
-He tried several forms. He knew the answer had to reproduce the Bohr energy levels of hydrogen — not as a postulate, but as a *consequence*. After weeks of false starts, he found it, and within six months he submitted four foundational papers to *Annalen der Physik*. At the center of all of them is
+In January 1926, Erwin Schrödinger sought a wave equation for matter. He had been reading de Broglie's 1924 thesis, which argued that particles have wave properties, and he required the equation to reproduce the Bohr energy levels of hydrogen as a consequence rather than a postulate. Within six months he submitted four foundational papers to *Annalen der Physik*. At the center of all of them is
 
 $$i\hbar\,\frac{\partial \Psi}{\partial t} = \hat{H}\,\Psi.$$
 
-This is the time-dependent Schrödinger equation. It is a partial differential equation, first order in time and second order in space, and in general it is hard to solve. But there is a special case — the case where the potential does not depend on time — where a single clever guess cracks it open, turning the hard PDE into a problem we can actually solve. That case covers nearly every system in this book: the infinite well, the harmonic oscillator, the hydrogen atom, all of which have static potentials. This chapter is about what happens when $V = V(x)$.
+This is the time-dependent Schrödinger equation (TDSE). It is a partial differential equation, first order in time and second order in space. When the potential $V$ is time-independent — as it is for the infinite square well, the harmonic oscillator, the hydrogen atom, and nearly every system in this book — the equation can be solved by a standard separation-of-variables method. This chapter develops that method and the stationary-state solutions it produces.
 
 ---
 
-## The Trick
+## Separation of Variables
 
 The full TDSE in one dimension is
 
@@ -80,21 +78,19 @@ The simulation for this chapter makes this visible. For a single eigenstate, the
 
 ## Why the Laser Cavity Is the Same Problem
 
-Picture a laser cavity on an optical table: two mirrors facing each other, with a gain medium between them. A pump beam goes in, and a single, monochromatic, phase-coherent beam comes out.
+Consider a laser cavity: two mirrors facing each other with a gain medium between them. The cavity produces a single, monochromatic, phase-coherent beam at specific frequencies, and not others, because it only sustains standing waves that fit exactly between the mirrors. A wave that does not vanish at both mirror surfaces destroys itself on each round trip through destructive interference. A wave that does vanish at both surfaces builds up coherently. The cavity selects, from a continuous range of possible frequencies, the discrete set that satisfies its boundary conditions.
 
-Why specific frequencies and not others? Because the cavity only sustains modes — standing waves — that fit exactly between the mirrors. A wave that does not vanish at both mirror surfaces interferes destructively with itself on each round trip and dies out. A wave that does vanish at both surfaces builds up coherently and produces the output you see.
-
-The cavity is selecting, out of a continuous range of possible frequencies, the discrete set that satisfies its boundary conditions. Quantization in quantum mechanics is exactly this phenomenon, at a smaller scale and with a different wave equation. The confining potential supplies the walls; only the spatial modes that satisfy the boundary conditions survive; those modes are the stationary states; and their discrete frequencies are the discrete energies. The Schrödinger equation is the wave equation that tells you which modes fit.
+Quantization in quantum mechanics is this same phenomenon at atomic scales and with a different wave equation. The confining potential supplies the walls; only the spatial modes satisfying the boundary conditions survive; those modes are the stationary states; their discrete spatial frequencies correspond to discrete energies. The Schrödinger equation is the wave equation that determines which modes fit.
 
 ---
 
 ## Global Phase and Relative Phase
 
-Multiplying the whole wave function by $e^{i\alpha}$ for any real $\alpha$ — a global phase — changes nothing you can observe. The factor cancels in every probability density $|\Psi|^2$ and in every expectation value, which is why we say a state is defined only up to a global phase.
+Multiplying the entire wave function by $e^{i\alpha}$ for any real $\alpha$ — a global phase — leaves all observable quantities unchanged. The factor cancels in every probability density $|\Psi|^2$ and every expectation value. States are therefore defined only up to a global phase.
 
-The rotating phase $e^{-iE_n t/\hbar}$ in a stationary state is a global phase for that single state, so it too is unobservable. This is precisely why a stationary state is stationary: the rotating phase carries no information you can measure.
+The rotating phase $e^{-iE_n t/\hbar}$ in a stationary state is a global phase for that single state, so it too is unobservable. A stationary state is stationary precisely because the rotating phase carries no measurable information.
 
-The moment you combine two stationary states, everything changes. Form the superposition
+When two stationary states are combined, the situation changes. Form the superposition
 
 $$\Psi(x, t) = c_1\,\psi_1(x)\,e^{-iE_1 t/\hbar} + c_2\,\psi_2(x)\,e^{-iE_2 t/\hbar}.$$
 
@@ -104,11 +100,11 @@ $$|\Psi|^2 = |c_1|^2|\psi_1|^2 + |c_2|^2|\psi_2|^2 + 2\,\mathrm{Re}\!\left[c_1^*
 
 The first two terms are frozen. The third oscillates at angular frequency $\omega_{12} = (E_2 - E_1)/\hbar$ — the beat frequency between the two levels. This is the interference term, and it is the signature of superposition. Two states with different energies rotate at different rates; the angle between them in the complex plane grows steadily; and the resulting interference pattern shifts continuously across space. That is the sloshing.
 
-What is *not* the sloshing is the energy. The expectation value of the Hamiltonian in any superposition is
+The energy expectation value, by contrast, does not slosh. For any superposition:
 
 $$\langle \hat{H}\rangle = \sum_n |c_n|^2\,E_n.$$
 
-This is a weighted average of the eigenvalues, with weights $|c_n|^2$. The cross terms — the ones that carry the time dependence — all vanish by orthogonality of the eigenstates, so the result is exactly time-independent. The probability distribution sloshes back and forth across the box while the total energy never moves. This is conservation of energy, written in the quantum language.
+This is a weighted average of the eigenvalues with weights $|c_n|^2$. The cross terms that carry the time dependence vanish by orthogonality of the eigenstates, so the result is exactly time-independent. The probability distribution oscillates across the well while the total energy remains constant — quantum energy conservation expressed in this language.
 
 ---
 
@@ -156,7 +152,7 @@ $$\Psi(x, t) = \sum_n c_n\,\psi_n(x)\,e^{-iE_n t/\hbar}.$$
 
 This is the complete general solution of the TDSE for any time-independent potential. There are three steps: solve the eigenvalue problem to find $\{\psi_n, E_n\}$; project the initial condition to find $\{c_n\}$; attach the rotating phases. Step one is the hard one. Steps two and three are a calculation.
 
-Stop at step one and you have the stationary states, but you have missed everything that happens when the particle is not sitting in one of them. Finding the eigenstates does not finish the problem; it finishes the setup.
+Stopping at step one gives the stationary states but misses everything that happens when the particle is not in a pure eigenstate. Finding the eigenstates completes the setup, not the problem.
 
 ---
 

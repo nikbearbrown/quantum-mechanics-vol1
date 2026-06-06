@@ -1,10 +1,13 @@
 # Chapter 11 — Capstone: A 1D Quantum Sandbox
+*Everything you have built, running on any potential you can write down.*
 
-In this chapter we bring together the methods developed throughout the book by building a configurable one-dimensional Schrödinger solver. Given any potential $V(x)$ specified on a grid, it will find the bound-state energies and eigenfunctions, or time-evolve an initial wave packet forward in time. When it runs, we will have a machine that makes the Schrödinger equation computable for any problem in one dimension.
+There is a particular moment in learning physics when the thing you have been deriving starts to feel real. For most students, that moment does not arrive when they solve the harmonic oscillator analytically. It arrives when they type a potential into a computer, press a button, and watch the wave function appear.
 
-Building the machine, though, is only half the work. The other half is making sure the machine is right. A program that produces visually plausible output is not the same as a program that computes correct physics. The discipline of checking — of running the solver on a problem whose answer we already know and demanding numerical agreement — is what separates real physical simulation from numerical theater. This chapter teaches that discipline as explicitly as it teaches the algorithms.
+This chapter is about that moment — engineered deliberately. You are going to build a configurable one-dimensional Schrödinger solver. Given any potential $V(x)$ you can specify on a grid, it will find the bound-state energies and eigenfunctions, or time-evolve an initial wave packet forward in time. When it runs, you will have a machine that makes the Schrödinger equation computable for any problem in one dimension.
 
-By the end, we will have a sandbox that can reproduce every bound-state spectrum in this book, and we will have verified it against the one result that checks everything at once: the infinite square well, whose energies satisfy $E_n = n^2\pi^2\hbar^2/2mL^2$ with no fitting parameters, no adjustable constants, and no excuses.
+But building the machine is only half the work. The other half is making sure the machine is right. A program that produces visually plausible output is not the same as a program that computes correct physics. The discipline of checking — of running the solver on a problem whose answer you know and demanding numerical agreement — is the habit that separates physical simulation from numerical theater. This chapter teaches that habit as explicitly as it teaches the algorithms.
+
+By the end, you will have a sandbox that can reproduce every bound-state spectrum in this book, and you will have verified it against the one result that checks everything at once: the infinite square well, whose energies satisfy $E_n = n^2\pi^2\hbar^2/2mL^2$ with no fitting parameters, no adjustable constants, no excuses.
 
 <!-- → [IMAGE: screenshot or schematic of the finished sandbox UI — showing the potential plot with energy levels as horizontal lines, eigenfunctions offset vertically, the normalization indicator, and the mode selector; this is the deliverable and the reader should see what they are building toward] -->
 
@@ -15,9 +18,9 @@ By the end, we will have a sandbox that can reproduce every bound-state spectrum
 
 ## What the Sandbox Does
 
-The sandbox has two operational modes. Before we write a line of code, we need to understand what each one computes.
+The sandbox has two operational modes. Before writing a line of code, you need to understand what each one computes.
 
-**Eigensolver mode.** Given a potential $V(x)$ on a spatial grid, find the discrete bound-state energies $E_n$ and the corresponding eigenfunctions $\psi_n(x)$. The output is a list of energy levels and wave-function shapes. These are the stationary states — the states whose probability distribution does not change over time. Every analytic result in Chapters 4 through 10 is a special case of this computation.
+**Eigensolver mode.** Given a potential $V(x)$ on a spatial grid, find the discrete bound-state energies $E_n$ and the corresponding eigenfunctions $\psi_n(x)$. The output is a list of energy levels and wave-function shapes. These are the stationary states — the states that do not change their probability distribution over time. Every analytic result in Chapters 4 through 10 is a special case of this computation.
 
 **Time-evolution mode.** Given an initial wave function $\Psi(x, 0)$ and a potential $V(x)$, propagate $\Psi(x,t)$ forward in time by solving the time-dependent Schrödinger equation $i\hbar\,\partial_t\Psi = \hat{H}\Psi$. The output is an animation showing the probability density drifting, spreading, bouncing off walls, or tunneling through barriers.
 
@@ -35,7 +38,7 @@ On the grid, the second derivative is approximated by the central-difference ste
 
 $$\psi''(x_j) \approx \frac{\psi_{j+1} - 2\psi_j + \psi_{j-1}}{h^2}.$$
 
-Substituting this at every interior grid point simultaneously, we get a matrix equation
+Substituting this at every interior grid point simultaneously, you get a matrix equation
 
 $$\mathbf{H}\vec{\psi} = E\,\vec{\psi},$$
 
@@ -43,44 +46,44 @@ where $\mathbf{H}$ is real, symmetric, and tridiagonal:
 
 $$H_{jj} = \frac{\hbar^2}{mh^2} + V_j, \qquad H_{j,j\pm1} = -\frac{\hbar^2}{2mh^2}.$$
 
-Write the kinetic hopping coefficient as $t_k = \hbar^2/(2mh^2)$. Then the diagonal is $2t_k + V_j$ and the off-diagonals are $-t_k$. If $V_j = 0$ everywhere, the matrix represents pure kinetic energy — the coupling between adjacent grid points that lets the wave function propagate.
+Write the kinetic hopping coefficient as $t_k = \hbar^2/(2mh^2)$. Then the diagonal is $2t_k + V_j$ and the off-diagonals are $-t_k$. If $V_j = 0$ everywhere, the matrix represents pure kinetic energy — the coupling between adjacent grid points that allows the wave function to propagate.
 
-For a hard-wall problem, the boundary conditions are $\psi_0 = \psi_{N-1} = 0$, which we enforce by building only the $(N-2)\times(N-2)$ interior submatrix. The rows and columns corresponding to the boundary points are simply left out.
+Boundary conditions for a hard-wall problem: enforce $\psi_0 = \psi_{N-1} = 0$ by building only the $(N-2)\times(N-2)$ interior submatrix. Rows and columns corresponding to the boundary points are simply omitted.
 
-Diagonalizing this matrix gives $N-2$ eigenvalues and eigenvectors. The eigenvalues are the energies, and the eigenvectors, each normalized so that $\sum_j|\psi_j|^2 \cdot h = 1$, are the discretized wave functions. The central-difference approximation introduces an error in the $n$-th eigenvalue that scales as $(nh/L)^2$; for $N = 500$ points and the ground state, this is below $10^{-6}$ in fractional terms — more than accurate enough for any physical purpose here.
+Diagonalize this matrix and you get $N-2$ eigenvalues and eigenvectors. The eigenvalues are the energies; the eigenvectors, each normalized so that $\sum_j|\psi_j|^2 \cdot h = 1$, are the discretized wave functions. The central-difference approximation introduces an error in the $n$-th eigenvalue that scales as $(nh/L)^2$ — for $N = 500$ points and the ground state, this is below $10^{-6}$ in fractional terms. The accuracy is more than sufficient for any physical purpose here.
 
 <!-- → [FIGURE: schematic of the tridiagonal Hamiltonian matrix — showing the diagonal entries 2t_k + V_j and the off-diagonal entries -t_k, with the boundary rows/columns greyed out to indicate Dirichlet conditions; this should make the structure of the discretization visually immediate] -->
 
 ![schematic of the tridiagonal Hamiltonian matrix — showing the diagonal entries 2t_k + V_j and the off-diagonal entries -t_k, with the…](../images/11-capstone-a-1d-quantum-sandbox-fig-02.png)
 *Figure 11.2 — schematic of the tridiagonal Hamiltonian matrix — showing the diagonal entries 2t_k + V_j and the off-diagonal entries -t_k, with the…*
 
-The key number to keep in mind for debugging: the diagonal entry is $\hbar^2/(mh^2)$, which is $2t_k$, not $t_k$. The off-diagonal is $-t_k = -\hbar^2/(2mh^2)$. Confuse the two and the ground-state energy comes out wrong by a factor of two.
+The key number to remember for debugging: the diagonal entry is $\hbar^2/(mh^2)$, which is $2t_k$, not $t_k$. The off-diagonal is $-t_k = -\hbar^2/(2mh^2)$. If you confuse the two, your ground-state energy is off by a factor of two.
 
 ---
 
 ## Two Paths to Eigenvalues
 
-The matrix eigensolver finds all eigenvalues at once and is the right choice when we want the full spectrum. But it requires a linear algebra library. There is an alternative that needs nothing beyond arithmetic.
+The matrix eigensolver finds all eigenvalues at once and is the right choice if you want the full spectrum. But it requires a linear algebra library. There is an alternative that requires nothing beyond arithmetic.
 
-**The Numerov shooting method** uses a more accurate approximation of $\psi''$ to achieve $O(h^6)$ errors — four orders better than the central difference — with only a three-point recursion. We rewrite the TISE as $\psi'' = f(x)\psi$ where $f_j = (2m/\hbar^2)(V_j - E)$. The Numerov recursion propagates the wave function one step at a time:
+**The Numerov shooting method** exploits a more accurate approximation of $\psi''$ to achieve $O(h^6)$ errors — four orders better than the central difference — using only a three-point recursion. Rewrite the TISE as $\psi'' = f(x)\psi$ where $f_j = (2m/\hbar^2)(V_j - E)$. The Numerov recursion propagates the wave function one step at a time:
 
 $$\psi_{j+1} = \frac{2\psi_j(1 - \frac{5}{12}h^2 f_j) - \psi_{j-1}(1 + \frac{1}{12}h^2 f_{j-1})}{1 + \frac{1}{12}h^2 f_{j+1}}.$$
 
-Each step is a handful of multiplications and divisions. No matrix, no library.
+Each step is a handful of multiplications and divisions. No matrix. No library.
 
-The shooting strategy works like this. We guess an energy $E$, integrate from the left boundary with $\psi_0 = 0$, $\psi_1 = \epsilon$, and at the same time from the right with $\psi_{N-1} = 0$, $\psi_{N-2} = \epsilon$. At the midpoint, an eigenvalue exists precisely when the logarithmic derivatives of the left and right solutions agree — equivalently, when a certain Wronskian determinant changes sign. We sweep $E$ from low to high, locate the sign changes, and bisect to find each eigenvalue to whatever precision we want.
+The shooting strategy: guess an energy $E$, integrate from the left boundary with $\psi_0 = 0$, $\psi_1 = \epsilon$, and simultaneously from the right with $\psi_{N-1} = 0$, $\psi_{N-2} = \epsilon$. At the midpoint, an eigenvalue exists precisely when the logarithmic derivatives of the left and right solutions agree — equivalently, when a certain Wronskian determinant changes sign. Sweep $E$ from low to high, locate the sign changes, and bisect to find each eigenvalue to arbitrary precision.
 
-The trade-off is clear. Numerov finds eigenvalues one at a time, needs careful bracketing, and is slightly more code than calling `math.eigs()`. For three to five eigenstates it is faster to implement and more instructive, because we are integrating the Schrödinger equation directly rather than hiding behind a black-box routine. For twenty or more states, it pays to load the library.
+The trade-off is clear: Numerov finds eigenvalues one at a time, requires careful bracketing, and is slightly more code than calling `math.eigs()`. For three to five eigenstates it is faster to implement and more instructive — you are directly integrating the Schrödinger equation, not hiding behind a black-box routine. For twenty or more states, load the library.
 
-For this capstone, start with Numerov. If you need all the eigenvalues at once, add math.js (loaded from CDN) and call `math.eigs()` on the tridiagonal matrix. Both approaches validate against the same benchmark.
+For this capstone, start with Numerov. If you need all eigenvalues at once, add math.js (loaded from CDN) and call `math.eigs()` on the tridiagonal matrix. Both approaches validate against the same benchmark.
 
 ---
 
 ## Time Evolution: Why the Stepper Choice Is Not Optional
 
-The time-dependent Schrödinger equation is $i\hbar\,\partial_t\Psi = \hat{H}\Psi$. For a time-independent Hamiltonian, the exact solution is $\Psi(t) = e^{-i\hat{H}t/\hbar}\Psi(0)$. The operator $e^{-i\hat{H}t/\hbar}$ is unitary, so it preserves the norm of the wave function exactly, for all time. Any numerical scheme that is not unitary is fundamentally wrong, because a non-unitary stepper either creates or destroys probability.
+The time-dependent Schrödinger equation is $i\hbar\,\partial_t\Psi = \hat{H}\Psi$. The exact solution for a time-independent Hamiltonian is $\Psi(t) = e^{-i\hat{H}t/\hbar}\Psi(0)$. The operator $e^{-i\hat{H}t/\hbar}$ is unitary — it preserves the norm of the wave function exactly, for all time. Any numerical scheme that is not unitary is fundamentally wrong, because a non-unitary stepper either creates or destroys probability.
 
-**Why explicit Euler is forbidden.** The explicit Euler update is $\Psi^{n+1} = \Psi^n - (i\Delta t/\hbar)\mathbf{H}\Psi^n$. The update matrix is $\mathbf{I} - (i\Delta t/\hbar)\mathbf{H}$, whose eigenvalues are $1 - i\Delta t E_k/\hbar$ for each energy eigenvalue $E_k$. The modulus of each eigenvalue is $\sqrt{1 + (\Delta t E_k/\hbar)^2} > 1$, so every energy component grows exponentially at every step. The normalization indicator climbs above 1 within fifty steps and the simulation diverges. The normalization indicator in the sandbox corner detects this immediately — if it reads above 1.001 after ten steps, the time-stepper is wrong. Explicit Euler is unconditionally unstable for the Schrödinger equation and must never be used.
+**Why explicit Euler is forbidden.** The explicit Euler update is $\Psi^{n+1} = \Psi^n - (i\Delta t/\hbar)\mathbf{H}\Psi^n$. The update matrix is $\mathbf{I} - (i\Delta t/\hbar)\mathbf{H}$, whose eigenvalues are $1 - i\Delta t E_k/\hbar$ for each energy eigenvalue $E_k$. The modulus of each eigenvalue is $\sqrt{1 + (\Delta t E_k/\hbar)^2} > 1$. Every energy component grows exponentially at every step. The normalization indicator climbs above 1 within fifty steps and the simulation diverges. The normalization indicator in the sandbox corner detects this immediately — if it reads above 1.001 after ten steps, the time-stepper is wrong. Explicit Euler is unconditionally unstable for the Schrödinger equation and must never be used.
 
 ### Crank-Nicolson
 
@@ -88,7 +91,7 @@ The Crank-Nicolson scheme discretizes the TDSE as
 
 $$\left(\mathbf{I} + \frac{i\Delta t}{2\hbar}\mathbf{H}\right)\Psi^{n+1} = \left(\mathbf{I} - \frac{i\Delta t}{2\hbar}\mathbf{H}\right)\Psi^n.$$
 
-This is the Cayley approximation to the exact propagator. Because $\mathbf{H}$ is Hermitian, the left and right matrices are complex conjugates of each other, so the update is exactly unitary, and normalization is preserved at every step regardless of $\Delta t$. The scheme is second-order in both time and space, unconditionally stable, and a natural fit for hard-wall boundary conditions, because the tridiagonal structure of $\mathbf{H}$ carries straight into the linear system. Each step requires solving a tridiagonal system, which the Thomas algorithm handles in $O(N)$ operations.
+This is the Cayley approximation to the exact propagator. Since $\mathbf{H}$ is Hermitian, the left and right matrices are complex conjugates of each other, and the update is exactly unitary — normalization is preserved at every step regardless of $\Delta t$. The scheme is second-order in both time and space, unconditionally stable, and natural for hard-wall boundary conditions because the tridiagonal structure of $\mathbf{H}$ carries directly into the linear system. Each step requires solving a tridiagonal system, which the Thomas algorithm handles in $O(N)$ operations.
 
 ### Split-Step Fourier
 
@@ -96,13 +99,13 @@ For free-space or slowly varying potentials on a large periodic domain, the spli
 
 $$e^{-i\hat{H}\Delta t/\hbar} \approx e^{-i\hat{V}\Delta t/2\hbar}\,e^{-i\hat{T}\Delta t/\hbar}\,e^{-i\hat{V}\Delta t/2\hbar}.$$
 
-The algorithm per step: multiply $\psi_j$ pointwise by $e^{-iV_j\Delta t/2\hbar}$; Fourier transform; multiply $\hat{\psi}_m$ pointwise by $e^{-i\hbar k_m^2\Delta t/2m}$; inverse Fourier transform; multiply again by $e^{-iV_j\Delta t/2\hbar}$. Each of the three multiplication steps applies a phase of modulus exactly 1, so the method is exactly unitary, and normalization is machine-precision exact.
+The algorithm per step: multiply $\psi_j$ pointwise by $e^{-iV_j\Delta t/2\hbar}$; Fourier transform; multiply $\hat{\psi}_m$ pointwise by $e^{-i\hbar k_m^2\Delta t/2m}$; inverse Fourier transform; multiply again by $e^{-iV_j\Delta t/2\hbar}$. Each of the three multiplication steps applies a phase of modulus exactly 1, so the method is exactly unitary — normalization is machine-precision exact.
 
-There is one mandatory detail about the FFT $k$-grid that breaks any implementation that ignores it. After we call FFT on an array of length $N$, the output index $m$ does not directly equal the physical wave vector. The correct mapping is:
+There is one mandatory detail about the FFT $k$-grid that breaks implementations that ignore it. After calling FFT on an array of length $N$, the output index $m$ does not directly equal the physical wave vector. The correct mapping is:
 
 $$k_m = \frac{2\pi}{Nh}\times\begin{cases} m & m < N/2 \\ m - N & m \geq N/2 \end{cases}$$
 
-The second half of the FFT output (indices $N/2$ through $N-1$) corresponds to *negative* wave vectors. If we apply the kinetic phase using the raw index $m$ instead of the physical $k_m$, we give the wrong kinetic energy to every negative-momentum component. The simulation looks correct for the first few steps — the error lives in the high-frequency tails — and then gradually corrupts the entire wave function. The fix is five lines of code, and the CLAUDE.md amendment below includes it explicitly.
+The second half of the FFT output (indices $N/2$ through $N-1$) corresponds to *negative* wave vectors. If you apply the kinetic phase using the raw index $m$ instead of the physical $k_m$, you give the wrong kinetic energy to every negative-momentum component. The simulation looks correct for the first few steps — the error is in the high-frequency tails — and then gradually corrupts the entire wave function. The fix is five lines of code and the CLAUDE.md amendment below includes it explicitly.
 
 <!-- → [FIGURE: diagram of the FFT output index mapping to physical wave vectors — showing indices 0 through N/2-1 mapping to positive k, and N/2 through N-1 mapping to negative k; the visual point is that the second half "wraps around" and must be corrected before applying the kinetic phase] -->
 
@@ -113,21 +116,21 @@ The second half of the FFT output (indices $N/2$ through $N-1$) corresponds to *
 
 ## Defending the Physics
 
-Building the sandbox is the lesser half of the project. The greater half is running the validation suite and confirming that the simulation computes correct physics. Here is what that means in concrete terms.
+Building the sandbox is the lesser half of the project. The greater half is running the validation suite and confirming that your simulation computes correct physics. Here is what that means concretely.
 
-**Units.** Every displayed quantity must carry correct units. This is not decoration. A program that displays energy in the wrong units is computing the wrong physics. Commit to one system — SI with distances in nanometers and energies in electron-volts works well — label every axis, and use it consistently. Sanity check: for an infinite square well of width $L = 1$ nm and an electron, the ground-state energy is $E_1 = \pi^2\hbar^2/2m_eL^2 \approx 0.376$ eV. If the code reports 376 eV or 0.000376 eV, there is a units error.
+**Units.** Every displayed quantity must carry correct units. This is not decoration. A program that displays energy in the wrong units is computing the wrong physics. Commit to one system — SI with distances in nanometers and energies in electron-volts works well — label every axis, and use it consistently. Sanity check: for an infinite square well of width $L = 1$ nm and an electron, the ground-state energy is $E_1 = \pi^2\hbar^2/2m_eL^2 \approx 0.376$ eV. If your code reports 376 eV or 0.000376 eV, there is a units error.
 
 **Normalization.** For every eigenstate the solver returns, verify:
 $$\sum_{j=0}^{N-1}|\psi_j|^2 \cdot h = 1.000 \pm 0.001.$$
 
-Note the $h$ weighting. Some eigensolvers return unit-norm vectors in the Euclidean sense ($\sum|\psi_j|^2 = 1$) rather than the physics sense ($\sum|\psi_j|^2 h = 1$). To convert, divide the returned eigenvector by $\sqrt{h}$. Forget the $h$ and the normalization integral reads $1/h$ instead of 1 — which for $h = 0.004$ nm gives a reading of 250 instead of 1. The normalization indicator in the corner catches this immediately.
+Note the $h$ weighting — some eigensolvers return unit-norm vectors in the Euclidean sense ($\sum|\psi_j|^2 = 1$) rather than the physics sense ($\sum|\psi_j|^2 h = 1$). To convert: divide the returned eigenvector by $\sqrt{h}$. If you forget the $h$, your normalization integral will read $1/h$ instead of 1 — which for $h = 0.004$ nm gives a reading of 250 instead of 1. The normalization indicator in the corner catches this immediately.
 
 During time evolution, the same indicator must stay within $\pm 0.001$ of $1.000$ at every animation frame. Drift above 1 means the time-stepper is creating probability; drift below 1 means it is destroying probability. Both are physically wrong.
 
 **Orthogonality.** For any two eigenstates:
 $$\left|\sum_j \psi_j^{(n)*}\psi_j^{(m)} \cdot h\right| < 10^{-8}, \quad m \neq n.$$
 
-A violation means either the eigensolver has a bug or the eigenvectors were never normalized, letting floating-point overflow pollute the orthogonality.
+Violation means either the eigensolver has a bug or the eigenvectors were never normalized, causing floating-point overflow to pollute the orthogonality.
 
 **The infinite square well benchmark.** This is the primary test. Set $V(x) = 0$ for $x \in (0, L)$ with hard walls at both ends. Run the eigensolver with $L = 2$ nm, $m = m_e$, $N = 500$. The analytic spectrum is
 
@@ -135,11 +138,11 @@ $$E_n = \frac{n^2\pi^2\hbar^2}{2m_eL^2} \approx n^2 \times 0.094\ \text{eV.}$$
 
 Report a comparison table: for $n = 1, 2, 3, 4, 5$, list the analytic and numerical energies and the fractional error. The error should be below $10^{-5}$ for $n = 1$ and below 1% for $n = 10$ with $N = 500$.
 
-There is a dimensionless check that bypasses units entirely: the ratios $E_n/E_1$ should be exactly $n^2$. Check that $E_2/E_1 = 4.000$, $E_3/E_1 = 9.000$, $E_4/E_1 = 16.000$. If these ratios are correct to three decimal places, the eigenvalue algorithm is working, regardless of whether you have the right value for $\hbar$ in electron-volts. The ratios depend only on the numerics, not on any physical constants.
+There is a dimensionless check that bypasses units entirely: the ratios $E_n/E_1$ should be exactly $n^2$. Check that $E_2/E_1 = 4.000$, $E_3/E_1 = 9.000$, $E_4/E_1 = 16.000$. If these ratios are correct to three decimal places, the eigenvalue algorithm is working regardless of whether you have the right value for $\hbar$ in electron-volts. The ratios depend only on the numerics, not on any physical constants.
 
 <!-- → [TABLE: validation table for the infinite square well — columns: n, E_n analytic (eV), E_n numerical (eV), E_n/E_1 analytic, E_n/E_1 numerical, fractional error; N = 500, L = 2 nm, m = m_e; populate with expected values: E_1 ≈ 0.094 eV, E_2 ≈ 0.376 eV, E_3 ≈ 0.846 eV, ratios 1, 4, 9, 16, 25; this is the definitive validation output the student should reproduce] -->
 
-**Harmonic oscillator.** Set $V(x) = \frac{1}{2}m\omega^2 x^2$ on a grid wide enough to hold the first ten states. The analytic spectrum is $E_n = \hbar\omega(n + \frac{1}{2})$ — equally spaced levels, with the ground state at $\hbar\omega/2$. Verify: the level spacing is uniform to within 1%; the ground-state wave function is Gaussian; the ground-state uncertainty product $\sigma_x\sigma_p = \hbar/2$ (the harmonic oscillator ground state saturates the Kennard bound). This last check connects directly to Chapter 9 and closes a loop that has been open since Chapter 1.
+**Harmonic oscillator.** Set $V(x) = \frac{1}{2}m\omega^2 x^2$ on a grid wide enough to contain the first ten states. The analytic spectrum is $E_n = \hbar\omega(n + \frac{1}{2})$ — equally spaced levels, with ground state at $\hbar\omega/2$. Verify: the level spacing is uniform to within 1%; the ground-state wave function is Gaussian; the ground-state uncertainty product $\sigma_x\sigma_p = \hbar/2$ (the harmonic oscillator ground state saturates the Kennard bound). This last check connects directly to Chapter 9 and closes a loop that has been open since Chapter 1.
 
 **Free-particle time evolution.** Set $V = 0$. Initialize a Gaussian wave packet with center $x_0$, width $a$, and mean wavenumber $k_0$. The analytic evolution gives a centroid at $x_0 + (\hbar k_0/m)t$ and a width $\sigma(t)^2 = a^2/2 + \hbar^2t^2/(2m^2a^2)$. Run the simulation and compare. Both centroid and width should agree with the analytic formula to within 1% over several spreading times.
 
@@ -149,11 +152,11 @@ There is a dimensionless check that bypasses units entirely: the ratios $E_n/E_1
 
 ## What Each Previous Chapter Built
 
-The sandbox does no new physics. Every feature assembles a tool we already have.
+The sandbox does no new physics. Every feature assembles a tool you already have.
 
-The Born rule from Chapter 3 is why we display $|\Psi|^2$ rather than $\Psi$ itself, and why the normalization integral must equal 1. The TISE from Chapter 4 is what the matrix eigensolver solves. The argument that quantization falls out of boundary conditions — made for the infinite well in Chapter 5 — is reproduced automatically by the matrix formulation, since Dirichlet boundary conditions enforce $\psi_0 = \psi_{N-1} = 0$ and the only solutions are the discrete eigenvectors. The harmonic oscillator spectrum of Chapter 7 is recovered numerically by setting $V_j = \frac{1}{2}m\omega^2 x_j^2$. The Gaussian wave-packet dynamics of Chapter 8 — group velocity, spreading, the $1/\sigma_0^2$ spreading rate — can be watched in the time-evolution panel. The operators and expectation values of Chapter 9 give $\sigma_x$, $\sigma_p$, and $\langle\hat{H}\rangle$ from the numerical eigenstates. The tunneling of Chapter 6 appears when we time-evolve a wave packet against a finite barrier and watch the transmitted fraction emerge on the other side.
+The Born rule from Chapter 3 is the reason you display $|\Psi|^2$ rather than $\Psi$ itself, and the reason the normalization integral must equal 1. The TISE from Chapter 4 is what the matrix eigensolver solves. The argument that quantization falls out of boundary conditions — made for the infinite well in Chapter 5 — is reproduced automatically by the matrix formulation: Dirichlet boundary conditions enforce $\psi_0 = \psi_{N-1} = 0$, and the only solutions are the discrete eigenvectors. The harmonic oscillator spectrum of Chapter 7 is recovered numerically by setting $V_j = \frac{1}{2}m\omega^2 x_j^2$. The Gaussian wave-packet dynamics of Chapter 8 — group velocity, spreading, the $1/\sigma_0^2$ spreading rate — can be watched in the time-evolution panel. The operators and expectation values of Chapter 9 give $\sigma_x$, $\sigma_p$, and $\langle\hat{H}\rangle$ from the numerical eigenstates. The tunneling of Chapter 6 appears when you time-evolve a wave packet against a finite barrier and watch the transmitted fraction appear on the other side.
 
-The synthesis is the point. We are not building something new. We are building a single machine that runs everything we already know, and then verifying that it agrees with what we already know.
+The synthesis is the point. You are not building something new. You are building a single machine that runs everything you already know, and then verifying that it agrees with what you already know.
 
 ---
 
@@ -222,15 +225,15 @@ Every failure mode below has a specific symptom in the normalization indicator o
 
 The sandbox as built is one-dimensional and non-relativistic. The physics it cannot handle points directly to what comes next.
 
-For periodic potentials — an array of identical wells, a crystal lattice — the eigenstates are not bound states localized in one well. They are Bloch waves that extend across the entire lattice, and the spectrum forms bands separated by gaps. The tridiagonal matrix still works, but now we need periodic boundary conditions (which make it a circulant matrix) and Bloch's theorem to interpret the results. That is the band structure problem, and it is the content of solid-state physics.
+For periodic potentials — an array of identical wells, a crystal lattice — the eigenstates are not bound states localized in one well. They are Bloch waves that extend across the entire lattice, and the spectrum forms bands separated by gaps. The tridiagonal matrix still works, but you need periodic boundary conditions (making it a circulant matrix) and Bloch's theorem to interpret the results. That is the band structure problem, and it is the content of solid-state physics.
 
 For two dimensions, the Hamiltonian matrix becomes $(N_x N_y) \times (N_x N_y)$. For $N_x = N_y = 500$, this is a $250000 \times 250000$ matrix that cannot be fully diagonalized by any method available to a browser. Iterative eigensolvers — Lanczos, Arnoldi — find the lowest few eigenvalues without ever building the full matrix. Time evolution in 2D via split-step works cleanly with two sequential FFT passes. This infrastructure is unchanged from the 1D version; the algorithms compose.
 
-For relativistic particles, $\omega = \sqrt{(\hbar k)^2 c^2 + m^2c^4}/\hbar$ replaces the free-particle $\omega = \hbar k^2/2m$. The dispersion is no longer quadratic, the group and phase velocities are related differently, and for fermions the wave function has spinor components that the Dirac equation mixes. The split-step method still applies — the kinetic phase in step 3 uses the relativistic dispersion — but the physics of the output is richer.
+For relativistic particles, $\omega = \sqrt{(\hbar k)^2 c^2 + m^2c^4}/\hbar$ replaces the free-particle $\omega = \hbar k^2/2m$. The dispersion is no longer quadratic; the group and phase velocities are related differently; and for fermions the wave function has spinor components that the Dirac equation mixes. The split-step method still applies — the kinetic phase in step 3 uses the relativistic dispersion — but the physics of the output is richer.
 
-The harder truth is that most quantum mechanics problems in research are neither one-dimensional nor exactly solvable. The hydrogen atom, the helium atom, the benzene molecule — none of them have clean analytic solutions to their many-body Hamiltonians. The tools in this sandbox — finite-difference discretization, matrix diagonalization, unitary time evolution — are the basis of every serious quantum simulation code in existence. Density functional theory, quantum Monte Carlo, tensor network methods: all of them solve discretized versions of the Schrödinger equation, all of them need unitary time steppers, and all of them validate against exactly the benchmarks in this chapter.
+The harder truth is that most quantum mechanics problems in research are not one-dimensional and not exactly solvable. The hydrogen atom, the helium atom, the benzene molecule — none of them have clean analytic solutions to their many-body Hamiltonians. The tools in this sandbox — finite-difference discretization, matrix diagonalization, unitary time evolution — are the basis of every serious quantum simulation code that exists. Density functional theory, quantum Monte Carlo, tensor network methods: all of them solve discretized versions of the Schrödinger equation, all of them need unitary time steppers, and all of them validate against exactly the benchmarks in this chapter.
 
-We have been doing quantum mechanics in one dimension with a single electron. The machines that design semiconductor devices, simulate drug-target binding, and model quantum computers are doing quantum mechanics in thousands of dimensions with millions of electrons. The logic is the same. The scale is the difference.
+You have been doing quantum mechanics in one dimension with an electron. The machines that design semiconductor devices, simulate drug-target binding, and model quantum computers are doing quantum mechanics in thousands of dimensions with millions of electrons. The logic is the same. The scale is the difference.
 
 <!-- → [INFOGRAPHIC: "scaling ladder" showing the 1D sandbox at the bottom, then 2D quantum dots, then the hydrogen atom (3D spherically symmetric), then helium (two electrons, 6D configuration space), then DFT for solids — with annotations showing which numerical tools apply at each level and what new challenge each step introduces; the goal is to show that the sandbox is the base of a hierarchy, not a toy] -->
 

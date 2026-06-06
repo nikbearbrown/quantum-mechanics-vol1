@@ -1,9 +1,6 @@
 # Chapter 11 — Capstone: A 1D Quantum Sandbox
-*Everything you have built, running on any potential you can write down.*
 
-There is a particular moment in learning physics when the ideas we have been deriving begin to feel real. For many students, that moment does not arrive when they solve the harmonic oscillator analytically. It arrives when they type a potential into a computer, press a button, and watch the wave function appear.
-
-This chapter is built around that moment, on purpose. We are going to build a configurable one-dimensional Schrödinger solver. Given any potential $V(x)$ specified on a grid, it will find the bound-state energies and eigenfunctions, or time-evolve an initial wave packet forward in time. When it runs, we will have a machine that makes the Schrödinger equation computable for any problem in one dimension.
+In this chapter we bring together the methods developed throughout the book by building a configurable one-dimensional Schrödinger solver. Given any potential $V(x)$ specified on a grid, it will find the bound-state energies and eigenfunctions, or time-evolve an initial wave packet forward in time. When it runs, we will have a machine that makes the Schrödinger equation computable for any problem in one dimension.
 
 Building the machine, though, is only half the work. The other half is making sure the machine is right. A program that produces visually plausible output is not the same as a program that computes correct physics. The discipline of checking — of running the solver on a problem whose answer we already know and demanding numerical agreement — is what separates real physical simulation from numerical theater. This chapter teaches that discipline as explicitly as it teaches the algorithms.
 

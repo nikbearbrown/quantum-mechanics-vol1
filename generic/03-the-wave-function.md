@@ -1,13 +1,12 @@
 # Chapter 3 — The Wave Function and Born's Rule
-*What the blob was actually telling you.*
 
-In Chapter 0 you watched something on the screen without being told what it was: a blue filled curve, drifting; an orange curve inside it, oscillating, going negative, ignoring any rule about staying positive. You dragged a slider and the blue shape spread. Probably you sensed that you were watching *something* real, even though the label was withheld. We give you that label now. Rather than handing you a definition to accept on faith, we work out what the blob must be if the theory is to be consistent at all.
+In Chapter 0 we built a simulation that displayed a blue filled curve drifting across the screen, with an orange oscillating curve running through it. Those curves were plots of the wave function $\psi(x,t)$ — specifically, $|\psi|^2$ in blue and $\mathrm{Re}\,\psi$ in orange. This chapter gives the precise physical meaning of the wave function and establishes the rule that connects it to measurable quantities.
 
-Let us start with the simplest possible question: what is the blob's unit?
+We begin with a question that forces us to be precise: what are the units of $|\psi|^2$?
 
-The particle moves along a line measured in nanometers, and the blob is a quantity plotted against that line, so the blob carries units. Asking what those units are is exactly the right move, because the answer is not "dimensionless." The blob is not a probability. It is a probability *per nanometer* — a density, like population per square kilometer rather than a headcount. You cannot read "the particle is at position $x$" off the blob's value at a single point, any more than you can read a city's population off a density map at one address. To extract a probability — a real, dimensionless number between 0 and 1 — you have to integrate over a region.
+The particle moves along a line measured in nanometers, and $|\psi|^2$ is plotted against that line, so it carries units. The key point is that $|\psi|^2$ is not a probability — it is a probability *per nanometer*, a density. The distinction matters. You cannot read "the particle is at position $x$" from the value of $|\psi|^2$ at a single point, any more than you can read a city's population from a density map at one address. To extract a probability — a dimensionless number between 0 and 1 — you must integrate over a region.
 
-That integration is the whole content of the Born rule. Given a wave function $\psi(x,t)$, the probability of finding the particle somewhere in the interval $[a,b]$ at time $t$ is:
+That integration defines the Born rule. Given a wave function $\psi(x,t)$, the probability of finding the particle in the interval $[a,b]$ at time $t$ is:
 
 $$P\bigl(\text{particle in }[a,b]\bigr) = \int_a^b |\psi(x,t)|^2\,dx.$$
 
@@ -18,21 +17,19 @@ Max Born introduced this in 1926, in a paper on quantum scattering. His original
 ![timeline showing Born's 1926 paper → footnote correction → Nobel 1954, with the two expressions ψ and |ψ|² side by side](../images/03-the-wave-function-fig-01.png)
 *Figure 3.1 — timeline showing Born's 1926 paper → footnote correction → Nobel 1954, with the two expressions ψ and |ψ|² side by side*
 
-Because $|\psi|^2$ is a density, measured per unit length rather than as a dimensionless probability, it can exceed 1. Confusing the value of the density at a point with a probability is a unit error, and it is the single most common first mistake in the subject. Fix the distinction firmly in mind now, and you will avoid a whole class of wrong answers for the rest of the course.
+Because $|\psi|^2$ is a density measured per unit length, it can take values greater than 1. Treating the value of the density at a point as a probability is a unit error. The distinction between probability density and probability is fundamental and should be clear before proceeding.
 
 ---
 
-Now for the second question: why is $\psi$ complex at all?
+A second important question is why $\psi$ must be complex. If what we observe is $|\psi|^2$, which is real and non-negative, why not use a real-valued function and discard the imaginary part?
 
-If what we measure is $|\psi|^2$, which is real and non-negative, why not just use a real-valued function and drop the imaginary part? The answer is not a matter of convention. The equation of motion forces it.
-
-The time-dependent Schrödinger equation is:
+The equation of motion rules this out. The time-dependent Schrödinger equation is:
 
 $$i\hbar \frac{\partial \psi}{\partial t} = \hat{H}\psi.$$
 
-That $i$ on the left side is structural, not decorative. Suppose $\psi$ were purely real. Then $\partial\psi/\partial t$ is real, and $i\hbar$ times something real is purely imaginary. The left side would be imaginary while the right side stays real (for real $\psi$ and real $V$). The equation would then demand that a real quantity equal a purely imaginary one — impossible unless everything is zero. The dynamics themselves push $\psi$ into the complex plane. You cannot strip out the imaginary part and still have a theory.
+The factor $i$ on the left side is structural. If $\psi$ were purely real, then $\partial\psi/\partial t$ would be real, and $i\hbar$ times a real number is purely imaginary. The left side would be imaginary while the right side is real (for real $\psi$ and real $V$), which is impossible unless both sides are zero. The Schrödinger equation itself requires $\psi$ to take complex values. A real wave function would have no consistent dynamics.
 
-You saw this on the screen. The orange curve was Re$\,\psi$; the gray dashed curve was Im$\,\psi$. Both were non-trivial, and the imaginary part led the real part by a quarter cycle. If you could freeze the wave function, set Im$\,\psi = 0$, and take a single time step under the Schrödinger equation, the imaginary part would rebuild itself at once. The orange curve cannot live alone.
+In the simulation from Chapter 0, the orange curve showed Re$\,\psi$ and the gray dashed curve showed Im$\,\psi$. Both parts were non-trivial, with the imaginary part leading the real part by a quarter cycle. If the imaginary part were set to zero and a single time step taken under the Schrödinger equation, the imaginary part would immediately regenerate. The two parts are inseparable.
 
 <!-- → [FIGURE: three-panel SVG showing Re ψ (orange), Im ψ (gray dashed), and |ψ|² (blue filled) for a Gaussian wave packet with k₀ ≠ 0, making the quarter-cycle phase relationship visible] -->
 
@@ -53,31 +50,27 @@ $$|\psi|^2 = A^2\,e^{-x^2/a^2}.$$
 
 The oscillations vanish. The density is a smooth Gaussian with no trace of $k_0$ anywhere. The momentum — the direction of travel, the central velocity — is invisible in $|\psi|^2$. It lives entirely in the phase, in the relationship between Re$\,\psi$ and Im$\,\psi$. Discard the imaginary part and you can no longer tell a wave packet moving right from one moving left. Both would have the same $|\psi|^2$, and both would look identical in every experimental histogram of position measurements.
 
-None of this is a mathematical nicety. It is what the imaginary part is physically for.
+This is not a mathematical subtlety. The physical content of the imaginary part is that it carries information about the direction of motion. Without it, $\psi$ cannot represent a moving particle.
 
 ---
 
-Here is something the blob was *not* doing, even though it looked as if it might be.
+A common misconception about the wave function concerns what the spreading of $|\psi|^2$ over time means. When the blue probability density in the simulation spreads wider, it is tempting to read this as the particle physically expanding. That reading is incorrect. When the particle is detected, it is found at one definite location. What spreads is the *probability distribution* of where that location might be. If the same experiment — same initial conditions, same Hamiltonian, same $\psi(x,0)$ — were repeated many times, the histogram of measured positions would match $|\psi|^2$. The spread of that histogram is what grows.
 
-When the blue curve spread wider over time, it was tempting to read that as the particle physically expanding — spreading out in space like a gas. That reading is wrong, and the mistake matters. When you actually detect the particle, it is at one definite place. What spread was the *probability distribution* of where that place might turn out to be. Run the same experiment — same initial conditions, same Hamiltonian, same $\psi(x,0)$ — ten thousand times, measuring position each time. The histogram of results will match $|\psi|^2$, and the spread of that histogram is the spread of the blob.
+The wave function is not the particle. It is the rule for computing probability distributions.
 
-$\psi$ is not the particle. $\psi$ is the instruction set for computing histograms.
-
-So the blue blob spreading on the screen was making a statement about many repetitions, not about the fate of one particle. It was saying: if you ran this experiment ten thousand times and measured position at this late moment, the measurements would scatter across this wide distribution.
-
-This is what Born's footnote actually established — not a new force, not a new field, not a new kind of matter, but a new *connection* between a mathematical object and an experimental distribution. The connection is the rule itself: compute $|\psi|^2$, integrate, get probabilities.
+This is the content of Born's interpretation: compute $|\psi|^2$, integrate over a region, obtain the probability of finding the particle there. Each individual measurement yields a single definite outcome; $|\psi|^2$ gives the distribution of outcomes over many repetitions of the same preparation.
 
 ---
 
-Since $|\psi|^2$ is a probability density and the particle has to turn up *somewhere*, the total has to come out to one:
+Since $|\psi|^2$ is a probability density and the particle must be found somewhere, normalization requires:
 
 $$\int_{-\infty}^{\infty} |\psi(x,t)|^2\,dx = 1.$$
 
-A wave function satisfying this is normalized. In practice, wave functions are often written without a normalization constant. To fix that, compute the integral of $|\tilde{\psi}|^2$, take its square root, and divide. Done.
+A wave function satisfying this condition is normalized. In practice, wave functions are often written without normalization constants. To normalize $\tilde{\psi}$, compute $\int|\tilde{\psi}|^2\,dx$, take its square root, and divide.
 
-The more interesting question is whether normalization survives at later times. If $\psi$ satisfies the Schrödinger equation and you normalize it at $t=0$, does $\int|\psi|^2\,dx$ stay equal to 1 as time evolves? It must — otherwise the probability of finding the particle anywhere would drift away from 1, which would be incoherent. But "must be true" and "is provably true" are different things, and it is worth proving.
+An important question is whether normalization is preserved under time evolution. If $\psi$ is normalized at $t = 0$ and satisfies the Schrödinger equation, does $\int|\psi|^2\,dx$ remain equal to 1 for all $t$? It must, since otherwise the probability of finding the particle anywhere would drift from 1 — an incoherent result. We can prove this is guaranteed.
 
-Differentiate $\int|\psi|^2\,dx$ in time, then use the Schrödinger equation to substitute for $\partial_t\psi$ and $\partial_t\psi^*$. The potential energy pieces drop out exactly — they enter with opposite signs and cancel. What remains are the kinetic terms, and they assemble into a perfect derivative in $x$:
+We differentiate $\int|\psi|^2\,dx$ with respect to time and use the Schrödinger equation to replace $\partial_t\psi$ and $\partial_t\psi^*$. The potential energy terms cancel exactly. The kinetic terms combine into a perfect derivative in $x$:
 
 $$\frac{\partial|\psi|^2}{\partial t} = -\frac{\partial J}{\partial x},$$
 
@@ -90,29 +83,27 @@ $$J(x,t) = \frac{\hbar}{m}\,\mathrm{Im}\!\left(\psi^*\frac{\partial\psi}{\partia
 ![conservation law analogy — fluid continuity equation alongside the quantum probability continuity equation, showing structural identity](../images/03-the-wave-function-fig-03.png)
 *Figure 3.3 — conservation law analogy — fluid continuity equation alongside the quantum probability continuity equation, showing structural identity*
 
-This is the continuity equation — the same equation that governs the flow of any conserved quantity, whether mass, charge, or energy. Probability flows like a fluid with current $J$. Integrate over all $x$: the boundary terms at $\pm\infty$ vanish for any normalizable $\psi$, so $\frac{d}{dt}\int|\psi|^2\,dx = 0$. Normalization is permanent.
+This is the **continuity equation** for probability, with the same mathematical structure as the continuity equation for mass, charge, or any other conserved quantity. Probability flows with current $J$. Integrating over all $x$: the boundary terms at $\pm\infty$ vanish for any normalizable $\psi$, giving $\frac{d}{dt}\int|\psi|^2\,dx = 0$. Normalization is preserved at all times.
 
-The derivation has a practical payoff. In a numerical simulation, $\int|\psi|^2\,dx$ is a diagnostic. If it drifts away from 1, something is wrong — either the time-stepping scheme is non-unitary (explicit Euler will do this) or probability is leaking at the grid boundaries. The normalization indicator is a bug detector, and the conservation law you just proved is the standard against which the simulation is judged.
+This result has a practical consequence for numerical simulations. If $\int|\psi|^2\,dx$ drifts away from 1 during a time evolution, something is wrong: either the time-stepping scheme is non-unitary (explicit Euler has this problem) or probability is leaking at the grid boundaries. The normalization indicator we required in Chapter 0 is precisely this diagnostic, and the conservation law just proved is its theoretical basis.
 
 ---
 
-Born's rule gives us the probability distribution for position measurements. The average position across many experiments is the centroid of that distribution:
+Born's rule provides the probability distribution for position measurements. The expectation value of position — the average over many measurements of the same state — is the mean of the distribution $|\psi|^2$:
 
 $$\langle x\rangle = \int_{-\infty}^{\infty} x\,|\psi(x,t)|^2\,dx.$$
 
-Each possible position is weighted by how probable it is. This is the mean of the distribution $|\psi|^2$ in the ordinary statistical sense.
-
-Momentum is less direct. In position space, momentum is not a function of $x$ — you cannot write $\langle p\rangle = \int p\,|\psi(x)|^2\,dx$ and get anything sensible. The Fourier transform supplies the connection: define $\phi(p,t)$ as the Fourier transform of $\psi(x,t)$. Then $|\phi(p,t)|^2$ is the probability density for momentum measurements, and $\langle p\rangle = \int p\,|\phi|^2\,dp$. Translating this back to position space via Parseval's theorem turns multiplication by $p$ into differentiation. The momentum operator in position space is:
+Momentum expectation values require more care. In position space, momentum is not a function of $x$; the expression $\langle p\rangle = \int p\,|\psi(x)|^2\,dx$ is not well-defined. The correct route is through the Fourier transform: define $\phi(p,t)$ as the Fourier transform of $\psi(x,t)$. Then $|\phi(p,t)|^2$ is the probability density for momentum measurements, and $\langle p\rangle = \int p\,|\phi|^2\,dp$. Using Parseval's theorem to translate this back to position space, multiplication by $p$ becomes differentiation. The momentum operator in position space is:
 
 $$\hat{p} = -i\hbar\frac{\partial}{\partial x}.$$
 
-That sign is not arbitrary. For a packet moving right with $k_0 > 0$, the formula returns $\langle p\rangle = \hbar k_0 > 0$, as it should. Slip and write $\hat{p} = +i\hbar\,\partial_x$ instead, and every direction reverses. The simulation flags this at once: send a packet rightward and its average momentum reads negative.
+The sign here is not a convention that can be reversed. For a wave packet with central wavenumber $k_0 > 0$, moving to the right, this operator gives $\langle p\rangle = \hbar k_0 > 0$. Writing $\hat{p} = +i\hbar\,\partial_x$ instead would reverse all directions — a sign error that the simulation detects immediately: a rightward-moving packet would register negative average momentum.
 
 <!-- → [TABLE: side-by-side comparison of position-space and momentum-space Born rule — rows: density, normalization condition, expectation value formula, operator form] -->
 
 ---
 
-Now let us measure both spreads. Define the widths of the position and momentum distributions in the ordinary statistical way:
+We can also characterize the spreads of the position and momentum distributions. Define the standard deviations in the usual way:
 
 $$\sigma_x = \sqrt{\langle x^2\rangle - \langle x\rangle^2}, \qquad \sigma_p = \sqrt{\langle p^2\rangle - \langle p\rangle^2}.$$
 
@@ -120,11 +111,11 @@ The **Kennard inequality**, proved by E. H. Kennard in 1927, states:
 
 $$\sigma_x\,\sigma_p \geq \frac{\hbar}{2}.$$
 
-The cleanest way to read what this says is to imagine the experiment. Prepare ten thousand identical copies of the same state $\psi$. Measure position on five thousand of them and record the standard deviation $\sigma_x$. Measure momentum on the other five thousand and record $\sigma_p$. No single particle is measured twice, and no measurement disturbs any other. And yet the product $\sigma_x\sigma_p$ cannot be smaller than $\hbar/2$.
+To understand what this inequality says, consider the following experimental procedure. Prepare many identical copies of the same state $\psi$. Measure position on half and record the standard deviation $\sigma_x$. Measure momentum on the other half and record $\sigma_p$. No particle is measured twice, and no measurement disturbs any other. The Kennard inequality states that the product $\sigma_x\sigma_p$ cannot be smaller than $\hbar/2$, regardless of the state.
 
-The reason is Fourier analysis, not physical disturbance. A function that is narrow in $x$ must be broad in its Fourier transform, and vice versa. The Kennard inequality is the precise, rigorous statement of that unavoidable relationship between a function and its transform — with $\hbar/2$ as the exact bound, not an order-of-magnitude estimate.
+The source of this bound is Fourier analysis, not physical disturbance. A function narrow in $x$ must have a broad Fourier transform, and vice versa. The Kennard inequality is the exact, rigorous expression of this mathematical relationship, with $\hbar/2$ as the precise lower bound.
 
-There is a separate Heisenberg measurement-disturbance relation, which *is* about what happens when you measure position and then measure momentum on the same particle. It has a different form, a different bound, and a different physical content. Ozawa formalized it in 2003; Erhart et al. tested it experimentally in 2012. The Kennard inequality and the measurement-disturbance relation are different animals, and conflating them is the most persistent conceptual error in introductory quantum mechanics.
+A separate result, the Heisenberg measurement-disturbance relation, governs what happens when position and momentum are measured sequentially on the *same* particle. It has a different form, a different bound, and a different physical content. Ozawa formalized it in 2003, and Erhart et al. tested it experimentally in 2012. The two results are distinct and should not be conflated.
 
 The Gaussian wave packet saturates the Kennard bound. For
 
@@ -134,9 +125,9 @@ a direct calculation gives:
 
 $$\sigma_x = \frac{a}{\sqrt{2}}, \qquad \sigma_p = \frac{\hbar}{\sqrt{2}\,a}, \qquad \sigma_x\sigma_p = \frac{\hbar}{2}.$$
 
-The product is exactly $\hbar/2$. Every other normalizable wave function gives a larger product. This is why the Gaussian shows up everywhere in quantum mechanics: it is the tightest possible state, the one that balances position and momentum uncertainty as evenly as the physics allows.
+The product is exactly $\hbar/2$. Every other normalizable state gives a strictly larger product. The Gaussian is the minimum-uncertainty state — the unique state that achieves the lower bound.
 
-The trade-off is visible directly in the formulas. $\sigma_x \propto a$ and $\sigma_p \propto 1/a$. Narrow the wave packet in space — smaller $a$ — and the momentum spread widens in proportion. The product stays locked. This is not a limitation of technology. You cannot engineer around it, because it follows from the mathematics of Fourier transforms, not from imperfect instruments.
+The trade-off is direct: $\sigma_x \propto a$ and $\sigma_p \propto 1/a$. Decreasing $a$ narrows the wave packet spatially and proportionally widens it in momentum. The product remains fixed. This is a consequence of Fourier analysis, not of any technological limitation. No experimental technique can circumvent it.
 
 <!-- → [CHART: parametric plot of σ_x vs σ_p as a varies from 0.2 to 4 nm for the Gaussian wave packet, showing the hyperbola σ_x σ_p = ℏ/2 and the Gaussian sitting exactly on it] -->
 
@@ -145,29 +136,29 @@ The trade-off is visible directly in the formulas. $\sigma_x \propto a$ and $\si
 
 ---
 
-A worked calculation makes the Born rule concrete before you try it yourself.
+## Worked Example — Normalizing an Exponential Wave Function
 
-Start with the un-normalized wave function $\tilde{\psi}(x) = e^{-|x|/a}$ for real $a > 0$. Normalizing it means computing:
+We now apply the Born rule to a specific case. Consider the un-normalized wave function $\tilde{\psi}(x) = e^{-|x|/a}$ for real $a > 0$. To normalize it, we compute:
 
 $$A^2\int_{-\infty}^{\infty}e^{-2|x|/a}\,dx = 2A^2\int_0^{\infty}e^{-2x/a}\,dx.$$
 
-Splitting at $x = 0$ is required, because the absolute value makes $e^{-|x|/a} \neq e^{-x/a}$ whenever $x < 0$. Carrying out the integral:
+The split at $x = 0$ is necessary because $e^{-|x|/a} \neq e^{-x/a}$ for $x < 0$. Evaluating:
 
 $$2A^2\cdot\frac{a}{2} = A^2 a = 1 \implies A = \frac{1}{\sqrt{a}}.$$
 
-A quick units check: with $x$ in nm and $a$ in nm, $A$ comes out in nm$^{-1/2}$, so $|\psi|^2$ is in nm$^{-1}$ — exactly right for a one-dimensional probability density.
+Units check: with $x$ in nm and $a$ in nm, $A$ has units of nm$^{-1/2}$, so $|\psi|^2$ has units of nm$^{-1}$. This is correct for a one-dimensional probability density.
 
-Now find the probability of catching the particle in $[-a, a]$:
+The probability of finding the particle in $[-a, a]$ is:
 
 $$P = \frac{1}{a}\int_{-a}^{a}e^{-2|x|/a}\,dx = \frac{2}{a}\int_0^{a}e^{-2x/a}\,dx = 1 - e^{-2} \approx 0.865.$$
 
-About 86.5%. The interval $[-a,a]$ contains the peak of the distribution, so this is plausible. The remaining ~14% lies in the tails $|x| > a$.
+About 86.5% of the probability is in the central interval. The remaining 14% is in the tails $|x| > a$.
 
-One more thing to notice. At $x = 0$, $|\psi(0)|^2 = 1/a$. For $a = 0.5$ nm this equals 2 nm$^{-1}$ — a number greater than 1. Nothing is wrong. The density is measured in nm$^{-1}$ and is not required to stay $\leq 1$. Expecting $|\psi|^2 \leq 1$ everywhere is a unit confusion, like expecting a population density map to never exceed 1 person per square kilometer.
+Note that at $x = 0$, $|\psi(0)|^2 = 1/a$. For $a = 0.5$ nm this equals 2 nm$^{-1}$, a number greater than 1. This is not a problem. The density is measured in nm$^{-1}$ and has no requirement to remain below 1. Expecting $|\psi|^2 \leq 1$ everywhere is a units error, equivalent to expecting a population density map to never exceed one person per square kilometer.
 
 ---
 
-This wave function $e^{-|x|/a}$ is real-valued, so Im$\,\psi = 0$ everywhere, and the probability current $J = (\hbar/m)\,\mathrm{Im}(\psi^*\,\partial_x\psi)$ vanishes everywhere. A real wave function carries zero current, so it cannot describe motion in a definite direction. To set the particle moving with central momentum $p_0$, multiply by $e^{ip_0 x/\hbar}$: the density $|\psi|^2$ is unchanged, but $\langle p\rangle = p_0$. The density stays the same; the current changes; the physics changes. All the directionality lives in the phase.
+The wave function $e^{-|x|/a}$ is real-valued, so Im$\,\psi = 0$ everywhere and the probability current $J = (\hbar/m)\,\mathrm{Im}(\psi^*\,\partial_x\psi)$ vanishes everywhere. A real wave function has zero probability current and cannot describe a particle with net momentum in any direction. To give the particle a central momentum $p_0$, we multiply by $e^{ip_0 x/\hbar}$. The density $|\psi|^2$ is unchanged, but $\langle p\rangle = p_0$. The spatial distribution is the same; the current is nonzero; the physics is different. The directional information is entirely contained in the phase.
 
 ---
 

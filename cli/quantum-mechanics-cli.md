@@ -9,7 +9,7 @@
 ## Chapter 00: Quantum Mechanics
 *Source: `chapters/00-frontmatter.md`*
 
-> **Section not yet authored.** No `### Exercise 4 — CLI Exercise` block found in this chapter file.
+> **Section not yet authored.** No `### Exercise R4 — CLI Exercise` block found in this chapter file.
 > To add this section, edit the source chapter file directly.
 
 ---
@@ -17,103 +17,370 @@
 ## Chapter 00: Chapter 0 — How to Use the Simulations
 *Source: `chapters/00-how-to-use-the-simulations.md`*
 
-> **Section not yet authored.** No `### Exercise 4 — CLI Exercise` block found in this chapter file.
-> To add this section, edit the source chapter file directly.
+### Exercise R4 — CLI Exercise
+**What you're building this chapter:** a verified project directory with the three governing files and the wave-packet page, committed so later chapters extend a known-good base.
+**Tool:** Claude Code — it can create the files on disk, run a normalization check, and leave the directory in a state you can diff and version-control.
+**Skill level:** Beginner
+**Setup — confirm:**
+- [ ] `00-wave-packet.html` from the R3 prompt (or let Claude Code generate it)
+- [ ] Node.js or a browser available to open the HTML
+- [ ] A `CLAUDE.md` in the project root with the coding-constitution rules above
+**The Task:**
+```
+In the project directory, confirm CLAUDE.md, DESIGN.md, and PROJECT.md exist
+and match the conventions stated in CLAUDE.md (SI units, {re, im} storage,
+normalization indicator, no explicit Euler). Do NOT edit the physics in
+00-wave-packet.html. Add a tiny standalone Node script check-norm.js that
+reproduces the analytic |ψ(x,0)|² on a grid of N = 500 points over
+x ∈ [−20 nm, +20 nm] and prints the trapezoidal integral ∫|ψ|²dx. Run it and
+report the number; it must read 1.000 ± 0.001. Append one line to PROJECT.md
+under "Verified": "Ch0 wave packet: ∫|ψ|²dx = <value>". Leave all .html
+physics untouched.
+```
+**Expected output:** a `check-norm.js` script, a printed normalization value near 1.000, and one new line in `PROJECT.md`.
+**What to inspect:** that the integral uses the $h$-weighted trapezoidal rule (spacing $h = 40\,\text{nm}/(N-1)$), and that the printed value is 1.000, not 250 or 0.004 (those would signal a missing or doubled $h$ factor).
+**If it goes wrong:** if the integral reads ~250, the script summed $|\psi|^2$ without multiplying by the grid spacing $h$ — the single most common normalization bug, and the one that will haunt the eigensolver in Chapter 5. Fix the weighting, don't rescale ψ.
+**CLAUDE.md / AGENTS.md note:** add a standing rule: "Every normalization integral is ∑ⱼ|ψⱼ|²·h, not ∑ⱼ|ψⱼ|². State h explicitly in the code."
 
 ---
 
 ## Chapter 01: Chapter 1 — Why Classical Physics Failed: Blackbody, Photoelectric, and the Photon
 *Source: `chapters/01-why-classical-physics-failed.md`*
 
-> **Section not yet authored.** No `### Exercise 4 — CLI Exercise` block found in this chapter file.
-> To add this section, edit the source chapter file directly.
+### Exercise R4 — CLI Exercise
+**What you're building this chapter:** a tested constants module and a blackbody self-check you can run from the command line.
+**Tool:** Claude Code — it can run the Stefan–Boltzmann integral as a script and report the ratio, then record it in `PROJECT.md`.
+**Skill level:** Beginner
+**Setup — confirm:**
+- [ ] `constants.js` from the R3 prompt
+- [ ] Node.js available to run a check script
+- [ ] The Chapter 0 rule in `CLAUDE.md` that all conversions route through one module
+**The Task:**
+```
+Read constants.js. Write a standalone Node script check-stefan.js that
+integrates u_Planck(ν, 5778 K) over a log-spaced grid of N = 2000 points on
+[1e11, 1e17] Hz (trapezoidal in log space), then prints the ratio
+  numerical_integral / (4 σ T⁴ / c)
+using σ = 5.670374e-8. It must print a value between 0.99 and 1.01. Do NOT
+edit constants.js values. If the ratio is low, widen the grid rather than
+changing any constant, and say so. Append to PROJECT.md under "Verified":
+"Ch1 blackbody: ∫u dν / (4σT⁴/c) = <ratio>".
+```
+**Expected output:** `check-stefan.js`, a printed ratio in [0.99, 1.01], and one new `PROJECT.md` line.
+**What to inspect:** that the ratio is close to 1 *because the grid captures the spectrum*, not because a constant was nudged; widening the grid should push the ratio toward 1 from below (the integral misses tail power on a narrow grid).
+**If it goes wrong:** a ratio far from 1 with a wide grid means a wrong constant or a missing $\nu^3$/$\nu^2$ factor — check the constants against CODATA before touching the grid. A ratio that *won't* climb toward 1 as you widen the grid points at the integrand, not the bounds.
+**CLAUDE.md / AGENTS.md note:** add: "Any new spectral or eigenvalue quantity must ship with one self-check against a known analytic value (here: Stefan–Boltzmann)."
 
 ---
 
 ## Chapter 02: Chapter 2 — Matter Waves: de Broglie, Davisson–Germer, and the Double Slit
 *Source: `chapters/02-matter-waves.md`*
 
-> **Section not yet authored.** No `### Exercise 4 — CLI Exercise` block found in this chapter file.
-> To add this section, edit the source chapter file directly.
+### Exercise R4 — CLI Exercise
+**What you're building this chapter:** a grid module with an automated resolution assertion you can run before any later eigensolver trusts the grid.
+**Tool:** Claude Code — it can add the module, run a resolution check across parameter values, and record the safe ranges in `PROJECT.md`.
+**Skill level:** Beginner
+**Setup — confirm:**
+- [ ] `constants.js` from Chapter 1
+- [ ] Node.js available
+- [ ] The CLAUDE.md self-check rule from Chapter 1
+**The Task:**
+```
+Read constants.js. Create grid.js with makeGrid(xMin, xMax, N) and
+pointsPerWavelength(k, h) as specified. Write a Node script check-grid.js that,
+for an electron at E = 150 eV (λ ≈ 0.1 nm) on x ∈ [−20 nm, +20 nm], finds the
+smallest N (multiple of 100) giving ≥ 10 points per de Broglie wavelength, and
+prints both N and the resulting points-per-λ. Do NOT change makeGrid's
+spacing formula. Append to PROJECT.md under "Verified":
+"Ch2 grid: 150 eV electron needs N ≥ <value> for 10 pts/λ on ±20 nm".
+```
+**Expected output:** `grid.js`, `check-grid.js`, a printed minimum $N$, and a `PROJECT.md` line.
+**What to inspect:** that doubling $N$ roughly doubles points-per-$\lambda$ (linear in $N$), confirming the spacing formula is right; and that the reported $\lambda$ matches the hand value $h_\text{Planck}/\sqrt{2m_eE} \approx 0.1$ nm at 150 eV.
+**If it goes wrong:** if points-per-$\lambda$ does not scale with $N$, the spacing used $(x_\text{max}-x_\text{min})/N$ instead of $/(N-1)$ — an off-by-one that silently mis-sizes the grid; fix the formula, not $N$.
+**CLAUDE.md / AGENTS.md note:** add: "Before any eigensolve, assert the grid resolves the shortest expected wavelength to ≥ 8 points; otherwise widen N or narrow the energy range."
 
 ---
 
 ## Chapter 03: Chapter 3 — The Wave Function and Born's Rule
 *Source: `chapters/03-the-wave-function.md`*
 
-> **Section not yet authored.** No `### Exercise 4 — CLI Exercise` block found in this chapter file.
-> To add this section, edit the source chapter file directly.
+### Exercise R4 — CLI Exercise
+**What you're building this chapter:** a tested expectation-value module with assertions tied to the Gaussian and the infinite-well analytic values.
+**Tool:** Claude Code — it can run the expectation values against known states and record the ratios in `PROJECT.md`.
+**Skill level:** Intermediate
+**Setup — confirm:**
+- [ ] `grid.js`, `constants.js`, and the ψ-array convention from Chapter 0
+- [ ] Node.js available
+- [ ] The CLAUDE.md normalization rule ($\sum|\psi_j|^2 h$, state $h$ explicitly)
+**The Task:**
+```
+Implement normalize(re, im, h) and computeExpectations(re, im, x, h) in a
+module observables.js. Write a Node script check-observables.js that:
+  (1) builds a Gaussian a = 1 nm, k₀ = 10 nm⁻¹ on N = 500, x ∈ [−20,20] nm,
+      normalizes it, and asserts σ_x ≈ 0.707 nm, ⟨p⟩ > 0, and
+      σ_x σ_p /(ℏ/2) within 1% of 1.000;
+  (2) builds the infinite-well n=1, L=10 nm state and asserts the ratio ≈ 1.136.
+Print all four numbers. Do NOT loosen the tolerances to force a pass. Append to
+PROJECT.md under "Verified": "Ch3 observables: Gaussian ratio=<v>, well n=1 ratio=<v>".
+```
+**Expected output:** `observables.js`, `check-observables.js`, printed ratios near 1.000 and 1.136, and a `PROJECT.md` line.
+**What to inspect:** that the Gaussian ratio is 1.000 (not 0.500 — that signals dividing by $\hbar$ instead of $\hbar/2$) and that $\langle p\rangle$ is positive for $k_0 > 0$.
+**If it goes wrong:** if the well ratio comes out 1.000 instead of 1.136, the code is reusing the Gaussian's analytic $\sigma_p$ instead of computing $\langle p^2\rangle$ from the actual state — recompute $\langle p^2\rangle$ numerically from $\hat p^2$, don't paste a formula.
+**CLAUDE.md / AGENTS.md note:** add: "Every observable routine ships with the Gaussian (ratio 1.000) and infinite-well n=1 (ratio ≈ 1.136) as regression checks."
 
 ---
 
 ## Chapter 04: Chapter 4 — The Schrödinger Equation and Stationary States
 *Source: `chapters/04-the-schrodinger-equation.md`*
 
-> **Section not yet authored.** No `### Exercise 4 — CLI Exercise` block found in this chapter file.
-> To add this section, edit the source chapter file directly.
+### Exercise R4 — CLI Exercise
+**What you're building this chapter:** a propagator with an automated energy-conservation test over a full sloshing period.
+**Tool:** Claude Code — it can step the state in time and assert $\langle\hat H\rangle$ stays flat, recording the drift in `PROJECT.md`.
+**Skill level:** Intermediate
+**Setup — confirm:**
+- [ ] `observables.js` from Chapter 3
+- [ ] `grid.js`, `constants.js`
+- [ ] The CLAUDE.md phase-sign rule ($e^{-iE_nt/\hbar}$, not $+$)
+**The Task:**
+```
+Implement a propagator evolve(coeffs, energies, psiBasis, x, h, t) returning
+Ψ(x,t) as re[]/im[]. Write a Node script check-evolution.js that, for the
+infinite-well superposition c_1 = c_2 = 1/√2 (L = 10 nm, electron, N = 500):
+  (1) computes ⟨H⟩ at t = 0 and at 200 time steps spanning one period
+      T = 2πℏ/(E_2 − E_1), asserting max drift < 0.1%;
+  (2) confirms |Ψ|² at t = T matches t = 0 within 1e-3 (periodicity);
+  (3) confirms ⟨x⟩(t) is NOT constant (it sloshes).
+Print ⟨H⟩ drift and the period T in fs. Do NOT widen the drift tolerance.
+Append to PROJECT.md under "Verified": "Ch4 evolution: ⟨H⟩ drift = <v>%, T = <v> fs".
+```
+**Expected output:** the propagator, `check-evolution.js`, a printed drift (well under 0.1%) and period, and a `PROJECT.md` line.
+**What to inspect:** that $\langle\hat H\rangle$ drift is essentially zero (spectral evolution is exact) and that $T \approx 3.66$ fs for the 1 nm electron, or the appropriately scaled value for $L = 10$ nm.
+**If it goes wrong:** if $\langle\hat H\rangle$ drifts, the code is recomputing $\langle\hat H\rangle$ via a noisy finite-difference $\hat H$ on the evolved state instead of using $\sum|c_n|^2E_n$ — for a spectral propagator the coefficients are fixed, so the energy must be exactly constant; use the coefficient form.
+**CLAUDE.md / AGENTS.md note:** add: "Spectral evolution preserves $\sum|c_n|^2E_n$ exactly; any $\langle\hat H\rangle$ drift in spectral mode is a bug, not numerics."
 
 ---
 
 ## Chapter 05: Chapter 5 — The Infinite Square Well
 *Source: `chapters/05-the-infinite-square-well.md`*
 
-> **Section not yet authored.** No `### Exercise 4 — CLI Exercise` block found in this chapter file.
-> To add this section, edit the source chapter file directly.
+### Exercise R4 — CLI Exercise
+**What you're building this chapter:** the eigensolver with the golden test wired as an automated assertion.
+**Tool:** Claude Code — it can run the diagonalization and assert the $n^2$ ratios, failing loudly if the Hamiltonian factor is wrong.
+**Skill level:** Advanced
+**Setup — confirm:**
+- [ ] `hamiltonian.js`, `grid.js`, `constants.js`, `observables.js`
+- [ ] math.js available (CDN in the browser, or `npm i mathjs` for the script)
+- [ ] The CLAUDE.md rule that every spectrum ships with an analytic self-check
+**The Task:**
+```
+Read hamiltonian.js. Write a Node script golden-test.js that builds the
+infinite-well Hamiltonian (V = 0, L = 2 nm, m = m_e, N = 500), diagonalizes it,
+normalizes eigenvectors to Σ|ψ_j|² h = 1, and asserts:
+  (1) E_2/E_1, E_3/E_1, E_4/E_1, E_5/E_1 = 4, 9, 16, 25 to 3 decimals;
+  (2) |E_1_num − E_1_analytic| / E_1_analytic < 1e-4;
+  (3) Σ_j|ψ_1_j|² h = 1.000 ± 1e-3 and orthogonality |⟨ψ_1|ψ_2⟩| < 1e-8.
+Print the full n=1..5 comparison table. Do NOT adjust constants or tolerances
+to force a pass. If it fails, print which diagnostic (t_k factor, h², or √h
+normalization) is the likely cause. Append to PROJECT.md under "Verified":
+"Ch5 GOLDEN TEST: E_n/E_1 = 4/9/16/25 ✓, E_1 err = <v>".
+```
+**Expected output:** `golden-test.js`, a printed comparison table, an explicit PASS, and a `PROJECT.md` line marking the golden test.
+**What to inspect:** the ratios must be 4/9/16/25 *and* $E_1$ must match the analytic value — the ratios alone pass even with an $h$-vs-$h^2$ error, so the absolute $E_1$ check is what catches it.
+**If it goes wrong:** if ratios are perfect but $E_1$ is off by exactly 2×, the diagonal used $t_k$ instead of $2t_k$; if $E_1$ scales as $1/N$ rather than $1/N^2$ as you vary $N$, the denominator used $h$ not $h^2$. Diagnose by the symptom, then fix the stencil.
+**CLAUDE.md / AGENTS.md note:** add: "The infinite-well golden test ($E_n/E_1 = n^2$ AND $E_1$ matching analytic to <1e-4) must pass before any other potential is trusted. It is the regression gate for the eigensolver."
 
 ---
 
 ## Chapter 06: Chapter 6 — Finite Wells, Steps, and Barriers
 *Source: `chapters/06-finite-wells-steps-and-barriers.md`*
 
-> **Section not yet authored.** No `### Exercise 4 — CLI Exercise` block found in this chapter file.
-> To add this section, edit the source chapter file directly.
+### Exercise R4 — CLI Exercise
+**What you're building this chapter:** the tunneling calculator with automated $R+T=1$ and exact-vs-WKB checks.
+**Tool:** Claude Code — it can sweep energies, assert conservation, and record the worked-example values in `PROJECT.md`.
+**Skill level:** Intermediate
+**Setup — confirm:**
+- [ ] `hamiltonian.js`, `potentials.js`, `constants.js`
+- [ ] Node.js available
+- [ ] The CLAUDE.md rule boxing the $E<V_0$ and $E>V_0$ formulas separately
+**The Task:**
+```
+Read potentials.js. Write a Node script check-scattering.js that:
+  (1) for the STEP at V0 = 2 eV, sweeps E from 2.1 to 20 eV and asserts
+      R + T = 1 within 1e-9 at every E (probability-current form);
+  (2) for the BARRIER V0 = 5 eV, L = 5 Å, E = 1 eV, asserts
+      T_exact ≈ 9×10⁻⁵, T_WKB ≈ 3.5×10⁻⁵, and ratio ≈ 2.56 = 16E(V0−E)/V0²;
+  (3) confirms the sinh→sin switch: at E = V0 exactly, T_exact → 1 (limit κ→0).
+Do NOT loosen tolerances. Append to PROJECT.md under "Verified":
+"Ch6 scattering: R+T=1 ✓, barrier T_exact/T_WKB ratio = <v>".
+```
+**Expected output:** `check-scattering.js`, printed confirmations of $R+T=1$ and the ratio, and a `PROJECT.md` line.
+**What to inspect:** that $R+T=1$ holds to machine precision (a current-vs-amplitude error breaks it at the 1% level) and that the exact/WKB ratio equals the analytic prefactor 2.56 exactly.
+**If it goes wrong:** if $R+T \neq 1$ for the step, $T$ used $|C/A|^2$ without the $k_1/k_0$ factor — restore the current form. If $T(E)$ is discontinuous at $E = V_0$, the sinh→sin switch is missing or mis-placed.
+**CLAUDE.md / AGENTS.md note:** add: "Every scattering computation logs $R+T$; deviation from 1 by more than 1e-6 is a current-accounting bug, not numerics."
 
 ---
 
 ## Chapter 07: Chapter 7 — The Quantum Harmonic Oscillator
 *Source: `chapters/07-the-harmonic-oscillator.md`*
 
-> **Section not yet authored.** No `### Exercise 4 — CLI Exercise` block found in this chapter file.
-> To add this section, edit the source chapter file directly.
+### Exercise R4 — CLI Exercise
+**What you're building this chapter:** an automated oscillator-spectrum test as a second eigensolver gate.
+**Tool:** Claude Code — it can diagonalize the harmonic Hamiltonian and assert the ladder and uncertainty product.
+**Skill level:** Advanced
+**Setup — confirm:**
+- [ ] `hamiltonian.js`, `potentials.js` (with `harmonic`), `observables.js`
+- [ ] math.js available
+- [ ] The Chapter 5 golden test already passing (the prerequisite gate)
+**The Task:**
+```
+Read hamiltonian.js and potentials.js. Write a Node script
+check-oscillator.js that builds the harmonic Hamiltonian (m = m_e,
+ω = 1e14 rad/s, x_max = 6 x_0, N = 600), diagonalizes, normalizes
+eigenvectors, and asserts:
+  (1) E_0 = ½ℏω within 1% (the half-quantum, NOT ℏω);
+  (2) spacing E_{n+1} − E_n = ℏω within 1% for n = 0..5;
+  (3) ground-state σ_x σ_p within 1% of ℏ/2;
+  (4) ground state has zero nodes (Gaussian).
+Print the spacing table. If spacing drifts at high n, report whether widening
+x_max fixes it (do this automatically and say so) — do NOT change ω.
+Append to PROJECT.md under "Verified": "Ch7 oscillator: E_n=(n+½)ℏω ✓,
+ground σ_xσ_p = <v>·(ℏ/2)".
+```
+**Expected output:** `check-oscillator.js`, a printed spacing table, an explicit PASS, and a `PROJECT.md` line.
+**What to inspect:** the ground state at $\tfrac12\hbar\omega$ (not $\hbar\omega$), uniform spacing, and the $\sigma_x\sigma_p$ product landing on $\hbar/2$ — the same minimum-uncertainty signature the Gaussian gave in Chapter 3.
+**If it goes wrong:** if the spacing is uniform but every level is offset, the half-quantum is mishandled — check $E_0$. If high-$n$ levels are systematically too high, the grid truncates the tails; widen $x_\text{max}$, do not retune $\omega$.
+**CLAUDE.md / AGENTS.md note:** add: "The eigensolver must pass BOTH the infinite-well golden test (hard walls) AND the oscillator test (smooth potential, $E_n=(n+\tfrac12)\hbar\omega$) before any production spectrum is reported."
 
 ---
 
 ## Chapter 08: Chapter 8 — The Free Particle and Wave Packets
 *Source: `chapters/08-the-free-particle-and-wave-packets.md`*
 
-> **Section not yet authored.** No `### Exercise 4 — CLI Exercise` block found in this chapter file.
-> To add this section, edit the source chapter file directly.
+### Exercise R4 — CLI Exercise
+**What you're building this chapter:** the unitary stepper with automated unitarity and spreading-law checks.
+**Tool:** Claude Code — it can step a packet forward, assert the norm holds and the width matches $\sigma(t)$.
+**Skill level:** Advanced
+**Setup — confirm:**
+- [ ] `stepper.js`, `grid.js`, `constants.js`, `observables.js`
+- [ ] An FFT available (a small radix-2 FFT in JS, or a vetted dependency)
+- [ ] The CLAUDE.md rule forbidding explicit Euler
+**The Task:**
+```
+Read stepper.js. Write a Node script check-stepper.js that:
+  (1) evolves a free Gaussian (σ_0 = 2 nm, k_0 = 5 nm⁻¹, electron) for 200
+      steps and asserts ∫|Ψ|²dx stays 1.000 ± 1e-3 at EVERY step (unitarity);
+  (2) asserts the numerical width matches σ(t) = σ_0√(1+(ℏt/2mσ_0²)²) to < 1%
+      at t = the doubling time t_2x = 2mσ_0²/ℏ;
+  (3) asserts |φ(k)|² is unchanged (momentum distribution constant);
+  (4) asserts ⟨H⟩ drift < 0.1% over the run.
+Do NOT loosen tolerances. If norm climbs, the stepper is non-unitary — report
+it. Append to PROJECT.md under "Verified": "Ch8 stepper: unitary ✓,
+width matches σ(t) ✓, ⟨H⟩ drift = <v>%".
+```
+**Expected output:** `check-stepper.js`, confirmation of unitarity and spreading-law agreement, and a `PROJECT.md` line.
+**What to inspect:** the norm pinned at 1.000 across all steps, the width tracking $\sigma(t)$, and $|\phi(k)|^2$ frozen — the three independent signatures of a correct free-particle propagator.
+**If it goes wrong:** if the norm climbs above 1 within ~50 steps, it is explicit Euler or a non-unitary scheme — replace it. If $|\Psi|^2$ grows grid-scale wiggles, the $k_m$ sign flip for $m \geq N/2$ is missing — that is the single most common split-step bug.
+**CLAUDE.md / AGENTS.md note:** add: "The time-evolution stepper must be unitary: norm fixed at 1.000 and $\langle\hat H\rangle$ flat. Any upward norm drift means explicit Euler crept in — reject it."
 
 ---
 
 ## Chapter 09: Chapter 9 — Operators and Uncertainty
 *Source: `chapters/09-operators-and-uncertainty.md`*
 
-> **Section not yet authored.** No `### Exercise 4 — CLI Exercise` block found in this chapter file.
-> To add this section, edit the source chapter file directly.
+### Exercise R4 — CLI Exercise
+**What you're building this chapter:** an automated uncertainty-and-commutator test across known states.
+**Tool:** Claude Code — it can compute the ratios for the Gaussian and the well ladder and assert the commutator residual.
+**Skill level:** Advanced
+**Setup — confirm:**
+- [ ] `observables.js`, `hamiltonian.js`, `grid.js`, `constants.js`
+- [ ] Node.js available
+- [ ] The Chapter 3 sign rule for $\hat p$ in CLAUDE.md
+**The Task:**
+```
+Read observables.js. Write a Node script check-uncertainty.js that asserts:
+  (1) Gaussian a=1 nm, k_0=5 nm⁻¹: ⟨p⟩ > 0, σ_x σ_p /(ℏ/2) within 1% of 1.000;
+  (2) infinite-well n=1, L=10 nm: ratio within 1% of 1.136;
+  (3) infinite-well n=10: ratio ≈ 18.08 (grows as ≈ 1.814·n);
+  (4) commutator residual: max |[x̂,p̂]ψ − iℏψ| / ℏ < 1e-3 on N = 500.
+Print all ratios and the residual. Do NOT loosen tolerances. If (3) fails high,
+check whether the grid resolves ψ_10 (10 half-waves need enough points).
+Append to PROJECT.md under "Verified": "Ch9 uncertainty: Gaussian 1.000,
+well n=1 1.136, n=10 ≈18.08, commutator residual = <v>".
+```
+**Expected output:** `check-uncertainty.js`, printed ratios and residual, and a `PROJECT.md` line.
+**What to inspect:** the Gaussian saturating at 1.000, the well ratio climbing from 1.136 as $\approx 1.814\,n$ (≈ 18.08 at $n=10$) as $n$ grows, and the commutator residual near zero — confirming the grid faithfully represents $[\hat x,\hat p] = i\hbar$.
+**If it goes wrong:** if $\langle p\rangle < 0$ for $k_0 > 0$, the $\hat p$ sign is flipped. If the $n=10$ ratio overshoots badly, $\psi_{10}$ is under-resolved (too few points per half-wave) — raise $N$, which loops back to the Chapter 2 resolution check.
+**CLAUDE.md / AGENTS.md note:** add: "Report $\sigma_x\sigma_p/(\hbar/2)$ for every eigenstate, and assert the commutator residual is near zero at startup — it certifies the grid's operator representation."
 
 ---
 
 ## Chapter 10: Chapter 10 — Measurement, Superposition, and the Qubit
 *Source: `chapters/10-measurement-and-the-qubit.md`*
 
-> **Section not yet authored.** No `### Exercise 4 — CLI Exercise` block found in this chapter file.
-> To add this section, edit the source chapter file directly.
+### Exercise R4 — CLI Exercise
+**What you're building this chapter:** the measurement sampler with automated convergence and Robertson-bound checks.
+**Tool:** Claude Code — it can run large ensembles and assert the sample mean converges to $\langle\hat A\rangle$.
+**Skill level:** Intermediate
+**Setup — confirm:**
+- [ ] `measure.js`, `constants.js`
+- [ ] Node.js available
+- [ ] The CLAUDE.md startup assertions for $\sigma_y$ Hermiticity and $|\vec r| = 1$
+**The Task:**
+```
+Read measure.js. Write a Node script check-measure.js that:
+  (1) verifies σ_y† = σ_y and σ_i² = I (fail loudly if σ_y upper-right is +i);
+  (2) for |ψ⟩ = (√3/2)|0⟩ + (i/2)|1⟩, asserts P(σ_z=+1) = 3/4, ⟨σ_z⟩ = 1/2,
+      and that an N=10000 σ_z ensemble mean is within 0.03 of 1/2;
+  (3) for |+y⟩, asserts the (σ_x, σ_z) product equals the Robertson bound
+      |⟨σ_y⟩| = 1 within 5% at N = 5000;
+  (4) confirms Σ_n P(a_n) = 1 for all three observables.
+Do NOT loosen tolerances. Append to PROJECT.md under "Verified":
+"Ch10 measurement: ⟨σ_z⟩ sample = <v>, Robertson saturated ✓".
+```
+**Expected output:** `check-measure.js`, printed sample means and bound check, and a `PROJECT.md` line.
+**What to inspect:** the sample mean converging to the analytic $\langle\hat A\rangle$ as $N$ grows (Born rule working), and the $|+y\rangle$ state saturating the Robertson bound for $(\sigma_x,\sigma_z)$.
+**If it goes wrong:** if probabilities don't sum to 1 or are wrong for $\sigma_x$/$\sigma_y$, the sampler projected onto the computational basis instead of the observable's eigenbasis — project onto the eigenstates of the measured operator. If $\sigma_y$ Hermiticity fails, the upper-right entry is $+i$; fix it.
+**CLAUDE.md / AGENTS.md note:** add: "Measurement sampling projects onto the eigenbasis of the measured observable, not the computational basis. Assert $\sum P = 1$ and the empirical mean → $\langle\hat A\rangle$."
 
 ---
 
 ## Chapter 11: Chapter 11 — Capstone: A 1D Quantum Sandbox
 *Source: `chapters/11-capstone-a-1d-quantum-sandbox.md`*
 
-> **Section not yet authored.** No `### Exercise 4 — CLI Exercise` block found in this chapter file.
-> To add this section, edit the source chapter file directly.
+### Exercise R4 — CLI Exercise
+**What you're building this chapter:** the full validation suite as a single command that gates the assembled sandbox.
+**Tool:** Claude Code — it can run every per-chapter check against the integrated code and produce one pass/fail report.
+**Skill level:** Advanced
+**Setup — confirm:**
+- [ ] All modules and their per-chapter check scripts (`golden-test.js`, `check-oscillator.js`, `check-stepper.js`, etc.)
+- [ ] math.js and an FFT available
+- [ ] Every per-chapter "Verified" line already in `PROJECT.md`
+**The Task:**
+```
+Read all module files and the per-chapter check scripts. Write a single
+validate-sandbox.js that runs, against the ASSEMBLED quantum-sandbox modules:
+  (1) GOLDEN TEST: infinite well N=500, L=2 nm, m_e → E_n/E_1 = 4/9/16/25 to
+      3 decimals AND E_1 within 1e-4 of analytic;
+  (2) oscillator → E_n = (n+½)ℏω, spacing ℏω within 1%;
+  (3) free-packet spreading → width matches σ(t) within 1%, norm 1.000 ± 1e-3;
+  (4) step/barrier → R+T = 1 within 1e-6;
+  (5) commutator residual < 1e-3·ℏ;
+  (6) measurement ensemble mean → ⟨A⟩.
+Print a single PASS/FAIL table. The suite must PASS without any tolerance being
+loosened or any constant nudged. Append to PROJECT.md under "Verified":
+"Ch11 SANDBOX VALIDATION SUITE: all checks PASS — golden test E_n=n²E_1 ✓".
+```
+**Expected output:** `validate-sandbox.js`, a full PASS/FAIL table, and the final `PROJECT.md` line certifying the deliverable.
+**What to inspect:** that the golden test ($E_n/E_1 = n^2$ AND absolute $E_1$) passes on the *integrated* code, not just the standalone Chapter 5 module — integration can introduce interface mismatches the standalone test never saw.
+**If it goes wrong:** if a check that passed in its own chapter now fails in the suite, an interface mismatch crept in during assembly — most likely a Euclidean-vs-physics normalization ($\sqrt h$) or a unit convention differing between modules. Trace the offending quantity back to its source module; do not patch the suite.
+**CLAUDE.md / AGENTS.md note:** add: "The sandbox is not 'done' until `validate-sandbox.js` passes every check with no loosened tolerance. The golden test ($E_n = n^2E_1$, no fitted parameters) is the final gate."
 
 ---
 
-## Chapter 99: 99 Back Matter
+## Chapter 99: 99-back-matter.md
 *Source: `chapters/99-back-matter.md`*
 
-> **Section not yet authored.** No `### Exercise 4 — CLI Exercise` block found in this chapter file.
+> **Section not yet authored.** No `### Exercise R4 — CLI Exercise` block found in this chapter file.
 > To add this section, edit the source chapter file directly.
 
 ---

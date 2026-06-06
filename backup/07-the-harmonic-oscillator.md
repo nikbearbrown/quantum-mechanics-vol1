@@ -1,26 +1,26 @@
 # Chapter 7 — The Quantum Harmonic Oscillator
 
-Imagine pulling a guitar string sideways by a small amount and letting go. The restoring force grows in proportion to the displacement, which is Hooke's law, and Hooke's law gives simple harmonic motion. The same structure appears far more generally. Take any smooth potential with a minimum and expand it in a Taylor series about that minimum. The first derivative vanishes, because that is what a minimum means, and the constant term only shifts where we place the energy zero. What survives at leading order is a quadratic:
+Pull a guitar string sideways by a small distance and release it. The restoring force is proportional to the displacement. That is Hooke's law, and from it follows simple harmonic motion. Now take any smooth potential with a minimum and expand it in a Taylor series around that minimum. The first derivative vanishes — that is what a minimum means. The constant term just shifts the energy zero. What remains at leading order is a quadratic:
 
 $$V(x) \approx \frac{1}{2}V''(x_0)\,(x-x_0)^2 = \frac{1}{2}m\omega^2(x-x_0)^2,$$
 
-where $\omega = \sqrt{V''(x_0)/m}$ is fixed by the curvature of the potential at its minimum. For small enough displacements, every stable equilibrium in every physical system behaves as a harmonic oscillator. A guitar string, a diatomic molecule, an electromagnetic mode in a laser cavity, the vibrations of a crystal lattice, the quantized field of the vacuum — all of them reduce to the same Hamiltonian:
+where $\omega = \sqrt{V''(x_0)/m}$ is set by the curvature. Every stable equilibrium in every physical system, for sufficiently small displacements, is a harmonic oscillator. The guitar string, the diatomic molecule, the electromagnetic mode of a laser cavity, the vibration of a crystal lattice, the quantized field of the vacuum — all of them reduce to the same Hamiltonian:
 
 $$\hat{H} = \frac{\hat{p}^2}{2m} + \frac{1}{2}m\omega^2\hat{x}^2. \tag{7.1}$$
 
-This is not a narrow special case. It is the generic situation for any quantum system near equilibrium. Solving it once solves every system in the whole class, so the only real question is how to solve it.
+This is not a special case. It is the generic case for any quantum system near equilibrium. Solving it once solves every system in that class. The question is how to solve it.
 
 ---
 
 ## The Trick
 
-The most direct method is to write $\hat{p} = -i\hbar\,\partial_x$, substitute it into (7.1), and solve a second-order differential equation. That route works, it produces the Hermite polynomials, and we describe it below. But there is a more elegant method, one that delivers the entire spectrum without our solving any differential equation at all.
+The brute-force method is to write $\hat{p} = -i\hbar\,\partial_x$, substitute into (7.1), and solve a second-order differential equation. That works, and produces Hermite polynomials, and is described below. But there is a better method — one that gives the entire spectrum without solving any differential equation at all.
 
 Define two operators:
 
 $$\hat{a}_\pm = \frac{1}{\sqrt{2\hbar m\omega}}\!\left(\mp i\hat{p} + m\omega\hat{x}\right). \tag{7.2}$$
 
-These are the **raising** ($\hat{a}_+$) and **lowering** ($\hat{a}_-$) operators, also called ladder operators. We compute the product $\hat{a}_-\hat{a}_+$ by expanding:
+These are the **raising** ($\hat{a}_+$) and **lowering** ($\hat{a}_-$) operators, also called ladder operators. Compute the product $\hat{a}_-\hat{a}_+$ by expanding:
 
 $$\hat{a}_-\hat{a}_+ = \frac{1}{2\hbar m\omega}\!\left(i\hat{p} + m\omega\hat{x}\right)\!\left(-i\hat{p} + m\omega\hat{x}\right).$$
 
@@ -32,45 +32,45 @@ Subtract:
 
 $$\boxed{[\hat{a}_-, \hat{a}_+] = 1.} \tag{7.3}$$
 
-This single commutator contains the entire algebraic content of the problem. Every energy level, every relation between eigenstates, every expectation value follows from it. In quantum field theory, this same relation — now with $\hat{a}_-$ as the annihilation operator and $\hat{a}_+$ as the creation operator — is the opening line of quantum electrodynamics. Here we meet it in the simplest possible setting.
+This single commutator is the algebraic content of the entire problem. Every energy level, every eigenstate relation, every expectation value follows from it. In quantum field theory, this same relation — with $\hat{a}_-$ as the annihilation operator and $\hat{a}_+$ as the creation operator — is the first line of quantum electrodynamics. Here it appears in the simplest possible setting.
 
 ---
 
 ## Climbing the Ladder
 
-Suppose $|n\rangle$ is an energy eigenstate with $\hat{H}|n\rangle = E_n|n\rangle$. From the commutator (7.3) and $\hat{H} = \hbar\omega(\hat{a}_+\hat{a}_- + \tfrac{1}{2})$, we can derive:
+Suppose $|n\rangle$ is an energy eigenstate with $\hat{H}|n\rangle = E_n|n\rangle$. From the commutator (7.3) and $\hat{H} = \hbar\omega(\hat{a}_+\hat{a}_- + \tfrac{1}{2})$, one derives:
 
 $$[\hat{H}, \hat{a}_+] = \hbar\omega\,\hat{a}_+, \qquad [\hat{H}, \hat{a}_-] = -\hbar\omega\,\hat{a}_-.$$
 
-Now we ask what energy $\hat{a}_+|n\rangle$ has:
+Now ask what energy $\hat{a}_+|n\rangle$ has:
 
 $$\hat{H}(\hat{a}_+|n\rangle) = (\hat{a}_+\hat{H} + [\hat{H},\hat{a}_+])|n\rangle = (E_n + \hbar\omega)\,\hat{a}_+|n\rangle.$$
 
-Applying $\hat{a}_+$ to an eigenstate produces a new eigenstate whose energy is $\hbar\omega$ higher. Applying $\hat{a}_-$ produces one whose energy is $\hbar\omega$ lower. Together the operators form a ladder: we can climb up one rung at a time or step down one rung at a time, and each rung sits exactly $\hbar\omega$ above the one below it.
+Applying $\hat{a}_+$ to an eigenstate produces a new eigenstate with energy $\hbar\omega$ higher. Applying $\hat{a}_-$ produces one with energy $\hbar\omega$ lower. The operators form a ladder: you can climb up one rung at a time, or descend one rung at a time, and each rung is exactly $\hbar\omega$ above the previous one.
 
-The ladder cannot descend forever. The Hamiltonian (7.1) is a sum of squares of Hermitian operators, so $\langle\hat{H}\rangle \geq 0$ in every state. But $\hat{a}_-$ removes $\hbar\omega$ each time it is applied, and if we could keep applying it, we would eventually reach negative energies, which is impossible. The way out is that there exists a ground state $|0\rangle$ that the lowering operator annihilates:
+The ladder cannot go down indefinitely. The Hamiltonian (7.1) is a sum of squares of Hermitian operators, so $\langle\hat{H}\rangle \geq 0$ in every state. But $\hat{a}_-$ subtracts $\hbar\omega$ each time it is applied, and if you could apply it forever, you would eventually reach negative energies — a contradiction. The resolution: there exists a ground state $|0\rangle$ that the lowering operator kills:
 
 $$\hat{a}_-|0\rangle = 0. \tag{7.4}$$
 
-We apply $\hat{H} = \hbar\omega(\hat{a}_+\hat{a}_- + \tfrac{1}{2})$ to this state:
+Apply $\hat{H} = \hbar\omega(\hat{a}_+\hat{a}_- + \tfrac{1}{2})$ to this state:
 
 $$\hat{H}|0\rangle = \hbar\omega\!\left(\hat{a}_+\underbrace{(\hat{a}_-|0\rangle)}_{=\,0} + \tfrac{1}{2}|0\rangle\right) = \tfrac{1}{2}\hbar\omega\,|0\rangle.$$
 
-The ground-state energy is $E_0 = \hbar\omega/2$. Not zero, but $\hbar\omega/2$. Starting from $|0\rangle$ and applying $\hat{a}_+$ repeatedly:
+The ground state energy is $E_0 = \hbar\omega/2$. Not zero — $\hbar\omega/2$. Starting from $|0\rangle$ and applying $\hat{a}_+$ repeatedly:
 
 $$\boxed{E_n = \left(n + \frac{1}{2}\right)\hbar\omega, \quad n = 0, 1, 2, \ldots} \tag{7.5}$$
 
-The spectrum consists of equally spaced levels with gap $\hbar\omega$, and the ground state sits $\hbar\omega/2$ above the classical minimum of the potential. We solved no differential equation. The whole spectrum followed from one commutator together with the requirement that the energy be non-negative.
+The spectrum is equally spaced with gap $\hbar\omega$, with a ground state that sits $\hbar\omega/2$ above the classical minimum of the potential. No differential equation was solved. The entire spectrum followed from one commutator and the requirement that energy be non-negative.
 
 ---
 
 ## Zero-Point Energy Is Real
 
-The ground-state energy $E_0 = \hbar\omega/2 \neq 0$ is not a bookkeeping technicality. Classically, a harmonic oscillator can have zero energy — the particle simply rests at the bottom of the well. Quantum mechanically, the uncertainty principle rules this out. A particle pinned to $x = 0$ with $\sigma_x \to 0$ would require $\sigma_p \to \infty$ by the Kennard inequality $\sigma_x\sigma_p \geq \hbar/2$. The zero-point energy is the minimum kinetic energy that confinement itself imposes.
+The ground state energy $E_0 = \hbar\omega/2 \neq 0$ is not a technicality. Classically, the minimum energy of a harmonic oscillator is zero — the particle at rest at the bottom of the well. Quantum mechanically, the uncertainty principle forbids this. A particle localized at $x = 0$ with $\sigma_x \to 0$ would require $\sigma_p \to \infty$ by the Kennard inequality $\sigma_x\sigma_p \geq \hbar/2$. The zero-point energy is the minimum kinetic energy that confinement demands.
 
-This energy has measurable consequences. Liquid helium does not solidify under atmospheric pressure at any temperature, because the zero-point kinetic energy of helium atoms, confined to the spacing between neighbors, exceeds the interatomic binding energy. The atoms cannot settle into a fixed lattice. Helium remains a liquid down to absolute zero precisely because of zero-point motion, not in spite of it.
+You can measure this. Liquid helium does not solidify at atmospheric pressure at any temperature, because the zero-point kinetic energy of helium atoms — confined to the inter-atom spacing — exceeds the interatomic binding energy. The atoms cannot settle into a lattice. Helium is a quantum liquid because of zero-point motion, not despite it.
 
-A still more direct example is the Casimir force between two conducting plates, which arises from the difference in zero-point energies of the electromagnetic modes with and without the plates present. Lamoreaux measured this force in 1997 and found agreement with the theoretical prediction to within five percent. Zero-point energy is not an artifact of the formalism. It comes with a measurable bill, and we can read that bill in the laboratory.
+More directly: the Casimir force between two conducting plates arises from the difference in zero-point energies of electromagnetic modes in the presence and absence of the plates. Lamoreaux measured it in 1997, matching the theoretical prediction to within five percent. Zero-point energy is not a formalism artifact. It has an invoice, and you can read it in the lab.
 
 ---
 
@@ -80,17 +80,17 @@ The normalized eigenstates satisfy:
 
 $$\hat{a}_+|n\rangle = \sqrt{n+1}\,|n+1\rangle, \qquad \hat{a}_-|n\rangle = \sqrt{n}\,|n-1\rangle. \tag{7.6}$$
 
-The prefactors $\sqrt{n+1}$ and $\sqrt{n}$ are essential, not optional. Omit them and every expectation value you compute comes out wrong. They arise because $\hat{a}_+|n\rangle$ has norm $\sqrt{n+1}$ (from $\langle n|\hat{a}_-\hat{a}_+|n\rangle = n+1$), so dividing by that norm gives the unit-normalized $|n+1\rangle$.
+The prefactors $\sqrt{n+1}$ and $\sqrt{n}$ are not optional. Drop them and every expectation value you compute will be wrong. Their origin: $\hat{a}_+|n\rangle$ has norm $\sqrt{n+1}$ (from $\langle n|\hat{a}_-\hat{a}_+|n\rangle = n+1$), so dividing by the norm gives the unit-normalized $|n+1\rangle$.
 
-We can express $\hat{x}$ and $\hat{p}$ directly in terms of the ladder operators:
+Express $\hat{x}$ and $\hat{p}$ directly:
 
 $$\hat{x} = \sqrt{\frac{\hbar}{2m\omega}}\!\left(\hat{a}_+ + \hat{a}_-\right), \qquad \hat{p} = i\sqrt{\frac{m\hbar\omega}{2}}\!\left(\hat{a}_+ - \hat{a}_-\right). \tag{7.7}$$
 
-With these, the expectation values in any energy eigenstate $|n\rangle$ become straightforward. Since $\hat{a}_\pm|n\rangle$ is orthogonal to $|n\rangle$:
+Now the expectation values in any energy eigenstate $|n\rangle$ become straightforward. Since $\hat{a}_\pm|n\rangle$ is orthogonal to $|n\rangle$:
 
 $$\langle n|\hat{x}|n\rangle = 0, \qquad \langle n|\hat{p}|n\rangle = 0.$$
 
-For $\hat{x}^2$, we write $\hat{x}^2 = (\hbar/2m\omega)(\hat{a}_+ + \hat{a}_-)^2$. The terms $\hat{a}_+^2$ and $\hat{a}_-^2$ connect $|n\rangle$ to $|n\pm 2\rangle$ and contribute nothing. The surviving terms give:
+For $\hat{x}^2$: write $\hat{x}^2 = (\hbar/2m\omega)(\hat{a}_+ + \hat{a}_-)^2$. The terms $\hat{a}_+^2$ and $\hat{a}_-^2$ connect $|n\rangle$ to $|n\pm 2\rangle$ and contribute nothing. The surviving terms give:
 
 $$\langle n|\hat{x}^2|n\rangle = \frac{\hbar}{2m\omega}\!\left(n + n + 1\right) = \frac{\hbar(2n+1)}{2m\omega}. \tag{7.8}$$
 
@@ -98,39 +98,39 @@ The uncertainty product:
 
 $$\sigma_x\sigma_p = \left(n + \frac{1}{2}\right)\hbar. \tag{7.9}$$
 
-At $n = 0$: $\sigma_x\sigma_p = \hbar/2$, the smallest value the Kennard inequality allows, saturated exactly. The ground state of the harmonic oscillator is the unique minimum-uncertainty state.
+At $n = 0$: $\sigma_x\sigma_p = \hbar/2$ — the minimum allowed by the Kennard inequality, saturated exactly. The ground state of the harmonic oscillator is the unique minimum-uncertainty state.
 
-For the off-diagonal matrix element, $\langle m|\hat{x}|n\rangle \propto \delta_{m,n\pm 1}$. Position connects only states that differ by a single quantum. This is the selection rule for dipole transitions: only $\Delta n = \pm 1$ transitions are allowed. That rule is why the infrared vibrational spectrum of a diatomic molecule looks like a ruler — a set of evenly spaced absorption lines at frequency $\omega$.
+For the off-diagonal matrix element: $\langle m|\hat{x}|n\rangle \propto \delta_{m,n\pm 1}$. Position connects only states that differ by one quantum. This is the selection rule for dipole transitions: only $\Delta n = \pm 1$ transitions are allowed, which is why the infrared vibrational spectrum of a diatomic molecule is a ruler — evenly spaced absorption lines at frequency $\omega$.
 
 ---
 
 ## What the Eigenstates Look Like
 
-The algebra hands us the spectrum. The wave functions follow from the condition $\hat{a}_-|0\rangle = 0$, which in position space reads:
+The algebra gives the spectrum. The wave functions follow from the condition $\hat{a}_-|0\rangle = 0$, which in position space reads:
 
 $$\left(\hbar\frac{\partial}{\partial x} + m\omega x\right)\psi_0(x) = 0.$$
 
-We solve by separation and normalize:
+Solve by separation and normalize:
 
 $$\psi_0(x) = \left(\frac{m\omega}{\pi\hbar}\right)^{1/4}\exp\!\left(-\frac{m\omega x^2}{2\hbar}\right). \tag{7.10}$$
 
-A Gaussian — the same minimum-uncertainty shape we met in Chapter 3, but now appearing as an energy eigenstate of the oscillator rather than as a free-particle wave packet. The distinction matters. The free-particle Gaussian spreads over time, because it is not an eigenstate of the free Hamiltonian. The harmonic-oscillator ground state stays Gaussian forever, because the potential supplies a restoring force that exactly counteracts the tendency to spread.
+A Gaussian — the same minimum-uncertainty shape from Chapter 3, but now as an energy eigenstate of the oscillator rather than a free-particle wave packet. The difference is crucial: the free-particle Gaussian spreads in time because it is not an eigenstate of the free Hamiltonian. The harmonic-oscillator ground state stays a Gaussian forever, because the potential provides a restoring force that exactly balances the spreading tendency.
 
-Higher states are built by applying $\hat{a}_+$ to $\psi_0$. Each application multiplies the Gaussian by a polynomial one degree higher in $x$. Those polynomials are the Hermite polynomials $H_n(\xi)$, with $\xi = \sqrt{m\omega/\hbar}\,x$:
+Higher states are generated by applying $\hat{a}_+$ to $\psi_0$. Each application multiplies the Gaussian by a polynomial one degree higher in $x$. Those polynomials are the Hermite polynomials $H_n(\xi)$ where $\xi = \sqrt{m\omega/\hbar}\,x$:
 
 $$\psi_n(x) = \left(\frac{m\omega}{\pi\hbar}\right)^{1/4}\frac{1}{\sqrt{2^n n!}}\,H_n(\xi)\,e^{-\xi^2/2}, \tag{7.11}$$
 
 with recursion $H_{n+1}(\xi) = 2\xi H_n(\xi) - 2n H_{n-1}(\xi)$, starting from $H_0 = 1$, $H_1 = 2\xi$.
 
-Two features are worth highlighting. First, $\psi_n$ has exactly $n$ nodes: the ground state has none, the first excited state has one, and so on — the same node-counting rule we found for the infinite square well. Second, roughly 16% of the ground-state probability density lies outside the classical turning points $x = \pm\sqrt{\hbar/m\omega}$. Penetration into the classically forbidden region is not some exotic high-energy phenomenon. It is already present in the very first eigenstate, a standard feature of the quantum ground state.
+Two things to notice. First, $\psi_n$ has exactly $n$ nodes. The ground state has none; the first excited state has one. Same counting rule as the infinite square well. Second, roughly 16% of the ground-state probability density lies outside the classical turning points $x = \pm\sqrt{\hbar/m\omega}$. Tunneling into the classically forbidden region is not exotic behavior that appears at high energy — it is present in the very first eigenstate, as a default feature of the quantum ground state.
 
 ---
 
 ## Eigenstates Do Not Oscillate
 
-There is a misconception we should clear up before turning to the simulation.
+Here is the misconception that must be addressed before the simulation.
 
-A harmonic oscillator is, classically, an oscillator, so it is natural to expect the quantum version to oscillate as well. But consider the time-dependent eigenstate:
+A harmonic oscillator is, classically, an oscillator. You expect the quantum version to oscillate. But form the time-dependent eigenstate:
 
 $$\Psi_n(x,t) = \psi_n(x)\,e^{-iE_n t/\hbar}.$$
 
@@ -138,15 +138,15 @@ The probability density:
 
 $$|\Psi_n(x,t)|^2 = |\psi_n(x)|^2 \cdot |e^{-iE_n t/\hbar}|^2 = |\psi_n(x)|^2.$$
 
-It is static. The phase rotates in the complex plane at frequency $E_n/\hbar$, but $|\Psi|^2$ — everything a position detector could ever register — does not change at all. Energy eigenstates are stationary states. If quantum mechanics contained nothing but eigenstates, classical oscillation would never appear.
+Static. The phase rotates in the complex plane at frequency $E_n/\hbar$, but $|\Psi|^2$ — everything you can measure with a position detector — does not change at all. Energy eigenstates are stationary states. If quantum mechanics contained only eigenstates, classical oscillation would never appear.
 
-Classical oscillation lives in superpositions. Take the equal mixture $|\Psi\rangle = (|0\rangle + |1\rangle)/\sqrt{2}$:
+Classical oscillation belongs to superpositions. Take the equal mixture $|\Psi\rangle = (|0\rangle + |1\rangle)/\sqrt{2}$:
 
 $$|\Psi(x,t)|^2 = \tfrac{1}{2}(|\psi_0|^2 + |\psi_1|^2) + \psi_0\psi_1\cos\!\left(\frac{(E_1-E_0)t}{\hbar}\right).$$
 
-The cross term beats at frequency $(E_1 - E_0)/\hbar = \omega$, exactly the classical oscillation frequency. The packet sloshes, but it also deforms: rather than a rigid shape sliding back and forth, it is a superposition whose interference pattern shifts continuously.
+The cross term beats at frequency $(E_1 - E_0)/\hbar = \omega$ — exactly the classical oscillation frequency. The packet sloshes, but it also deforms: it is not a rigid shape sliding back and forth, but a superposition whose interference pattern shifts continuously.
 
-The simulation shows both cases side by side. The eigenstate panel stays still; the superposition panel sloshes. If the eigenstate panel ever animates, the phase is not canceling correctly.
+The simulation shows both cases side by side. The eigenstate panel is static; the superposition panel sloshes. If the eigenstate panel animates, the phase is not canceling correctly.
 
 ---
 
@@ -160,15 +160,15 @@ for any complex number $\alpha$. In the energy basis:
 
 $$|\alpha\rangle = e^{-|\alpha|^2/2}\sum_{n=0}^\infty \frac{\alpha^n}{\sqrt{n!}}\,|n\rangle. \tag{7.13}$$
 
-Coherent states are not energy eigenstates. They are superpositions of all the $|n\rangle$ with Poisson-distributed weights $P(n) = e^{-|\alpha|^2}|\alpha|^{2n}/n!$ and mean quantum number $\langle n\rangle = |\alpha|^2$.
+Coherent states are not energy eigenstates — they are superpositions of all $|n\rangle$ with Poisson-distributed weights $P(n) = e^{-|\alpha|^2}|\alpha|^{2n}/n!$, mean quantum number $\langle n\rangle = |\alpha|^2$.
 
-Under time evolution, a coherent state stays a coherent state, with its amplitude simply rotating:
+Under time evolution, a coherent state remains a coherent state with its amplitude rotating:
 
 $$\langle\hat{x}(t)\rangle = \sqrt{\frac{2\hbar}{m\omega}}\,|\alpha|\cos(\omega t - \arg\alpha), \qquad \langle\hat{p}(t)\rangle = -\sqrt{2m\hbar\omega}\,|\alpha|\sin(\omega t - \arg\alpha). \tag{7.14}$$
 
-Position and momentum oscillate sinusoidally at frequency $\omega$, just as they do for a classical oscillator. And the wave packet keeps its shape throughout — $\sigma_x\sigma_p = \hbar/2$ at all times. The coherent state is the minimum-uncertainty Gaussian riding its classical orbit forever without spreading.
+Position and momentum oscillate sinusoidally at $\omega$, exactly as a classical oscillator. And the wave packet keeps its shape — $\sigma_x\sigma_p = \hbar/2$ at all times. The coherent state is the minimum-uncertainty Gaussian riding its classical orbit indefinitely without spreading.
 
-Roy Glauber introduced coherent states in 1963 to describe the quantum state of laser light. An ideal laser produces field modes in coherent states. The photon-counting statistics of ideal laser light follow a Poisson distribution, not because lasers are classical, but because Poisson is the photon-number distribution of a coherent state. The harmonic-oscillator algebra is not a loose analogy for laser physics; it is the physics of lasers. Glauber received the Nobel Prize in 2005 for making this connection.
+Roy Glauber introduced coherent states in 1963 to describe the quantum state of laser light. An ideal laser produces field modes in coherent states. The photon-counting statistics of ideal laser light are Poisson — not because lasers are classical, but because Poisson is the photon-number distribution of a coherent state. The harmonic oscillator algebra is not an analogy for laser physics; it is laser physics. Glauber received the Nobel Prize in 2005 for this connection.
 
 ---
 
@@ -198,9 +198,9 @@ The root-mean-square displacement of HCl in its ground state is $\ell = \sqrt{\h
 
 ## Where the Ladder Leads
 
-It all came from one commutator: $[\hat{a}_-,\hat{a}_+] = 1$. From it we obtained a complete, equally spaced spectrum, the selection rules, the zero-point energy, the coherent states, and the minimum-uncertainty states. The method itself — factor the Hamiltonian into operators whose commutator is a scalar, then derive everything algebraically — is not tied to this one problem.
+One commutator: $[\hat{a}_-,\hat{a}_+] = 1$. From it: a complete equally spaced spectrum, selection rules, zero-point energy, coherent states, and minimum-uncertainty states. The method — factor the Hamiltonian into operators whose commutator is a scalar, then derive everything algebraically — is not specific to this problem.
 
-In Chapter 10, the angular momentum operators $\hat{L}_\pm$ obey a different algebra, but the reasoning runs along the same lines: a commutator with $\hat{L}_z$ fixes the rung spacing, a non-negativity argument terminates the ladder, and the spectrum follows without our solving any differential equation. In quantum field theory, $\hat{a}_+$ becomes the creation operator that adds one particle to the vacuum. The state with $n$ photons is $(\hat{a}_+)^n/\sqrt{n!}$ applied to the vacuum, where the vacuum $|0\rangle$ is exactly the ground state annihilated by $\hat{a}_-$. The commutator $[\hat{a},\hat{a}^\dagger] = 1$ is the foundation of quantum electrodynamics. This chapter is the template for all of it.
+In Chapter 10, the angular momentum operators $\hat{L}_\pm$ satisfy a different algebra, but the logic is identical: a commutator with $\hat{L}_z$ sets the rung spacing, a non-negativity argument terminates the ladder, and the spectrum follows without solving any differential equation. In quantum field theory, $\hat{a}_+$ becomes the creation operator that adds one particle to the vacuum. The state with $n$ photons is $(\hat{a}_+)^n/\sqrt{n!}$ applied to the vacuum, where the vacuum $|0\rangle$ is exactly the ground state killed by $\hat{a}_-$. The commutator $[\hat{a},\hat{a}^\dagger] = 1$ is the foundation of quantum electrodynamics. This chapter is the template for all of that.
 
 <!-- → [TABLE: Harmonic oscillator parameters for selected diatomic molecules — HCl ω≈5.63e14 rad/s ℏω≈0.37 eV λ≈3.4 μm; N₂ ω≈4.45e14 rad/s ℏω≈0.29 eV; CO ω≈4.09e14 rad/s ℏω≈0.27 eV; H₂ ω≈8.28e14 rad/s ℏω≈0.54 eV] -->
 

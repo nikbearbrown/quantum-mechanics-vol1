@@ -1,5 +1,4 @@
 # Chapter 9 — Operators and Uncertainty
-*The algebra that makes measurement outcomes real — and makes two of them incompatible.*
 
 Consider an experiment we can carry out, at least in principle. We take an electron and prepare it in exactly the same state a thousand times, using the same apparatus, the same procedure, and identical initial conditions. Each time we measure its position, and we get a thousand different numbers. We collect them into a histogram, which has a mean $\langle x\rangle$ and a spread $\sigma_x$.
 

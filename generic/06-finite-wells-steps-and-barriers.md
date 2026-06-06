@@ -1,7 +1,6 @@
 # Chapter 6 — Finite Wells, Steps, and Barriers
-*Why walls that end are more interesting than walls that don't.*
 
-We can trace the importance of finite walls back to a concrete chemical puzzle. In 1928, Friedrich Hund examined a nitrogen molecule whose two atoms sit in a potential well roughly 9.8 eV deep. At room temperature, thermal energy is only about 0.025 eV. From a classical standpoint the molecule is plainly stable, because the energy needed to pull it apart is nearly four hundred times larger than the typical thermal kick available.
+When we studied the infinite square well in Chapter 5, we assumed perfectly impenetrable walls. That idealization is a useful starting point, but real physical systems have finite barriers. In this chapter we explore what changes when the walls are finite — and we discover that quantum particles can penetrate, and even pass through, regions that are classically forbidden.
 
 What Hund recognized is that the wave function does not simply stop at the edge of the classically allowed region. It decays into the forbidden zone and still has some amplitude when it reaches the far side. In quantum mechanics, a barrier does not behave like a solid wall. Instead it suppresses the wave function exponentially, and exponential suppression, no matter how severe, never reaches exactly zero. In principle, then, the molecule could dissociate without ever gaining the full activation energy. For nitrogen the barrier is so wide and deep that this dissociation rate is vanishingly small, but the conceptual lesson is what matters here: the classical rules no longer hold.
 

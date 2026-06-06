@@ -1,5 +1,4 @@
 # Chapter 8 — The Free Particle and Wave Packets
-*Why a particle with perfectly sharp momentum has no location at all.*
 
 We begin with the simplest quantum mechanics problem there is: no potential anywhere, and a single particle moving freely through empty space. We already know how to set up the Schrödinger equation, and we have every reason to expect a clean answer.
 

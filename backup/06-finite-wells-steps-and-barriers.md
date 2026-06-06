@@ -1,18 +1,19 @@
 # Chapter 6 — Finite Wells, Steps, and Barriers
+*Why walls that end are more interesting than walls that don't.*
 
-When we studied the infinite square well in Chapter 5, we assumed perfectly impenetrable walls. That idealization is a useful starting point, but real physical systems have finite barriers. In this chapter we explore what changes when the walls are finite — and we discover that quantum particles can penetrate, and even pass through, regions that are classically forbidden.
+In 1928, Friedrich Hund was staring at a nitrogen molecule and noticing that the Schrödinger equation was about to tell him something uncomfortable. The two nitrogen atoms sit in a potential well roughly 9.8 eV deep. Thermal energy at room temperature is about 0.025 eV. Classical mechanics says: the molecule is stable, obviously. The activation energy dwarfs thermal fluctuations by a factor of nearly four hundred.
 
-What Hund recognized is that the wave function does not simply stop at the edge of the classically allowed region. It decays into the forbidden zone and still has some amplitude when it reaches the far side. In quantum mechanics, a barrier does not behave like a solid wall. Instead it suppresses the wave function exponentially, and exponential suppression, no matter how severe, never reaches exactly zero. In principle, then, the molecule could dissociate without ever gaining the full activation energy. For nitrogen the barrier is so wide and deep that this dissociation rate is vanishingly small, but the conceptual lesson is what matters here: the classical rules no longer hold.
+But Hund noticed that the wave function does not vanish at the edge of the classically allowed region. It decays into the forbidden zone and arrives at the other side with non-zero amplitude. The barrier is not a wall. It is a region of exponential suppression — and exponential suppression, however ferocious, is not zero. The molecule could, in principle, fall apart without ever acquiring the activation energy. In this case the barrier is wide enough and deep enough that the dissociation rate is negligibly small — but the point stands: the rules had changed.
 
-Two years later, George Gamow applied the same idea to a problem that had frustrated nuclear physicists for a decade. Inside a nucleus, an alpha particle sits behind a Coulomb barrier roughly 30 MeV high, yet the alpha particles that emerge carry only 4–8 MeV of kinetic energy. Classically, such a particle is trapped forever. Quantum mechanically, it leaks through, and the leakage rate is so sensitive to barrier height and particle energy that doubling the energy can change the half-life by twenty-four orders of magnitude. The decay rate of uranium-238 differs from that of polonium-212 by a factor of $10^{21}$, and the tunneling formula explains the entire span.
+Two years later, George Gamow used the same mathematics to solve a puzzle that had stumped nuclear physicists for a decade. A nucleus traps an alpha particle behind a Coulomb barrier roughly 30 MeV high. The alpha particle that escapes has only 4–8 MeV of kinetic energy. Classically, it is stuck permanently. Quantum-mechanically, it leaks out — and the leaking rate depends so sensitively on barrier height and particle energy that a factor of two in energy produces twenty-four orders of magnitude of difference in half-life. The decay rate of uranium-238 differs from that of polonium-212 by a factor of $10^{21}$, and the tunneling formula accounts for it.
 
-The behavior behind both stories is the subject of this chapter: what happens when the walls have a finite height.
+What makes all of this possible is the subject of this chapter: what happens when the walls are finite.
 
 ---
 
 ## The Finite Square Well
 
-We begin with the infinite square well from Chapter 5 and lower its walls to a finite height. The potential is $V = -V_0$ for $|x| < L/2$ and $V = 0$ outside, with $V_0 > 0$. Bound states have $-V_0 < E < 0$ — they sit below the top of the well but above its floor.
+Start by taking the infinite square well from Chapter 5 and lowering the walls. The potential is $V = -V_0$ for $|x| < L/2$ and $V = 0$ outside, with $V_0 > 0$. Bound states have $-V_0 < E < 0$ — they sit below the top of the well but above its floor.
 
 Inside the well, the Schrödinger equation describes a particle with kinetic energy $E + V_0 > 0$, so the solutions are oscillatory:
 
@@ -22,9 +23,9 @@ Outside, the kinetic energy is $E < 0$, so the solutions are exponentials. Norma
 
 $$\psi_\text{out}(x) = Ce^{-\kappa|x|}, \qquad \kappa = \frac{\sqrt{2m|E|}}{\hbar}.$$
 
-We notice right away that $\psi$ does not vanish at $x = \pm L/2$. In the infinite well, the infinite walls forced it to zero there, and that condition gave us quantization directly. With finite walls, we instead require $\psi$ and $\psi'$ to be continuous at both walls, and those matching conditions determine the allowed energies.
+The first thing to notice is that $\psi$ does not vanish at $x = \pm L/2$. In the infinite well, the infinite walls forced it to zero there, which gave us quantization directly. Here, we have to impose continuity of $\psi$ and $\psi'$ at both walls, and that matching gives the condition on allowed energies.
 
-Because the potential is symmetric, the solutions separate cleanly into even-parity states (cosine inside) and odd-parity states (sine inside). For even-parity states, matching at $x = L/2$ yields:
+The potential is symmetric, so solutions split cleanly into even-parity states (cosine inside) and odd-parity states (sine inside). For even-parity states, matching at $x = L/2$ yields:
 
 $$\kappa = k\tan\!\left(\frac{kL}{2}\right).$$
 
@@ -32,7 +33,7 @@ For odd-parity states:
 
 $$\kappa = -k\cot\!\left(\frac{kL}{2}\right).$$
 
-Neither equation can be solved analytically for $E$. We can, however, solve them graphically, which is just as informative. Define $z = kL/2$ and $z_0 = (L/2\hbar)\sqrt{2mV_0}$, so that $\kappa L/2 = \sqrt{z_0^2 - z^2}$. The even condition becomes:
+Neither equation can be solved analytically for $E$. But there is a clean graphical approach. Define $z = kL/2$ and $z_0 = (L/2\hbar)\sqrt{2mV_0}$, so that $\kappa L/2 = \sqrt{z_0^2 - z^2}$. The even condition becomes:
 
 $$\sqrt{z_0^2 - z^2} = z\tan z.$$
 
@@ -43,57 +44,57 @@ The left side is a quarter-circle of radius $z_0$. The right side is a series of
 ![graphical solution plot — quarter-circle of radius z₀ intersecting z·tan(z) branches (even states) and −z·cot(z) branches (odd states)](../images/06-finite-wells-steps-and-barriers-fig-01.png)
 *Figure 6.1 — graphical solution plot — quarter-circle of radius z₀ intersecting z·tan(z) branches (even states) and −z·cot(z) branches (odd states)*
 
-Counting the crossings reveals something the infinite well never showed us: the finite well has a **finite** number of bound states. That number is roughly $z_0/(\pi/2)$ rounded up, which in physical units is $N \approx (L/\pi\hbar)\sqrt{2mV_0}$. As we make the well shallower or narrower, levels disappear from the top, and as we make it deeper or wider, new levels appear. One level always survives, though: no matter how shallow the well, the finite square well always has a ground state. We can see this in the graph, because the quarter-circle always crosses the first tangent branch at least once, however small $z_0$ becomes.
+Count the crossings and you learn something the infinite well never taught: the finite well has a **finite** number of bound states. The number is roughly $z_0/(\pi/2)$ rounded up — which means $N \approx (L/\pi\hbar)\sqrt{2mV_0}$ in physical units. Make the well shallower or narrower and levels disappear from the top. Make it deeper or wider and new levels appear. But there is always at least one — the finite square well always has a ground state, no matter how shallow. You can prove this graphically: the quarter-circle always intersects the first tangent branch at least once, no matter how small $z_0$.
 
-What about the wave function outside the well? It decays as $e^{-\kappa|x|}$. The characteristic length $1/\kappa = \hbar/\sqrt{2m|E|}$ is called the penetration depth. A tightly bound ground state, with large $|E|$, has a small penetration depth, so its wave function hugs the well. A loosely bound state, with $E$ near zero, has a large penetration depth, so its wave function leaks far past the classical turning points into a region where a classical particle could never be found.
+What does the wave function look like outside the well? It decays as $e^{-\kappa|x|}$. The characteristic length $1/\kappa = \hbar/\sqrt{2m|E|}$ is the penetration depth. A tightly-bound ground state with large $|E|$ has a small penetration depth — the wave function hugs the well. A loosely-bound state near $E = 0$ has a large penetration depth — the wave function leaks far beyond the classical turning points, extending into space where the particle classically has no business being.
 
-This is not a defect in the wave function. It is precisely what the Schrödinger equation demands.
+This is not the wave function misbehaving. It is the wave function doing exactly what the Schrödinger equation requires.
 
 <!-- → [FIGURE: side-by-side wave functions for two bound states in a finite well — tightly bound ground state with short evanescent tails vs. weakly bound excited state with long evanescent tails; show classical turning points as dashed lines] -->
 
 ![side-by-side wave functions for two bound states in a finite well — tightly bound ground state with short evanescent tails vs. weakly bound…](../images/06-finite-wells-steps-and-barriers-fig-02.png)
 *Figure 6.2 — side-by-side wave functions for two bound states in a finite well — tightly bound ground state with short evanescent tails vs. weakly bound…*
 
-As $V_0 \to \infty$, the penetration depth goes to zero and the energy levels return to the infinite-well values $n^2\pi^2\hbar^2/(2mL^2)$. In other words, the infinite well is simply the finite well taken to the limit of walls that nothing can penetrate.
+As $V_0 \to \infty$, the penetration depth goes to zero and the energy levels recover the infinite-well values $n^2\pi^2\hbar^2/(2mL^2)$. The infinite well is just the limit of the finite well with infinitely impenetrable walls.
 
 ---
 
 ## The Potential Step: Partial Reflection from Nothing
 
-We now turn from bound states to scattering. The potential is a step: $V = 0$ for $x < 0$, $V = V_0$ for $x > 0$. A particle arrives from the left, and we want to know what fraction transmits and what fraction reflects.
+Now study scattering. The potential is a step: $V = 0$ for $x < 0$, $V = V_0$ for $x > 0$. A particle comes in from the left. The question is how much transmits and how much reflects.
 
-Before writing down any wave functions, we set up the right bookkeeping tool. The **probability current** is:
+Before writing any wave functions, set up the right accounting tool. The **probability current** is:
 
 $$J(x,t) = \frac{\hbar}{m}\,\mathrm{Im}\!\left(\psi^*\frac{\partial\psi}{\partial x}\right).$$
 
-For a rightward plane wave $Ae^{ikx}$, this gives $J = \hbar k|A|^2/m$ — probability flowing rightward at a rate proportional to speed times density, exactly what we would expect. The transmission coefficient $T$ is the ratio of transmitted current to incident current, and the reflection coefficient $R$ is reflected current over incident current. Conservation of probability requires $R + T = 1$.
+For a rightward plane wave $Ae^{ikx}$, this gives $J = \hbar k|A|^2/m$ — probability flowing rightward at rate proportional to speed times density, exactly as you'd expect. The transmission coefficient $T$ is the ratio of transmitted current to incident current; the reflection coefficient $R$ is reflected current over incident current. Conservation of probability demands $R + T = 1$.
 
 **When the particle has enough energy** ($E > V_0$): in region I, $\psi_I = Ae^{ik_0 x} + Be^{-ik_0 x}$ with $k_0 = \sqrt{2mE}/\hbar$; in region II, only a rightward wave $\psi_{II} = Ce^{ik_1 x}$ with $k_1 = \sqrt{2m(E-V_0)}/\hbar$. Matching $\psi$ and $\psi'$ at $x = 0$:
 
 $$A + B = C, \qquad k_0(A-B) = k_1 C.$$
 
-Solving: $B/A = (k_0 - k_1)/(k_0 + k_1)$ and $C/A = 2k_0/(k_0 + k_1)$. Now we compute the currents, and a subtlety appears. The transmitted current is $\hbar k_1|C|^2/m$, not $\hbar k_0|C|^2/m$, because the particle moves at a different speed on the far side. Using probability current throughout:
+Solving: $B/A = (k_0 - k_1)/(k_0 + k_1)$ and $C/A = 2k_0/(k_0 + k_1)$. Now compute currents — and here is where the subtlety appears. The transmitted current is $\hbar k_1|C|^2/m$, not $\hbar k_0|C|^2/m$, because the particle moves at a different speed on the far side. Using probability current throughout:
 
 $$R = \left(\frac{k_0 - k_1}{k_0 + k_1}\right)^2, \qquad T = \frac{4k_0 k_1}{(k_0 + k_1)^2}.$$
 
 Check: $(k_0 - k_1)^2 + 4k_0k_1 = (k_0 + k_1)^2$. $R + T = 1$. $\checkmark$
 
-Here is the genuinely quantum result: $R \neq 0$ even though the particle has more than enough energy to clear the step. Classically, a particle with $E > V_0$ always transmits. Quantum mechanically, any abrupt change in $k$ produces some reflection, in the same way that an impedance mismatch in a transmission line reflects part of a signal. What governs the reflection is not whether the particle can clear the step energetically, but how sharply $k$ changes at the boundary. Reflection vanishes only when $k_0 = k_1$, which requires $V_0 = 0$. Even a step downward, with $V_0 < 0$, reflects part of the wave.
+Here is the quantum surprise: $R \neq 0$ even though the particle has enough energy to clear the step. Classically, a particle with $E > V_0$ transmits — full stop. Quantum-mechanically, any abrupt change in $k$ produces partial reflection, the same way an impedance mismatch in a transmission line reflects part of a signal. What matters is not whether the particle can clear the barrier energetically, but how sharply $k$ changes at the boundary. Reflection vanishes only when $k_0 = k_1$, which requires $V_0 = 0$. Even a step downward ($V_0 < 0$) partially reflects.
 
 <!-- → [CHART: R(E) and T(E) vs E/V₀ for the potential step, linear axes — show R=1 for E<V₀, smooth transition at E=V₀, both curves approaching limiting values as E→∞] -->
 
 ![R(E) and T(E) vs E/V₀ for the potential step, linear axes — show R=1 for E<V₀, smooth transition at E=V₀, both curves approaching limiting…](../images/06-finite-wells-steps-and-barriers-fig-03.png)
 *Figure 6.3 — R(E) and T(E) vs E/V₀ for the potential step, linear axes — show R=1 for E<V₀, smooth transition at E=V₀, both curves approaching limiting…*
 
-**When the particle does not have enough energy** ($E < V_0$): now $k_1 = \sqrt{2m(E-V_0)}/\hbar$ is imaginary. We write $\kappa = \sqrt{2m(V_0-E)}/\hbar$ (real and positive), so the bounded solution in region II is $\psi_{II} = Ce^{-\kappa x}$, a decaying exponential. Matching gives $|B/A|^2 = 1$, so $R = 1$ and $T = 0$.
+**When the particle does not have enough energy** ($E < V_0$): now $k_1 = \sqrt{2m(E-V_0)}/\hbar$ is imaginary. Write $\kappa = \sqrt{2m(V_0-E)}/\hbar$ (real, positive), and the bounded solution in region II is $\psi_{II} = Ce^{-\kappa x}$ — a decaying exponential. Matching gives $|B/A|^2 = 1$, so $R = 1$ and $T = 0$.
 
-The reflection is total, yet the wave function in region II is not zero. An evanescent tail penetrates the forbidden region with characteristic length $1/\kappa$. Probability density is present there, but no net current flows: the probability sloshes in and out of the step without ever transmitting. This is not tunneling, because the barrier extends forever, so the evanescent tail never reaches a far edge from which it could launch a transmitted wave.
+Total reflection. But the wave function in region II is not zero. There is an evanescent tail penetrating the forbidden region with characteristic length $1/\kappa$. Probability density is present there — but no net current flows. The probability sloshes in and out of the step without transmitting. This is not tunneling — the barrier has infinite extent, so the evanescent tail never reaches a far edge where it can launch a transmitted wave.
 
 ---
 
 ## The Rectangular Barrier: Tunneling
 
-Now we give the barrier a finite width. $V = V_0$ for $0 < x < L$ and $V = 0$ elsewhere. A particle with $E < V_0$ comes in from the left. The classical prediction is total reflection. The quantum prediction is something quite different.
+Now give the barrier a finite width. $V = V_0$ for $0 < x < L$ and $V = 0$ elsewhere. A particle with $E < V_0$ comes in from the left. Classical prediction: total reflection. Quantum prediction: something else entirely.
 
 Three regions:
 
@@ -101,7 +102,7 @@ Three regions:
 - Region II ($0 < x < L$): $\psi_{II} = Ce^{\kappa x} + De^{-\kappa x}$, $\hspace{2pt}$ $\kappa = \sqrt{2m(V_0-E)}/\hbar$.
 - Region III ($x > L$): $\psi_{III} = Fe^{ikx}$ (no reflected wave; nothing to reflect from on the right).
 
-We match $\psi$ and $\psi'$ at both interfaces. The algebra is direct — four continuity conditions and four unknowns — and the result is exact:
+Match $\psi$ and $\psi'$ at both interfaces. The algebra is straightforward — four continuity conditions, four unknowns — and the result is exact:
 
 $$T_\text{exact} = \left[1 + \frac{V_0^2\sinh^2(\kappa L)}{4E(V_0 - E)}\right]^{-1}.$$
 
@@ -110,26 +111,26 @@ $$T_\text{exact} = \left[1 + \frac{V_0^2\sinh^2(\kappa L)}{4E(V_0 - E)}\right]^{
 ![T(E) on log y-axis from 10⁻¹² to 1, showing T_exact (solid) and T_WKB (dashed) vs E/V₀ — both curves below barrier, resonance peaks above…](../images/06-finite-wells-steps-and-barriers-fig-04.png)
 *Figure 6.4 — T(E) on log y-axis from 10⁻¹² to 1, showing T_exact (solid) and T_WKB (dashed) vs E/V₀ — both curves below barrier, resonance peaks above…*
 
-Everything we want is contained in this single formula. The dependence on barrier height $V_0$, barrier width $L$, and particle energy $E$ is all there, exact and without approximation. Let us read off what it tells us.
+This formula contains everything. The dependence on barrier height $V_0$, barrier width $L$, and particle energy $E$ is all there, exact, no approximations. Let me unpack what it says.
 
 For a thick barrier ($\kappa L \gg 1$), $\sinh(\kappa L) \approx e^{\kappa L}/2$, and the denominator is dominated by the exponential:
 
 $$T_\text{exact} \approx \frac{16E(V_0 - E)}{V_0^2}\,e^{-2\kappa L}.$$
 
-The WKB approximation (which we develop in Chapter 11) gives $T_\text{WKB} = e^{-2\kappa L}$. The ratio is $16E(V_0-E)/V_0^2$, a smooth prefactor of order unity when $E$ lies well below $V_0$. WKB captures the exponential suppression exactly and misses only the prefactor. For most purposes, the exponential is all that matters.
+The WKB approximation (which I'll develop in Chapter 11) gives $T_\text{WKB} = e^{-2\kappa L}$. The ratio is $16E(V_0-E)/V_0^2$ — a smooth prefactor of order unity when $E$ is well below $V_0$. WKB captures the exponential suppression exactly; it misses only the prefactor. For most purposes, the exponential is all that matters.
 
-And that exponential is striking. $T \propto e^{-2\kappa L}$. Doubling the barrier width squares $e^{-2\kappa L}$, so the transmission collapses. A scanning tunneling microscope makes direct use of this fact: a single extra ångström of gap between tip and surface changes the tunneling current by a factor of $e^{2\kappa} \approx 7$ to $10$, depending on the material. That decade of sensitivity per ångström is what makes atomic-resolution imaging possible. The instrument is a tunneling-current meter, and the current functions as an exponential ruler.
+And the exponential is extraordinary. $T \propto e^{-2\kappa L}$. Double the barrier width and you square $e^{-2\kappa L}$ — the transmission plummets. A scanning tunneling microscope exploits this directly: one extra ångström of gap between tip and surface changes the tunneling current by a factor of $e^{2\kappa} \approx 7$ to $10$ depending on the material. That single decade of sensitivity per ångström is what makes atomic-resolution imaging possible — the instrument is a tunneling current meter, and the current is an exponential ruler.
 
 <!-- → [FIGURE: schematic of STM geometry — tip hovering over surface, tunneling gap d, wave function decaying exponentially in the gap, with annotation showing one-ångström change → factor-of-7 current change] -->
 
 ![schematic of STM geometry — tip hovering over surface, tunneling gap d, wave function decaying exponentially in the gap, with annotation…](../images/06-finite-wells-steps-and-barriers-fig-05.png)
 *Figure 6.5 — schematic of STM geometry — tip hovering over surface, tunneling gap d, wave function decaying exponentially in the gap, with annotation…*
 
-**Above the barrier** ($E > V_0$): now $\kappa$ becomes imaginary. We let $k_2 = \sqrt{2m(E-V_0)}/\hbar$, so $\kappa = ik_2$ and $\sinh(i\theta) = i\sin\theta$. The formula becomes:
+**Above the barrier** ($E > V_0$): $\kappa$ becomes imaginary. Let $k_2 = \sqrt{2m(E-V_0)}/\hbar$, so $\kappa = ik_2$ and $\sinh(i\theta) = i\sin\theta$. The formula becomes:
 
 $$T_\text{exact} = \left[1 + \frac{V_0^2\sin^2(k_2 L)}{4E(E - V_0)}\right]^{-1}.$$
 
-Now $T = 1$ whenever $\sin(k_2 L) = 0$, that is, when $k_2 L = n\pi$. The barrier becomes perfectly transparent when its width is exactly an integer number of half-wavelengths at the energy inside the barrier. The wave fits the barrier, constructive interference takes over, and the particle passes as though the barrier were not there. These are **resonances**, and they are the quantum counterpart of anti-reflection coatings in optics or of a Fabry-Pérot cavity tuned to resonance. Between resonances, $T < 1$ even with $E > V_0$: the particle has plenty of energy and still reflects in part.
+Now $T = 1$ whenever $\sin(k_2 L) = 0$, i.e., when $k_2 L = n\pi$. The barrier is perfectly transparent when its width is exactly an integer number of half-wavelengths at the energy inside the barrier. The wave fits the barrier; constructive interference makes it as though the barrier is not there. These are **resonances** — and they are the quantum analogue of anti-reflection coatings in optics, or of a Fabry-Pérot cavity at resonance. Between resonances, $T < 1$ even with $E > V_0$. The particle has plenty of energy and still partially reflects.
 
 ---
 
@@ -153,17 +154,17 @@ WKB gives $T_\text{WKB} = e^{-10.25} \approx 3.5\times10^{-5}$.
 
 The ratio: $T_\text{exact}/T_\text{WKB} \approx 2.56$. The prefactor $16E(V_0-E)/V_0^2 = 16\times1\times4/25 = 2.56$. Agreement exact, as it must be. $\checkmark$
 
-Now consider the physical meaning. The transmission is around $10^{-4}$ — tiny, but not zero. If the barrier were 10 Å wide instead of 5, $\kappa L$ would double to 10.25, and $T_\text{WKB}$ would drop to $e^{-20.5} \approx 1.25\times10^{-9}$, four more orders of magnitude lower. The exponential gives no quarter. This is why, in tunneling calculations, the barrier width matters more than almost any other quantity.
+Now the physical punchline. The transmission is $\sim 10^{-4}$ — small, but non-zero. If the barrier were 10 Å wide instead of 5, $\kappa L$ doubles to 10.25, and $T_\text{WKB}$ drops to $e^{-20.5} \approx 1.25\times10^{-9}$ — four additional orders of magnitude. The exponential is relentless. This is why barrier width matters so much more than almost anything else in tunneling calculations.
 
 ---
 
 ## Why There Is No Energy Debt
 
-A common pop-science account of tunneling goes like this: "The particle borrows energy from the vacuum — allowed by the time-energy uncertainty principle — crosses the barrier before the debt is called in, and repays it on the other side." This account is incorrect, and it is worth being clear about exactly why.
+The pop-science version of tunneling says: "The particle borrows energy from the vacuum — permitted by the time-energy uncertainty principle — crosses the barrier before the debt is called in, and pays it back on the other side." This story is wrong, and it is worth being precise about why.
 
-The uncertainty relation $\Delta E\,\Delta t \geq \hbar/2$ does not license borrowing energy for a time $\Delta t$. That is not what the relation says. Energy is conserved at every instant inside the barrier, and the particle's total energy stays $E$ throughout — in region I, inside the barrier, and in region III alike. The wave function inside the barrier, $Ce^{\kappa x} + De^{-\kappa x}$, is a perfectly valid solution of the time-independent Schrödinger equation for a particle of energy $E$ in a region where $V = V_0 > E$. The function is real and decaying rather than oscillatory, but it is the correct solution. There is no negative kinetic energy, no energy overdraft, and no repayment schedule.
+The uncertainty relation $\Delta E\,\Delta t \geq \hbar/2$ does not license energy borrowing for a time $\Delta t$. That is not what the relation means. Energy is conserved at every moment inside the barrier; the total energy of the particle is $E$ throughout — in region I, inside the barrier, and in region III. The wave function inside the barrier, $Ce^{\kappa x} + De^{-\kappa x}$, is a perfectly valid solution to the time-independent Schrödinger equation for a particle of energy $E$ in a region where $V = V_0 > E$. The function is real and decaying — not oscillatory — but it is the correct solution. There is no negative kinetic energy; there is no energy overdraft; there is no payment schedule.
 
-What actually happens is both simpler and stranger than the borrowing story. The wave equation requires nonzero amplitude in the classically forbidden region, and when the barrier is finite, that amplitude reaches the far side and launches a transmitted wave. The transmitted amplitude is small because the decaying exponential has reduced it across the width $L$. That is the whole story. The particle borrows nothing. It passes through because the mathematics of partial differential equations has no concept of "classically forbidden."
+What happens is simpler and stranger than the pop-science story: the wave equation requires non-zero amplitude in the classically forbidden region, and when the barrier is finite, that amplitude reaches the far side and launches a transmitted wave. The transmitted amplitude is small because the decaying exponential has attenuated across the width $L$. That is all. The particle does not borrow anything. It passes through because the mathematics of partial differential equations does not know what "classically forbidden" means.
 
 <!-- → [FIGURE: energy diagram for rectangular barrier — flat total energy E as horizontal line, barrier region V₀ above E, wave function shown below: oscillatory in regions I and III, decaying in region II, with annotation "E is constant throughout; only the character of the solution changes"] -->
 
@@ -307,9 +308,9 @@ After writing the file, check:
 
 ## Still Puzzling
 
-**How long does tunneling take?** The formula for $T$ tells us the probability of crossing, but not how long the particle spends inside the barrier. The literature offers several competing definitions of "tunneling time" — the dwell time, the phase time, the Büttiker-Landauer time, the Larmor clock time — and they do not agree with one another. Attosecond-streaking experiments (Eckle et al., 2008; Sainadh et al., 2019) have measured a quantity, but its theoretical interpretation is still debated. This chapter hands you $T$. It does not hand you a tunneling time, because the framework for that is still incomplete.
+**How long does tunneling take?** The formula for $T$ gives the probability of crossing, not the time spent inside the barrier. Several definitions of "tunneling time" appear in the literature — the dwell time, the phase time, the Büttiker-Landauer time, the Larmor clock time — and they give different answers. Attosecond-streaking experiments (Eckle et al., 2008; Sainadh et al., 2019) have measured something, but the theoretical interpretation is still contested. This chapter gives you $T$. It does not give you a tunneling time. The framework is incomplete here.
 
-**Does tunneling allow faster-than-light signaling?** Popular accounts sometimes claim that a tunneled pulse can have a group velocity exceeding $c$, so that information moves faster than light. What really occurs is pulse reshaping. The barrier preferentially transmits the leading edge of the incident pulse, an edge that was already present before the barrier. The front of the pulse never exceeds $c$; the barrier simply favors its early part. No information travels faster than $c$.
+**Does tunneling allow faster-than-light signaling?** The claim recurs in popular science: a tunneled pulse can have a group velocity exceeding $c$, therefore information travels faster than light. What actually happens is pulse reshaping. The barrier selects and amplifies the leading edge of the incident pulse, which was already there before the barrier. The front of the pulse does not move faster than $c$; the barrier preferentially transmits its early part. No information travels faster than $c$.
 
 ---
 

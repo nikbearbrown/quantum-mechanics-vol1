@@ -1,88 +1,90 @@
 # Chapter 10 — Measurement, Superposition, and the Qubit
 
-In this chapter we examine what happens when we make a measurement in quantum mechanics. The question is a practical one: when we run an experiment and get a result, what rules governed that outcome? We will state those rules precisely, apply them to two-level systems called qubits, and examine what the formalism says — and does not say — about what happens to the system during a measurement.
+An afternoon in Göttingen, 1925. Werner Heisenberg has fled to the island of Helgoland with hay fever and a problem: how to build a theory of atomic transitions that uses only numbers you can actually observe — not electron orbits that nobody has ever seen. He is about to invent matrix mechanics. But the deeper question underneath his calculation is one that every physicist who follows him will have to confront: when you measure something quantum, what happens?
+
+Not in the abstract. Not philosophically. Concretely: you run an experiment, you get a result — what were the rules?
 
 ---
 
 ## The Measurement Postulate
 
-Let $\hat{A}$ be a Hermitian observable with discrete eigenvalues $\{a_n\}$ and orthonormal eigenstates $\{|a_n\rangle\}$. When we measure $\hat{A}$ on a system in state $|\psi\rangle$, three things happen:
+Let $\hat{A}$ be a Hermitian observable with discrete eigenvalues $\{a_n\}$ and orthonormal eigenstates $\{|a_n\rangle\}$. When you measure $\hat{A}$ on a system in state $|\psi\rangle$, three things happen:
 
-**1.** The only possible outcomes are the eigenvalues $a_n$. Nothing in between them, no superposition of them — exactly one.
+**1.** The only possible outcomes are the eigenvalues $a_n$. Nothing between them. Not a superposition of them. Exactly one.
 
 **2.** The probability of getting $a_n$ is
 
 $$\boxed{P(a_n) = |\langle a_n|\psi\rangle|^2.}$$
 
-This is the Born rule. The inner product $\langle a_n|\psi\rangle$ is a complex amplitude, and its modulus squared is the probability. Geometrically, $P(a_n)$ is the squared projection of $|\psi\rangle$ onto $|a_n\rangle$.
+This is the Born rule. The inner product $\langle a_n|\psi\rangle$ is a complex amplitude; its modulus squared is the probability. Geometrically, $P(a_n)$ is the squared projection of $|\psi\rangle$ onto $|a_n\rangle$.
 
 **3.** Immediately after the measurement returns $a_n$, the state is $|a_n\rangle$.
 
-This is collapse. It is not a metaphor but a state-update rule.
+This is collapse. Not a metaphor — the state-update rule.
 
 The probabilities sum to 1 by the completeness of the eigenstates:
 
 $$\sum_n P(a_n) = \sum_n |\langle a_n|\psi\rangle|^2 = \langle\psi|\!\left(\sum_n |a_n\rangle\langle a_n|\right)\!|\psi\rangle = \langle\psi|\hat{I}|\psi\rangle = 1.$$
 
-Nothing leaks. The interpretation of collapse is contested, and the "Still Puzzling" section at the end of the chapter lays out where that debate currently stands. The practical content, however, is settled: after obtaining outcome $a_n$, we predict all subsequent measurements using $|a_n\rangle$.
+Nothing leaks. The interpretation of collapse is contested — "Still Puzzling" at the end of the chapter has the current state of that debate. The practical content is not: after getting outcome $a_n$, you predict subsequent measurements using $|a_n\rangle$.
 
 ---
 
 ## The Two-State System
 
-The simplest system in which all of this is computable by hand is the qubit, a two-dimensional complex Hilbert space $\mathbb{C}^2$. We choose a basis $\{|0\rangle, |1\rangle\}$. The most general normalized state is
+The simplest system where all of this is computable by hand is the qubit: a two-dimensional complex Hilbert space $\mathbb{C}^2$. Choose a basis $\{|0\rangle, |1\rangle\}$. The most general normalized state is
 
 $$|\psi\rangle = \alpha|0\rangle + \beta|1\rangle, \qquad \alpha, \beta \in \mathbb{C}, \qquad |\alpha|^2 + |\beta|^2 = 1.$$
 
-Two real parameters specify the state, up to a global phase. An electron's spin, a photon's polarization, the two lowest energy levels of a superconducting circuit — all are physical qubits, and the mathematics is identical for all of them.
+Two real parameters specify the state up to a global phase. An electron's spin, a photon's polarization, a superconducting circuit's two lowest energy levels — all are physical qubits. The mathematics is the same for all of them.
 
 The standard observables on a qubit are the Pauli operators:
 
 $$\sigma_x = \begin{pmatrix}0 & 1\\1 & 0\end{pmatrix}, \qquad \sigma_y = \begin{pmatrix}0 & -i\\i & 0\end{pmatrix}, \qquad \sigma_z = \begin{pmatrix}1 & 0\\0 & -1\end{pmatrix}.$$
 
-Each is Hermitian, each squares to the identity, and each has eigenvalues $\pm 1$. Their commutators are $[\sigma_i, \sigma_j] = 2i\epsilon_{ijk}\sigma_k$, so for example $[\sigma_x, \sigma_z] = -2i\sigma_y \neq 0$. They do not commute, which means measuring one after another in different orders gives different results.
+Each is Hermitian, each squares to the identity, each has eigenvalues $\pm 1$. Their commutators: $[\sigma_i, \sigma_j] = 2i\epsilon_{ijk}\sigma_k$, so for example $[\sigma_x, \sigma_z] = -2i\sigma_y \neq 0$. They do not commute, which means measuring one after another in different orders gives different results.
 
-A word of caution about $\sigma_y$: the upper-right entry is $-i$, not $+i$. This is the single most common sign error in qubit calculations. The matrix is Hermitian even though it looks antisymmetric as a real matrix, because Hermitian means equal to the *conjugate* transpose. The transpose of $\sigma_y$ is $-\sigma_y$, but the conjugate transpose is $+\sigma_y$, and the $i$ is what makes that work. Any code doing qubit calculations should check $\sigma_y^\dagger = \sigma_y$ at startup.
+One warning about $\sigma_y$: the upper-right entry is $-i$, not $+i$. This is the single most common sign error in qubit calculations. The matrix is Hermitian despite looking antisymmetric as a real matrix, because Hermitian means equal to the *conjugate* transpose — the transpose of $\sigma_y$ is $-\sigma_y$, but the conjugate transpose is $+\sigma_y$. The $i$ does the work. Any code doing qubit calculations should verify $\sigma_y^\dagger = \sigma_y$ at startup.
 
 ---
 
 ## The Stern-Gerlach Experiment
 
-In 1922, Otto Stern and Walther Gerlach passed silver atoms through an inhomogeneous magnetic field. Classical physics predicted a smear — a continuous spread of deflections matching the continuous range of magnetic-moment orientations. What they saw instead was two discrete spots.
+In 1922, Otto Stern and Walther Gerlach passed silver atoms through an inhomogeneous magnetic field. Classical physics predicted a smear — a continuous distribution of deflections corresponding to the continuous range of magnetic moment orientations. What they observed was two discrete spots.
 
-The field gradient exerts a force proportional to $\mu_z$, the component of the magnetic moment along the field axis. If angular momentum were classical, $\mu_z$ would be continuous and the deposit on the plate would be a streak. Instead there were two spots, at $\mu_z = \pm\mu_B$. The Born rule is not abstract here. It is written in silver.
+The field gradient exerts a force proportional to $\mu_z$, the component of the magnetic moment along the field axis. If angular momentum were classical, $\mu_z$ would be continuous and the deposit on the plate would be a streak. Instead: two spots, corresponding to $\mu_z = \pm\mu_B$. The Born rule is not abstract here. It is written in silver.
 
-The observable is $\hat{S}_z = (\hbar/2)\sigma_z$, with eigenvalues $\pm\hbar/2$. An atom in state $|\psi\rangle = \alpha|\!\uparrow\rangle + \beta|\!\downarrow\rangle$ hits the upper spot with probability $|\alpha|^2$ and the lower with $|\beta|^2$. If we let only the upper beam through, the remaining atoms are in state $|\!\uparrow\rangle$ — collapsed, certain, ready to be used again.
+The observable is $\hat{S}_z = (\hbar/2)\sigma_z$, with eigenvalues $\pm\hbar/2$. An atom in state $|\psi\rangle = \alpha|\!\uparrow\rangle + \beta|\!\downarrow\rangle$ hits the upper spot with probability $|\alpha|^2$ and the lower with $|\beta|^2$. Let only the upper beam through and the remaining atoms are in state $|\!\uparrow\rangle$ — collapsed, certain, ready to be used again.
 
-The interesting physics shows up in sequences. Consider three arrangements:
+The interesting physics is in sequence. Three arrangements:
 
-**Z then Z.** Select the $|\!\uparrow\rangle$ beam from a first Z apparatus and feed it into a second. Every atom hits the upper spot, with probability 1. Once we know the outcome of a $\hat{S}_z$ measurement, measuring $\hat{S}_z$ again gives the same result — collapse is stable.
+**Z then Z.** Select the $|\!\uparrow\rangle$ beam from a first Z apparatus and feed it into a second. Every atom hits the upper spot. Probability 1. If you know the outcome of a $\hat{S}_z$ measurement, measuring $\hat{S}_z$ again gives the same result — collapse is stable.
 
-**Z then X.** The $\hat{S}_x$ eigenstates are $|\pm x\rangle = (|\!\uparrow\rangle \pm |\!\downarrow\rangle)/\sqrt{2}$. An atom in $|\!\uparrow\rangle$ is an equal superposition of both $\hat{S}_x$ eigenstates, so a subsequent X measurement comes out 50/50. The atom that was certainly spin-up in Z is completely uncertain in X.
+**Z then X.** The $\hat{S}_x$ eigenstates are $|\pm x\rangle = (|\!\uparrow\rangle \pm |\!\downarrow\rangle)/\sqrt{2}$. An atom in $|\!\uparrow\rangle$ is an equal superposition of both $\hat{S}_x$ eigenstates, so a subsequent X measurement gives 50/50. The atom that was certainly spin-up in Z is completely uncertain in X.
 
-**Z then X then Z.** After the X measurement, the state collapses to $|+x\rangle$ or $|-x\rangle$. Either way, that state is a 50/50 superposition in Z, since $|+x\rangle = (|\!\uparrow\rangle + |\!\downarrow\rangle)/\sqrt{2}$. The final Z measurement is again random. The intermediate X measurement erased the Z information. Measure Z, then X, then Z, and the Z certainty is gone.
+**Z then X then Z.** After the X measurement, the state collapses to $|+x\rangle$ or $|-x\rangle$. Either way, that state is a 50/50 superposition in Z: $|+x\rangle = (|\!\uparrow\rangle + |\!\downarrow\rangle)/\sqrt{2}$. The subsequent Z measurement is again random. The intermediate X measurement erased the Z information. Measure Z, then X, then Z: the Z certainty is gone.
 
-This is not instrumental imprecision. It is $[\sigma_x, \sigma_z] \neq 0$ made physically tangible. We cannot hold definite values for both observables at once.
+This is not instrumental imprecision. It is $[\sigma_x, \sigma_z] \neq 0$ made physically tangible. You cannot simultaneously have definite values for both.
 
 ---
 
 ## The Bloch Sphere
 
-Every normalized qubit state, up to a global phase, can be written as
+Every normalized qubit state (up to a global phase) can be written as
 
 $$|\psi\rangle = \cos\!\left(\frac{\theta}{2}\right)|0\rangle + e^{i\phi}\sin\!\left(\frac{\theta}{2}\right)|1\rangle, \qquad \theta \in [0, \pi], \quad \phi \in [0, 2\pi).$$
 
-The factor $\theta/2$ — not $\theta$ — is required. We can check it: at $\theta = 0$ we get $|0\rangle$; at $\theta = \pi$ we get $e^{i\phi}|1\rangle$, which is $|1\rangle$ up to a global phase; and at $\theta = \pi/2$ we get the equatorial state $(|0\rangle + e^{i\phi}|1\rangle)/\sqrt{2}$. Use $\theta$ instead of $\theta/2$ and the south pole appears at $\theta = \pi/2$ rather than $\theta = \pi$, throwing everything off.
+The factor $\theta/2$ — not $\theta$ — is required. Check it: at $\theta = 0$ you get $|0\rangle$; at $\theta = \pi$ you get $e^{i\phi}|1\rangle$, which is $|1\rangle$ up to a global phase. At $\theta = \pi/2$ you get the equatorial state $(|0\rangle + e^{i\phi}|1\rangle)/\sqrt{2}$. If you use $\theta$ instead of $\theta/2$, the south pole appears at $\theta = \pi/2$ instead of $\theta = \pi$ and everything is wrong.
 
-Each state corresponds to a point on the unit sphere through its Bloch vector:
+Each state corresponds to a point on the unit sphere via the Bloch vector:
 
 $$\vec{r} = \bigl(\langle\sigma_x\rangle,\, \langle\sigma_y\rangle,\, \langle\sigma_z\rangle\bigr) = (\sin\theta\cos\phi,\, \sin\theta\sin\phi,\, \cos\theta).$$
 
-North pole ($\theta = 0$): state $|0\rangle$, $\langle\sigma_z\rangle = +1$. South pole ($\theta = \pi$): state $|1\rangle$, $\langle\sigma_z\rangle = -1$. Equator ($\theta = \pi/2$): equal superpositions, $\langle\sigma_z\rangle = 0$. The azimuthal angle $\phi$ is the relative phase between $|0\rangle$ and $|1\rangle$, and it is physically real: different values of $\phi$ at the same $\theta$ give different $\langle\sigma_x\rangle$ and $\langle\sigma_y\rangle$, detectable by the right measurement. The global phase is unobservable; the relative phase is not.
+North pole ($\theta = 0$): state $|0\rangle$, $\langle\sigma_z\rangle = +1$. South pole ($\theta = \pi$): state $|1\rangle$, $\langle\sigma_z\rangle = -1$. Equator ($\theta = \pi/2$): equal superpositions, $\langle\sigma_z\rangle = 0$. The azimuthal angle $\phi$ is the relative phase between $|0\rangle$ and $|1\rangle$, and it is physically real: different values of $\phi$ at the same $\theta$ give different $\langle\sigma_x\rangle$ and $\langle\sigma_y\rangle$, detectable by the appropriate measurement. The global phase is unobservable; the relative phase is not.
 
-For pure states, $|\vec{r}|^2 = 1$ exactly. This makes a useful runtime check: compute the three expectation values and confirm the Bloch vector has unit length.
+For pure states, $|\vec{r}|^2 = 1$ exactly. This is a useful runtime check: compute the three expectation values and verify the Bloch vector has unit length.
 
-The factor $\theta/2$ in the state produces $\theta$ on the sphere through double-angle identities. It also means that a full $2\pi$ rotation of the state vector corresponds to only a $\pi$ rotation of the Bloch vector — the state picks up a factor of $-1$, invisible in expectation values but visible in interference. Neutron interferometry has measured it.
+The factor $\theta/2$ in the state produces $\theta$ on the sphere via double-angle identities. It also means a full $2\pi$ rotation of the state vector corresponds to only a $\pi$ rotation of the Bloch vector — the state acquires a factor of $-1$, invisible in expectation values but visible in interference. Neutron interferometry has measured it.
 
 ---
 
@@ -122,7 +124,7 @@ So $\langle\sigma_y\rangle \approx 0.933 - 0.067 = \sqrt{3}/2$. Bloch vector: $\
 
 $[\sigma_x, \sigma_z] = -2i\sigma_y$, so the bound on $\sigma_{\sigma_x}\sigma_{\sigma_z}$ is $|\langle\sigma_y\rangle| = \sqrt{3}/2$. We computed $\sigma_{\sigma_z} = \sqrt{3}/2$. For $\sigma_{\sigma_x}$: $\langle\sigma_x\rangle = 0$ and $\sigma_x^2 = \hat{I}$, so $\sigma_{\sigma_x} = 1$.
 
-Product: $1 \cdot \sqrt{3}/2 = \sqrt{3}/2$. Bound: $\sqrt{3}/2$. They are equal — the Robertson bound is saturated. This state is the $\sigma_y$ eigenstate (confirmed by $P(\sigma_y = +1) \approx 0.933$). The $\sigma_y$ eigenstate maximizes the product $\sigma_{\sigma_x}\sigma_{\sigma_z}$ for the $(\sigma_x, \sigma_z)$ pair, because a point on the Bloch sphere lying entirely along the $y$-axis is equidistant from all $x$-axis and $z$-axis eigenstates.
+Product: $1 \cdot \sqrt{3}/2 = \sqrt{3}/2$. Bound: $\sqrt{3}/2$. They are equal — the Robertson bound is saturated. This state is the $\sigma_y$ eigenstate (confirmed by $P(\sigma_y = +1) \approx 0.933$). The $\sigma_y$ eigenstate maximizes the product $\sigma_{\sigma_x}\sigma_{\sigma_z}$ for the $(\sigma_x, \sigma_z)$ pair, because a point on the Bloch sphere that lies entirely along the $y$-axis is equidistant from all $x$-axis and $z$-axis eigenstates.
 
 **What changes for a generic state.** Pick $\theta = \pi/4$, $\phi = 0$. Then $\langle\sigma_y\rangle = 0$, and the Robertson bound gives $\sigma_{\sigma_x}\sigma_{\sigma_z} \geq 0$ — trivially satisfied by any non-negative numbers. Computing explicitly: $\sigma_{\sigma_x} = \sigma_{\sigma_z} = 1/\sqrt{2}$, product $= 1/2$, bound $= 0$. The bound holds but is not tight. The Robertson bound is a property of the state, not a fixed number. The simulation exercise makes this visible.
 
@@ -130,15 +132,15 @@ Product: $1 \cdot \sqrt{3}/2 = \sqrt{3}/2$. Bound: $\sqrt{3}/2$. They are equal 
 
 ## Still Puzzling
 
-The measurement postulate is the most contested piece of quantum mechanics. Not its predictions, which have been confirmed to extraordinary precision for a century, but its interpretation.
+The measurement postulate is the most contested piece of quantum mechanics. Not its predictions — confirmed to extraordinary precision for a century — but its interpretation.
 
-**Decoherence** (Zurek, 2003) explains why macroscopic superpositions go unobserved: they become entangled with environmental degrees of freedom and lose their interference fringes on timescales far shorter than anything we can resolve. Decoherence accounts for why we never see a cat in superposition without our having to invoke an axiom of collapse. What it does not explain is why one particular outcome, rather than the other, occurs in any given run. [contested]
+**Decoherence** (Zurek, 2003) explains why macroscopic superpositions are unobservable: they become entangled with environmental degrees of freedom and lose their interference fringes on timescales far shorter than any observation resolves. Decoherence explains why you never see a cat in superposition without invoking an axiom of collapse. But it does not explain why one outcome, not the other, occurs in any given run. [contested]
 
-**The Born rule** is a postulate in this book. Gleason's theorem (1957) shows it is the unique probability measure on Hilbert space consistent with non-contextuality, so in a sense the structure of the theory forces it. Zurek's envariance argument and various many-worlds derivations try to go further. None of these is universally accepted as settling the matter. [contested]
+**The Born rule** is a postulate in this book. Gleason's theorem (1957) shows it is the unique probability measure on Hilbert space consistent with non-contextuality — so in some sense it is forced by the structure of the theory. Zurek's envariance argument and various many-worlds derivations attempt to go further. None is universally accepted as settling the question. [contested]
 
 **Weak measurement** (Aharonov, Albert, and Vaidman, 1988) extends the standard postulate to measurements with very weak coupling, producing "weak values" that can lie outside the eigenvalue range. These have been observed experimentally and connect to Leggett-Garg inequalities. The framework extends the postulate rather than replacing it.
 
-The honest statement for the student is this. The measurement postulate gives correct predictions. What it means — whether collapse is physical, informational, or emergent from something deeper — remains genuinely open. Volume 4 is where quantum mechanics works perfectly and no one fully agrees on why.
+The honest statement for the student: the measurement postulate gives correct predictions. What it means — whether collapse is physical, informational, or emergent from something deeper — remains genuinely open. Volume 4 is where quantum mechanics works perfectly and nobody fully agrees on why.
 
 ---
 
@@ -294,7 +296,7 @@ After writing, confirm:
 
 ### Exercise R2 — When NOT to Use AI
 **The judgment:** These tasks require your judgment; AI output here can't be trusted without redoing the work:
-- The sign in $\sigma_y = \left(\begin{smallmatrix}0 & -i\\ i & 0\end{smallmatrix}\right)$ (upper-right is $-i$) and the $\theta/2$ in the Bloch parametrization — *Why AI fails here:* the $+i$ sign error and the $\theta$-vs-$\theta/2$ slip are the two most common qubit bugs; both produce a unit-modulus state that passes normalization but mislocates it on the sphere.
+- The sign in $\sigma_y = \begin{psmallmatrix}0 & -i\\ i & 0\end{psmallmatrix}$ (upper-right is $-i$) and the $\theta/2$ in the Bloch parametrization — *Why AI fails here:* the $+i$ sign error and the $\theta$-vs-$\theta/2$ slip are the two most common qubit bugs; both produce a unit-modulus state that passes normalization but mislocates it on the sphere.
 - Whether $P(a_n) = |\langle a_n|\psi\rangle|^2$ (projection) rather than $|\psi|^2$ directly — *Why AI fails here:* the Born rule is a projection onto the *observable's* eigenbasis; computing $|\psi|^2$ in the computational basis gives wrong probabilities for $\sigma_x$ or $\sigma_y$, and the histogram still looks like a distribution.
 **The tell:** If you could not explain the result without the AI — if the AI is your *reason* rather than your *tool* — it did work that should have been yours.
 **Physics-judgment connection:** This trains checking sampled measurement statistics against the analytic expectation value ($\langle\hat A\rangle$), against probability conservation ($\sum P = 1$), and against the Robertson bound — plus startup assertions on the operator definitions ($\sigma_y^\dagger = \sigma_y$, $|\vec r| = 1$).
