@@ -97,7 +97,7 @@ The second derivative of the dispersion relation is
 
 $$\frac{d^2\omega}{dk^2} = \frac{\hbar}{m}.$$
 
-This is nonzero. Different Fourier components travel at slightly different group velocities — higher-$k$ components move faster than lower-$k$ ones. Over time, the components drift apart and the packet spreads.
+This is nonzero. Different Fourier components travel at slightly different group velocities — $\text{higher-}k$ components move faster than $\text{lower-}k$ ones. Over time, the components drift apart and the packet spreads.
 
 For a Gaussian initial state — the natural choice, since it saturates the uncertainty bound and yields an exactly solvable integral — we can compute the spreading in closed form. Take
 
@@ -209,7 +209,7 @@ The Fourier relationship $\Delta x \cdot \Delta k \sim 1$ is a theorem of harmon
    *Tests: application of the spreading formula to a physically realistic semiconductor system.*
 
 5. *Difficulty: Application — connects group velocity to a neutron time-of-flight measurement.*
-   A cold neutron ($m_n = 1.675\times10^{-27}$ kg) has de Broglie wavelength $\lambda = 1.8$ Å. (a) Compute $k_0$, $v_g$, and $v_{ph}$. (b) The neutron travels 1 m from source to detector. Compute the transit time using $v_g$, and the incorrect prediction using $v_{ph}$. By how many nanoseconds do they differ? (c) If the momentum spread is $\Delta k = 10^6$ m$^{-1}$, estimate the coherence length $\ell_c \sim 1/\Delta k$ and find the time for the packet to spread by $\ell_c$.
+   A cold neutron ($m_n = 1.675\times10^{-27}$ kg) has de Broglie wavelength $\lambda = 1.8$ Å. (a) Compute $k_0$, $v_g$, and $v_{ph}$. (b) The neutron travels 1 m from source to detector. Compute the transit time using $v_g$, and the incorrect prediction using $v_{ph}$. By how many nanoseconds do they differ? (c) If the momentum spread is $\Delta k = 10^6$ $\text{m}^{-1}$, estimate the coherence length $\ell_c \sim 1/\Delta k$ and find the time for the packet to spread by $\ell_c$.
    *Tests: ability to translate between de Broglie wavelength, wave vector, and both velocities, with a concrete experimental consequence.*
 
 6. *Difficulty: Application — finds the optimal initial width for minimum final width.*

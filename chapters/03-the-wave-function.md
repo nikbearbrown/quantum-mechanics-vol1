@@ -29,7 +29,7 @@ $$i\hbar \frac{\partial \psi}{\partial t} = \hat{H}\psi.$$
 
 The factor $i$ on the left side is structural. If $\psi$ were purely real, then $\partial\psi/\partial t$ would be real, and $i\hbar$ times a real number is purely imaginary. The left side would be imaginary while the right side is real (for real $\psi$ and real $V$), which is impossible unless both sides are zero. The Schrödinger equation itself requires $\psi$ to take complex values. A real wave function would have no consistent dynamics.
 
-In the simulation from Chapter 0, the orange curve showed Re$\,\psi$ and the gray dashed curve showed Im$\,\psi$. Both parts were non-trivial, with the imaginary part leading the real part by a quarter cycle. If the imaginary part were set to zero and a single time step taken under the Schrödinger equation, the imaginary part would immediately regenerate. The two parts are inseparable.
+In the simulation from Chapter 0, the orange curve showed $\mathrm{Re}\,\psi$ and the gray dashed curve showed $\mathrm{Im}\,\psi$. Both parts were non-trivial, with the imaginary part leading the real part by a quarter cycle. If the imaginary part were set to zero and a single time step taken under the Schrödinger equation, the imaginary part would immediately regenerate. The two parts are inseparable.
 
 <!-- → [FIGURE: three-panel SVG showing Re ψ (orange), Im ψ (gray dashed), and |ψ|² (blue filled) for a Gaussian wave packet with k₀ ≠ 0, making the quarter-cycle phase relationship visible] -->
 
@@ -48,7 +48,7 @@ Both oscillate, and both carry the information encoded in $k_0$. Now compute the
 
 $$|\psi|^2 = A^2\,e^{-x^2/a^2}.$$
 
-The oscillations vanish. The density is a smooth Gaussian with no trace of $k_0$ anywhere. The momentum — the direction of travel, the central velocity — is invisible in $|\psi|^2$. It lives entirely in the phase, in the relationship between Re$\,\psi$ and Im$\,\psi$. Discard the imaginary part and you can no longer tell a wave packet moving right from one moving left. Both would have the same $|\psi|^2$, and both would look identical in every experimental histogram of position measurements.
+The oscillations vanish. The density is a smooth Gaussian with no trace of $k_0$ anywhere. The momentum — the direction of travel, the central velocity — is invisible in $|\psi|^2$. It lives entirely in the phase, in the relationship between $\mathrm{Re}\,\psi$ and $\mathrm{Im}\,\psi$. Discard the imaginary part and you can no longer tell a wave packet moving right from one moving left. Both would have the same $|\psi|^2$, and both would look identical in every experimental histogram of position measurements.
 
 This is not a mathematical subtlety. The physical content of the imaginary part is that it carries information about the direction of motion. Without it, $\psi$ cannot represent a moving particle.
 
@@ -146,7 +146,7 @@ The split at $x = 0$ is necessary because $e^{-|x|/a} \neq e^{-x/a}$ for $x < 0$
 
 $$2A^2\cdot\frac{a}{2} = A^2 a = 1 \implies A = \frac{1}{\sqrt{a}}.$$
 
-Units check: with $x$ in nm and $a$ in nm, $A$ has units of nm$^{-1/2}$, so $|\psi|^2$ has units of nm$^{-1}$. This is correct for a one-dimensional probability density.
+Units check: with $x$ in nm and $a$ in nm, $A$ has units of $\text{nm}^{-1/2}$, so $|\psi|^2$ has units of $\text{nm}^{-1}$. This is correct for a one-dimensional probability density.
 
 The probability of finding the particle in $[-a, a]$ is:
 
@@ -154,11 +154,11 @@ $$P = \frac{1}{a}\int_{-a}^{a}e^{-2|x|/a}\,dx = \frac{2}{a}\int_0^{a}e^{-2x/a}\,
 
 About 86.5% of the probability is in the central interval. The remaining 14% is in the tails $|x| > a$.
 
-Note that at $x = 0$, $|\psi(0)|^2 = 1/a$. For $a = 0.5$ nm this equals 2 nm$^{-1}$, a number greater than 1. This is not a problem. The density is measured in nm$^{-1}$ and has no requirement to remain below 1. Expecting $|\psi|^2 \leq 1$ everywhere is a units error, equivalent to expecting a population density map to never exceed one person per square kilometer.
+Note that at $x = 0$, $|\psi(0)|^2 = 1/a$. For $a = 0.5$ nm this equals 2 $\text{nm}^{-1}$, a number greater than 1. This is not a problem. The density is measured in $\text{nm}^{-1}$ and has no requirement to remain below 1. Expecting $|\psi|^2 \leq 1$ everywhere is a units error, equivalent to expecting a population density map to never exceed one person per square kilometer.
 
 ---
 
-The wave function $e^{-|x|/a}$ is real-valued, so Im$\,\psi = 0$ everywhere and the probability current $J = (\hbar/m)\,\mathrm{Im}(\psi^*\,\partial_x\psi)$ vanishes everywhere. A real wave function has zero probability current and cannot describe a particle with net momentum in any direction. To give the particle a central momentum $p_0$, we multiply by $e^{ip_0 x/\hbar}$. The density $|\psi|^2$ is unchanged, but $\langle p\rangle = p_0$. The spatial distribution is the same; the current is nonzero; the physics is different. The directional information is entirely contained in the phase.
+The wave function $e^{-|x|/a}$ is real-valued, so $\mathrm{Im}\,\psi = 0$ everywhere and the probability current $J = (\hbar/m)\,\mathrm{Im}(\psi^*\,\partial_x\psi)$ vanishes everywhere. A real wave function has zero probability current and cannot describe a particle with net momentum in any direction. To give the particle a central momentum $p_0$, we multiply by $e^{ip_0 x/\hbar}$. The density $|\psi|^2$ is unchanged, but $\langle p\rangle = p_0$. The spatial distribution is the same; the current is nonzero; the physics is different. The directional information is entirely contained in the phase.
 
 ---
 
@@ -168,7 +168,7 @@ The wave function $e^{-|x|/a}$ is real-valued, so Im$\,\psi = 0$ everywhere and 
 
 1. *[Born rule: density vs. probability]* A particle has wave function $\psi(x) = A\,e^{-|x|/a}$ for real $a > 0$. (a) Find $A$ such that $\int_{-\infty}^{\infty}|\psi|^2\,dx = 1$. (b) Compute $P(-a \leq x \leq a)$. (c) For $a = 0.5$ nm, compute $|\psi(0)|^2$ and explain why the value exceeding 1 does not violate anything. *What this tests: unit distinction between probability density and probability.*
 
-2. *[Complex structure of $\psi$, sign of momentum operator]* Let $\psi(x) = N\,e^{-x^2/(2a^2)}\,e^{ik_0 x}$ with $a = 1$ nm and $k_0 = -5$ nm$^{-1}$. (a) Sketch Re$\,\psi$, Im$\,\psi$, and $|\psi|^2$ on the same axis — which is symmetric, which oscillates? (b) Without computing integrals, state the sign of $\langle p\rangle$ and the value of $\langle x\rangle$. Justify each in one sentence. *What this tests: reading physical information out of the phase.*
+2. *[Complex structure of $\psi$, sign of momentum operator]* Let $\psi(x) = N\,e^{-x^2/(2a^2)}\,e^{ik_0 x}$ with $a = 1$ nm and $k_0 = -5$ $\text{nm}^{-1}$. (a) Sketch $\mathrm{Re}\,\psi$, $\mathrm{Im}\,\psi$, and $|\psi|^2$ on the same axis — which is symmetric, which oscillates? (b) Without computing integrals, state the sign of $\langle p\rangle$ and the value of $\langle x\rangle$. Justify each in one sentence. *What this tests: reading physical information out of the phase.*
 
 3. *[Probability current for a real wave function]* For a real-valued $\psi$, show directly from $J = (\hbar/m)\,\mathrm{Im}(\psi^*\,\partial_x\psi)$ that $J = 0$ everywhere. Then state what this implies: can a real $\psi$ describe a particle with net momentum in one direction? *What this tests: connection between phase and current.*
 
@@ -178,7 +178,7 @@ The wave function $e^{-|x|/a}$ is real-valued, so Im$\,\psi = 0$ everywhere and 
 
 5. *[Kennard inequality: preparation vs. disturbance]* A professor claims: "If I measure a particle's position very precisely, I must have disturbed its momentum. That is the uncertainty principle." Write a two-paragraph response. First paragraph: what is physically correct in this claim. Second paragraph: what is wrong, and what the Kennard inequality actually says. *What this tests: distinguishing the state-space inequality from the measurement-disturbance argument.*
 
-6. *[Units and dimensional reasoning]* A wave function is tabulated numerically with $x$ in meters. The peak of $|\psi|^2$ at $t = 0$ reads $3.2 \times 10^9$ m$^{-1}$. (a) Is this a valid probability density? (b) Estimate the probability of finding the particle within $\pm 0.1$ nm of the peak, treating $|\psi|^2$ as roughly constant over that interval. (c) Someone says the wave function is "unnormalized by a factor of 2." What does this mean precisely, and what is the corrected peak density? *What this tests: facility with units throughout a calculation.*
+6. *[Units and dimensional reasoning]* A wave function is tabulated numerically with $x$ in meters. The peak of $|\psi|^2$ at $t = 0$ reads $3.2 \times 10^9$ $\text{m}^{-1}$. (a) Is this a valid probability density? (b) Estimate the probability of finding the particle within $\pm 0.1$ nm of the peak, treating $|\psi|^2$ as roughly constant over that interval. (c) Someone says the wave function is "unnormalized by a factor of 2." What does this mean precisely, and what is the corrected peak density? *What this tests: facility with units throughout a calculation.*
 
 **Synthesis**
 

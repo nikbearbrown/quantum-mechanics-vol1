@@ -180,7 +180,7 @@ The HCl molecule vibrates near the bottom of its internuclear potential with $\o
 
 $$E_0 = \tfrac{1}{2}\hbar\omega = \tfrac{1}{2}(1.055\times10^{-34})(5.63\times10^{14}) \approx 2.97\times10^{-20}\ \text{J} \approx 0.185\ \text{eV}.$$
 
-**Level spacing:** $\hbar\omega \approx 0.37$ eV. Thermal energy at 300 K: $k_BT \approx 0.025$ eV. Since $k_BT \ll \hbar\omega$, essentially all HCl molecules are in the vibrational ground state at room temperature. The infrared spectrum shows a single absorption line at $\lambda = hc/(\hbar\omega) \approx 3.4\ \mu$m — precisely what is observed.
+**Level spacing:** $\hbar\omega \approx 0.37$ eV. Thermal energy at 300 K: $k_BT \approx 0.025$ eV. Since $k_BT \ll \hbar\omega$, essentially all HCl molecules are in the vibrational ground state at room temperature. The infrared spectrum shows a single absorption line at $\lambda = hc/(\hbar\omega) \approx 3.4\ \mu\text{m}$ — precisely what is observed.
 
 **Selection rule from ladder algebra.** The dipole transition matrix element is $\langle m|\hat{x}|n\rangle$. Write $\hat{x} = \ell(\hat{a}_+ + \hat{a}_-)$ with $\ell = \sqrt{\hbar/2\mu\omega}$. Then $\hat{a}_+|n\rangle \propto |n+1\rangle$ and $\hat{a}_-|n\rangle \propto |n-1\rangle$, both orthogonal to any $|m\rangle$ unless $m = n\pm 1$. The matrix element is zero for all other transitions:
 
