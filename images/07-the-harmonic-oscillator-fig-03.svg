@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  CAJAL Figure: 07-the-harmonic-oscillator-fig-03.svg
+  Book: Quantum Mechanics (quantum-mechanics-vol1)
+  Chapter: 07-the-harmonic-oscillator
+  Figure: 03 — Ladder Operator Action: a† Raises, a₋ Lowers
+  Generated: 2026-06-06
+  Source: pantry/07-the-harmonic-oscillator-cajal.md
+-->
+<svg viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg"
+     xmlns:cajal="https://bearbrown.ai/cajal/1.0"
+     role="img" aria-labelledby="fig-title-07-03">
+  <title id="fig-title-07-03">Ladder operator action on harmonic oscillator energy levels</title>
+  <desc>Five equally spaced energy levels n=0 through n=4, with curved raising arrows (a†) on the left arcing upward one step each and curved lowering arrows (a₋) on the right arcing downward, with a blocking symbol at n=0 showing the ground-state floor where a₋|0⟩=0.</desc>
+  <metadata>
+    <cajal:figure book="Quantum Mechanics" book-slug="quantum-mechanics-vol1"
+      chapter="07-the-harmonic-oscillator" figure-number="03"
+      figure-title="Ladder Operator Action: a† Raises, a₋ Lowers"
+      figure-slug="ladder-operators" figure-type="process-diagram"
+      priority="Important" author="Humanitarians AI Incorporated"
+      date-generated="2026-06-06"
+      source-file="pantry/07-the-harmonic-oscillator-cajal.md"/>
+  </metadata>
+  <defs>
+    <marker id="arr-up" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#009E73"/>
+    </marker>
+    <marker id="arr-dn" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#D55E00"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="700" height="420" fill="#FFFFFF"/>
+
+  <!-- Level layout: 5 levels at y=360,285,210,135,60; cx=350, half-width=120 -->
+  <!-- Level 0: y=360, 1: y=285, 2: y=210, 3: y=135, 4: y=60 -->
+
+  <!-- Energy level bars -->
+  <line x1="230" y1="360" x2="470" y2="360" stroke="#0072B2" stroke-width="2"/>
+  <line x1="230" y1="285" x2="470" y2="285" stroke="#0072B2" stroke-width="2"/>
+  <line x1="230" y1="210" x2="470" y2="210" stroke="#0072B2" stroke-width="2"/>
+  <line x1="230" y1="135" x2="470" y2="135" stroke="#0072B2" stroke-width="2"/>
+  <line x1="230" y1="60"  x2="470" y2="60"  stroke="#0072B2" stroke-width="2"/>
+
+  <!-- n labels -->
+  <text x="218" y="364" font-family="'JetBrains Mono','Courier New',monospace" font-size="12" fill="#545454" text-anchor="end">n=0</text>
+  <text x="218" y="289" font-family="'JetBrains Mono','Courier New',monospace" font-size="12" fill="#545454" text-anchor="end">n=1</text>
+  <text x="218" y="214" font-family="'JetBrains Mono','Courier New',monospace" font-size="12" fill="#545454" text-anchor="end">n=2</text>
+  <text x="218" y="139" font-family="'JetBrains Mono','Courier New',monospace" font-size="12" fill="#545454" text-anchor="end">n=3</text>
+  <text x="218" y="64"  font-family="'JetBrains Mono','Courier New',monospace" font-size="12" fill="#545454" text-anchor="end">n=4</text>
+
+  <!-- Raising arrows (a†): left side, curved arcs upward -->
+  <!-- n=0→1: from (255,360) up to (255,285) -->
+  <path d="M 255,355 C 220,340 220,300 255,290" fill="none" stroke="#009E73" stroke-width="1.2" marker-end="url(#arr-up)"/>
+  <!-- n=1→2 -->
+  <path d="M 255,280 C 218,265 218,225 255,215" fill="none" stroke="#009E73" stroke-width="1.5" marker-end="url(#arr-up)"/>
+  <!-- n=2→3 -->
+  <path d="M 255,205 C 216,190 216,150 255,140" fill="none" stroke="#009E73" stroke-width="1.75" marker-end="url(#arr-up)"/>
+  <!-- n=3→4 -->
+  <path d="M 255,130 C 214,115 214,75 255,65" fill="none" stroke="#009E73" stroke-width="2" marker-end="url(#arr-up)"/>
+
+  <!-- a† label -->
+  <text x="192" y="215" font-family="Lato, sans-serif" font-size="13" fill="#009E73" text-anchor="middle">a†</text>
+  <text x="192" y="230" font-family="Lato, sans-serif" font-size="10" fill="#009E73" text-anchor="middle">(raises)</text>
+
+  <!-- Lowering arrows (a₋): right side, curved arcs downward -->
+  <!-- n=4→3 -->
+  <path d="M 445,65 C 482,80 482,120 445,130" fill="none" stroke="#D55E00" stroke-width="2" marker-end="url(#arr-dn)"/>
+  <!-- n=3→2 -->
+  <path d="M 445,140 C 484,155 484,195 445,205" fill="none" stroke="#D55E00" stroke-width="1.75" marker-end="url(#arr-dn)"/>
+  <!-- n=2→1 -->
+  <path d="M 445,215 C 486,230 486,270 445,280" fill="none" stroke="#D55E00" stroke-width="1.5" marker-end="url(#arr-dn)"/>
+  <!-- n=1→0 -->
+  <path d="M 445,290 C 488,305 488,345 445,355" fill="none" stroke="#D55E00" stroke-width="1.2" marker-end="url(#arr-dn)"/>
+
+  <!-- Floor: stub downward from n=0 with blocking symbol -->
+  <line x1="350" y1="360" x2="350" y2="395" stroke="#D55E00" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <!-- Blocking square -->
+  <rect x="340" y="395" width="20" height="12" fill="#D55E00" rx="0"/>
+
+  <!-- a₋ label -->
+  <text x="506" y="215" font-family="Lato, sans-serif" font-size="13" fill="#D55E00" text-anchor="middle">a₋</text>
+  <text x="506" y="230" font-family="Lato, sans-serif" font-size="10" fill="#D55E00" text-anchor="middle">(lowers)</text>
+
+  <!-- "a₋|0⟩=0" annotation near floor -->
+  <text x="380" y="407" font-family="Lato, sans-serif" font-size="11" fill="#D55E00">a₋|0⟩ = 0</text>
+
+  <!-- ℏω spacing bracket on far right -->
+  <line x1="560" y1="285" x2="560" y2="210" stroke="#E69F00" stroke-width="1.25"/>
+  <line x1="553" y1="285" x2="567" y2="285" stroke="#E69F00" stroke-width="1.25"/>
+  <line x1="553" y1="210" x2="567" y2="210" stroke="#E69F00" stroke-width="1.25"/>
+  <text x="576" y="252" font-family="Lato, sans-serif" font-size="11" fill="#E69F00">ℏω</text>
+
+  <!-- Figure title -->
+  <text x="350" y="26" font-family="'EB Garamond','Garamond',Georgia,serif" font-size="14" fill="#2a1a0e" text-anchor="middle">Ladder operators: a† raises, a₋ lowers by ℏω</text>
+
+</svg>

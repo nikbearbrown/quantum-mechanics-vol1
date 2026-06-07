@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  CAJAL Figure: 10-measurement-and-the-qubit-fig-02.svg
+  Book: Quantum Mechanics (quantum-mechanics-vol1)
+  Chapter: 10-measurement-and-the-qubit
+  Figure: 02 — Sequential Stern–Gerlach: Three Experimental Configurations
+  Generated: 2026-06-06
+  Source: pantry/10-measurement-and-the-qubit-cajal.md
+-->
+<svg viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg"
+     xmlns:cajal="https://bearbrown.ai/cajal/1.0"
+     role="img" aria-labelledby="fig-title-10-02">
+  <title id="fig-title-10-02">Sequential Stern-Gerlach experiments: three configurations showing Z-Z certainty, Z-X equal split, and Z-X-Z equal split</title>
+  <desc>Three stacked horizontal panels each showing a beam source, apparatus blocks, and output beams. Panel 1 (Z→Z): one thick output beam confirming collapse stability. Panel 2 (Z→X): two equal thin output beams showing 50/50 uncertainty. Panel 3 (Z→X→Z): three apparatus blocks, two equal thin output beams showing X measurement erases Z information.</desc>
+  <metadata>
+    <cajal:figure book="Quantum Mechanics" book-slug="quantum-mechanics-vol1"
+      chapter="10-measurement-and-the-qubit" figure-number="02"
+      figure-title="Sequential Stern-Gerlach: Three Experimental Configurations"
+      figure-slug="sequential-stern-gerlach" figure-type="comparison-panels"
+      priority="Critical" author="Humanitarians AI Incorporated"
+      date-generated="2026-06-06"
+      source-file="pantry/10-measurement-and-the-qubit-cajal.md"/>
+  </metadata>
+
+  <!-- Background -->
+  <rect width="700" height="420" fill="#FFFFFF"/>
+
+  <!-- ========== PANEL 1: Z → Z (y=20..130) ========== -->
+  <rect x="32" y="20" width="636" height="110" fill="#F5F5F5" stroke="#D4D4D4" stroke-width="0.5"/>
+
+  <!-- Beam source -->
+  <circle cx="62" cy="75" r="10" fill="#888888"/>
+  <!-- Input beam line -->
+  <line x1="72" y1="75" x2="135" y2="75" stroke="#888888" stroke-width="1.25"/>
+  <!-- Z apparatus block 1 -->
+  <rect x="135" y="55" width="70" height="40" fill="#0072B2" fill-opacity="0.7" stroke="#0072B2" stroke-width="1"/>
+  <text x="170" y="79" font-family="Lato, sans-serif" font-size="12" fill="#FFFFFF" text-anchor="middle" font-weight="600">Z</text>
+  <!-- Selector: blocks lower beam -->
+  <rect x="220" y="55" width="30" height="22" fill="#FFFFFF" stroke="#888888" stroke-width="0.75"/>
+  <rect x="220" y="77" width="30" height="18" fill="#D55E00"/>
+  <!-- Beam to second Z apparatus -->
+  <line x1="250" y1="66" x2="320" y2="66" stroke="#888888" stroke-width="1.25"/>
+  <!-- Z apparatus block 2 -->
+  <rect x="320" y="55" width="70" height="40" fill="#0072B2" fill-opacity="0.7" stroke="#0072B2" stroke-width="1"/>
+  <text x="355" y="79" font-family="Lato, sans-serif" font-size="12" fill="#FFFFFF" text-anchor="middle" font-weight="600">Z</text>
+  <!-- Single thick output beam (certainty) -->
+  <line x1="390" y1="66" x2="640" y2="66" stroke="#009E73" stroke-width="3"/>
+  <!-- Panel 1 label -->
+  <text x="45" y="118" font-family="Lato, sans-serif" font-size="11" fill="#2a1a0e">Z → Z: collapse is stable → P = 1</text>
+
+  <!-- ========== PANEL 2: Z → X (y=145..255) ========== -->
+  <rect x="32" y="145" width="636" height="110" fill="#F5F5F5" stroke="#D4D4D4" stroke-width="0.5"/>
+
+  <!-- Beam source -->
+  <circle cx="62" cy="200" r="10" fill="#888888"/>
+  <line x1="72" y1="200" x2="135" y2="200" stroke="#888888" stroke-width="1.25"/>
+  <!-- Z apparatus block 1 -->
+  <rect x="135" y="180" width="70" height="40" fill="#0072B2" fill-opacity="0.7" stroke="#0072B2" stroke-width="1"/>
+  <text x="170" y="204" font-family="Lato, sans-serif" font-size="12" fill="#FFFFFF" text-anchor="middle" font-weight="600">Z</text>
+  <!-- Selector -->
+  <rect x="220" y="180" width="30" height="22" fill="#FFFFFF" stroke="#888888" stroke-width="0.75"/>
+  <rect x="220" y="202" width="30" height="18" fill="#D55E00"/>
+  <line x1="250" y1="191" x2="320" y2="191" stroke="#888888" stroke-width="1.25"/>
+  <!-- X apparatus block -->
+  <rect x="320" y="180" width="70" height="40" fill="#56B4E9" fill-opacity="0.7" stroke="#56B4E9" stroke-width="1"/>
+  <text x="355" y="204" font-family="Lato, sans-serif" font-size="12" fill="#FFFFFF" text-anchor="middle" font-weight="600">X</text>
+  <!-- Two equal output beams (50/50) -->
+  <line x1="390" y1="185" x2="640" y2="175" stroke="#E69F00" stroke-width="1.5"/>
+  <line x1="390" y1="197" x2="640" y2="215" stroke="#E69F00" stroke-width="1.5"/>
+  <!-- Panel 2 label -->
+  <text x="45" y="243" font-family="Lato, sans-serif" font-size="11" fill="#2a1a0e">Z → X: 50/50 split → X eigenstates have no definite Z</text>
+
+  <!-- ========== PANEL 3: Z → X → Z (y=270..400) ========== -->
+  <rect x="32" y="270" width="636" height="130" fill="#F5F5F5" stroke="#D4D4D4" stroke-width="0.5"/>
+
+  <!-- Beam source -->
+  <circle cx="62" cy="330" r="10" fill="#888888"/>
+  <line x1="72" y1="330" x2="115" y2="330" stroke="#888888" stroke-width="1.25"/>
+  <!-- Z apparatus 1 (smaller to fit 3) -->
+  <rect x="115" y="312" width="60" height="36" fill="#0072B2" fill-opacity="0.7" stroke="#0072B2" stroke-width="1"/>
+  <text x="145" y="333" font-family="Lato, sans-serif" font-size="11" fill="#FFFFFF" text-anchor="middle" font-weight="600">Z</text>
+  <!-- Selector 1 -->
+  <rect x="180" y="312" width="24" height="20" fill="#FFFFFF" stroke="#888888" stroke-width="0.75"/>
+  <rect x="180" y="332" width="24" height="16" fill="#D55E00"/>
+  <line x1="204" y1="322" x2="244" y2="322" stroke="#888888" stroke-width="1.25"/>
+  <!-- X apparatus -->
+  <rect x="244" y="312" width="60" height="36" fill="#56B4E9" fill-opacity="0.7" stroke="#56B4E9" stroke-width="1"/>
+  <text x="274" y="333" font-family="Lato, sans-serif" font-size="11" fill="#FFFFFF" text-anchor="middle" font-weight="600">X</text>
+  <!-- Selector 2 (blocks one X output) -->
+  <rect x="308" y="312" width="24" height="20" fill="#FFFFFF" stroke="#888888" stroke-width="0.75"/>
+  <rect x="308" y="332" width="24" height="16" fill="#D55E00"/>
+  <line x1="332" y1="322" x2="372" y2="322" stroke="#888888" stroke-width="1.25"/>
+  <!-- Z apparatus 3 -->
+  <rect x="372" y="312" width="60" height="36" fill="#0072B2" fill-opacity="0.7" stroke="#0072B2" stroke-width="1"/>
+  <text x="402" y="333" font-family="Lato, sans-serif" font-size="11" fill="#FFFFFF" text-anchor="middle" font-weight="600">Z</text>
+  <!-- Two equal output beams again (X erased Z memory) -->
+  <line x1="432" y1="319" x2="640" y2="308" stroke="#E69F00" stroke-width="1.5"/>
+  <line x1="432" y1="330" x2="640" y2="348" stroke="#E69F00" stroke-width="1.5"/>
+  <!-- Panel 3 label -->
+  <text x="45" y="380" font-family="Lato, sans-serif" font-size="11" fill="#2a1a0e">Z → X → Z: X erases Z information → 50/50 again</text>
+
+  <!-- Figure title -->
+  <text x="350" y="13" font-family="'EB Garamond','Garamond',Georgia,serif" font-size="13" fill="#2a1a0e" text-anchor="middle">Sequential Stern–Gerlach: three experimental configurations</text>
+
+</svg>

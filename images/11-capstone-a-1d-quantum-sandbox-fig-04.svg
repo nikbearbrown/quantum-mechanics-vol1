@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  CAJAL Figure: 11-capstone-a-1d-quantum-sandbox-fig-04.svg
+  Book: Quantum Mechanics (quantum-mechanics-vol1)
+  Chapter: 11-capstone-a-1d-quantum-sandbox
+  Figure: 04 — FFT k-Grid: Output Index to Physical Wave Vector Mapping (N=8)
+  Generated: 2026-06-06
+  Source: pantry/11-capstone-a-1d-quantum-sandbox-cajal.md
+-->
+<svg viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg"
+     xmlns:cajal="https://bearbrown.ai/cajal/1.0"
+     role="img" aria-labelledby="fig-title-11-04">
+  <title id="fig-title-11-04">FFT k-grid mapping: output indices 0-7 map to physical wave vectors, with indices 4-7 wrapping to negative k values</title>
+  <desc>Two horizontal axes separated by 170px: bottom axis shows FFT output indices 0-7, top axis shows physical wave vectors -4Δk through +3Δk. Curved arcs connect each index to its wave vector. Green arcs for indices 0-3 (positive k) curve to the right half; vermillion arcs for indices 4-7 (negative k, wrap-around) cross to the left half. A dashed orange divider marks N/2=4.</desc>
+  <metadata>
+    <cajal:figure book="Quantum Mechanics" book-slug="quantum-mechanics-vol1"
+      chapter="11-capstone-a-1d-quantum-sandbox" figure-number="04"
+      figure-title="FFT k-Grid: Output Index to Physical Wave Vector Mapping"
+      figure-slug="fft-k-grid" figure-type="structural-diagram"
+      priority="Important" author="Humanitarians AI Incorporated"
+      date-generated="2026-06-06"
+      source-file="pantry/11-capstone-a-1d-quantum-sandbox-cajal.md"/>
+  </metadata>
+
+  <!-- Background -->
+  <rect width="700" height="420" fill="#FFFFFF"/>
+
+  <!-- Figure title -->
+  <text x="350" y="28" font-family="'EB Garamond','Garamond',Georgia,serif" font-size="14" fill="#2a1a0e" text-anchor="middle">FFT k-grid: index-to-wave-vector mapping (N = 8)</text>
+
+  <!-- === TOP AXIS: physical wave vector k === -->
+  <!-- Axis line -->
+  <line x1="80" y1="120" x2="625" y2="120" stroke="#888888" stroke-width="1"/>
+  <line x1="100.0" y1="115" x2="100.0" y2="125" stroke="#888888" stroke-width="1"/>
+  <circle cx="100.0" cy="120" r="3" fill="#888888"/>
+  <text x="100.0" y="105" font-family="'JetBrains Mono','Courier New',monospace" font-size="10" fill="#545454" text-anchor="middle">-4Δk</text>
+  <line x1="171.4" y1="115" x2="171.4" y2="125" stroke="#888888" stroke-width="1"/>
+  <circle cx="171.4" cy="120" r="3" fill="#888888"/>
+  <text x="171.4" y="105" font-family="'JetBrains Mono','Courier New',monospace" font-size="10" fill="#545454" text-anchor="middle">-3Δk</text>
+  <line x1="242.9" y1="115" x2="242.9" y2="125" stroke="#888888" stroke-width="1"/>
+  <circle cx="242.9" cy="120" r="3" fill="#888888"/>
+  <text x="242.9" y="105" font-family="'JetBrains Mono','Courier New',monospace" font-size="10" fill="#545454" text-anchor="middle">-2Δk</text>
+  <line x1="314.3" y1="115" x2="314.3" y2="125" stroke="#888888" stroke-width="1"/>
+  <circle cx="314.3" cy="120" r="3" fill="#888888"/>
+  <text x="314.3" y="105" font-family="'JetBrains Mono','Courier New',monospace" font-size="10" fill="#545454" text-anchor="middle">-1Δk</text>
+  <line x1="385.7" y1="115" x2="385.7" y2="125" stroke="#888888" stroke-width="1"/>
+  <circle cx="385.7" cy="120" r="3" fill="#888888"/>
+  <text x="385.7" y="105" font-family="'JetBrains Mono','Courier New',monospace" font-size="10" fill="#545454" text-anchor="middle">0</text>
+  <line x1="457.1" y1="115" x2="457.1" y2="125" stroke="#888888" stroke-width="1"/>
+  <circle cx="457.1" cy="120" r="3" fill="#888888"/>
+  <text x="457.1" y="105" font-family="'JetBrains Mono','Courier New',monospace" font-size="10" fill="#545454" text-anchor="middle">+1Δk</text>
+  <line x1="528.6" y1="115" x2="528.6" y2="125" stroke="#888888" stroke-width="1"/>
+  <circle cx="528.6" cy="120" r="3" fill="#888888"/>
+  <text x="528.6" y="105" font-family="'JetBrains Mono','Courier New',monospace" font-size="10" fill="#545454" text-anchor="middle">+2Δk</text>
+  <line x1="600.0" y1="115" x2="600.0" y2="125" stroke="#888888" stroke-width="1"/>
+  <circle cx="600.0" cy="120" r="3" fill="#888888"/>
+  <text x="600.0" y="105" font-family="'JetBrains Mono','Courier New',monospace" font-size="10" fill="#545454" text-anchor="middle">+3Δk</text>
+  <text x="350" y="88" font-family="Lato, sans-serif" font-size="12" fill="#545454" text-anchor="middle">Physical wave vector k</text>
+
+  <!-- k=0 reference mark -->
+  <line x1="385.7" y1="108" x2="385.7" y2="132" stroke="#0072B2" stroke-width="1.5"/>
+
+  <!-- === BOTTOM AXIS: FFT output index === -->
+  <line x1="80" y1="290" x2="625" y2="290" stroke="#888888" stroke-width="1"/>
+  <line x1="100.0" y1="285" x2="100.0" y2="295" stroke="#888888" stroke-width="1"/>
+  <circle cx="100.0" cy="290" r="3" fill="#888888"/>
+  <text x="100.0" y="310" font-family="'JetBrains Mono','Courier New',monospace" font-size="11" fill="#545454" text-anchor="middle">0</text>
+  <line x1="171.4" y1="285" x2="171.4" y2="295" stroke="#888888" stroke-width="1"/>
+  <circle cx="171.4" cy="290" r="3" fill="#888888"/>
+  <text x="171.4" y="310" font-family="'JetBrains Mono','Courier New',monospace" font-size="11" fill="#545454" text-anchor="middle">1</text>
+  <line x1="242.9" y1="285" x2="242.9" y2="295" stroke="#888888" stroke-width="1"/>
+  <circle cx="242.9" cy="290" r="3" fill="#888888"/>
+  <text x="242.9" y="310" font-family="'JetBrains Mono','Courier New',monospace" font-size="11" fill="#545454" text-anchor="middle">2</text>
+  <line x1="314.3" y1="285" x2="314.3" y2="295" stroke="#888888" stroke-width="1"/>
+  <circle cx="314.3" cy="290" r="3" fill="#888888"/>
+  <text x="314.3" y="310" font-family="'JetBrains Mono','Courier New',monospace" font-size="11" fill="#545454" text-anchor="middle">3</text>
+  <line x1="385.7" y1="285" x2="385.7" y2="295" stroke="#888888" stroke-width="1"/>
+  <circle cx="385.7" cy="290" r="3" fill="#888888"/>
+  <text x="385.7" y="310" font-family="'JetBrains Mono','Courier New',monospace" font-size="11" fill="#545454" text-anchor="middle">4</text>
+  <line x1="457.1" y1="285" x2="457.1" y2="295" stroke="#888888" stroke-width="1"/>
+  <circle cx="457.1" cy="290" r="3" fill="#888888"/>
+  <text x="457.1" y="310" font-family="'JetBrains Mono','Courier New',monospace" font-size="11" fill="#545454" text-anchor="middle">5</text>
+  <line x1="528.6" y1="285" x2="528.6" y2="295" stroke="#888888" stroke-width="1"/>
+  <circle cx="528.6" cy="290" r="3" fill="#888888"/>
+  <text x="528.6" y="310" font-family="'JetBrains Mono','Courier New',monospace" font-size="11" fill="#545454" text-anchor="middle">6</text>
+  <line x1="600.0" y1="285" x2="600.0" y2="295" stroke="#888888" stroke-width="1"/>
+  <circle cx="600.0" cy="290" r="3" fill="#888888"/>
+  <text x="600.0" y="310" font-family="'JetBrains Mono','Courier New',monospace" font-size="11" fill="#545454" text-anchor="middle">7</text>
+  <text x="350" y="335" font-family="Lato, sans-serif" font-size="12" fill="#545454" text-anchor="middle">FFT output index m</text>
+
+  <!-- N/2 = 4 vertical divider on index axis -->
+  <line x1="350.0" y1="265" x2="350.0" y2="315" stroke="#E69F00" stroke-width="1.25" stroke-dasharray="5 3"/>
+  <text x="350.0" y="258" font-family="Lato, sans-serif" font-size="10" fill="#E69F00" text-anchor="middle">N/2 = 4</text>
+
+  <!-- Region labels on index axis -->
+  <text x="207.1" y="350" font-family="Lato, sans-serif" font-size="11" fill="#009E73" text-anchor="middle">positive k (m &lt; N/2)</text>
+  <text x="492.9" y="350" font-family="Lato, sans-serif" font-size="11" fill="#C8102E" text-anchor="middle">negative k (m ≥ N/2, wrap)</text>
+  <path d="M 100.0,290 Q 242.9,185.0 385.7,120" fill="none" stroke="#009E73" stroke-width="1.25"/>
+  <path d="M 171.4,290 Q 314.3,185.0 457.1,120" fill="none" stroke="#009E73" stroke-width="1.25"/>
+  <path d="M 242.9,290 Q 385.7,185.0 528.6,120" fill="none" stroke="#009E73" stroke-width="1.25"/>
+  <path d="M 314.3,290 Q 457.1,185.0 600.0,120" fill="none" stroke="#009E73" stroke-width="1.25"/>
+  <path d="M 385.7,290 Q 242.9,165.0 100.0,120" fill="none" stroke="#C8102E" stroke-width="1.25"/>
+  <path d="M 457.1,290 Q 314.3,165.0 171.4,120" fill="none" stroke="#C8102E" stroke-width="1.25"/>
+  <path d="M 528.6,290 Q 385.7,165.0 242.9,120" fill="none" stroke="#C8102E" stroke-width="1.25"/>
+  <path d="M 600.0,290 Q 457.1,165.0 314.3,120" fill="none" stroke="#C8102E" stroke-width="1.25"/>
+
+  <!-- Legend -->
+  <line x1="120" y1="378" x2="150" y2="378" stroke="#009E73" stroke-width="2"/>
+  <text x="158" y="382" font-family="Lato, sans-serif" font-size="11" fill="#545454">m = 0–3: positive k (no correction needed)</text>
+  <line x1="120" y1="395" x2="150" y2="395" stroke="#C8102E" stroke-width="2"/>
+  <text x="158" y="399" font-family="Lato, sans-serif" font-size="11" fill="#545454">m = 4–7: negative k (kₘ = (m−N)·2π/Nh)</text>
+
+</svg>

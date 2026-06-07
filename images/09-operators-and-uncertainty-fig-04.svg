@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  CAJAL Figure: 09-operators-and-uncertainty-fig-04.svg
+  Book: Quantum Mechanics (quantum-mechanics-vol1)
+  Chapter: 09-operators-and-uncertainty
+  Figure: 04 — The Robertson Boundary
+  Generated: 2026-06-06
+  Source: pantry/09-operators-and-uncertainty-cajal.md
+-->
+<svg viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg"
+     xmlns:cajal="https://bearbrown.ai/cajal/1.0"
+     role="img" aria-labelledby="fig-title-09-04">
+  <title id="fig-title-09-04">Robertson uncertainty boundary: σ_x·σ_p ≥ ℏ/2 on log-log axes</title>
+  <desc>Log-log plot of position uncertainty σ_x versus momentum uncertainty σ_p showing the hyperbolic Robertson boundary σ_xσ_p=ℏ/2. The forbidden region below is shaded red. A green dot marks the Gaussian minimum-uncertainty state on the boundary; an orange dot marks the infinite-square-well ground state above the boundary with an upward arrow showing increasing n moves further from the bound.</desc>
+  <metadata>
+    <cajal:figure book="Quantum Mechanics" book-slug="quantum-mechanics-vol1"
+      chapter="09-operators-and-uncertainty" figure-number="04"
+      figure-title="The Robertson Boundary"
+      figure-slug="robertson-boundary" figure-type="chart"
+      priority="Critical" author="Humanitarians AI Incorporated"
+      date-generated="2026-06-06"
+      source-file="pantry/09-operators-and-uncertainty-cajal.md"/>
+  </metadata>
+  <defs>
+    <marker id="arr-09-04" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#E69F00"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="700" height="420" fill="#FFFFFF"/>
+
+  <!-- Plot area -->
+  <rect x="80" y="40" width="540" height="330" fill="#F5F5F5" stroke="#D4D4D4" stroke-width="0.75"/>
+
+  <!-- Forbidden region (below boundary) -->
+  <polygon points="80,370 80.0,89.7 82.7,91.3 85.4,93.0 88.1,94.6 90.9,96.3 93.6,98.0 96.3,99.6 99.0,101.3 101.7,102.9 104.4,104.6 107.1,106.3 109.8,107.9 112.6,109.6 115.3,111.2 118.0,112.9 120.7,114.5 123.4,116.2 126.1,117.9 128.8,119.5 131.6,121.2 134.3,122.8 137.0,124.5 139.7,126.2 142.4,127.8 145.1,129.5 147.8,131.1 150.6,132.8 153.3,134.4 156.0,136.1 158.7,137.8 161.4,139.4 164.1,141.1 166.8,142.7 169.5,144.4 172.3,146.1 175.0,147.7 177.7,149.4 180.4,151.0 183.1,152.7 185.8,154.3 188.5,156.0 191.3,157.7 194.0,159.3 196.7,161.0 199.4,162.6 202.1,164.3 204.8,166.0 207.5,167.6 210.3,169.3 213.0,170.9 215.7,172.6 218.4,174.2 221.1,175.9 223.8,177.6 226.5,179.2 229.2,180.9 232.0,182.5 234.7,184.2 237.4,185.9 240.1,187.5 242.8,189.2 245.5,190.8 248.2,192.5 251.0,194.1 253.7,195.8 256.4,197.5 259.1,199.1 261.8,200.8 264.5,202.4 267.2,204.1 269.9,205.8 272.7,207.4 275.4,209.1 278.1,210.7 280.8,212.4 283.5,214.0 286.2,215.7 288.9,217.4 291.7,219.0 294.4,220.7 297.1,222.3 299.8,224.0 302.5,225.6 305.2,227.3 307.9,229.0 310.7,230.6 313.4,232.3 316.1,233.9 318.8,235.6 321.5,237.3 324.2,238.9 326.9,240.6 329.6,242.2 332.4,243.9 335.1,245.5 337.8,247.2 340.5,248.9 343.2,250.5 345.9,252.2 348.6,253.8 351.4,255.5 354.1,257.2 356.8,258.8 359.5,260.5 362.2,262.1 364.9,263.8 367.6,265.4 370.4,267.1 373.1,268.8 375.8,270.4 378.5,272.1 381.2,273.7 383.9,275.4 386.6,277.1 389.3,278.7 392.1,280.4 394.8,282.0 397.5,283.7 400.2,285.3 402.9,287.0 405.6,288.7 408.3,290.3 411.1,292.0 413.8,293.6 416.5,295.3 419.2,297.0 421.9,298.6 424.6,300.3 427.3,301.9 430.1,303.6 432.8,305.2 435.5,306.9 438.2,308.6 440.9,310.2 443.6,311.9 446.3,313.5 449.0,315.2 451.8,316.9 454.5,318.5 457.2,320.2 459.9,321.8 462.6,323.5 465.3,325.1 468.0,326.8 470.8,328.5 473.5,330.1 476.2,331.8 478.9,333.4 481.6,335.1 484.3,336.8 487.0,338.4 489.7,340.1 492.5,341.7 495.2,343.4 497.9,345.0 500.6,346.7 503.3,348.4 506.0,350.0 508.7,351.7 511.5,353.3 514.2,355.0 516.9,356.7 519.6,358.3 522.3,360.0 525.0,361.6 527.7,363.3 530.5,364.9 533.2,366.6 535.9,368.3 538.6,369.9 620,370" fill="#C8102E" fill-opacity="0.12" stroke="none"/>
+
+  <!-- Log grid lines -->
+  <line x1="80.0" y1="40" x2="80.0" y2="370" stroke="#EEEEEE" stroke-width="0.5"/>
+  <line x1="80" y1="370.0" x2="620" y2="370.0" stroke="#EEEEEE" stroke-width="0.5"/>
+  <line x1="350.0" y1="40" x2="350.0" y2="370" stroke="#EEEEEE" stroke-width="0.5"/>
+  <line x1="80" y1="205.0" x2="620" y2="205.0" stroke="#EEEEEE" stroke-width="0.5"/>
+  <line x1="620.0" y1="40" x2="620.0" y2="370" stroke="#EEEEEE" stroke-width="0.5"/>
+  <line x1="80" y1="40.0" x2="620" y2="40.0" stroke="#EEEEEE" stroke-width="0.5"/>
+
+  <!-- Robertson boundary hyperbola -->
+  <polyline points="80.0,89.7 82.7,91.3 85.4,93.0 88.1,94.6 90.9,96.3 93.6,98.0 96.3,99.6 99.0,101.3 101.7,102.9 104.4,104.6 107.1,106.3 109.8,107.9 112.6,109.6 115.3,111.2 118.0,112.9 120.7,114.5 123.4,116.2 126.1,117.9 128.8,119.5 131.6,121.2 134.3,122.8 137.0,124.5 139.7,126.2 142.4,127.8 145.1,129.5 147.8,131.1 150.6,132.8 153.3,134.4 156.0,136.1 158.7,137.8 161.4,139.4 164.1,141.1 166.8,142.7 169.5,144.4 172.3,146.1 175.0,147.7 177.7,149.4 180.4,151.0 183.1,152.7 185.8,154.3 188.5,156.0 191.3,157.7 194.0,159.3 196.7,161.0 199.4,162.6 202.1,164.3 204.8,166.0 207.5,167.6 210.3,169.3 213.0,170.9 215.7,172.6 218.4,174.2 221.1,175.9 223.8,177.6 226.5,179.2 229.2,180.9 232.0,182.5 234.7,184.2 237.4,185.9 240.1,187.5 242.8,189.2 245.5,190.8 248.2,192.5 251.0,194.1 253.7,195.8 256.4,197.5 259.1,199.1 261.8,200.8 264.5,202.4 267.2,204.1 269.9,205.8 272.7,207.4 275.4,209.1 278.1,210.7 280.8,212.4 283.5,214.0 286.2,215.7 288.9,217.4 291.7,219.0 294.4,220.7 297.1,222.3 299.8,224.0 302.5,225.6 305.2,227.3 307.9,229.0 310.7,230.6 313.4,232.3 316.1,233.9 318.8,235.6 321.5,237.3 324.2,238.9 326.9,240.6 329.6,242.2 332.4,243.9 335.1,245.5 337.8,247.2 340.5,248.9 343.2,250.5 345.9,252.2 348.6,253.8 351.4,255.5 354.1,257.2 356.8,258.8 359.5,260.5 362.2,262.1 364.9,263.8 367.6,265.4 370.4,267.1 373.1,268.8 375.8,270.4 378.5,272.1 381.2,273.7 383.9,275.4 386.6,277.1 389.3,278.7 392.1,280.4 394.8,282.0 397.5,283.7 400.2,285.3 402.9,287.0 405.6,288.7 408.3,290.3 411.1,292.0 413.8,293.6 416.5,295.3 419.2,297.0 421.9,298.6 424.6,300.3 427.3,301.9 430.1,303.6 432.8,305.2 435.5,306.9 438.2,308.6 440.9,310.2 443.6,311.9 446.3,313.5 449.0,315.2 451.8,316.9 454.5,318.5 457.2,320.2 459.9,321.8 462.6,323.5 465.3,325.1 468.0,326.8 470.8,328.5 473.5,330.1 476.2,331.8 478.9,333.4 481.6,335.1 484.3,336.8 487.0,338.4 489.7,340.1 492.5,341.7 495.2,343.4 497.9,345.0 500.6,346.7 503.3,348.4 506.0,350.0 508.7,351.7 511.5,353.3 514.2,355.0 516.9,356.7 519.6,358.3 522.3,360.0 525.0,361.6 527.7,363.3 530.5,364.9 533.2,366.6 535.9,368.3 538.6,369.9 541.3,371.6 544.0,373.2 546.7,374.9" fill="none" stroke="#0072B2" stroke-width="1.75"/>
+
+  <!-- Gaussian minimum-uncertainty state (ON boundary) -->
+  <circle cx="350.0" cy="254.7" r="6" fill="#009E73"/>
+
+  <!-- Infinite well n=1 state (above boundary) -->
+  <circle cx="350.0" cy="245.5" r="6" fill="#E69F00"/>
+
+  <!-- Upward arrow from well state (increasing n) -->
+  <line x1="350.0" y1="237.5" x2="350.0" y2="200.5" stroke="#E69F00" stroke-width="1.5" marker-end="url(#arr-09-04)"/>
+
+  <!-- Axes -->
+  <line x1="80" y1="370" x2="620" y2="370" stroke="#2a1a0e" stroke-width="0.75"/>
+  <line x1="80" y1="40" x2="80" y2="370" stroke="#2a1a0e" stroke-width="0.75"/>
+
+  <!-- Axis tick labels -->
+  <text x="80.0" y="384" font-family="'JetBrains Mono','Courier New',monospace" font-size="10" fill="#545454" text-anchor="middle">0.1</text>
+  <text x="74" y="374.0" font-family="'JetBrains Mono','Courier New',monospace" font-size="10" fill="#545454" text-anchor="end">0.1</text>
+  <text x="350.0" y="384" font-family="'JetBrains Mono','Courier New',monospace" font-size="10" fill="#545454" text-anchor="middle">1</text>
+  <text x="74" y="209.0" font-family="'JetBrains Mono','Courier New',monospace" font-size="10" fill="#545454" text-anchor="end">1</text>
+  <text x="620.0" y="384" font-family="'JetBrains Mono','Courier New',monospace" font-size="10" fill="#545454" text-anchor="middle">10</text>
+  <text x="74" y="44.0" font-family="'JetBrains Mono','Courier New',monospace" font-size="10" fill="#545454" text-anchor="end">10</text>
+
+  <!-- Axis labels -->
+  <text x="350.0" y="400" font-family="Lato, sans-serif" font-size="12" fill="#545454" text-anchor="middle">σ_x (nm)</text>
+  <text x="22" y="205.0" font-family="Lato, sans-serif" font-size="12" fill="#545454" text-anchor="middle" transform="rotate(-90,22,205.0)">σ_p (ℏ/nm)</text>
+
+  <!-- State labels -->
+  <text x="362.0" y="246.7" font-family="Lato, sans-serif" font-size="11" fill="#009E73">Gaussian (σ_xσ_p = ℏ/2)</text>
+  <text x="362.0" y="249.5" font-family="Lato, sans-serif" font-size="11" fill="#E69F00">Infinite well n=1</text>
+
+  <!-- Forbidden zone label -->
+  <text x="140" y="355" font-family="Lato, sans-serif" font-size="11" fill="#C8102E" fill-opacity="0.7">Forbidden region</text>
+  <text x="140" y="367" font-family="Lato, sans-serif" font-size="10" fill="#C8102E" fill-opacity="0.7">(σ_xσ_p &lt; ℏ/2)</text>
+
+  <!-- Figure title -->
+  <text x="350" y="22" font-family="'EB Garamond','Garamond',Georgia,serif" font-size="14" fill="#2a1a0e" text-anchor="middle">Robertson uncertainty boundary: σ_xσ_p ≥ ℏ/2</text>
+
+</svg>

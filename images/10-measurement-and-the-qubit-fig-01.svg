@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  CAJAL Figure: 10-measurement-and-the-qubit-fig-01.svg
+  Book: Quantum Mechanics (quantum-mechanics-vol1)
+  Chapter: 10-measurement-and-the-qubit
+  Figure: 01 — The Measurement Postulate: Superposition → Outcome → Collapse
+  Generated: 2026-06-06
+  Source: pantry/10-measurement-and-the-qubit-cajal.md
+-->
+<svg viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg"
+     xmlns:cajal="https://bearbrown.ai/cajal/1.0"
+     role="img" aria-labelledby="fig-title-10-01">
+  <title id="fig-title-10-01">The quantum measurement postulate: superposition input branches into two probability-weighted outcomes, then collapses to one eigenstate</title>
+  <desc>Three-stage left-to-right flowchart: input superposition node (two-segment probability bar), probabilistic branch with thick and thin arrows to two outcome nodes, and post-measurement collapsed eigenstate with the unrealized outcome dimmed. A repeat arc indicates collapse stability.</desc>
+  <metadata>
+    <cajal:figure book="Quantum Mechanics" book-slug="quantum-mechanics-vol1"
+      chapter="10-measurement-and-the-qubit" figure-number="01"
+      figure-title="The Measurement Postulate: Superposition to Outcome to Collapse"
+      figure-slug="measurement-postulate-flow" figure-type="process-diagram"
+      priority="Critical" author="Humanitarians AI Incorporated"
+      date-generated="2026-06-06"
+      source-file="pantry/10-measurement-and-the-qubit-cajal.md"/>
+  </metadata>
+  <defs>
+    <marker id="arr-thick" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#0072B2"/>
+    </marker>
+    <marker id="arr-thin" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#56B4E9"/>
+    </marker>
+    <marker id="arr-repeat" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#E69F00"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="700" height="420" fill="#FFFFFF"/>
+
+  <!-- ============ STAGE 1: Input superposition node ============ -->
+  <!-- Rounded rect at x=50..200, y=145..275 (center y=210) -->
+  <rect x="50" y="130" width="150" height="160" fill="#F0F0F0" stroke="#D4D4D4" stroke-width="1"/>
+
+  <!-- Two-segment probability bar inside node (|α|²=0.75 upper, |β|²=0.25 lower) -->
+  <!-- Bar: x=90..160, total height=100, upper segment=75px, lower=25px -->
+  <rect x="100" y="148" width="50" height="75" fill="#0072B2" rx="0"/>
+  <rect x="100" y="223" width="50" height="25" fill="#56B4E9" rx="0"/>
+  <rect x="100" y="148" width="50" height="100" fill="none" stroke="#888888" stroke-width="0.75"/>
+
+  <!-- Stage 1 label -->
+  <text x="125" y="270" font-family="Lato, sans-serif" font-size="11" fill="#545454" text-anchor="middle">Superposition</text>
+  <text x="125" y="283" font-family="Lato, sans-serif" font-size="10" fill="#545454" text-anchor="middle">|ψ⟩ = α|a₁⟩ + β|a₂⟩</text>
+
+  <!-- ============ STAGE 2: Branching ============ -->
+  <!-- Junction node at x=275, y=210 -->
+  <circle cx="275" cy="210" r="8" fill="#D4D4D4" stroke="#888888" stroke-width="1"/>
+
+  <!-- Arrow from Stage 1 to junction -->
+  <line x1="200" y1="210" x2="265" y2="210" stroke="#888888" stroke-width="1.5" marker-end="url(#arr-thick)"/>
+
+  <!-- Upper branch: thick arrow (high probability) up to outcome node at (390, 130) -->
+  <path d="M 283,204 L 360,140" fill="none" stroke="#0072B2" stroke-width="2.5" marker-end="url(#arr-thick)"/>
+
+  <!-- Lower branch: thin arrow (low probability) down to outcome at (390, 290) -->
+  <path d="M 283,216 L 360,282" fill="none" stroke="#56B4E9" stroke-width="1.25" marker-end="url(#arr-thin)"/>
+
+  <!-- Upper outcome node (realized, high-prob) -->
+  <circle cx="390" cy="130" r="22" fill="#009E73"/>
+  <text x="390" y="125" font-family="Lato, sans-serif" font-size="11" fill="#FFFFFF" text-anchor="middle">a₁</text>
+  <text x="390" y="140" font-family="Lato, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle">|α|²</text>
+
+  <!-- Lower outcome node (unrealized, dimmed) -->
+  <circle cx="390" cy="290" r="22" fill="#CC79A7" fill-opacity="0.3" stroke="#CC79A7" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="390" y="285" font-family="Lato, sans-serif" font-size="11" fill="#545454" text-anchor="middle" fill-opacity="0.5">a₂</text>
+  <text x="390" y="300" font-family="Lato, sans-serif" font-size="10" fill="#545454" text-anchor="middle" fill-opacity="0.5">|β|²</text>
+
+  <!-- Probability labels on branches -->
+  <text x="316" y="155" font-family="Lato, sans-serif" font-size="10" fill="#0072B2">P=|α|²</text>
+  <text x="316" y="280" font-family="Lato, sans-serif" font-size="10" fill="#56B4E9">P=|β|²</text>
+
+  <!-- ============ STAGE 3: Collapsed state ============ -->
+  <!-- Arrow from upper outcome to collapsed state at (520, 130) -->
+  <line x1="412" y1="130" x2="488" y2="130" stroke="#009E73" stroke-width="1.5" marker-end="url(#arr-thick)"/>
+
+  <!-- Collapsed state node (uniform fill) -->
+  <rect x="490" y="95" width="140" height="70" fill="#FFFFFF" stroke="#009E73" stroke-width="1.5"/>
+  <!-- Uniform single-component bar -->
+  <rect x="540" y="107" width="40" height="46" fill="#009E73"/>
+  <text x="560" y="177" font-family="Lato, sans-serif" font-size="11" fill="#009E73" text-anchor="middle">|a₁⟩</text>
+
+  <!-- Repeat arc from collapsed node back (stability) -->
+  <path d="M 630,130 C 665,90 665,50 630,40 C 595,30 545,48 530,80" fill="none" stroke="#E69F00" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arr-repeat)"/>
+  <text x="666" y="90" font-family="Lato, sans-serif" font-size="10" fill="#E69F00">stable</text>
+
+  <!-- Cross (rejected) from lower outcome -->
+  <line x1="415" y1="275" x2="450" y2="310" stroke="#787878" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="450" y1="275" x2="415" y2="310" stroke="#787878" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Stage labels -->
+  <text x="125" y="310" font-family="Lato, sans-serif" font-size="11" fill="#2a1a0e" text-anchor="middle" font-weight="600">① Input</text>
+  <text x="390" y="340" font-family="Lato, sans-serif" font-size="11" fill="#2a1a0e" text-anchor="middle" font-weight="600">② Branch</text>
+  <text x="560" y="190" font-family="Lato, sans-serif" font-size="11" fill="#2a1a0e" text-anchor="middle" font-weight="600">③ Collapse</text>
+
+  <!-- Caption -->
+  <text x="350" y="370" font-family="Lato, sans-serif" font-size="11" fill="#545454" text-anchor="middle">Outcome is an eigenvalue; probability is |⟨aₙ|ψ⟩|²; post-measurement state is |aₙ⟩</text>
+
+  <!-- Figure title -->
+  <text x="350" y="24" font-family="'EB Garamond','Garamond',Georgia,serif" font-size="14" fill="#2a1a0e" text-anchor="middle">The measurement postulate: superposition → outcome → collapse</text>
+
+</svg>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  CAJAL Figure: 10-measurement-and-the-qubit-fig-04.svg
+  Book: Quantum Mechanics (quantum-mechanics-vol1)
+  Chapter: 10-measurement-and-the-qubit
+  Figure: 04 — Born-Rule Probabilities for the Worked-Example State
+  Generated: 2026-06-06
+  Source: pantry/10-measurement-and-the-qubit-cajal.md
+-->
+<svg viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg"
+     xmlns:cajal="https://bearbrown.ai/cajal/1.0"
+     role="img" aria-labelledby="fig-title-10-04">
+  <title id="fig-title-10-04">Born-rule measurement probabilities for three Pauli observables on the worked-example qubit state</title>
+  <desc>Grouped bar chart with three pairs of bars for σz, σx, and σy. Each pair shows P(+1) in green and P(−1) in vermillion. σz: 0.75/0.25; σx: 0.50/0.50; σy: 0.933/0.067. A dashed reference line at probability 0.5 marks the equiprobable benchmark.</desc>
+  <metadata>
+    <cajal:figure book="Quantum Mechanics" book-slug="quantum-mechanics-vol1"
+      chapter="10-measurement-and-the-qubit" figure-number="04"
+      figure-title="Born-Rule Probabilities for the Worked-Example State"
+      figure-slug="born-rule-bar-chart" figure-type="bar-chart"
+      priority="Important" author="Humanitarians AI Incorporated"
+      date-generated="2026-06-06"
+      source-file="pantry/10-measurement-and-the-qubit-cajal.md"/>
+  </metadata>
+
+  <!-- Background -->
+  <rect width="700" height="420" fill="#FFFFFF"/>
+
+  <!-- Chart area -->
+  <rect x="100" y="50" width="520" height="290" fill="#F5F5F5" stroke="#D4D4D4" stroke-width="0.75"/>
+
+  <!-- y-axis gridlines and tick labels at 0, 0.25, 0.5, 0.75, 1.0 -->
+  <line x1="100" y1="340.0" x2="620" y2="340.0" stroke="#DDDDDD" stroke-width="0.5"/>
+  <text x="92" y="344.0" font-family="'JetBrains Mono','Courier New',monospace" font-size="10" fill="#545454" text-anchor="end">0.00</text>
+  <line x1="95" y1="340.0" x2="100" y2="340.0" stroke="#545454" stroke-width="0.5"/>
+  <line x1="100" y1="267.5" x2="620" y2="267.5" stroke="#DDDDDD" stroke-width="0.5"/>
+  <text x="92" y="271.5" font-family="'JetBrains Mono','Courier New',monospace" font-size="10" fill="#545454" text-anchor="end">0.25</text>
+  <line x1="95" y1="267.5" x2="100" y2="267.5" stroke="#545454" stroke-width="0.5"/>
+  <line x1="100" y1="195.0" x2="620" y2="195.0" stroke="#DDDDDD" stroke-width="0.5"/>
+  <text x="92" y="199.0" font-family="'JetBrains Mono','Courier New',monospace" font-size="10" fill="#545454" text-anchor="end">0.50</text>
+  <line x1="95" y1="195.0" x2="100" y2="195.0" stroke="#545454" stroke-width="0.5"/>
+  <line x1="100" y1="122.5" x2="620" y2="122.5" stroke="#DDDDDD" stroke-width="0.5"/>
+  <text x="92" y="126.5" font-family="'JetBrains Mono','Courier New',monospace" font-size="10" fill="#545454" text-anchor="end">0.75</text>
+  <line x1="95" y1="122.5" x2="100" y2="122.5" stroke="#545454" stroke-width="0.5"/>
+  <line x1="100" y1="50.0" x2="620" y2="50.0" stroke="#DDDDDD" stroke-width="0.5"/>
+  <text x="92" y="54.0" font-family="'JetBrains Mono','Courier New',monospace" font-size="10" fill="#545454" text-anchor="end">1.00</text>
+  <line x1="95" y1="50.0" x2="100" y2="50.0" stroke="#545454" stroke-width="0.5"/>
+
+  <!-- Reference line at P=0.5 -->
+  <line x1="100" y1="195.0" x2="620" y2="195.0" stroke="#E69F00" stroke-width="1" stroke-dasharray="5 3"/>
+  <!-- Group σz -->
+  <rect x="204.0" y="122.5" width="38" height="217.5" fill="#009E73" stroke="#009E73" stroke-width="0.5"/>
+  <rect x="250.0" y="267.5" width="38" height="72.5" fill="#C8102E" stroke="#C8102E" stroke-width="0.5"/>
+  <!-- Value labels above bars -->
+  <text x="223.0" y="118.5" font-family="'JetBrains Mono','Courier New',monospace" font-size="10" fill="#009E73" text-anchor="middle">0.750</text>
+  <text x="269.0" y="263.5" font-family="'JetBrains Mono','Courier New',monospace" font-size="10" fill="#C8102E" text-anchor="middle">0.250</text>
+  <!-- Group label below -->
+  <text x="246.0" y="358" font-family="Lato, sans-serif" font-size="13" fill="#2a1a0e" text-anchor="middle" font-weight="600">σz</text>
+  <!-- Group σx -->
+  <rect x="318.0" y="195.0" width="38" height="145.0" fill="#009E73" stroke="#009E73" stroke-width="0.5"/>
+  <rect x="364.0" y="195.0" width="38" height="145.0" fill="#C8102E" stroke="#C8102E" stroke-width="0.5"/>
+  <!-- Value labels above bars -->
+  <text x="337.0" y="191.0" font-family="'JetBrains Mono','Courier New',monospace" font-size="10" fill="#009E73" text-anchor="middle">0.500</text>
+  <text x="383.0" y="191.0" font-family="'JetBrains Mono','Courier New',monospace" font-size="10" fill="#C8102E" text-anchor="middle">0.500</text>
+  <!-- Group label below -->
+  <text x="360.0" y="358" font-family="Lato, sans-serif" font-size="13" fill="#2a1a0e" text-anchor="middle" font-weight="600">σx</text>
+  <!-- Group σy -->
+  <rect x="432.0" y="69.4" width="38" height="270.6" fill="#009E73" stroke="#009E73" stroke-width="0.5"/>
+  <rect x="478.0" y="320.6" width="38" height="19.4" fill="#C8102E" stroke="#C8102E" stroke-width="0.5"/>
+  <!-- Value labels above bars -->
+  <text x="451.0" y="65.4" font-family="'JetBrains Mono','Courier New',monospace" font-size="10" fill="#009E73" text-anchor="middle">0.933</text>
+  <text x="497.0" y="316.6" font-family="'JetBrains Mono','Courier New',monospace" font-size="10" fill="#C8102E" text-anchor="middle">0.067</text>
+  <!-- Group label below -->
+  <text x="474.0" y="358" font-family="Lato, sans-serif" font-size="13" fill="#2a1a0e" text-anchor="middle" font-weight="600">σy</text>
+
+  <!-- Axes -->
+  <line x1="100" y1="340" x2="620" y2="340" stroke="#2a1a0e" stroke-width="0.75"/>
+  <line x1="100" y1="50" x2="100" y2="340" stroke="#2a1a0e" stroke-width="0.75"/>
+
+  <!-- y-axis label -->
+  <text x="28" y="195.0" font-family="Lato, sans-serif" font-size="12" fill="#545454" text-anchor="middle" transform="rotate(-90,28,195.0)">Probability</text>
+
+  <!-- Legend -->
+  <rect x="455" y="60" width="14" height="14" fill="#009E73"/>
+  <text x="474" y="72" font-family="Lato, sans-serif" font-size="11" fill="#545454">P(+1) outcome</text>
+  <rect x="455" y="82" width="14" height="14" fill="#C8102E"/>
+  <text x="474" y="94" font-family="Lato, sans-serif" font-size="11" fill="#545454">P(−1) outcome</text>
+
+  <!-- Reference line label -->
+  <text x="626" y="199.0" font-family="Lato, sans-serif" font-size="10" fill="#E69F00">0.5</text>
+
+  <!-- Figure title -->
+  <text x="350" y="28" font-family="'EB Garamond','Garamond',Georgia,serif" font-size="14" fill="#2a1a0e" text-anchor="middle">Born-rule probabilities for three Pauli observables</text>
+
+  <!-- Caption -->
+  <text x="350" y="390" font-family="Lato, sans-serif" font-size="11" fill="#545454" text-anchor="middle">State: |ψ⟩ = (√3/2)|0⟩ + (1/2)|1⟩ · worked example from chapter</text>
+
+</svg>
