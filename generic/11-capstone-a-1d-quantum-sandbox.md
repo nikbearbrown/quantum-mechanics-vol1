@@ -102,7 +102,7 @@ There is one mandatory detail about the FFT $k$-grid that breaks any implementat
 
 $$k_m = \frac{2\pi}{Nh}\times\begin{cases} m & m < N/2 \\ m - N & m \geq N/2 \end{cases}$$
 
-The second half of the FFT output (indices $N/2$ through $N-1$) corresponds to *negative* wave vectors. If we apply the kinetic phase using the raw index $m$ instead of the physical $k_m$, we give the wrong kinetic energy to every negative-momentum component. The simulation looks correct for the first few steps — the error lives in the high-frequency tails — and then gradually corrupts the entire wave function. The fix is five lines of code, and the CLAUDE.md amendment below includes it explicitly.
+The second half of the FFT output (indices $N/2$ through $N-1$) corresponds to *negative* wave vectors. If we apply the kinetic phase using the raw index $m$ instead of the physical $k_m$, we give the wrong kinetic energy to every negative-momentum component. The simulation looks correct for the first few steps — the error lives in the high-frequency tails — and then gradually corrupts the entire wave function. The fix is five lines of code; the simulation supplement covers it explicitly.
 
 <!-- → [FIGURE: diagram of the FFT output index mapping to physical wave vectors — showing indices 0 through N/2-1 mapping to positive k, and N/2 through N-1 mapping to negative k; the visual point is that the second half "wraps around" and must be corrected before applying the kinetic phase] -->
 
