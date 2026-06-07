@@ -26,6 +26,9 @@ $$\sum_n P(a_n) = \sum_n |\langle a_n|\psi\rangle|^2 = \langle\psi|\!\left(\sum_
 
 Nothing leaks. The interpretation of collapse is contested. The practical content, however, is settled: after obtaining outcome $a_n$, we predict all subsequent measurements using $|a_n\rangle$.
 
+![Flowchart of the measurement postulate: superposition branches into two outcomes, one realized and one dimmed, with the realized branch collapsing to a definite eigenstate](../images/10-measurement-and-the-qubit-fig-01.png)
+*Figure 10.1 — The measurement postulate as a three-stage process: an input superposition (weighted two-segment bar) branches into two probabilistic outcomes (thick and thin arrows), one eigenstate is realized and the other is discarded, and the collapsed state feeds forward with certainty on re-measurement.*
+
 ---
 
 ## The Two-State System
@@ -64,6 +67,9 @@ The interesting physics shows up in sequences. Consider three arrangements:
 
 This is not instrumental imprecision. It is $[\sigma_x, \sigma_z] \neq 0$ made physically tangible. We cannot hold definite values for both observables at once.
 
+![Three stacked panels showing the Z→Z, Z→X, and Z→X→Z Stern–Gerlach configurations with beam thicknesses encoding output probabilities](../images/10-measurement-and-the-qubit-fig-02.png)
+*Figure 10.2 — Sequential Stern–Gerlach configurations: Z→Z (top) yields a single certain output beam; Z→X (middle) splits into two equal beams after an X apparatus; Z→X→Z (bottom) again gives a 50/50 Z split, showing that the intermediate X measurement erases the prior Z certainty.*
+
 ---
 
 ## The Bloch Sphere
@@ -83,6 +89,9 @@ North pole ($\theta = 0$): state $|0\rangle$, $\langle\sigma_z\rangle = +1$. Sou
 For pure states, $|\vec{r}|^2 = 1$ exactly. This makes a useful runtime check: compute the three expectation values and confirm the Bloch vector has unit length.
 
 The factor $\theta/2$ in the state produces $\theta$ on the sphere through double-angle identities. It also means that a full $2\pi$ rotation of the state vector corresponds to only a $\pi$ rotation of the Bloch vector — the state picks up a factor of $-1$, invisible in expectation values but visible in interference. Neutron interferometry has measured it.
+
+![Bloch sphere with north and south poles, equatorial eigenstates, and a representative state vector with polar and azimuthal angle arcs](../images/10-measurement-and-the-qubit-fig-03.png)
+*Figure 10.3 — The Bloch sphere: |0⟩ at the north pole (θ = 0), |1⟩ at the south pole (θ = π), and four equatorial eigenstates at θ = π/2; a representative state vector points at polar angle θ and azimuthal angle φ, with dashed arcs indicating both angles.*
 
 ---
 
@@ -125,6 +134,9 @@ $[\sigma_x, \sigma_z] = -2i\sigma_y$, so the bound on $\sigma_{\sigma_x}\sigma_{
 Product: $1 \cdot \sqrt{3}/2 = \sqrt{3}/2$. Bound: $\sqrt{3}/2$. They are equal — the Robertson bound is saturated. This state is the $\sigma_y$ eigenstate (confirmed by $P(\sigma_y = +1) \approx 0.933$). The $\sigma_y$ eigenstate maximizes the product $\sigma_{\sigma_x}\sigma_{\sigma_z}$ for the $(\sigma_x, \sigma_z)$ pair, because a point on the Bloch sphere lying entirely along the $y$-axis is equidistant from all $x$-axis and $z$-axis eigenstates.
 
 **What changes for a generic state.** Pick $\theta = \pi/4$, $\phi = 0$. Then $\langle\sigma_y\rangle = 0$, and the Robertson bound gives $\sigma_{\sigma_x}\sigma_{\sigma_z} \geq 0$ — trivially satisfied by any non-negative numbers. Computing explicitly: $\sigma_{\sigma_x} = \sigma_{\sigma_z} = 1/\sqrt{2}$, product $= 1/2$, bound $= 0$. The bound holds but is not tight. The Robertson bound is a property of the state, not a fixed number. The simulation exercise makes this visible.
+
+![Grouped bar chart of Born-rule probabilities for σz, σx, and σy measurements on the worked-example state](../images/10-measurement-and-the-qubit-fig-04.png)
+*Figure 10.4 — Born-rule probabilities for the worked-example state (√3/2)|0⟩ + (i/2)|1⟩: σz gives 75/25, σx gives 50/50, and σy gives approximately 93/7 — each pair of bars sums to 1 and the dashed line at 0.5 marks the equal-superposition benchmark.*
 
 ---
 

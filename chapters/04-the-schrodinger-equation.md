@@ -32,6 +32,9 @@ $$i\hbar\,\phi'(t) = E\,\phi(t), \tag{4.1}$$
 
 $$\hat{H}\,\psi(x) = E\,\psi(x). \tag{4.2}$$
 
+![Flowchart of the separation of variables: TDSE splits into time ODE and TISE](../images/04-the-schrodinger-equation-fig-01.png)
+*Figure 4.1 — Separation of variables applied to the TDSE: the product ansatz decouples time and space, the separation constant E forks the equation into the trivial time ODE and the eigenvalue problem (TISE), with each branch yielding its own solution.*
+
 Equation (4.1) is trivial: it says $\phi(t) = e^{-iEt/\hbar}$, a phase rotating at angular frequency $E/\hbar$. This is a universal form, the same regardless of the potential or the energy level.
 
 Equation (4.2) is the **time-independent Schrödinger equation** (TISE):
@@ -72,6 +75,9 @@ The time dependence is gone. The probability of finding the particle in any regi
 
 What "stationary" does *not* mean is that the wave function itself is time-independent. $\Psi_n$ is a complex function rotating in the complex plane at angular frequency $E_n/\hbar$. Its real part goes as $\psi_n(x)\cos(E_n t/\hbar)$ and its imaginary part as $-\psi_n(x)\sin(E_n t/\hbar)$. They oscillate 90 degrees out of phase, like the two components of a clock hand. The wave function is a clock; the probability density is the clock's shadow on the floor. The shadow does not move, but the clock is spinning.
 
+![Three-panel diagram showing Re Ψ and Im Ψ oscillating while |Ψ|² remains frozen](../images/04-the-schrodinger-equation-fig-02.png)
+*Figure 4.2 — The stationary-state clock: Re Ψ (top) and Im Ψ (middle) oscillate 90° out of phase at three time snapshots, while the probability density |Ψ|² (bottom) is identical at all three times.*
+
 The simulation for this chapter makes this visible. For a single eigenstate, the Re $\Psi$ and Im $\Psi$ panels animate while the $|\Psi|^2$ panel sits frozen. If $|\Psi|^2$ moves when only one eigenstate is populated, the phase is not canceling correctly and the code is wrong.
 
 ---
@@ -105,6 +111,9 @@ The energy expectation value, by contrast, does not slosh. For any superposition
 $$\langle \hat{H}\rangle = \sum_n |c_n|^2\,E_n.$$
 
 This is a weighted average of the eigenvalues with weights $|c_n|^2$. The cross terms that carry the time dependence vanish by orthogonality of the eigenstates, so the result is exactly time-independent. The probability distribution oscillates across the well while the total energy remains constant — quantum energy conservation expressed in this language.
+
+![Two-column comparison of a single eigenstate (frozen) vs. a two-state superposition (sloshing) at two time snapshots](../images/04-the-schrodinger-equation-fig-03.png)
+*Figure 4.3 — Stationary vs. non-stationary: the single eigenstate (left column) shows identical probability densities at both time snapshots; the equal superposition of two eigenstates (right column) shifts its probability peak from the left half to the right half of the well after half a beat period.*
 
 ---
 

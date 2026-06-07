@@ -62,6 +62,9 @@ $$\boxed{E_n = \left(n + \frac{1}{2}\right)\hbar\omega, \quad n = 0, 1, 2, \ldot
 
 The spectrum consists of equally spaced levels with gap $\hbar\omega$, and the ground state sits $\hbar\omega/2$ above the classical minimum of the potential. We solved no differential equation. The whole spectrum followed from one commutator together with the requirement that the energy be non-negative.
 
+![Energy levels n=0 through n=5 as horizontal lines inside the parabolic potential](../images/07-the-harmonic-oscillator-fig-01.png)
+*Figure 7.1 — Equally spaced energy spectrum of the quantum harmonic oscillator: six levels E_n = (n+½)ℏω drawn inside the parabola V(x) = ½mω²x², with the zero-point energy bracket showing E₀ = ℏω/2 above the classical minimum and the uniform spacing bracket showing ΔE = ℏω.*
+
 ---
 
 ## Zero-Point Energy Is Real
@@ -123,6 +126,9 @@ $$\psi_n(x) = \left(\frac{m\omega}{\pi\hbar}\right)^{1/4}\frac{1}{\sqrt{2^n n!}}
 with recursion $H_{n+1}(\xi) = 2\xi H_n(\xi) - 2n H_{n-1}(\xi)$, starting from $H_0 = 1$, $H_1 = 2\xi$.
 
 Two features are worth highlighting. First, $\psi_n$ has exactly $n$ nodes: the ground state has none, the first excited state has one, and so on — the same node-counting rule we found for the infinite square well. Second, roughly 16% of the ground-state probability density lies outside the classical turning points $x = \pm\sqrt{\hbar/m\omega}$. Penetration into the classically forbidden region is not some exotic high-energy phenomenon. It is already present in the very first eigenstate, a standard feature of the quantum ground state.
+
+![Four stacked panels showing Hermite-Gauss eigenfunctions ψ₀ through ψ₃](../images/07-the-harmonic-oscillator-fig-02.png)
+*Figure 7.2 — Harmite-Gauss eigenfunctions ψ₀ through ψ₃ as stacked comparison panels: node count increases by one per level, the classical turning points (marked) widen with n, and the evanescent tails extend visibly beyond those turning points in each panel.*
 
 ---
 
@@ -200,9 +206,15 @@ The root-mean-square displacement of HCl in its ground state is $\ell = \sqrt{\h
 
 It all came from one commutator: $[\hat{a}_-,\hat{a}_+] = 1$. From it we obtained a complete, equally spaced spectrum, the selection rules, the zero-point energy, the coherent states, and the minimum-uncertainty states. The method itself — factor the Hamiltonian into operators whose commutator is a scalar, then derive everything algebraically — is not tied to this one problem.
 
+![Ladder diagram showing raising arrows on the left and lowering arrows on the right between five equally spaced energy levels](../images/07-the-harmonic-oscillator-fig-03.png)
+*Figure 7.3 — Ladder operator action on the harmonic oscillator spectrum: â† (green arcs, left) raises by ℏω per step; â₋ (red arcs, right) lowers by ℏω per step; the floor termination at n=0 shows â₋|0⟩ = 0 with a blocking symbol, preventing descent below the ground state.*
+
 In Chapter 10, the angular momentum operators $\hat{L}_\pm$ obey a different algebra, but the reasoning runs along the same lines: a commutator with $\hat{L}_z$ fixes the rung spacing, a non-negativity argument terminates the ladder, and the spectrum follows without our solving any differential equation. In quantum field theory, $\hat{a}_+$ becomes the creation operator that adds one particle to the vacuum. The state with $n$ photons is $(\hat{a}_+)^n/\sqrt{n!}$ applied to the vacuum, where the vacuum $|0\rangle$ is exactly the ground state annihilated by $\hat{a}_-$. The commutator $[\hat{a},\hat{a}^\dagger] = 1$ is the foundation of quantum electrodynamics. This chapter is the template for all of it.
 
 <!-- → [TABLE: Harmonic oscillator parameters for selected diatomic molecules — HCl ω≈5.63e14 rad/s ℏω≈0.37 eV λ≈3.4 μm; N₂ ω≈4.45e14 rad/s ℏω≈0.29 eV; CO ω≈4.09e14 rad/s ℏω≈0.27 eV; H₂ ω≈8.28e14 rad/s ℏω≈0.54 eV] -->
+
+![Dot-plot of vibrational level spacing ℏω and infrared wavelength for four diatomic molecules](../images/07-the-harmonic-oscillator-fig-04.png)
+*Figure 7.4 — Vibrational parameters of four diatomic molecules: upper panel shows ℏω in eV with a reference line at the room-temperature thermal energy kT ≈ 0.025 eV (all four molecules are far into the quantum regime); lower panel shows the corresponding infrared absorption wavelength in μm.*
 
 ---
 

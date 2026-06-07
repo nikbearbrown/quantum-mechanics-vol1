@@ -139,6 +139,9 @@ There is a dimensionless check that bypasses units entirely: the ratios $E_n/E_1
 
 <!-- → [TABLE: validation table for the infinite square well — columns: n, E_n analytic (eV), E_n numerical (eV), E_n/E_1 analytic, E_n/E_1 numerical, fractional error; N = 500, L = 2 nm, m = m_e; populate with expected values: E_1 ≈ 0.094 eV, E_2 ≈ 0.376 eV, E_3 ≈ 0.846 eV, ratios 1, 4, 9, 16, 25; this is the definitive validation output the student should reproduce] -->
 
+![Scatter plot of five numerical eigenvalue ratios plotted against the analytic n² parabola](../images/11-capstone-a-1d-quantum-sandbox-fig-04.png)
+*Figure 11.4 — Validation of the eigensolver against the infinite square well: five numerical eigenvalue ratios E_n/E₁ (filled circles) lie on or indistinguishably close to the analytic n² parabola (solid curve), with a tolerance bracket at n = 5 indicating the 1% accuracy target.*
+
 **Harmonic oscillator.** Set $V(x) = \frac{1}{2}m\omega^2 x^2$ on a grid wide enough to hold the first ten states. The analytic spectrum is $E_n = \hbar\omega(n + \frac{1}{2})$ — equally spaced levels, with the ground state at $\hbar\omega/2$. Verify: the level spacing is uniform to within 1%; the ground-state wave function is Gaussian; the ground-state uncertainty product $\sigma_x\sigma_p = \hbar/2$ (the harmonic oscillator ground state saturates the Kennard bound). This last check connects directly to Chapter 9 and closes a loop that has been open since Chapter 1.
 
 **Free-particle time evolution.** Set $V = 0$. Initialize a Gaussian wave packet with center $x_0$, width $a$, and mean wavenumber $k_0$. The analytic evolution gives a centroid at $x_0 + (\hbar k_0/m)t$ and a width $\sigma(t)^2 = a^2/2 + \hbar^2t^2/(2m^2a^2)$. Run the simulation and compare. Both centroid and width should agree with the analytic formula to within 1% over several spreading times.

@@ -101,6 +101,9 @@ That is approximately twenty orders of magnitude smaller than a proton radius. N
 
 <!-- → [INFOGRAPHIC: scale comparison — showing λ for electron at 54 eV (0.167 nm), thermal neutron (~1 Å), C₆₀ at 900 K (~2.5 pm), and 70 kg person walking (10⁻³⁵ m), placed on a logarithmic scale alongside reference lengths: proton radius, hydrogen atom, visible light wavelength, human hair; the goal is to make viscerally clear why quantum wavelengths are measurable for small particles and invisible for large ones] -->
 
+![de Broglie wavelength scale bar spanning 26 orders of magnitude](../images/02-matter-waves-fig-04.png)
+*Figure 2.4 — de Broglie wavelength scale on a logarithmic axis: the 54 eV electron (Davisson–Germer case) sits within the crystal-plane spacing range, the C₆₀ buckyball lands at picometer scale, and the walking human falls at 10⁻³⁵ m — twenty-six orders of magnitude below the electron.*
+
 ---
 
 ## What the Wave Function Is Not Yet

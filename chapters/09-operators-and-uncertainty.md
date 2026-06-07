@@ -59,6 +59,9 @@ $$\langle\hat{A}\rangle = \int_{-\infty}^{\infty}\psi^*(x)\,(\hat{A}\psi)(x)\,dx
 
 For position, $\hat{A} = \hat{x}$, this reduces to $\int x|\psi|^2\,dx$ — the centroid of the probability density. For momentum, $\hat{A} = \hat{p}$, it becomes $\int\psi^*(-i\hbar\partial_x\psi)\,dx$, and now the sign matters.
 
+![Probability density bell curve with centroid marker and weighted vertical bars](../images/09-operators-and-uncertainty-fig-04.png)
+*Figure 9.4 — Expectation value as centroid of the probability density: the filled area under |ψ(x)|² is the probability distribution; the vertical dashed line and downward triangle mark ⟨x⟩, the weighted average whose offset from the panel center reflects that the centroid is a property of the distribution, not the coordinate origin.*
+
 Take the Gaussian wave packet $\psi = Ne^{-x^2/2a^2}e^{ik_0 x}$. Differentiating:
 
 $$\partial_x\psi = \psi\!\left(-\frac{x}{a^2} + ik_0\right), \qquad -i\hbar\partial_x\psi = \psi\!\left(\frac{i\hbar x}{a^2} + \hbar k_0\right).$$

@@ -38,6 +38,9 @@ $$u(\nu, T) = \frac{8\pi h\nu^3}{c^3} \cdot \frac{1}{e^{h\nu/k_BT} - 1}.$$
 
 Two limits are worth checking right away. At low frequencies, where $h\nu \ll k_BT$, the exponential expands as $e^{h\nu/k_BT} \approx 1 + h\nu/k_BT$, the denominator becomes $h\nu/k_BT$, and the whole expression reduces to $k_BT$. We recover the Rayleigh–Jeans law exactly — Planck's formula agrees with classical physics precisely where classical physics already worked. At high frequencies, where $h\nu \gg k_BT$, the exponential is enormous, the $-1$ is negligible, and $u$ falls off like $e^{-h\nu/k_BT}$. The exponential overwhelms the polynomial, and there is no catastrophe.
 
+![Planck distribution vs. Rayleigh–Jeans law showing the ultraviolet catastrophe](../images/01-why-classical-physics-failed-fig-01.png)
+*Figure 1.1 — Planck spectral distribution compared with the Rayleigh–Jeans law: the two curves agree at low frequencies, but the classical prediction diverges while the Planck curve falls exponentially in the ultraviolet.*
+
 The value Planck fitted to the Berlin data was $h = 6.55 \times 10^{-34}$ J·s. The currently accepted value is $6.626 \times 10^{-34}$ J·s, so his first fit was within one percent.
 
 One point is crucial. Planck quantized the *oscillators in the walls*, not the electromagnetic field itself. In his picture the field remained classical. The oscillators could exchange energy with the field only in chunks of $h\nu$, but between exchanges the field did whatever Maxwell's equations said it should. Planck himself was uneasy about this. For years he tried to find a way to recover his formula without the discrete energies, and he never succeeded, because it cannot be done. But the further step — declaring that *the field itself* comes in discrete packets, that light is made of particles — was not one he was prepared to take.
@@ -71,6 +74,9 @@ Then $e^{47.9} \approx 7\times10^{20}$, and
 $$\frac{u_\text{Planck}}{u_\text{RJ}} \approx \frac{47.9}{7\times10^{20}} \approx 7\times10^{-20}.$$
 
 That is twenty orders of magnitude. At ultraviolet frequencies and ordinary temperatures, classical physics is not approximately wrong — it is completely wrong. The quantity that controls the discrepancy is $x = h\nu/k_BT$. When $x \ll 1$, the two theories agree; when $x \gg 1$, they diverge by factors that grow like $e^x$. The crossover, $h\nu \sim k_BT$, marks the boundary where quantization begins to matter.
+
+![Regime map of the dimensionless parameter x = hν/k_BT](../images/01-why-classical-physics-failed-fig-03.png)
+*Figure 1.3 — Regime map of the dimensionless ratio x = hν/k_BT: the classical and quantum regimes are separated at x = 1, with representative values from deep infrared (x ≈ 0.1), the transition boundary, and the ultraviolet catastrophe case (x ≈ 48) from the worked example.*
 
 ---
 
@@ -107,6 +113,9 @@ $$eV_\text{stop} = K_\text{max} = h\nu - \Phi.$$
 Everything now follows. There is a threshold because a photon with $h\nu < \Phi$ simply cannot do the job — not "almost, if you add the next one up," but genuinely cannot, ever, because each photon acts alone. The kinetic energy depends on frequency because it depends on the photon energy $h\nu$, which frequency fixes by itself. Intensity controls only how many photons arrive per second. And the absence of any time delay is natural: one photon, one electron, immediate.
 
 Around 1914, Millikan set out to disprove this. He thought the photon idea was absurd. For two years he made extraordinarily careful measurements with freshly scraped metal surfaces in vacuum, recording $V_\text{stop}$ as a function of $\nu$ for sodium, lithium, and potassium. Every metal gave the same slope: $h/e = 4.136\times10^{-15}$ V·s. Einstein's equation fit perfectly. Millikan published his confirmation in 1916, remarking that the result was "obtained in spite of my personal conviction," and won the Nobel Prize in 1923 specifically for this measurement of $h$. Einstein won the Nobel Prize in 1921 specifically for the photoelectric effect — not for special relativity.
+
+![Stopping potential vs. frequency for three metals showing identical slopes](../images/01-why-classical-physics-failed-fig-02.png)
+*Figure 1.2 — Stopping potential as a function of frequency for sodium, aluminum, and copper: three parallel line segments with identical slope h/e and different threshold frequencies set by each metal's work function.*
 
 ---
 
@@ -161,6 +170,9 @@ Einstein's 1905 step was different in kind. Where Planck quantized the material 
 A genuine physical understanding of *why* oscillators carry discrete energy levels had to wait for quantum mechanics proper, which arrived in 1925 and 1926 with Heisenberg and Schrödinger. Planck had the formula in hand in 1900; the mechanism underneath it would not appear for another quarter century.
 
 <!-- → [TABLE: Work functions of common metals in eV — Cs 2.1, Na 2.28, K 2.3, Mg 3.7, Al 4.1, Ag 4.3, Fe 4.5, Cu 4.7, Ni 5.0, Au 5.1, Pt 6.35] -->
+
+![Work functions of eleven common metals as a dot-plot](../images/01-why-classical-physics-failed-fig-04.png)
+*Figure 1.4 — Work functions of eleven metals ranked by threshold energy: metals below the 4.13 eV reference line (the photon energy at 300 nm) emit electrons under the sodium worked example; those above do not.*
 
 ---
 
