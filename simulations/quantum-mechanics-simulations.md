@@ -726,6 +726,132 @@ Validation Checklist — Constants and the Stefan–Boltzmann self-check
 > *2:* The AI could not certify that each physical constant matched CODATA to the last digit — I verified the constants against the reference myself, because a silent digit error would corrupt every later energy.
 **Physics-judgment connection:** trains the two habits the whole sandbox rests on — checking constants against a cited value, and checking a numerical integral against a known analytic result.
 
+## Chapter 1 — Blackbody and Planck vs. Rayleigh–Jeans
+
+- Physics constants (SI, exact where applicable):
+    h  = 6.62607015e-34  J·s
+    kB = 1.380649e-23    J/K
+    c  = 2.99792458e8    m/s
+- Frequency grid: ν ∈ [1e12, 1e16] Hz, N = 500 log-spaced points.
+  (Linear spacing compresses the interesting region; log-spacing is required.)
+- Plot spectral energy density u(ν, T) in J·s·m⁻³ (SI) on a linear y-axis.
+  The axis rescales automatically with the slider so both curves are visible.
+- The Rayleigh–Jeans curve must be drawn only up to the value where it
+  exceeds 3× the Planck maximum — clip or gray it out above that point with
+  a label "Rayleigh–Jeans diverges here."
+- Wien frequency marker: a vertical dashed line at ν_max = 2.821 kB T / h,
+  labeled "Wien peak."
+- hν/kT cursor: a vertical draggable line showing the value of hν/kT at
+  that frequency, so the student can see when x = hν/kT crosses 1.
+````
+
+### The Simulation Prompt
+
+````markdown
+SHOW.
+The Planck spectral energy density (energy per unit volume per unit frequency):
+
+  u_Planck(ν, T) = (8π h ν³ / c³) · 1 / (exp(hν / kB T) − 1)
+
+The Rayleigh–Jeans law (classical limit):
+
+  u_RJ(ν, T) = (8π ν² / c³) · kB T
+
+Wien's displacement law (peak frequency):
+
+  ν_max = 2.821 · kB T / h
+
+Physical constants (use exactly):
+  h  = 6.62607015 × 10⁻³⁴ J·s
+  kB = 1.380649 × 10⁻²³ J/K
+  c  = 2.99792458 × 10⁸ m/s
+
+Use the CLAUDE.md and DESIGN.md saved earlier as binding context.
+
+SAY.
+Produce a single file named `01-blackbody.html`. It opens in a browser and
+shows:
+  Top panel (600 px wide, 300 px tall):
+    - Planck curve u_Planck(ν, T) in blue (filled area under curve)
+    - Rayleigh–Jeans curve u_RJ(ν, T) in red (line, clipped at 3× Planck max,
+      with a label "diverges →" beyond the clip)
+    - A green dashed vertical line at ν_max (Wien peak), labeled
+    - x-axis: frequency ν in units of 10¹³ Hz, range [0.1, 10] × 10¹⁴ Hz
+    - y-axis: u(ν, T) in J·s·m⁻³, auto-rescaling with T
+    - A text overlay showing the ratio u_Planck / u_RJ at the cursor frequency
+  Bottom controls:
+    - Temperature slider: T ∈ [1000, 10000] K, default 5778 K
+    - Draggable frequency cursor (vertical line) showing current ν, hν/kT
+  Normalization check (displayed top-right):
+    ∫u_Planck dν from 10¹² to 10¹⁶ Hz (numerical) vs.
+    Stefan–Boltzmann result σT⁴ × (4/c) (where σ = 5.670 × 10⁻⁸ W·m⁻²·K⁻⁴).
+    Label: "Numerical / exact = X.XXX" (must be > 0.99 for the default grid).
+
+CONSTRAIN.
+- D3 v7 from CDN. SVG only. Vanilla JS.
+- N = 500 log-spaced frequency points on [10¹², 10¹⁶] Hz. (Log-spacing is
+  mandatory: linear spacing undersamples the peak region.)
+- Planck curve computed via u_P = 8π*h*ν³/c³ / (Math.exp(h*ν/(kB*T)) - 1).
+  Guard against overflow: if h*ν/(kB*T) > 700, return 0.
+- Rayleigh–Jeans computed via u_RJ = 8π*ν²*kB*T/c³. Clip the SVG path at
+  y = 3 × max(u_Planck) and draw a red arrow labeled "diverges →".
+- Wien peak line: ν_max = 2.821 * kB * T / h, recomputed on every slider move.
+- The hν/kT cursor shows the numerical value of x = hν/kT at the current
+  cursor position, and colors the background pale yellow when x < 1 (classical
+  regime) and pale blue when x > 1 (quantum regime).
+
+VERIFY.
+After writing the file, give me these checks:
+(a) At T = 5778 K, ν_max should appear near 3.4 × 10¹⁴ Hz (λ ≈ 880 nm —
+    actually peak in near-IR when expressed in ν; Wien in wavelength gives
+    ~500 nm but ν-peak and λ-peak differ because dν ≠ dλ). The simulation
+    should label both.
+(b) At T = 5778 K, the ratio u_Planck / u_RJ at the cursor placed at
+    ν = 3 × 10¹⁵ Hz should be approximately 10⁻²⁰.
+(c) At T = 1000 K, ν_max shifts to lower frequency. Verify that the Planck
+    peak moves left when T decreases.
+(d) The numerical integral ∫u_Planck dν over [10¹², 10¹⁶] Hz should match
+    σT⁴ × (4/c) to within 1% for T = 5778 K. (The integral misses power
+    outside the grid; warn if the captured fraction drops below 99%.)
+
+Then list the known LLM failure modes for this code:
+  - Using linear instead of log-spaced ν grid (undersamples the peak)
+  - Integer overflow in Math.exp(h*ν/(kB*T)) at large ν/T ratio
+  - Wrong normalization claim (∫u dν ≠ σT⁴ × 4/c — off by factors of π or c)
+  - Rayleigh–Jeans not clipped (Planck curve invisible at any T because RJ
+    dominates the scale)
+  - ν_max line not updating with slider
+  - Missing units on axes
+Confirm which you have guarded against.
+````
+
+### Extension Prompt — Photoelectric Stopping Potential Plotter
+
+````markdown
+Add a second tab to 01-blackbody.html: "Photoelectric Effect."
+
+In this tab, show:
+  - An x-axis: frequency ν ∈ [3 × 10¹⁴, 3 × 10¹⁵] Hz.
+  - A y-axis: stopping potential V_stop (in volts), range [−1, 5] V.
+  - For three metals simultaneously (Na: Φ = 2.28 eV, Al: Φ = 4.1 eV,
+    Cu: Φ = 4.7 eV), plot V_stop(ν) = (hν − Φ) / e for ν above threshold,
+    and V_stop = 0 for ν below threshold.
+  - The slope of all three lines is h/e = 4.136 × 10⁻¹⁵ V·s. Verify by
+    displaying the fitted slope from the Na line.
+  - A draggable cursor showing ν, E_photon = hν (in eV), and V_stop for
+    each metal.
+  - A dropdown to add additional metals from a table:
+    [Cs: 2.1, Na: 2.28, K: 2.3, Mg: 3.7, Al: 4.1, Ag: 4.3,
+     Fe: 4.5, Cu: 4.7, Ni: 5.0, Au: 5.1, Pt: 6.35] (all in eV).
+
+Use the same CLAUDE.md and DESIGN.md. Do not regress the blackbody tab.
+
+Verify: slope of any V_stop vs. ν line must equal h/e = 4.136 × 10⁻¹⁵ V·s
+to within 0.1%.
+````
+
+---
+
 ---
 
 ## Chapter 02: Chapter 2 — Matter Waves: de Broglie, Davisson–Germer, and the Double Slit
@@ -1033,6 +1159,100 @@ Validation Checklist — Spectral time evolution and stationary states
 > *2:* The AI could not certify the phase sign or that a single eigenstate stays stationary from the code alone — I verified the frozen $|\Psi|^2$ and constant $\langle\hat H\rangle$ against the physics myself.
 **Physics-judgment connection:** trains checking a time-stepper against a conservation law and a stationary-state invariant, the discipline the unitary stepper of Chapter 8 will demand at higher stakes.
 
+## Chapter 4 — Separation of Variables and Stationary States
+
+- Phase convention: exp(−i E t/ℏ). NOT exp(+i E t/ℏ). The sign is
+  fixed by the TDSE; reversing it reverses the sloshing direction.
+- A stationary state Ψ_n = ψ_n(x) exp(−i E_n t/ℏ) has |Ψ_n|² = |ψ_n|² —
+  no time dependence. Verify: the |Ψ|² panel must be visibly frozen
+  for a single eigenstate. If it oscillates, the code is wrong.
+- ⟨H⟩ = Σ |c_n|² E_n, exactly constant in time. If it drifts by more
+  than 0.1% over one sloshing period, flag it red in the UI.
+- Complex storage: Ψ is always stored as {re, im} pairs. Dropping Im Ψ
+  breaks the phase and turns a rotating complex exponential into a cosine.
+- Re Ψ and Im Ψ panels spin for a single eigenstate; |Ψ|² stays frozen.
+  If both panels look the same, Im Ψ has been lost.
+````
+
+### Part B — The simulation prompt
+
+````markdown
+SHOW.
+Time-dependent Schrödinger equation for a particle in a potential V(x):
+  iℏ ∂Ψ/∂t = ĤΨ,  Ĥ = −(ℏ²/2m) ∂²/∂x² + V(x).
+Separation of variables when V = V(x):
+  Ψ(x, t) = ψ(x) e^(−iEt/ℏ)  [stationary state, one eigenstate]
+General state:
+  Ψ(x, t) = Σ_n c_n ψ_n(x) e^(−i E_n t/ℏ)
+Energy eigenvalues (infinite square well):
+  E_n = n² π² ℏ² / (2 m L²),  n = 1, 2, 3, …
+Eigenstates: ψ_n(x) = √(2/L) sin(nπx/L) for 0 ≤ x ≤ L, zero elsewhere.
+Energy expectation: ⟨H⟩ = Σ |c_n|² E_n = constant.
+
+Use the existing CLAUDE.md (with the Chapter 4 stanza) and DESIGN.md.
+
+SAY.
+Produce a single file `04-stationary-states.html`.
+
+Layout (stacked top to bottom):
+  1. THREE-PANEL WAVE FUNCTION VIEW (each 120 px tall, shared x-axis):
+     Top:    Re Ψ(x, t)   — orange, animated
+     Middle: Im Ψ(x, t)   — gray dashed, animated
+     Bottom: |Ψ(x, t)|²   — blue filled, animated
+  2. CONTROLS (below panels):
+     - Eigenstate selector: c_1, c_2, c_3, c_4 (real magnitudes 0–1).
+     - Phase sliders θ_1, θ_2, θ_3, θ_4 (0 to 2π).
+     - Normalise automatically: display renormalized |c_n|².
+     - L slider (1 to 20 nm). Mass dropdown {electron, proton}.
+     - Pause/play, time speed × 1, × 5, × 20.
+  3. NUMERICAL READOUTS (right panel):
+     - ∫|Ψ|² dx (must read 1.000)
+     - ⟨H⟩ in eV (constant; red if drift > 0.1%)
+     - ⟨x⟩(t) in nm (live, animated)
+     - E_1, E_2, E_3 in eV
+     - "Stationary?" indicator: green "YES" if only one c_n ≠ 0,
+       red "NO" otherwise.
+
+CONSTRAIN.
+- D3 v7 from CDN. SVG only. Vanilla JS.
+- N = 300 grid points on x ∈ [0, L].
+- Time evolution: Ψ(x, t) = Σ c_n ψ_n(x) exp(−i E_n t/ℏ). Analytic.
+  Do NOT numerically integrate the TDSE.
+- Phase sign: exp(−i E_n t/ℏ). Verify: with c_1 = 1 only, both
+  Re Ψ and Im Ψ must visibly oscillate, while |Ψ|² stays frozen.
+- Complex storage: {re, im} float arrays, never collapsed to real.
+
+VERIFY.
+After writing the file, give me three checks:
+(a) c_1 = 1, all others 0: Re Ψ oscillates, Im Ψ oscillates (90° offset),
+    |Ψ|² is frozen (does not animate). "Stationary?" reads YES.
+(b) c_1 = c_2 = 1/√2, θ_1 = θ_2 = 0: |Ψ|² oscillates, ⟨x⟩(t) oscillates,
+    ⟨H⟩ is constant. "Stationary?" reads NO.
+(c) Change θ_2 from 0 to π with c_1 = c_2 = 1/√2: the initial shape of
+    |Ψ|² flips (from left-heavy to right-heavy). Explain in the code
+    comment why: the relative phase θ₂ − θ₁ = π converts (ψ₁ + ψ₂)²
+    into (ψ₁ − ψ₂)² at t = 0.
+
+List known LLM failure modes and confirm guards:
+  - Im Ψ identically zero (lost complex part).
+  - |Ψ|² animating for a single eigenstate (phase not canceling correctly).
+  - ⟨H⟩ drifting over time.
+  - Wrong phase sign, flipping Re/Im oscillation.
+  - "Stationary?" hardcoded YES regardless of coefficients.
+````
+
+### Part C — Exploration tasks
+
+**The frozen clock.** Set $c_1 = 1$, all others zero. Play the animation. Watch Re $\Psi$ and Im $\Psi$ oscillate at frequency $E_1/\hbar$ — they are the two components of a rotating clock hand, 90 degrees out of phase. Watch $|\Psi|^2$ not move. Write one sentence: the rotating phase multiplies $\psi_n(x)$ uniformly, so $|\psi_n|^2\cdot|e^{-iE_n t/\hbar}|^2 = |\psi_n|^2$ regardless of $t$.
+
+**The sloshing pair.** Switch to $c_1 = c_2 = 1/\sqrt{2}$, $\theta_1 = \theta_2 = 0$. Observe $|\Psi(x,t)|^2$ oscillating back and forth. Read $\langle x\rangle(t)$ — it swings. Read $\langle H\rangle$ — it does not move. Write two sentences: (1) what the probability distribution is doing, (2) what the energy is not doing.
+
+**Phase flipping.** With $c_1 = c_2 = 1/\sqrt{2}$, change $\theta_2$ from 0 to $\pi$. The initial shape of $|\Psi|^2$ flips from left-heavy to right-heavy. Explain: at $t = 0$, the state is proportional to $\psi_1 + e^{i\theta_2}\psi_2$; flipping $\theta_2$ by $\pi$ changes $\psi_1 + \psi_2$ to $\psi_1 - \psi_2$, which has a completely different spatial shape, because $\psi_1$ and $\psi_2$ have their antinodes in different places.
+
+**Energy precision.** Try $c_1 = 0.6$, $c_2 = 0.8$. After normalization, $|c_1|^2 + |c_2|^2 = 1$. Read $\langle H\rangle$. Consider: a single energy measurement would return $E_1$ with probability 0.36 or $E_2$ with probability 0.64. After the measurement, the state collapses to a single eigenstate, the interference term disappears, and $|\Psi|^2$ stops oscillating.
+
+---
+
 ---
 
 ## Chapter 05: Chapter 5 — The Infinite Square Well
@@ -1246,6 +1466,130 @@ Validation Checklist — Arbitrary V(x), transmission, and tunneling
 > *2:* The AI could not determine whether the sinh→sin regime switch and the probability-current accounting were correct — I verified $R+T=1$ and the exact-vs-WKB ratio against the closed forms myself.
 **Physics-judgment connection:** trains checking a scattering result against a conservation law and an exact analytic formula, catching regime-switch and current-accounting errors a plausible curve would hide.
 
+## Chapter 6 — Finite Wells, Steps, and Barriers
+
+BARRIER AND STEP PHYSICS RULES
+
+1. EXACT RECTANGULAR BARRIER (E < V₀):
+     T_exact = 1 / (1 + (V₀² sinh²(κL)) / (4E(V₀ − E)))
+     κ = sqrt(2m(V₀ − E)) / ℏ
+   For E > V₀, replace sinh(κL) → i sin(k₂L), κ → ik₂,
+   k₂ = sqrt(2m(E − V₀)) / ℏ:
+     T_exact = 1 / (1 + (V₀² sin²(k₂L)) / (4E(E − V₀)))
+   Box these two cases separately in comments; never apply the
+   E < V₀ formula when E > V₀.
+
+2. TRANSMISSION FOR A STEP:
+     R = ((k₀ − k₁) / (k₀ + k₁))²
+     T = 4k₀k₁ / (k₀ + k₁)²
+   VERIFY R + T = 1 at every parameter setting as a runtime check.
+   T ≠ |amplitude ratio|² unless k₀ = k₁. Use probability current.
+
+3. WKB FOR RECTANGULAR BARRIER:
+     T_WKB = exp(−2κL)   for E < V₀
+   On the T(E) plot, show both curves on a LOG y-axis. The two
+   curves run parallel below the barrier; label the offset
+   "WKB misses prefactor 16E(V₀−E)/V₀²."
+
+4. FINITE WELL GRAPHICAL SOLUTION:
+   Plot f_even(z) = z·tan(z) and f_odd(z) = −z·cot(z) vs.
+   the circle sqrt(z₀² − z²). Crossings are bound states.
+   z₀ = (L / 2ℏ) sqrt(2mV₀). z ∈ (0, z₀).
+   Accurately handle the asymptotes of tan(z) at z = π/2, 3π/2 …
+
+5. CRANK-NICOLSON WAVE PACKET (same architecture as Ch 11):
+   Natural units ℏ = m = 1. 500 spatial points. Absorbing
+   boundaries at 80% of box edges. Thomas tridiagonal solve.
+   Pre-compute all frames on Play; cache; animate at 60 fps.
+   Initial state: Gaussian centered left of barrier.
+
+KNOWN FAILURE MODES:
+(a) Applying E<V₀ formula when E>V₀ (sinh→sin switch missing).
+(b) T = |F/A|² without the k ratio (wrong for a step).
+(c) Linear y-axis on T(E) — always log.
+(d) tan(z) asymptotes causing NaN in graphical solution.
+(e) Missing absorbing boundaries → wave packet reflects off walls.
+````
+
+### The simulation prompt
+
+````markdown
+SHOW.
+Three physical scenarios for a particle hitting a potential barrier or well:
+
+1. FINITE SQUARE WELL BOUND STATES
+Graphical solution: plot two curves vs z on [0, z₀]:
+  Left side of matching condition: g(z) = sqrt(z₀² − z²)   (quarter-circle)
+  Even states: f_e(z) = z tan(z)
+  Odd states:  f_o(z) = −z cot(z)
+Intersections of g with f_e or f_o are bound states.
+z₀ = (L/2ℏ)·sqrt(2mV₀). Use natural units ℏ = 2m = 1 so z₀ = L·sqrt(V₀)/2.
+Controls: V₀ slider (1–20), L slider (1–10). Label each intersection with
+its parity (E or O) and energy level number.
+
+2. POTENTIAL STEP: R AND T vs E
+Plot R(E) (red) and T(E) (blue) on linear y-axis [0,1] vs E/V₀ on [0,3].
+For E < V₀: R = 1, T = 0.
+For E > V₀: R = ((k₀−k₁)/(k₀+k₁))², T = 4k₀k₁/(k₀+k₁)².
+k₀ = sqrt(E), k₁ = sqrt(E−V₀) in natural units.
+Verify R + T = 1 (log to console at every E). Mark V₀ with a vertical line.
+Note the approach to R→0 only as E→∞.
+Controls: V₀ slider (1–10).
+
+3. RECTANGULAR BARRIER: T(E) AND ANIMATED WAVE PACKET
+Panel A (left, 600px wide, log y-axis): T vs E/V₀ from 10⁻¹² to 1.
+Two curves: T_exact (solid) and T_WKB (dashed).
+For E < V₀: T_exact from sinh formula; T_WKB = exp(−2κL).
+For E > V₀: T_exact from sin formula; T_WKB not shown (classical).
+Show resonance peaks above the barrier.
+
+Panel B (right, 400px wide): animated Gaussian wave packet hitting barrier.
+Crank-Nicolson, 500 points, x ∈ [−50, 50], ℏ = m = 1.
+Initial packet: center x₀ = −20, width σ = 3, momentum p₀ = sqrt(2E).
+Barrier as translucent gray fill. Energy E as horizontal dashed line.
+Play/Pause/Reset. Time counter.
+
+Controls: V₀ (1–10), L (1–10), E (0.1·V₀ to 2·V₀).
+
+SAY.
+Produce a single file `06-barrier-explorer.html`.
+Three tabs at the top: "Finite Well", "Step", "Barrier".
+Each tab contains its own SVG and controls.
+D3 v7 from CDN. Vanilla JS. No math.js or numeric.js.
+Thomas algorithm for Crank-Nicolson solve (pure JS, ~25 lines).
+Complex arithmetic as {re, im} objects throughout.
+
+CONSTRAIN.
+- Natural units ℏ = m = 1 throughout.
+- The T vs E/V₀ plot MUST use a LOG y-axis (10⁻¹² to 1).
+- R + T = 1 check logged to console every time parameters change.
+- The barrier tab must show both T_exact and T_WKB on the same plot.
+- The wave packet must use absorbing boundaries (imaginary potential at edges).
+- All physics steps commented in code.
+
+VERIFY.
+After writing the file, check:
+(a) V₀=5, L=5, E=1: T_exact ≈ 9×10⁻⁵, T_WKB ≈ 3.5×10⁻⁵, ratio ≈ 2.56.
+(b) V₀=5, L=5, E=5 (at barrier top): T_exact = [1 + 0]⁻¹ = 1? No — at E=V₀,
+    κ→0 and sinh(κL)→κL→0, so T_exact→1. Verify this limit.
+(c) Step, V₀=2, E=8: k₀=sqrt(8), k₁=sqrt(6); R=((√8−√6)/(√8+√6))²≈0.0102.
+(d) Resonance: V₀=2, L=π/sqrt(2E−V₀) for E=4; T_exact=1. Verify resonance peak.
+````
+
+### Exploration tasks
+
+**Task 1 — Counting bound states.** In the Finite Well tab, set $V_0 = 4$ and $L = 5$. Count the intersections. Now reduce $V_0$ until one level disappears. At what $V_0$ does the second bound state vanish? Record the value of $z_0$ at that point. Compare to the threshold condition $z_0 = \pi/2$ (first odd-parity state just appears when $z_0 = \pi/2$).
+
+**Task 2 — Reflection at the step.** In the Step tab, observe that $R \to 1$ as $E \to V_0$ from above. At $E = 2V_0$, read off $R$. At $E = 10V_0$, read off $R$. Does $R$ approach zero? Explain physically why a very high-energy particle still reflects slightly.
+
+**Task 3 — Exponential sensitivity.** In the Barrier tab, set $V_0 = 5, E = 1$. Read off $T_\text{exact}$. Now double $L$. By what factor does $T$ change? Double $L$ again. Now vary $V_0$ at fixed $L$ and $E$. Which parameter — height or width — gives more control over $T$?
+
+**Task 4 — The resonance peaks.** Set $E > V_0$ in the Barrier tab. Find the first resonance (first energy above $V_0$ where $T = 1$). Verify that the barrier width is exactly half a de Broglie wavelength: $L = \pi/k_2$ in natural units.
+
+**Task 5 — The wave packet.** Play the animation with $V_0 = 5, L = 3, E = 1$. Pause as the wave packet reaches the barrier. Describe what is happening in the barrier region. After the packet fully passes, compare the relative sizes of the transmitted and reflected pulses. Use the $T$ value from Panel A to predict $|\psi_\text{trans}|^2_\text{max}/|\psi_\text{inc}|^2_\text{max}$ and check it against the simulation.
+
+---
+
 ---
 
 ## Chapter 07: Chapter 7 — The Quantum Harmonic Oscillator
@@ -1359,6 +1703,113 @@ Validation Checklist — Harmonic oscillator eigensolver validation
 > *1:* The AI added the harmonic potential and ran it through the eigensolver, reporting the spectrum and ground-state uncertainty product.
 > *2:* The AI could not determine whether the grid width was sufficient or the half-quantum was handled correctly — I verified $E_0 = \tfrac12\hbar\omega$, uniform spacing, and $\sigma_x\sigma_p = \hbar/2$ against the analytic results myself.
 **Physics-judgment connection:** trains checking a numerical spectrum against a second analytic ladder and against a boundary condition (adequate grid width), proving the eigensolver is correct on a smooth potential and not just by coincidence on hard walls.
+
+## Chapter 7 — The Quantum Harmonic Oscillator
+
+HARMONIC OSCILLATOR PHYSICS RULES
+
+1. HERMITE POLYNOMIALS via recursion:
+     H_{n+1}(ξ) = 2ξ H_n(ξ) − 2n H_{n-1}(ξ), H_0 = 1, H_1 = 2ξ.
+   Cache H_n across the spatial grid. Cap n ≤ 15 for numerical
+   stability; naive recursion overflows double precision for n > 15
+   near the turning points. Use scaled Hermites for n > 10.
+
+2. NORMALIZATION: ψ_n(x) = (mω/πℏ)^(1/4) · (1/√(2ⁿ n!)) · H_n(ξ) · exp(−ξ²/2)
+   ξ = √(mω/ℏ) x. Natural units ℏ = m = 1, ω slider.
+   Precompute n! by lookup for n ≤ 15.
+
+3. TIME EVOLUTION: Ψ(x,t) = Σ_n c_n ψ_n(x) exp(−i E_n t/ℏ)
+   with E_n = (n + 1/2)ℏω. Store c_n as {re, im} pairs.
+   Phase rotate each frame; sum to get Ψ(x,t); compute |Ψ|².
+
+4. COHERENT STATE: c_n = exp(−|α|²/2) · αⁿ / √(n!).
+   Truncate at n_max = ceil(|α|² + 5·√|α|²).
+   Verify Σ|c_n|² = 1 within 1e-4 as a runtime sanity check.
+
+5. EIGENSTATE PANEL MUST BE STATIC. If |Ψ_n(x,t)|² animates,
+   there is a phase-cancellation bug. Plot ψ_n(x) (real, static).
+
+6. TIME STEP: ωΔt ≤ 0.05 per frame. For ω = 5, Δt ≤ 0.01.
+
+KNOWN FAILURE MODES:
+(a) Hermite overflow at large n. Cap at n = 15.
+(b) Forgetting to renormalize when ω slider changes.
+(c) Phase sign errors for odd n (H_1 = 2ξ, positive at ξ > 0).
+(d) Eigenstate panel animating — it must be static.
+(e) Coherent state truncation mismatched to |α|².
+(f) Confusing ψ and |ψ|² panels — label both axes.
+````
+
+### The simulation prompt
+
+````markdown
+SHOW.
+The quantum harmonic oscillator Hamiltonian H = p²/2m + (1/2)mω²x²
+with spectrum E_n = (n + 1/2)ℏω and eigenstates ψ_n(x) = Hermite-Gauss.
+
+Three modes:
+- EIGENSTATE: select n = 0..5; display static ψ_n(x) and static |ψ_n(x)|².
+  The probability density panel must NOT animate. Classical turning points at
+  ξ = ±√(2n+1) shown as vertical ticks.
+- COHERENT STATE: select |α| (0..3) and arg(α) (0..2π); evolve and display
+  |Ψ(x,t)|² sloshing at frequency ω. Mean <x>(t) traces a cosine; <p>(t)
+  traces a sine.
+- SUPERPOSITION: select n₁, n₂ (0..4) and coefficients (equal mix by default);
+  display |Ψ(x,t)|² beating at frequency (E_{n₂}−E_{n₁})/ℏ = (n₂−n₁)·ω.
+
+SAY.
+Build `07-harmonic-oscillator.html`, a single self-contained HTML file.
+D3 v7 from CDN. No other dependencies. Vanilla JS.
+
+Layout: three panels in one SVG 1100 × 600.
+- Panel A (left, 500px): wave function or Re Ψ plotted as a line.
+  Behind it: parabolic V(x) as dashed curve; energy levels E_n as
+  horizontal lines for n = 0..5; classical turning points for active n.
+- Panel B (middle, 400px): |Ψ(x,t)|² as filled area.
+- Panel C (right, 200px): phase-space inset — <x>(t) vs <p>(t), orbit
+  traced as fading line, current position marked. For eigenstate: dot at
+  origin. For coherent state: circle. For superposition: Lissajous.
+
+Mode selector (three buttons) and sliders at top. Play/Pause/Reset below.
+Natural units ℏ = m = 1. Spatial grid: 401 points on [−6, +6] in units
+of √(ℏ/(mω)).
+
+CONSTRAIN.
+- Hermite polynomials by recursion; cap n ≤ 15; cache per frame.
+- Eigenstates: STATIC. Verify |Ψ_n(x,t)|² has zero time dependence.
+- Coherent state truncated at n_max = ceil(|α|² + 5√(|α|²)).
+- Runtime checks to console every second:
+  (i)  Σ|ψ_n(x_i)|² Δx = 1 within 0.001 for eigenstate.
+  (ii) Σ|Ψ(x_i,t)|² Δx = 1 within 0.001 for coherent and superposition.
+  (iii) For eigenstate, <x> and <p> within 0.01 of zero at all times.
+- Plot parabolic potential in Panel A with range matching the turning
+  points of the highest displayed level.
+- Comments at every physics step.
+
+VERIFY.
+After writing:
+(a) Eigenstate n=3 in Panel B: count 4 lobes in |ψ₃|² (n+1 lobes).
+(b) Coherent state |α|=1, arg(α)=0 at t=0: <x>(0) = √2 in natural units.
+    Verify within 1%.
+(c) Superposition (n₁=0, n₂=1): beating at ω. Run for t = 2π/ω;
+    density at t=2π/ω must match t=0. Verify period.
+(d) Uncertainty product for n=0: σ_x · σ_p = 0.5 in natural units.
+    Compute numerically and verify ≈ 0.500.
+````
+
+### Exploration tasks
+
+**Task 1 — Eigenstates are frozen.** In Eigenstate mode, select $n = 0$. Press Play. Panel B does not change. Switch to Coherent state with $|\alpha| = 1$. Press Play. The packet oscillates. Record the period; verify it matches $T = 2\pi/\omega$.
+
+**Task 2 — Climbing the ladder.** Step through $n = 0$ to $n = 5$. For each, count the lobes in $|\psi_n|^2$. Confirm the lobe count is always $n + 1$. Observe that $\sigma_x$ grows as $\sqrt{2n+1}$ — the wave function spreads as you go up the ladder.
+
+**Task 3 — Coherent state orbit.** In Coherent state mode, set $|\alpha| = 0$. Panel C shows a dot at the origin — the coherent state is the ground state. Increase $|\alpha|$ to 1, 2, 3. The orbit in Panel C traces a circle of growing radius. At $|\alpha| = 3$, the amplitude is $\langle x\rangle_\text{max} = \sqrt{2}\cdot|\alpha| \approx 4.24$ in natural units. Verify.
+
+**Task 4 — Superposition beating.** In Superposition mode, select $n_1 = 0, n_2 = 1$. Observe beating at $\omega$. Switch to $n_1 = 0, n_2 = 2$. Confirm beating at $2\omega$ (the level spacing is twice as large). Verify the general rule: beating frequency $(n_2 - n_1)\omega$.
+
+**Task 5 — The parity surprise.** Select $n_1 = 0, n_2 = 2$. Both $\psi_0$ and $\psi_2$ are even-parity functions. Their cross term $\psi_0\psi_2$ is even in $x$, so $\langle x(t)\rangle = 0$ for all $t$ — the packet breathes rather than sloshes. Verify in Panel C: the orbit is a radial oscillation along the origin axis, not a circle. Write one sentence explaining why even-parity superpositions cannot have non-zero $\langle x\rangle$.
+
+---
 
 ---
 
@@ -1565,6 +2016,81 @@ Validation Checklist — Operators, uncertainty, and the commutator residual
 > *2:* The AI could not determine whether the momentum sign and the variance definition were correct from the code alone — I verified $\langle p\rangle > 0$ for $k_0 > 0$ and the Gaussian/well ratios against analytic values myself.
 **Physics-judgment connection:** trains checking computed uncertainties against an exact bound and analytic ratios, plus a discretization self-check (commutator residual) that certifies the grid's operators before any spectrum is interpreted.
 
+## Chapter 9 — Operators and Uncertainty
+
+PHYSICS CHECKS
+- Momentum operator: p̂ = −iℏ ∂_x. Sign is load-bearing.
+  For a wave packet with k₀ > 0, ⟨p̂⟩ > 0 must hold.
+- Expectation value computed as: <A> = integral psi* (A psi) dx.
+  Not as integral |psi|^2 A dx (that would only be correct for A = x).
+- Variance: sigma_A^2 = <A^2> - <A>^2. Both terms required.
+- Canonical commutation check: [x̂, p̂] psi = iℏ psi.
+  If your code implements [x̂, p̂] on a grid, the output should be iℏ * psi
+  pointwise (up to grid errors at boundaries). Build this as a startup assertion.
+- The ratio sigma_x * sigma_p / (ℏ/2):
+    Gaussian: must read 1.000.
+    Infinite-well n=1, L=10 nm: must read ≈ 1.136.
+    Infinite-well: ratio grows linearly as (π/sqrt(3))·n ≈ 1.814·n — it does NOT converge (n=10 → ≈ 18.08).
+  These are verification targets, not adjustable parameters.
+````
+
+### Part B — Exploration tasks using the existing simulation
+
+**Task 1 — Saturating the bound.** Open `01-probability-explorer.html`. Select the Gaussian, $a = 1$ nm, $k_0 = 5$ $\text{nm}^{-1}$. Read $\sigma_x \approx 0.707$ nm, $\sigma_p \approx 0.707\,\hbar$/nm, ratio $\approx 1.000$. Slide $a$ from $0.2$ to $4$ nm. $\sigma_x$ scales with $a$; $\sigma_p$ scales inversely; the ratio stays locked at $1.000$. Write: what does this confirm about the Gaussian as the minimum-uncertainty state?
+
+**Task 2 — The well exceeds the bound.** Switch to the infinite-well eigenstate, $n = 1$, $L = 10$ nm. Read the ratio — it should be $\approx 1.136$. Compare with the analytical result from the worked calculation above. Do they agree to within $1\%$?
+
+**Task 3 — Higher modes.** Step $n$ from $1$ to $10$. Record the ratio at each $n$. Does it grow, converge, or oscillate? From exercise 4 you will derive that it grows linearly, $\sigma_x\sigma_p/(\hbar/2) \approx (\pi/\sqrt{3})\,n \approx 1.814\,n$ — it does not converge. Confirm the ratio at $n = 10$ is $\approx 18.08$.
+
+**Task 4 — Sign of momentum.** Select the Gaussian with $k_0 = +5$ $\text{nm}^{-1}$. Read $\langle p\rangle$: it should be positive. Change $k_0$ to $-5$ $\text{nm}^{-1}$. The magnitude of $\sigma_p$ is unchanged; only the mean flips. This verifies that $\hat{p} = -i\hbar\partial_x$ gives the correct sign for both directions of motion.
+
+### Part C — Optional new simulation
+
+````markdown
+SHOW.
+The canonical commutation relation [x̂, p̂] = iℏ and its consequence for uncertainty.
+
+Build a simulation that computes expectation values and variances
+for user-selectable wave functions, and displays:
+  - <x>, <x^2>, sigma_x
+  - <p>, <p^2>, sigma_p
+  - sigma_x * sigma_p / (ℏ / 2)   [the uncertainty ratio]
+  - A visual of the Robertson bound: a point (sigma_x, sigma_p) on a log-log
+    plot, with the boundary curve sigma_x * sigma_p = ℏ/2 drawn.
+
+Wave functions (dropdown):
+  1. Gaussian with sliders a, k0.
+  2. Infinite-well eigenstate n on [0, L] with sliders n (integer 1-10), L.
+  3. Superposition: alpha * psi_1 + beta * psi_2 in the infinite well,
+     with sliders for alpha, beta (normalized).
+
+The log-log plot should show:
+  - The Robertson boundary (hyperbola sigma_x * sigma_p = ℏ/2) as a solid curve.
+  - The current state as a dot. Gaussian: on the curve. Well: above the curve.
+  - As you increase n in the well, the dot moves up and right.
+
+SAY.
+Produce a single file 09-operators-and-uncertainty.html.
+
+CONSTRAIN.
+  - D3 v7 from CDN. SVG only. N = 500 grid points.
+  - sigma_x, sigma_x^2: compute via Simpson's rule on x |psi|^2 and x^2 |psi|^2.
+  - sigma_p, sigma_p^2: compute via FFT to momentum space, Simpson on p |phi|^2 and p^2 |phi|^2.
+  - The commutator check: for any psi, [x̂, p̂] psi should numerically equal iℏ psi
+    pointwise. Display max deviation from iℏ as a "commutator residual" --- should
+    read ≈ 0 (up to grid discretization).
+  - The Robertson-boundary plot must show the Gaussian point on the curve (ratio 1.000)
+    and the well n=1 point above it (ratio ≈ 1.136). Label both.
+
+VERIFY.
+  (a) Gaussian a = 1 nm, k0 = 0: sigma_x = 1/sqrt(2) nm, sigma_p = ℏ/(sqrt(2) nm), ratio = 1.000.
+  (b) Well n=1, L=10 nm: sigma_x ≈ 1.81 nm, sigma_p ≈ π ℏ / 10 nm ≈ 0.314 ℏ/nm, ratio ≈ 1.136.
+  (c) Well n=10, L=10 nm: ratio ≈ 18.08 (grows as (π/sqrt(3))·n).
+  (d) Commutator residual < 1e-3 ℏ for N = 500.
+````
+
+---
+
 ---
 
 ## Chapter 10: Chapter 10 — Measurement, Superposition, and the Qubit
@@ -1676,6 +2202,120 @@ Validation Checklist — Projective measurement and the qubit
 > *1:* The AI implemented the Born-rule measurement sampler, the collapse rule, and the Bloch-sphere display.
 > *2:* The AI could not determine whether it projected onto the correct eigenbasis or got the $\sigma_y$ sign right — I verified $\sum P = 1$, the sample mean converging to $\langle\hat A\rangle$, and $\sigma_y^\dagger = \sigma_y$ myself.
 **Physics-judgment connection:** trains checking sampled measurement statistics against the analytic expectation value and probability conservation, with startup assertions on the operator definitions that catch the classic qubit sign and angle errors.
+
+## Chapter 10 — Qubit Measurement and Bloch Sphere
+
+- Pauli matrices EXACTLY as follows (verify at startup):
+    sigma_x = [[0,1],[1,0]]
+    sigma_y = [[0,-i],[i,0]]   ← UPPER-RIGHT is -i
+    sigma_z = [[1,0],[0,-1]]
+  For each M: compute M.dagger() (conjugate transpose) and verify M.dagger() === M.
+  Compute M @ M and verify === I (identity). sigma_y sign error is failure mode #1.
+
+- State parametrization: |psi> = cos(theta/2)|0> + exp(i*phi)*sin(theta/2)|1>.
+  Factor of theta/2 (NOT theta) is mandatory.
+  Test: theta=0 => |0>; theta=pi => |1>; theta=pi/2,phi=0 => (|0>+|1>)/sqrt(2).
+
+- Born rule: P(outcome = a_n) = |<a_n|psi>|^2. NEVER P = |psi|^2 directly.
+  Eigenstates for each Pauli:
+    sigma_z: |+> = [1,0], |-> = [0,1]
+    sigma_x: |+> = [1,1]/sqrt(2), |-> = [1,-1]/sqrt(2)
+    sigma_y: |+> = [1,i]/sqrt(2), |-> = [1,-i]/sqrt(2)
+
+- Bloch vector: r = (sin(theta)*cos(phi), sin(theta)*sin(phi), cos(theta)).
+  Runtime check: |r|^2 within 1e-6 of 1. Display as three bar charts [-1, +1].
+
+- Measurement simulation: N outcomes per operator sampled via inverse CDF
+  (u uniform [0,1); +1 if u < P(+1), else -1). Compute sample std devs.
+  Compare product to Robertson bound |<[A,B]>|/2 computed analytically.
+  Label: "N independent measurements on N independent copies. No copy measured twice."
+
+- Collapse: after user clicks "Measure", collapse the displayed state to the
+  eigenstate corresponding to the sampled outcome. Show the collapsed state on
+  the Bloch sphere. Add a "Reset to original state" button.
+````
+
+### Part B — The simulation prompt
+
+````
+SHOW.
+The qubit measurement postulate:
+  For observable A with eigenstates {|a_n>} and eigenvalues {a_n}:
+  (1) Outcomes are eigenvalues only.
+  (2) P(a_n) = |<a_n|psi>|^2.
+  (3) Post-measurement state is |a_n>.
+  Expectation value: <A> = sum_n a_n P(a_n) = <psi|A|psi>.
+  Standard deviation: sigma_A^2 = <A^2> - <A>^2 = 1 - <A>^2  (for Paulis, since A^2 = I).
+
+The qubit state parametrized as:
+  |psi> = cos(theta/2)|0> + exp(i*phi)*sin(theta/2)|1>
+  Bloch vector: r = (sin(theta)cos(phi), sin(theta)sin(phi), cos(theta))
+  |r|^2 = 1 for all pure states.
+
+Robertson bound: sigma_A * sigma_B >= (1/2)|<[A,B]>|.
+  For sigma_x and sigma_z: [sigma_x, sigma_z] = -2i*sigma_y, so bound = |<sigma_y>|.
+
+SAY.
+Produce a single file `11-qubit-measurement.html`.
+
+Layout (SVG 1200 x 700):
+
+Left panel (500 x 700): Bloch sphere.
+  - Translucent sphere silhouette (unit sphere, dashed outline at latitude and longitude circles).
+  - Axes x, y, z labeled, ticks at +/-1.
+  - State vector arrow from origin to Bloch vector; solid in front, dashed behind the sphere center plane.
+  - Colored dots at key states: |0> (north), |1> (south), |+x>, |-x>, |+y>, |-y>.
+  - Current state labeled with (theta, phi) values.
+  - After measurement: collapsed state shown as a new arrow in red.
+
+Center panel (300 x 700): Controls and numerical readouts.
+  - theta slider (0 to pi), phi slider (0 to 2*pi). Current values shown.
+  - Three bar charts: <sigma_x>, <sigma_y>, <sigma_z>, each in [-1, 1].
+  - Normalization indicator: |alpha|^2 + |beta|^2 (must read 1.000).
+  - "Measure sigma_z / sigma_x / sigma_y" buttons. On click: sample one outcome,
+    display it prominently, collapse the Bloch vector to the eigenstate.
+  - "Reset" button: return to pre-measurement state.
+
+Right panel (400 x 700): Measurement statistics.
+  - Two observable dropdowns (sigma_x / sigma_y / sigma_z).
+  - N slider (100 to 5000).
+  - "Run ensemble" button. On click: sample N outcomes for observable A on half
+    and N outcomes for observable B on the other half, draw histograms.
+  - Below histograms: sigma_A, sigma_B, sigma_A*sigma_B, Robertson bound |<[A,B]>|/2.
+  - Ratio = product / bound (label: must be >= 1).
+  - Label: "These are N independent measurements on N independent copies
+    of the same state. No copy is measured twice."
+
+CONSTRAIN.
+- D3 v7 from CDN. SVG only. Vanilla JS. No 3D library.
+- 3D Bloch sphere via orthographic projection (hand-rolled). View angle: 30 deg elevation, 20 deg azimuth.
+- Runtime sanity checks at startup: sigma_y hermiticity, |r|^2 = 1, P(+)+P(-) = 1.
+- Bloch sphere rotatable by mouse drag (optional; document as a bonus).
+
+VERIFY.
+After writing, confirm:
+(a) State |0> (theta=0): sigma_z bar shows +1, others show 0. Single-shot measurement
+    of sigma_z gives +1 with probability 1.
+(b) State |+y> (theta=pi/2, phi=pi/2): sigma_y bar shows +1, sigma_x and sigma_z bars
+    show 0. Ensemble with sigma_x and sigma_z at N=1000: both histograms approximately
+    50/50, product approximately 1, Robertson bound = |<sigma_y>| = 1.
+(c) State |0> ensemble measurement of sigma_x and sigma_z: product = 0, Robertson
+    bound = 0. Ratio undefined or labeled as ">= 1 trivially."
+(d) Clicking "Measure sigma_x" on state |0> collapses to |+x> or |-x> randomly;
+    subsequent sigma_x measure on the collapsed state gives same result with probability 1.
+````
+
+### Part C — Exploration tasks
+
+**The Born rule is geometry.** Set the state to $|0\rangle$ (north pole). Slowly drag $\theta$ toward $\pi/2$ while watching the $\sigma_z$ bar chart. Note $\langle\sigma_z\rangle = \cos\theta$ decreasing from $+1$ toward $0$ and $P(\sigma_z = -1) = \sin^2(\theta/2)$ rising from 0 toward $1/2$. Drag to the south pole: $P(\sigma_z = -1) = 1$. You are watching the Born rule as a geometric projection.
+
+**The phase is real.** Set $\theta = \pi/2$. Drag $\phi$ from $0$ to $2\pi$. The $\langle\sigma_z\rangle$ bar stays at 0 throughout — an equatorial state always gives 50/50 on $\sigma_z$. But watch $\langle\sigma_x\rangle = \cos\phi$ and $\langle\sigma_y\rangle = \sin\phi$ rotate through their full ranges. The relative phase $\phi$ is invisible to $\sigma_z$ but fully visible to $\sigma_x$ and $\sigma_y$. This is the operational meaning of "the phase is observable."
+
+**The Robertson bound is state-dependent.** Run the ensemble measurement for $(\sigma_x, \sigma_z)$ with $N = 2000$. At $\theta = 0$: product $\approx 0$, bound $= 0$. At $\theta = \pi/2, \phi = \pi/2$: product $\approx 1$, bound $\approx 1$. At $\theta = \pi/4, \phi = 0$: somewhere in between. The bound moves with the state.
+
+**Sequential measurement and memory loss.** Click "Measure $\sigma_z$" on the initial state $|+x\rangle$. Record the outcome. Click "Measure $\sigma_x$" on the collapsed state. The result is random — the Z measurement erased the X information. Reset and repeat five times. The post-Z state always gives 50/50 on X, regardless of whether Z returned $+1$ or $-1$.
+
+---
 
 ---
 
