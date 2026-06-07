@@ -179,7 +179,7 @@ What actually happens is both simpler and stranger than the borrowing story. The
 1. *[Transcendental matching, graphical counting]* A particle of mass $m$ is in a finite square well of width $L$ and depth $V_0$. (a) Show that the even-parity matching condition can be written $\sqrt{z_0^2 - z^2} = z\tan z$. (b) Sketch both sides for $z_0 = 3\pi/2$ and count the even-parity bound states. (c) How many total bound states (even + odd) exist for this $z_0$?
 *What this tests: reading bound-state count from the graphical solution without solving transcendental equations numerically.*
 
-2. *[$R + T = 1$ from probability current]* For the potential step at $E > V_0$: (a) verify $R + T = 1$ algebraically; (b) explain in one sentence why $T \neq |C/A|^2$; (c) compute $R$ when $E = 2V_0$.
+2. [$R + T = 1$ *from probability current]* For the potential step at $E > V_0$: (a) verify $R + T = 1$ algebraically; (b) explain in one sentence why $T \neq |C/A|^2$; (c) compute $R$ when $E = 2V_0$.
 *What this tests: keeping probability current accounting straight, and recognizing that amplitude ratios are not transmission coefficients.*
 
 3. *[Evanescent penetration depth]* A particle with $E = 2$ eV hits a step with $V_0 = 5$ eV, $m = m_e$. (a) Compute $1/\kappa$ in nm. (b) By what factor does $|\psi|^2$ drop at $x = 1/\kappa$? At $x = 2/\kappa$?
@@ -191,7 +191,7 @@ What actually happens is both simpler and stranger than the borrowing story. The
 *What this tests: numerical fluency with the exact tunneling formula and verifying where WKB is accurate.*
 
 5. *[Resonance condition above the barrier]* For $V_0 = 2$ eV, $L = 1$ nm, find the two lowest energies above $V_0$ at which $T = 1$. Then find the minimum value of $T$ between the first and second resonances.
-*What this tests: applying the above-barrier formula and locating resonances as a condition on $k_2 L$.*
+*What this tests: applying the above-barrier formula and locating resonances as a condition on* $k_2 L$.
 
 6. *[STM physics, exponential sensitivity]* An STM tip is held 4 Å above platinum ($\phi \approx 5.7$ eV). (a) Compute $\kappa$ in $\text{Å}^{-1}$. (b) Find the ratio of tunneling current at 4 Å vs. 5 Å. (c) By what factor does current change over a 2 Å surface step? (d) Explain in one sentence why this sensitivity enables atomic-resolution imaging.
 *What this tests: connecting the tunneling formula to a real instrument and appreciating what exponential transduction means in practice.*

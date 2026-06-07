@@ -167,5 +167,5 @@ Stopping at step one gives the stationary states but misses everything that happ
 
 ---
 
-*Chapter 5 follows: the infinite square well is the simplest potential with walls. We solve the TISE for $V = 0$ inside and $V = \infty$ at the boundaries, find the sine-function eigenstates and $n^2$-spaced energy levels, and use the results as the concrete basis for everything in this chapter.*
+*Chapter 5 follows: the infinite square well is the simplest potential with walls. We solve the TISE for* $V = 0$ *inside and* $V = \infty$ *at the boundaries, find the sine-function eigenstates and* $n^2$-*spaced energy levels, and use the results as the concrete basis for everything in this chapter.*
 

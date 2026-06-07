@@ -131,7 +131,7 @@ One consequence of this connection is worth noting before moving on. A state of 
 
 3. *Difficulty: Warm-up — tests qualitative grasp of the classical limit.*
    Compute the de Broglie wavelength of a 70 kg person walking at 1 m/s and of a proton ($m_p = 1.673 \times 10^{-27}$ kg) moving at $10^5$ m/s. Express each in meters and then as a fraction of a proton radius ($\sim 10^{-15}$ m). Why is quantum interference unobservable for the person but not for the proton?
-   *Tests: ability to apply $\lambda = h/p$ to macroscopic and nuclear-scale objects and to articulate the correspondence principle.*
+   *Tests: ability to apply* $\lambda = h/p$ *to macroscopic and nuclear-scale objects and to articulate the correspondence principle.*
 
 **Application**
 

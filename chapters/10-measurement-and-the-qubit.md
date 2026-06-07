@@ -94,7 +94,7 @@ $$|\psi\rangle = \frac{\sqrt{3}}{2}|0\rangle + \frac{i}{2}|1\rangle.$$
 
 Check normalization: $3/4 + 1/4 = 1$. In the Bloch parametrization: $\cos(\theta/2) = \sqrt{3}/2$ gives $\theta = \pi/3$; the coefficient of $|1\rangle$ is $i/2 = e^{i\pi/2}/2$, so $\phi = \pi/2$.
 
-**Measuring $\sigma_z$.**
+**Measuring** $\sigma_z$.
 
 $$P(\sigma_z = +1) = |\langle 0|\psi\rangle|^2 = 3/4, \qquad P(\sigma_z = -1) = |\langle 1|\psi\rangle|^2 = 1/4.$$
 
@@ -102,7 +102,7 @@ Expectation value: $\langle\sigma_z\rangle = (+1)(3/4) + (-1)(1/4) = 1/2$. From 
 
 Post-measurement states: if $+1$, collapse to $|0\rangle$; subsequent $\sigma_z$ gives $+1$ with probability 1. If $-1$, collapse to $|1\rangle$; subsequent $\sigma_z$ gives $-1$ with probability 1.
 
-**Measuring $\sigma_x$.**
+**Measuring** $\sigma_x$.
 
 The $\sigma_x$ eigenstates are $|\pm x\rangle = (|0\rangle \pm |1\rangle)/\sqrt{2}$.
 
@@ -110,7 +110,7 @@ $$P(\sigma_x = +1) = |\langle +x|\psi\rangle|^2 = \left|\frac{1}{\sqrt{2}}\cdot\
 
 So $\langle\sigma_x\rangle = 0$. From the Bloch vector: $\sin\theta\cos\phi = \sin(\pi/3)\cos(\pi/2) = 0$. Consistent.
 
-**Measuring $\sigma_y$.**
+**Measuring** $\sigma_y$.
 
 The $\sigma_y$ eigenstates are $|{\pm}y\rangle = (|0\rangle \pm i|1\rangle)/\sqrt{2}$.
 

@@ -163,7 +163,7 @@ Here is the eigensolver in enough detail to implement it without further referen
 
 **Input:** grid $(x_j)$, spacing $h$, potential array $(V_j)$, constants $\hbar$, $m$, number of desired eigenvalues.
 
-**Construct $\mathbf{H}$:**
+**Construct** $\mathbf{H}$:
 
 ```
 t_k = hbar^2 / (2 * m * h^2)       // kinetic hopping coefficient
@@ -204,11 +204,11 @@ Note the $k$-grid formula with the sign flip for $m \geq N/2$. This is the singl
 
 Every failure mode below has a specific symptom in the normalization indicator or the validation table. Learn to read the indicator before debugging anything else.
 
-**$h$ vs. $h^2$ in the kinetic coefficient.** If you write `h` instead of `h*h` in the denominator of $t_k$, the kinetic energy is wrong by a factor of $1/h$. The ground-state energy scales as $1/N$ instead of $1/N^2$. The ratio $E_2/E_1$ is still 4 (because the error is uniform across modes), but $E_1$ itself is completely wrong. The validation table catches this in the first line.
+$h$ **vs.** $h^2$ **in the kinetic coefficient.** If you write `h` instead of `h*h` in the denominator of $t_k$, the kinetic energy is wrong by a factor of $1/h$. The ground-state energy scales as $1/N$ instead of $1/N^2$. The ratio $E_2/E_1$ is still 4 (because the error is uniform across modes), but $E_1$ itself is completely wrong. The validation table catches this in the first line.
 
 **Unnormalized eigenvectors.** math.js returns eigenvectors normalized in the Euclidean sense: $\sum_j|\psi_j|^2 = 1$. The physics normalization is $\sum_j|\psi_j|^2 h = 1$. For $h = 0.004$ nm, the Euclidean-normalized vector has a physics-norm of $1/h = 250$. Multiply the eigenvector by $1/\sqrt{h}$ to correct. Symptom: normalization indicator reads $250$ or $0.004$ instead of $1$.
 
-**Wrong FFT $k$-ordering.** The second half of the FFT output wraps to negative wave vectors. Applying kinetic phase using the raw index $m$ gives the wrong energy to every negative-momentum component. Symptom: time evolution looks correct for the first ten steps and then develops a growing oscillation at the grid scale. Fix: use the $k_m$ formula above.
+**Wrong FFT** $k$-**ordering.** The second half of the FFT output wraps to negative wave vectors. Applying kinetic phase using the raw index $m$ gives the wrong energy to every negative-momentum component. Symptom: time evolution looks correct for the first ten steps and then develops a growing oscillation at the grid scale. Fix: use the $k_m$ formula above.
 
 **Explicit Euler.** Normalization climbs above 1 within fifty steps. The indicator catches it at step ten. Fix: use Crank-Nicolson or split-step. There is no scenario in which explicit Euler is acceptable for the Schrödinger equation.
 
@@ -250,13 +250,13 @@ We have been doing quantum mechanics in one dimension with a single electron. Th
 
 3. *Difficulty: Warm-up — tests understanding of why explicit Euler fails.*
    The explicit Euler update is $\Psi^{n+1} = \Psi^n - (i\Delta t/\hbar)\mathbf{H}\Psi^n$. (a) Write the update as $\Psi^{n+1} = \mathbf{M}\Psi^n$ and identify $\mathbf{M}$. (b) If $\Psi^n$ is an energy eigenstate with eigenvalue $E$, compute $|\Psi^{n+1}|^2/|\Psi^n|^2$. (c) Show this is greater than 1 for any $E \neq 0$ and any $\Delta t > 0$. Why does this make explicit Euler unsuitable for the Schrödinger equation regardless of how small $\Delta t$ is?
-   *Tests: understanding of unitarity and why the instability is unconditional, not just a $\text{small-}\Delta t$ issue.*
+   *Tests: understanding of unitarity and why the instability is unconditional, not just a* $\text{small-}\Delta t$ *issue.*
 
 **Application**
 
 4. *Difficulty: Application — runs the primary validation benchmark.*
    Implement (on paper or in pseudocode) the infinite-square-well eigensolver with $N = 500$, $L = 2$ nm, $m = m_e$. (a) Compute the analytic values $E_1$ through $E_5$ in eV. (b) Estimate the fractional error from the central-difference approximation for $n = 1$ and $n = 5$, using the formula $\delta E_n/E_n \approx (n\pi h/L)^2/12$. (c) At what mode number $n$ does the fractional error first exceed 1% with $N = 500$?
-   *Tests: command of the central-difference error formula and its $n^2$ scaling.*
+   *Tests: command of the central-difference error formula and its* $n^2$ *scaling.*
 
 5. *Difficulty: Application — tests the FFT k-grid correction.*
    An array of length $N = 8$ undergoes FFT. (a) List the raw output indices $m = 0, 1, \ldots, 7$. (b) Convert each to the physical wave vector $k_m$ using $h = 0.1$ nm and the sign-flip rule. (c) For which indices does the physical $k_m$ differ in sign from what you would get by using $m$ directly? (d) If the kinetic phase at index $m = 5$ is $e^{-i\hbar k_m^2\Delta t/2m}$ with $\Delta t = 0.01$ fs, compute the phase using the correct $k_5$ and the incorrect raw-index $k = 2\pi \times 5/(Nh)$. By how much do they differ?

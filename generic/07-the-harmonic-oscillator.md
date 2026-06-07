@@ -188,7 +188,7 @@ $$\langle m|\hat{x}|n\rangle = \ell\!\left(\sqrt{n+1}\,\delta_{m,n+1} + \sqrt{n}
 
 Only $\Delta n = \pm 1$ transitions are allowed. The vibrational spectrum is a single frequency, not a forest of lines — a ruler in frequency space, confirmed by the HCl absorption spectrum.
 
-**Expectation value $\langle\hat{x}^2\rangle$ for $n = 0$, no integrals.** From equation (7.8):
+**Expectation value** $\langle\hat{x}^2\rangle$ **for** $n = 0$, **no integrals.** From equation (7.8):
 
 $$\langle 0|\hat{x}^2|0\rangle = \frac{\hbar}{2\mu\omega} = \ell^2.$$
 
@@ -216,5 +216,5 @@ In Chapter 10, the angular momentum operators $\hat{L}_\pm$ obey a different alg
 
 ---
 
-*Chapter 8 follows: the hydrogen atom. The Coulomb potential is not quadratic, so the harmonic oscillator algebra does not apply directly — but the method does. Angular momentum ladder operators will provide the quantum numbers $\ell$ and $m_\ell$; the radial equation provides the principal quantum number $n$. The spectrum $E_n = -13.6\ \text{eV}/n^2$ is the goal.*
+*Chapter 8 follows: the hydrogen atom. The Coulomb potential is not quadratic, so the harmonic oscillator algebra does not apply directly — but the method does. Angular momentum ladder operators will provide the quantum numbers* $\ell$ *and* $m_\ell$; *the radial equation provides the principal quantum number* $n$. *The spectrum* $E_n = -13.6\ \text{eV}/n^2$ *is the goal.*
 

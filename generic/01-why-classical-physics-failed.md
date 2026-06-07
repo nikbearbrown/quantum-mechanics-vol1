@@ -179,5 +179,5 @@ A genuine physical understanding of *why* oscillators carry discrete energy leve
 
 ---
 
-*Chapter 2 follows: de Broglie turns the argument around and asks whether the particle-nature of light implies a wave-nature of matter. If photons have momentum $p = h/\lambda$, what is the wavelength of an electron?*
+*Chapter 2 follows: de Broglie turns the argument around and asks whether the particle-nature of light implies a wave-nature of matter. If photons have momentum* $p = h/\lambda$, *what is the wavelength of an electron?*
 

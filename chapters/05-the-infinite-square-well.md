@@ -50,17 +50,17 @@ Now we ask: what values of $E$ are allowed?
 
 ## The Derivation in Eight Steps
 
-**Can $E$ be negative?** If $E < 0$, write $\kappa^2 = -2mE/\hbar^2 > 0$. The equation becomes $\psi'' = \kappa^2\psi$, with general solution $\psi = Ae^{\kappa x} + Be^{-\kappa x}$ — a sum of real exponentials. This cannot vanish at both $x = 0$ and $x = L$ unless $A = B = 0$, which means no particle. If $E = 0$, the equation is $\psi'' = 0$, so $\psi = ax + b$; the boundary conditions force both constants to zero. So $E < 0$ and $E = 0$ are excluded. Only $E > 0$ gives a non-trivial solution.
+**Can** $E$ **be negative?** If $E < 0$, write $\kappa^2 = -2mE/\hbar^2 > 0$. The equation becomes $\psi'' = \kappa^2\psi$, with general solution $\psi = Ae^{\kappa x} + Be^{-\kappa x}$ — a sum of real exponentials. This cannot vanish at both $x = 0$ and $x = L$ unless $A = B = 0$, which means no particle. If $E = 0$, the equation is $\psi'' = 0$, so $\psi = ax + b$; the boundary conditions force both constants to zero. So $E < 0$ and $E = 0$ are excluded. Only $E > 0$ gives a non-trivial solution.
 
-**The general solution for $E > 0$.** Define $k = \sqrt{2mE}/\hbar > 0$. The TISE reads $\psi'' = -k^2\psi$ — the equation of a spatial oscillator — with general solution
+**The general solution for** $E > 0$. Define $k = \sqrt{2mE}/\hbar > 0$. The TISE reads $\psi'' = -k^2\psi$ — the equation of a spatial oscillator — with general solution
 
 $$\psi(x) = A\sin(kx) + B\cos(kx).$$
 
 At this point, any positive $k$ is allowed. No quantization yet.
 
-**Apply the boundary condition at $x = 0$.** Substituting: $\psi(0) = A\sin(0) + B\cos(0) = B = 0$. The cosine term is killed. The solution reduces to $\psi(x) = A\sin(kx)$. Still no quantization.
+**Apply the boundary condition at** $x = 0$. Substituting: $\psi(0) = A\sin(0) + B\cos(0) = B = 0$. The cosine term is killed. The solution reduces to $\psi(x) = A\sin(kx)$. Still no quantization.
 
-**Apply the boundary condition at $x = L$.** Now: $\psi(L) = A\sin(kL) = 0$. Either $A = 0$ — no particle, discarded — or
+**Apply the boundary condition at** $x = L$. Now: $\psi(L) = A\sin(kL) = 0$. Either $A = 0$ — no particle, discarded — or
 
 $$\sin(kL) = 0.$$
 
@@ -216,9 +216,9 @@ The question the infinite well leaves open — why the probability interpretatio
    Starting from the TISE with $V = 0$ inside $[0, L]$: (a) Write the general solution $\psi(x) = A\sin(kx) + B\cos(kx)$. (b) Apply $\psi(0) = 0$ to determine $B$. (c) Apply $\psi(L) = 0$ and explain why $\sin(kL) = 0$ leads to a discrete spectrum while the case $A = 0$ is discarded. (d) Write $k_n$, $E_n$, and the normalized $\psi_n(x)$. At which step does quantization first appear?
    *Tests: ability to trace the origin of discreteness to the boundary conditions, not to a postulate.*
 
-2. *Difficulty: Warm-up — tests the $n^2$ energy scaling.*
+2. *Difficulty: Warm-up — tests the* $n^2$ *energy scaling.*
    For an electron in a well of width $L = 2$ nm: (a) Compute $E_1$, $E_2$, $E_3$ in eV. (b) Verify $E_2/E_1 = 4$ and $E_3/E_1 = 9$ to three significant figures. (c) Compare these to $k_BT = 0.025$ eV at room temperature — are quantum effects significant? (d) If $L$ is doubled to 4 nm, by what factor does $E_1$ change?
-   *Tests: numerical command of the spectrum and the $L^{-2}$ scaling.*
+   *Tests: numerical command of the spectrum and the* $L^{-2}$ *scaling.*
 
 3. *Difficulty: Warm-up — tests the trigonometric orthonormality proof.*
    Verify $\langle\psi_1|\psi_2\rangle = 0$ directly, using the identity $\sin\alpha\sin\beta = \frac{1}{2}[\cos(\alpha-\beta)-\cos(\alpha+\beta)]$. Show all steps. Then verify $\langle\psi_1|\psi_1\rangle = 1$ by the same method.
