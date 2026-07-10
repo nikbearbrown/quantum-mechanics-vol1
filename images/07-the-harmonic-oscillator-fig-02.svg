@@ -85,6 +85,6 @@
   <text x="619.8" y="408" font-family="'JetBrains Mono','Courier New',monospace" font-size="10" fill="#545454" text-anchor="middle">4</text>
 
   <!-- Figure title -->
-  <text x="350" y="16" font-family="'EB Garamond','Garamond',Georgia,serif" font-size="13" fill="#2a1a0e" text-anchor="middle">Harmonic oscillator eigenfunctions ψ₀ – ψ₃</text>
+  <text x="350" y="16" font-family="'EB Garamond','Garamond',Georgia,serif" font-size="13" fill="#2a1a0e" text-anchor="middle">Harmonic oscillator eigenfunctions ψ<tspan dy="0.3em" font-size="0.75em">0</tspan><tspan dy="-0.3em"></tspan> – ψ<tspan dy="0.3em" font-size="0.75em">3</tspan><tspan dy="-0.3em"></tspan></text>
 
 </svg>

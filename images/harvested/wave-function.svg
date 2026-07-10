@@ -1,0 +1,23 @@
+<svg role="img" aria-labelledby="t-wave-function d-wave-function" viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg">
+  <title id="t-wave-function">The wave function psi of x and its squared modulus</title>
+  <desc id="d-wave-function">Top: a real-valued wave function psi of x crosses zero and takes negative values. Bottom: its squared modulus is everywhere non-negative and gives the probability density.</desc>
+  <metadata><provenance>CANDIDATE · CAJAL PALETTE · QM VOL 1</provenance></metadata>
+  <rect x="0" y="0" width="560" height="400" fill="#FFFFFF"/>
+  <text x="28" y="30" font-family="'EB Garamond','Garamond',Georgia,serif" font-size="16" fill="#2a1a0e">The Wave Function and Its Density</text>
+  <!-- top panel: psi(x) can be negative -->
+  <rect x="50" y="52" width="460" height="130" fill="#F5F5F5" stroke="#D4D4D4" stroke-width="1"/>
+  <line x1="50" y1="117" x2="510" y2="117" stroke="#2a1a0e" stroke-width="1"/>
+  <path d="M50,117 C120,117 150,112 190,70 C220,40 250,40 280,70 C310,100 320,150 360,170 C390,184 430,180 510,117" fill="none" stroke="#2a1a0e" stroke-width="2.2"/>
+  <text x="62" y="74" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="12" fill="#2a1a0e">ψ(x)</text>
+  <text x="470" y="110" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#545454">+</text>
+  <text x="470" y="138" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#545454">−</text>
+  <!-- bottom panel: |psi|^2 non-negative, filled. RED must-look -->
+  <rect x="50" y="216" width="460" height="130" fill="#F5F5F5" stroke="#D4D4D4" stroke-width="1"/>
+  <line x1="50" y1="336" x2="510" y2="336" stroke="#2a1a0e" stroke-width="1.5"/>
+  <line x1="50" y1="216" x2="50" y2="336" stroke="#2a1a0e" stroke-width="1.5"/>
+  <path d="M50,336 C140,335 175,330 210,250 C232,225 248,225 270,250 C300,280 305,320 360,330 C420,335 470,335 510,336 L510,336 L50,336 Z" fill="#C8102E" fill-opacity="0.18" stroke="#C8102E" stroke-width="2.2"/>
+  <text x="62" y="238" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="12" fill="#C8102E">|ψ(x)|²  ≥ 0</text>
+  <text x="280" y="368" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="12" fill="#2a1a0e" text-anchor="middle">position  x  →</text>
+  <text x="38" y="276" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="12" fill="#2a1a0e" text-anchor="middle" transform="rotate(-90 38 276)">probability density</text>
+  
+</svg>

@@ -1,0 +1,23 @@
+<svg role="img" aria-labelledby="t-schrodinger-equation d-schrodinger-equation" viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg">
+  <title id="t-schrodinger-equation">The Schrodinger equation: time-dependent and time-independent forms annotated</title>
+  <desc id="d-schrodinger-equation">The time-dependent Schrodinger equation governs how the full wave function evolves in time; separating variables yields the time-independent equation, an eigenvalue problem for the stationary states and their energies.</desc>
+  <metadata><provenance>CANDIDATE · CAJAL PALETTE · QM VOL 1</provenance></metadata>
+  <rect x="0" y="0" width="560" height="400" fill="#FFFFFF"/>
+  <text x="28" y="30" font-family="'EB Garamond','Garamond',Georgia,serif" font-size="16" fill="#2a1a0e">Two Forms of Schrödinger's Equation</text>
+  <!-- TDSE box -->
+  <rect x="40" y="56" width="480" height="120" fill="#F5F5F5" stroke="#D4D4D4" stroke-width="1"/>
+  <text x="56" y="80" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="12" fill="#545454">TIME-DEPENDENT (how the state evolves)</text>
+  <text x="280" y="128" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="18" fill="#2a1a0e" text-anchor="middle">iℏ ∂Ψ/∂t = Ĥ Ψ(x,t)</text>
+  <text x="150" y="160" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="10" fill="#545454" text-anchor="middle">i, ℏ structural</text>
+  <text x="410" y="160" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="10" fill="#545454" text-anchor="middle">Ĥ = −ℏ²/2m ∂²/∂x² + V</text>
+  <!-- arrow: separation of variables -->
+  <defs><marker id="ar-se" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#2a1a0e"/></marker></defs>
+  <line x1="280" y1="180" x2="280" y2="216" stroke="#2a1a0e" stroke-width="1.5" marker-end="url(#ar-se)"/>
+  <text x="290" y="202" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="10" fill="#545454">separate:  Ψ = ψ(x) · e^(−iEt/ℏ)</text>
+  <!-- TISE box. RED must-look -->
+  <rect x="40" y="224" width="480" height="120" fill="#F5F5F5" stroke="#C8102E" stroke-width="1.5"/>
+  <text x="56" y="248" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="12" fill="#C8102E">TIME-INDEPENDENT (the stationary states)</text>
+  <text x="280" y="296" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="18" fill="#C8102E" text-anchor="middle">Ĥ ψ(x) = E ψ(x)</text>
+  <text x="280" y="326" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#545454" text-anchor="middle">an eigenvalue problem: allowed energies E</text>
+  
+</svg>

@@ -1,0 +1,28 @@
+<svg role="img" aria-labelledby="t-finite-well d-finite-well" viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg">
+  <title id="t-finite-well">Finite square well: a bound state with exponentially decaying tails</title>
+  <desc id="d-finite-well">A finite-depth well of depth V naught holds bound states whose energies sit below the rim. Inside, the wavefunction is sinusoidal; outside, it does not vanish but decays exponentially, leaking into the classically forbidden region.</desc>
+  <metadata><provenance>CANDIDATE · CAJAL PALETTE · QM VOL 1</provenance></metadata>
+  <rect x="0" y="0" width="560" height="400" fill="#FFFFFF"/>
+  <text x="28" y="30" font-family="'EB Garamond','Garamond',Georgia,serif" font-size="16" fill="#2a1a0e">Finite Well: Bound State with Leaking Tails</text>
+  <rect x="40" y="50" width="490" height="300" fill="#F5F5F5" stroke="#D4D4D4" stroke-width="1"/>
+  <!-- potential well (finite depth) -->
+  <line x1="40" y1="110" x2="180" y2="110" stroke="#2a1a0e" stroke-width="2"/>
+  <line x1="180" y1="110" x2="180" y2="300" stroke="#2a1a0e" stroke-width="2"/>
+  <line x1="180" y1="300" x2="380" y2="300" stroke="#2a1a0e" stroke-width="2"/>
+  <line x1="380" y1="300" x2="380" y2="110" stroke="#2a1a0e" stroke-width="2"/>
+  <line x1="380" y1="110" x2="530" y2="110" stroke="#2a1a0e" stroke-width="2"/>
+  <text x="50" y="104" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#545454">V = 0 (outside)</text>
+  <text x="280" y="316" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#545454" text-anchor="middle">−V₀</text>
+  <!-- energy level dashed -->
+  <line x1="110" y1="240" x2="450" y2="240" stroke="#D4D4D4" stroke-width="0.75" stroke-dasharray="4,3"/>
+  <text x="460" y="244" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#545454">E &lt; 0</text>
+  <!-- bound state psi: tails + inside. RED must-look -->
+  <polyline points="110.0,235.9 111.8,235.7 113.5,235.4 115.2,235.1 117.0,234.9 118.8,234.5 120.5,234.2 122.2,233.9 124.0,233.5 125.8,233.1 127.5,232.7 129.2,232.3 131.0,231.8 132.8,231.3 134.5,230.8 136.2,230.2 138.0,229.6 139.8,229.0 141.5,228.4 143.2,227.7 145.0,226.9 146.8,226.1 148.5,225.3 150.2,224.4 152.0,223.5 153.8,222.5 155.5,221.4 157.2,220.3 159.0,219.1 160.8,217.9 162.5,216.6 164.2,215.2 166.0,213.7 167.8,212.1 169.5,210.4 171.2,208.6 173.0,206.7 174.8,204.7 176.5,202.6 178.2,200.4 180.0,240.0 182.5,238.4 185.0,236.7 187.5,235.1 190.0,233.4 192.5,231.8 195.0,230.2 197.5,228.6 200.0,227.0 202.5,225.5 205.0,223.9 207.5,222.4 210.0,220.9 212.5,219.5 215.0,218.1 217.5,216.7 220.0,215.3 222.5,214.0 225.0,212.7 227.5,211.5 230.0,210.3 232.5,209.2 235.0,208.1 237.5,207.0 240.0,206.0 242.5,205.1 245.0,204.2 247.5,203.4 250.0,202.6 252.5,201.9 255.0,201.2 257.5,200.6 260.0,200.1 262.5,199.6 265.0,199.2 267.5,198.8 270.0,198.5 272.5,198.3 275.0,198.1 277.5,198.0 280.0,198.0 282.5,198.0 285.0,198.1 287.5,198.3 290.0,198.5 292.5,198.8 295.0,199.2 297.5,199.6 300.0,200.1 302.5,200.6 305.0,201.2 307.5,201.9 310.0,202.6 312.5,203.4 315.0,204.2 317.5,205.1 320.0,206.0 322.5,207.0 325.0,208.1 327.5,209.2 330.0,210.3 332.5,211.5 335.0,212.7 337.5,214.0 340.0,215.3 342.5,216.7 345.0,218.1 347.5,219.5 350.0,220.9 352.5,222.4 355.0,223.9 357.5,225.5 360.0,227.0 362.5,228.6 365.0,230.2 367.5,231.8 370.0,233.4 372.5,235.1 375.0,236.7 377.5,238.4 380.0,240.0 381.8,200.4 383.5,202.6 385.2,204.7 387.0,206.7 388.8,208.6 390.5,210.4 392.2,212.1 394.0,213.7 395.8,215.2 397.5,216.6 399.2,217.9 401.0,219.1 402.8,220.3 404.5,221.4 406.2,222.5 408.0,223.5 409.8,224.4 411.5,225.3 413.2,226.1 415.0,226.9 416.8,227.7 418.5,228.4 420.2,229.0 422.0,229.6 423.8,230.2 425.5,230.8 427.2,231.3 429.0,231.8 430.8,232.3 432.5,232.7 434.2,233.1 436.0,233.5 437.8,233.9 439.5,234.2 441.2,234.5 443.0,234.9 444.8,235.1 446.5,235.4 448.2,235.7 450.0,235.9" fill="none" stroke="#C8102E" stroke-width="2.2"/>
+  <!-- forbidden-region shading hints -->
+  <rect x="110" y="160" width="70" height="100" fill="#787878" fill-opacity="0.06"/>
+  <rect x="380" y="160" width="70" height="100" fill="#787878" fill-opacity="0.06"/>
+  <text x="140" y="160" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="10" fill="#545454" text-anchor="middle">forbidden</text>
+  <text x="415" y="160" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="10" fill="#545454" text-anchor="middle">forbidden</text>
+  <text x="280" y="186" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#C8102E" text-anchor="middle">ψ ~ e^(−κ|x|) tails</text>
+  
+</svg>

@@ -48,7 +48,7 @@
 
   <!-- Stage 1 label -->
   <text x="125" y="270" font-family="Lato, sans-serif" font-size="11" fill="#545454" text-anchor="middle">Superposition</text>
-  <text x="125" y="283" font-family="Lato, sans-serif" font-size="10" fill="#545454" text-anchor="middle">|ψ⟩ = α|a₁⟩ + β|a₂⟩</text>
+  <text x="125" y="283" font-family="Lato, sans-serif" font-size="10" fill="#545454" text-anchor="middle">|ψ⟩ = α|a<tspan dy="0.3em" font-size="0.75em">1</tspan><tspan dy="-0.3em"></tspan>⟩ + β|a<tspan dy="0.3em" font-size="0.75em">2</tspan><tspan dy="-0.3em"></tspan>⟩</text>
 
   <!-- ============ STAGE 2: Branching ============ -->
   <!-- Junction node at x=275, y=210 -->
@@ -65,17 +65,17 @@
 
   <!-- Upper outcome node (realized, high-prob) -->
   <circle cx="390" cy="130" r="22" fill="#009E73"/>
-  <text x="390" y="125" font-family="Lato, sans-serif" font-size="11" fill="#FFFFFF" text-anchor="middle">a₁</text>
-  <text x="390" y="140" font-family="Lato, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle">|α|²</text>
+  <text x="390" y="125" font-family="Lato, sans-serif" font-size="11" fill="#FFFFFF" text-anchor="middle">a<tspan dy="0.3em" font-size="0.75em">1</tspan><tspan dy="-0.3em"></tspan></text>
+  <text x="390" y="140" font-family="Lato, sans-serif" font-size="10" fill="#FFFFFF" text-anchor="middle">|α|<tspan dy="-0.5em" font-size="0.75em">2</tspan><tspan dy="0.5em"></tspan></text>
 
   <!-- Lower outcome node (unrealized, dimmed) -->
   <circle cx="390" cy="290" r="22" fill="#CC79A7" fill-opacity="0.3" stroke="#CC79A7" stroke-width="1" stroke-dasharray="4 3"/>
-  <text x="390" y="285" font-family="Lato, sans-serif" font-size="11" fill="#545454" text-anchor="middle" fill-opacity="0.5">a₂</text>
-  <text x="390" y="300" font-family="Lato, sans-serif" font-size="10" fill="#545454" text-anchor="middle" fill-opacity="0.5">|β|²</text>
+  <text x="390" y="285" font-family="Lato, sans-serif" font-size="11" fill="#545454" text-anchor="middle" fill-opacity="0.5">a<tspan dy="0.3em" font-size="0.75em">2</tspan><tspan dy="-0.3em"></tspan></text>
+  <text x="390" y="300" font-family="Lato, sans-serif" font-size="10" fill="#545454" text-anchor="middle" fill-opacity="0.5">|β|<tspan dy="-0.5em" font-size="0.75em">2</tspan><tspan dy="0.5em"></tspan></text>
 
   <!-- Probability labels on branches -->
-  <text x="316" y="155" font-family="Lato, sans-serif" font-size="10" fill="#0072B2">P=|α|²</text>
-  <text x="316" y="280" font-family="Lato, sans-serif" font-size="10" fill="#56B4E9">P=|β|²</text>
+  <text x="316" y="155" font-family="Lato, sans-serif" font-size="10" fill="#0072B2">P=|α|<tspan dy="-0.5em" font-size="0.75em">2</tspan><tspan dy="0.5em"></tspan></text>
+  <text x="316" y="280" font-family="Lato, sans-serif" font-size="10" fill="#56B4E9">P=|β|<tspan dy="-0.5em" font-size="0.75em">2</tspan><tspan dy="0.5em"></tspan></text>
 
   <!-- ============ STAGE 3: Collapsed state ============ -->
   <!-- Arrow from upper outcome to collapsed state at (520, 130) -->
@@ -85,7 +85,7 @@
   <rect x="490" y="95" width="140" height="70" fill="#FFFFFF" stroke="#009E73" stroke-width="1.5"/>
   <!-- Uniform single-component bar -->
   <rect x="540" y="107" width="40" height="46" fill="#009E73"/>
-  <text x="560" y="177" font-family="Lato, sans-serif" font-size="11" fill="#009E73" text-anchor="middle">|a₁⟩</text>
+  <text x="560" y="177" font-family="Lato, sans-serif" font-size="11" fill="#009E73" text-anchor="middle">|a<tspan dy="0.3em" font-size="0.75em">1</tspan><tspan dy="-0.3em"></tspan>⟩</text>
 
   <!-- Repeat arc from collapsed node back (stability) -->
   <path d="M 630,130 C 665,90 665,50 630,40 C 595,30 545,48 530,80" fill="none" stroke="#E69F00" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arr-repeat)"/>
@@ -101,7 +101,7 @@
   <text x="560" y="190" font-family="Lato, sans-serif" font-size="11" fill="#2a1a0e" text-anchor="middle" font-weight="600">③ Collapse</text>
 
   <!-- Caption -->
-  <text x="350" y="370" font-family="Lato, sans-serif" font-size="11" fill="#545454" text-anchor="middle">Outcome is an eigenvalue; probability is |⟨aₙ|ψ⟩|²; post-measurement state is |aₙ⟩</text>
+  <text x="350" y="370" font-family="Lato, sans-serif" font-size="11" fill="#545454" text-anchor="middle">Outcome is an eigenvalue; probability is |⟨a<tspan dy="0.3em" font-size="0.75em">n</tspan><tspan dy="-0.3em"></tspan>|ψ⟩|<tspan dy="-0.5em" font-size="0.75em">2</tspan><tspan dy="0.5em"></tspan>; post-measurement state is |a<tspan dy="0.3em" font-size="0.75em">n</tspan><tspan dy="-0.3em"></tspan>⟩</text>
 
   <!-- Figure title -->
   <text x="350" y="24" font-family="'EB Garamond','Garamond',Georgia,serif" font-size="14" fill="#2a1a0e" text-anchor="middle">The measurement postulate: superposition → outcome → collapse</text>

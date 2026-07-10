@@ -1,0 +1,12 @@
+# This file is used internally by FFMPEG.
+file 'file:/Users/bear/Documents/CoWork/bear-textbooks/books/quantum-mechanics-vol1/youtube/medhavy-ch1-classical-sims/media/videos/vox_scenes/1080p24/partial_movie_files/B03_PhotoelectricRun/2183452429_3809635167_223132457.mp4'
+file 'file:/Users/bear/Documents/CoWork/bear-textbooks/books/quantum-mechanics-vol1/youtube/medhavy-ch1-classical-sims/media/videos/vox_scenes/1080p24/partial_movie_files/B03_PhotoelectricRun/2352976354_2582684256_3574083951.mp4'
+file 'file:/Users/bear/Documents/CoWork/bear-textbooks/books/quantum-mechanics-vol1/youtube/medhavy-ch1-classical-sims/media/videos/vox_scenes/1080p24/partial_movie_files/B03_PhotoelectricRun/2352976354_3542082197_3649415610.mp4'
+file 'file:/Users/bear/Documents/CoWork/bear-textbooks/books/quantum-mechanics-vol1/youtube/medhavy-ch1-classical-sims/media/videos/vox_scenes/1080p24/partial_movie_files/B03_PhotoelectricRun/2352976354_139403030_2478921807.mp4'
+file 'file:/Users/bear/Documents/CoWork/bear-textbooks/books/quantum-mechanics-vol1/youtube/medhavy-ch1-classical-sims/media/videos/vox_scenes/1080p24/partial_movie_files/B03_PhotoelectricRun/2352976354_3991525473_2766516107.mp4'
+file 'file:/Users/bear/Documents/CoWork/bear-textbooks/books/quantum-mechanics-vol1/youtube/medhavy-ch1-classical-sims/media/videos/vox_scenes/1080p24/partial_movie_files/B03_PhotoelectricRun/2352976354_1882291756_75216121.mp4'
+file 'file:/Users/bear/Documents/CoWork/bear-textbooks/books/quantum-mechanics-vol1/youtube/medhavy-ch1-classical-sims/media/videos/vox_scenes/1080p24/partial_movie_files/B03_PhotoelectricRun/2352976354_3928254917_836617030.mp4'
+file 'file:/Users/bear/Documents/CoWork/bear-textbooks/books/quantum-mechanics-vol1/youtube/medhavy-ch1-classical-sims/media/videos/vox_scenes/1080p24/partial_movie_files/B03_PhotoelectricRun/2352976354_1610336604_433371731.mp4'
+file 'file:/Users/bear/Documents/CoWork/bear-textbooks/books/quantum-mechanics-vol1/youtube/medhavy-ch1-classical-sims/media/videos/vox_scenes/1080p24/partial_movie_files/B03_PhotoelectricRun/2352976354_3232625743_1200042130.mp4'
+file 'file:/Users/bear/Documents/CoWork/bear-textbooks/books/quantum-mechanics-vol1/youtube/medhavy-ch1-classical-sims/media/videos/vox_scenes/1080p24/partial_movie_files/B03_PhotoelectricRun/2352976354_1366600769_1284368253.mp4'
+file 'file:/Users/bear/Documents/CoWork/bear-textbooks/books/quantum-mechanics-vol1/youtube/medhavy-ch1-classical-sims/media/videos/vox_scenes/1080p24/partial_movie_files/B03_PhotoelectricRun/2352976354_1787293096_2145331669.mp4'

@@ -1,0 +1,23 @@
+<svg role="img" aria-labelledby="t-born-rule d-born-rule" viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg">
+  <title id="t-born-rule">Born rule: probability as the area under the squared modulus</title>
+  <desc id="d-born-rule">The probability of finding the particle between a and b equals the integral of the squared modulus over that interval, shown as the shaded area under the density curve.</desc>
+  <metadata><provenance>CANDIDATE · CAJAL PALETTE · QM VOL 1</provenance></metadata>
+  <rect x="0" y="0" width="560" height="400" fill="#FFFFFF"/>
+  <text x="28" y="30" font-family="'EB Garamond','Garamond',Georgia,serif" font-size="16" fill="#2a1a0e">Born's Rule: Probability is Area</text>
+  <rect x="60" y="64" width="450" height="252" fill="#F5F5F5" stroke="#D4D4D4" stroke-width="1"/>
+  <line x1="60" y1="316" x2="510" y2="316" stroke="#2a1a0e" stroke-width="1.5"/>
+  <line x1="60" y1="64" x2="60" y2="316" stroke="#2a1a0e" stroke-width="1.5"/>
+  <!-- full density curve, greyscale outline -->
+  <path d="M60,314 C150,312 190,300 230,200 C255,140 285,120 305,120 C330,120 360,150 385,210 C420,290 460,312 510,314" fill="none" stroke="#2a1a0e" stroke-width="2"/>
+  <!-- shaded interval [a,b]. RED must-look area -->
+  <path d="M225,316 L225,205 C240,160 255,135 270,124 C285,116 300,116 315,124 C328,131 340,150 350,178 L350,316 Z" fill="#C8102E" fill-opacity="0.22" stroke="#C8102E" stroke-width="1.5"/>
+  <line x1="225" y1="316" x2="225" y2="330" stroke="#2a1a0e" stroke-width="1.5"/>
+  <line x1="350" y1="316" x2="350" y2="330" stroke="#2a1a0e" stroke-width="1.5"/>
+  <text x="222" y="345" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="12" fill="#545454" text-anchor="middle">a</text>
+  <text x="350" y="345" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="12" fill="#545454" text-anchor="middle">b</text>
+  <text x="287" y="240" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="13" fill="#C8102E" text-anchor="middle">P</text>
+  <text x="70" y="86" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="12" fill="#2a1a0e">|ψ(x)|²</text>
+  <text x="290" y="384" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="12" fill="#2a1a0e" text-anchor="middle">P(a ≤ x ≤ b) = ∫ₐᵇ |ψ(x)|² dx</text>
+  <text x="285" y="362" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="12" fill="#2a1a0e" text-anchor="middle">position  x  →</text>
+  
+</svg>

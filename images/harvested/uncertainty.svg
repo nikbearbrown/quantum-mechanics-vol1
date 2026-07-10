@@ -1,0 +1,32 @@
+<svg role="img" aria-labelledby="t-uncertainty d-uncertainty" viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg">
+  <title id="t-uncertainty">Position-momentum uncertainty: narrowing one distribution widens the other</title>
+  <desc id="d-uncertainty">A state sharply localized in position has a broad momentum distribution, and a state sharply localized in momentum has a broad position distribution. The product of the two spreads can never fall below h-bar over two.</desc>
+  <metadata><provenance>CANDIDATE · CAJAL PALETTE · QM VOL 1</provenance></metadata>
+  <rect x="0" y="0" width="560" height="400" fill="#FFFFFF"/>
+  <text x="28" y="30" font-family="'EB Garamond','Garamond',Georgia,serif" font-size="16" fill="#2a1a0e">The Uncertainty Principle</text>
+  <!-- left: narrow x, wide p -->
+  <rect x="40" y="56" width="220" height="120" fill="#F5F5F5" stroke="#D4D4D4" stroke-width="1"/>
+  <line x1="40" y1="166" x2="260" y2="166" stroke="#2a1a0e" stroke-width="1.5"/>
+  <path d="M40,165 C120,164 140,160 150,80 C152,66 158,66 160,80 C170,160 190,164 260,165 Z" fill="#787878" fill-opacity="0.16" stroke="#2a1a0e" stroke-width="2"/>
+  <text x="52" y="74" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#545454" text-anchor="start">narrow Δx</text>
+  <rect x="40" y="200" width="220" height="120" fill="#F5F5F5" stroke="#D4D4D4" stroke-width="1"/>
+  <line x1="40" y1="310" x2="260" y2="310" stroke="#2a1a0e" stroke-width="1.5"/>
+  <path d="M40,308 C90,306 110,280 150,230 C158,220 142,220 150,230 C190,280 210,306 260,308 Z" fill="#C8102E" fill-opacity="0.16" stroke="#C8102E" stroke-width="2"/>
+  <text x="52" y="218" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#C8102E" text-anchor="start">wide Δp</text>
+  <!-- right: wide x, narrow p -->
+  <rect x="300" y="56" width="220" height="120" fill="#F5F5F5" stroke="#D4D4D4" stroke-width="1"/>
+  <line x1="300" y1="166" x2="520" y2="166" stroke="#2a1a0e" stroke-width="1.5"/>
+  <path d="M300,164 C350,162 370,136 410,86 C418,76 402,76 410,86 C450,136 470,162 520,164 Z" fill="#787878" fill-opacity="0.16" stroke="#2a1a0e" stroke-width="2"/>
+  <text x="312" y="74" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#545454" text-anchor="start">wide Δx</text>
+  <rect x="300" y="200" width="220" height="120" fill="#F5F5F5" stroke="#D4D4D4" stroke-width="1"/>
+  <line x1="300" y1="310" x2="520" y2="310" stroke="#2a1a0e" stroke-width="1.5"/>
+  <path d="M300,309 C380,308 400,304 410,224 C412,210 418,210 420,224 C430,304 450,308 520,309 Z" fill="#C8102E" fill-opacity="0.16" stroke="#C8102E" stroke-width="2"/>
+  <text x="312" y="218" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#C8102E" text-anchor="start">narrow Δp</text>
+  <!-- axis hints -->
+  <text x="150" y="182" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="10" fill="#545454" text-anchor="middle">|ψ(x)|²</text>
+  <text x="150" y="326" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="10" fill="#545454" text-anchor="middle">|φ(p)|²</text>
+  <text x="410" y="182" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="10" fill="#545454" text-anchor="middle">|ψ(x)|²</text>
+  <text x="410" y="326" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="10" fill="#545454" text-anchor="middle">|φ(p)|²</text>
+  <text x="280" y="356" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="15" fill="#2a1a0e" text-anchor="middle">Δx · Δp ≥ ℏ / 2</text>
+  
+</svg>

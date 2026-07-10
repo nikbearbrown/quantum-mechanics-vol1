@@ -1,0 +1,33 @@
+<svg role="img" aria-labelledby="t-step-barrier d-step-barrier" viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg">
+  <title id="t-step-barrier">Potential step: incident, reflected, and transmitted waves</title>
+  <desc id="d-step-barrier">A particle of energy E above a potential step of height V naught is partly reflected and partly transmitted. The incident and reflected waves share the left region with the same wavelength; the transmitted wave continues into the step region with a longer wavelength.</desc>
+  <metadata><provenance>CANDIDATE · CAJAL PALETTE · QM VOL 1</provenance></metadata>
+  <defs>
+    <marker id="ar-sb" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#2a1a0e"/></marker>
+    <marker id="arR-sb" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#C8102E"/></marker>
+  </defs>
+  <rect x="0" y="0" width="560" height="400" fill="#FFFFFF"/>
+  <text x="28" y="30" font-family="'EB Garamond','Garamond',Georgia,serif" font-size="16" fill="#2a1a0e">Potential Step: Reflection and Transmission</text>
+  <rect x="40" y="50" width="490" height="300" fill="#F5F5F5" stroke="#D4D4D4" stroke-width="1"/>
+  <!-- potential step -->
+  <line x1="40" y1="280" x2="290" y2="280" stroke="#2a1a0e" stroke-width="2"/>
+  <line x1="290" y1="280" x2="290" y2="190" stroke="#2a1a0e" stroke-width="2"/>
+  <line x1="290" y1="190" x2="530" y2="190" stroke="#2a1a0e" stroke-width="2"/>
+  <text x="300" y="184" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#545454">V₀</text>
+  <!-- energy line -->
+  <line x1="40" y1="140" x2="530" y2="140" stroke="#D4D4D4" stroke-width="0.75" stroke-dasharray="4,3"/>
+  <text x="46" y="134" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#545454">E &gt; V₀</text>
+  <!-- incident wave (left, short wavelength) greyscale -->
+  <path d="M50,110 C62,90 74,90 86,110 C98,130 110,130 122,110 C134,90 146,90 158,110 C170,130 182,130 194,110 C206,90 218,90 230,110 C242,130 254,130 266,110" fill="none" stroke="#2a1a0e" stroke-width="2"/>
+  <line x1="120" y1="78" x2="180" y2="78" stroke="#2a1a0e" stroke-width="1.5" marker-end="url(#ar-sb)"/>
+  <text x="60" y="74" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#545454">incident</text>
+  <!-- reflected arrow greyscale -->
+  <line x1="200" y1="170" x2="140" y2="170" stroke="#787878" stroke-width="1.5" marker-end="url(#ar-sb)"/>
+  <text x="208" y="174" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#545454">reflected R</text>
+  <!-- transmitted wave (right, longer wavelength). RED must-look -->
+  <path d="M295,110 C315,86 335,86 355,110 C375,134 395,134 415,110 C435,86 455,86 475,110 C490,128 505,128 520,112" fill="none" stroke="#C8102E" stroke-width="2.2"/>
+  <line x1="360" y1="78" x2="430" y2="78" stroke="#C8102E" stroke-width="1.5" marker-end="url(#arR-sb)"/>
+  <text x="370" y="74" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#C8102E">transmitted T  (longer λ)</text>
+  <text x="200" y="330" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#2a1a0e" text-anchor="middle">R + T = 1</text>
+  
+</svg>

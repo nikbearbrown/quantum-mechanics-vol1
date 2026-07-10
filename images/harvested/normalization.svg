@@ -1,0 +1,28 @@
+<svg role="img" aria-labelledby="t-normalization d-normalization" viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg">
+  <title id="t-normalization">Normalization: total area under the density equals one</title>
+  <desc id="d-normalization">An un-normalized density is rescaled by a constant so that the total area under the squared modulus over all space equals one, the requirement that the particle is found somewhere with certainty.</desc>
+  <metadata><provenance>CANDIDATE · CAJAL PALETTE · QM VOL 1</provenance></metadata>
+  <rect x="0" y="0" width="560" height="400" fill="#FFFFFF"/>
+  <text x="28" y="30" font-family="'EB Garamond','Garamond',Georgia,serif" font-size="16" fill="#2a1a0e">Normalization: Total Area = 1</text>
+  <!-- left: unnormalized -->
+  <rect x="40" y="64" width="220" height="220" fill="#F5F5F5" stroke="#D4D4D4" stroke-width="1"/>
+  <line x1="40" y1="284" x2="260" y2="284" stroke="#2a1a0e" stroke-width="1.5"/>
+  <line x1="40" y1="64" x2="40" y2="284" stroke="#2a1a0e" stroke-width="1.5"/>
+  <path d="M40,283 C90,280 110,250 150,110 C158,90 172,90 180,110 C210,235 230,280 260,283 L260,284 L40,284 Z" fill="#787878" fill-opacity="0.18" stroke="#787878" stroke-width="2"/>
+  <text x="150" y="86" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#545454" text-anchor="middle">|ψ|²  (raw)</text>
+  <text x="150" y="170" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#545454" text-anchor="middle">∫ = A ≠ 1</text>
+  <!-- arrow -->
+  <defs><marker id="ar-nm" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#2a1a0e"/></marker></defs>
+  <line x1="270" y1="174" x2="300" y2="174" stroke="#2a1a0e" stroke-width="1.5" marker-end="url(#ar-nm)"/>
+  <text x="285" y="164" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="10" fill="#545454" text-anchor="middle">÷√A</text>
+  <!-- right: normalized. RED must-look -->
+  <rect x="310" y="64" width="220" height="220" fill="#F5F5F5" stroke="#D4D4D4" stroke-width="1"/>
+  <line x1="310" y1="284" x2="530" y2="284" stroke="#2a1a0e" stroke-width="1.5"/>
+  <line x1="310" y1="64" x2="310" y2="284" stroke="#2a1a0e" stroke-width="1.5"/>
+  <path d="M310,283 C360,281 380,255 420,150 C428,132 442,132 450,150 C490,255 500,281 530,283 L530,284 L310,284 Z" fill="#C8102E" fill-opacity="0.20" stroke="#C8102E" stroke-width="2.2"/>
+  <text x="420" y="86" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#C8102E" text-anchor="middle">|ψ|²  (normalized)</text>
+  <text x="420" y="200" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="12" fill="#C8102E" text-anchor="middle">∫ = 1</text>
+  <text x="280" y="334" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="12" fill="#2a1a0e" text-anchor="middle">∫₋∞^∞ |ψ(x)|² dx = 1</text>
+  <text x="280" y="360" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="11" fill="#545454" text-anchor="middle">the particle is found somewhere with certainty</text>
+  
+</svg>

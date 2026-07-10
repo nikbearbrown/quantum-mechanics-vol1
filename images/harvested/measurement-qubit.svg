@@ -1,0 +1,37 @@
+<svg role="img" aria-labelledby="t-measurement-qubit d-measurement-qubit" viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg">
+  <title id="t-measurement-qubit">Measurement and the qubit: a two-level superposition collapses to one outcome</title>
+  <desc id="d-measurement-qubit">A qubit prepared in a superposition of states zero and one carries amplitudes alpha and beta. Measurement yields a single definite outcome with probability given by the squared amplitude; here the state collapses to the outcome one.</desc>
+  <metadata><provenance>CANDIDATE · CAJAL PALETTE · QM VOL 1</provenance></metadata>
+  <defs>
+    <marker id="ar-mq" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#2a1a0e"/></marker>
+    <marker id="arR-mq" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#C8102E"/></marker>
+  </defs>
+  <rect x="0" y="0" width="560" height="400" fill="#FFFFFF"/>
+  <text x="28" y="30" font-family="'EB Garamond','Garamond',Georgia,serif" font-size="16" fill="#2a1a0e">Measurement Collapses the Qubit</text>
+  <!-- left: superposition state -->
+  <rect x="36" y="60" width="190" height="270" fill="#F5F5F5" stroke="#D4D4D4" stroke-width="1"/>
+  <text x="131" y="84" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="12" fill="#545454" text-anchor="middle">BEFORE — superposition</text>
+  <text x="131" y="116" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="13" fill="#2a1a0e" text-anchor="middle">|ψ⟩ = α|0⟩ + β|1⟩</text>
+  <!-- probability bars for 0 and 1 (greyscale) -->
+  <rect x="70" y="200" width="48" height="90" fill="#787878" fill-opacity="0.30" stroke="#2a1a0e" stroke-width="1.2"/>
+  <rect x="146" y="170" width="48" height="120" fill="#787878" fill-opacity="0.30" stroke="#2a1a0e" stroke-width="1.2"/>
+  <line x1="60" y1="290" x2="205" y2="290" stroke="#2a1a0e" stroke-width="1.5"/>
+  <text x="94" y="306" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#545454" text-anchor="middle">|α|²</text>
+  <text x="170" y="306" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#545454" text-anchor="middle">|β|²</text>
+  <text x="94" y="322" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#2a1a0e" text-anchor="middle">P(0)</text>
+  <text x="170" y="322" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#2a1a0e" text-anchor="middle">P(1)</text>
+  <!-- measurement arrow -->
+  <line x1="232" y1="195" x2="318" y2="195" stroke="#2a1a0e" stroke-width="1.5" marker-end="url(#ar-mq)"/>
+  <text x="275" y="186" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="11" fill="#545454" text-anchor="middle">measure</text>
+  <text x="275" y="214" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="10" fill="#545454" text-anchor="middle">|β|²</text>
+  <!-- right: collapsed outcome. RED must-look -->
+  <rect x="324" y="60" width="200" height="270" fill="#F5F5F5" stroke="#D4D4D4" stroke-width="1"/>
+  <text x="424" y="84" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="12" fill="#545454" text-anchor="middle">AFTER — one outcome</text>
+  <text x="424" y="116" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="14" fill="#C8102E" text-anchor="middle">|ψ⟩ → |1⟩</text>
+  <!-- single full bar at outcome 1 -->
+  <rect x="395" y="150" width="60" height="140" fill="#C8102E" fill-opacity="0.22" stroke="#C8102E" stroke-width="2"/>
+  <line x1="360" y1="290" x2="490" y2="290" stroke="#2a1a0e" stroke-width="1.5"/>
+  <text x="425" y="306" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#C8102E" text-anchor="middle">P(1) = 1</text>
+  <text x="425" y="322" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#545454" text-anchor="middle">outcome: 1</text>
+  
+</svg>

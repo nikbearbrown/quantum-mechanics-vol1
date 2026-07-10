@@ -1,0 +1,20 @@
+<svg role="img" aria-labelledby="t-matter-waves d-matter-waves" viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg">
+  <title id="t-matter-waves">de Broglie matter waves: wavelength inversely proportional to momentum</title>
+  <desc id="d-matter-waves">A slow, low-momentum particle has a long wavelength; a fast, high-momentum particle has a short wavelength. The de Broglie relation lambda equals h over p ties wavelength to momentum.</desc>
+  <metadata><provenance>CANDIDATE · CAJAL PALETTE · QM VOL 1</provenance></metadata>
+  <rect x="0" y="0" width="560" height="400" fill="#FFFFFF"/>
+  <text x="28" y="30" font-family="'EB Garamond','Garamond',Georgia,serif" font-size="16" fill="#2a1a0e">Matter Waves: λ = h / p</text>
+  <!-- top panel: low momentum, long wavelength -->
+  <rect x="40" y="56" width="480" height="120" fill="#F5F5F5" stroke="#D4D4D4" stroke-width="1"/>
+  <line x1="40" y1="116" x2="520" y2="116" stroke="#D4D4D4" stroke-width="0.5"/>
+  <path d="M40,116 C70,76 110,76 140,116 C170,156 210,156 240,116 C270,76 310,76 340,116 C370,156 410,156 440,116 C470,76 510,76 520,116" fill="none" stroke="#2a1a0e" stroke-width="2"/>
+  <text x="52" y="74" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#545454">small p  →  long λ</text>
+  <text x="220" y="172" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#545454">|←——— λ ———→|</text>
+  <!-- bottom panel: high momentum, short wavelength. RED must-look -->
+  <rect x="40" y="216" width="480" height="120" fill="#F5F5F5" stroke="#D4D4D4" stroke-width="1"/>
+  <line x1="40" y1="276" x2="520" y2="276" stroke="#D4D4D4" stroke-width="0.5"/>
+  <path d="M40,276 C55,246 70,246 85,276 C100,306 115,306 130,276 C145,246 160,246 175,276 C190,306 205,306 220,276 C235,246 250,246 265,276 C280,306 295,306 310,276 C325,246 340,246 355,276 C370,306 385,306 400,276 C415,246 430,246 445,276 C460,306 475,306 490,276 C505,246 515,250 520,276" fill="none" stroke="#C8102E" stroke-width="2"/>
+  <text x="52" y="234" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#C8102E">large p  →  short λ</text>
+  <text x="140" y="332" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#545454">|←— λ —→|</text>
+  
+</svg>

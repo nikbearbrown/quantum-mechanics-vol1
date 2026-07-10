@@ -80,11 +80,11 @@
   <rect x="340" y="395" width="20" height="12" fill="#D55E00" rx="0"/>
 
   <!-- a₋ label -->
-  <text x="506" y="215" font-family="Lato, sans-serif" font-size="13" fill="#D55E00" text-anchor="middle">a₋</text>
+  <text x="506" y="215" font-family="Lato, sans-serif" font-size="13" fill="#D55E00" text-anchor="middle">a<tspan dy="0.3em" font-size="0.75em">-</tspan><tspan dy="-0.3em"></tspan></text>
   <text x="506" y="230" font-family="Lato, sans-serif" font-size="10" fill="#D55E00" text-anchor="middle">(lowers)</text>
 
   <!-- "a₋|0⟩=0" annotation near floor -->
-  <text x="380" y="407" font-family="Lato, sans-serif" font-size="11" fill="#D55E00">a₋|0⟩ = 0</text>
+  <text x="380" y="407" font-family="Lato, sans-serif" font-size="11" fill="#D55E00">a<tspan dy="0.3em" font-size="0.75em">-</tspan><tspan dy="-0.3em"></tspan>|0⟩ = 0</text>
 
   <!-- ℏω spacing bracket on far right -->
   <line x1="560" y1="285" x2="560" y2="210" stroke="#E69F00" stroke-width="1.25"/>
@@ -93,6 +93,6 @@
   <text x="576" y="252" font-family="Lato, sans-serif" font-size="11" fill="#E69F00">ℏω</text>
 
   <!-- Figure title -->
-  <text x="350" y="26" font-family="'EB Garamond','Garamond',Georgia,serif" font-size="14" fill="#2a1a0e" text-anchor="middle">Ladder operators: a† raises, a₋ lowers by ℏω</text>
+  <text x="350" y="26" font-family="'EB Garamond','Garamond',Georgia,serif" font-size="14" fill="#2a1a0e" text-anchor="middle">Ladder operators: a† raises, a<tspan dy="0.3em" font-size="0.75em">-</tspan><tspan dy="-0.3em"></tspan> lowers by ℏω</text>
 
 </svg>

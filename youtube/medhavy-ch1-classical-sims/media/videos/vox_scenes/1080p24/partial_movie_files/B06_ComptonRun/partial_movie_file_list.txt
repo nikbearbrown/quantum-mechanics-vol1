@@ -1,0 +1,10 @@
+# This file is used internally by FFMPEG.
+file 'file:/Users/bear/Documents/CoWork/bear-textbooks/books/quantum-mechanics-vol1/youtube/medhavy-ch1-classical-sims/media/videos/vox_scenes/1080p24/partial_movie_files/B06_ComptonRun/2183452429_3364944406_223132457.mp4'
+file 'file:/Users/bear/Documents/CoWork/bear-textbooks/books/quantum-mechanics-vol1/youtube/medhavy-ch1-classical-sims/media/videos/vox_scenes/1080p24/partial_movie_files/B06_ComptonRun/2352976354_3774439989_1394984539.mp4'
+file 'file:/Users/bear/Documents/CoWork/bear-textbooks/books/quantum-mechanics-vol1/youtube/medhavy-ch1-classical-sims/media/videos/vox_scenes/1080p24/partial_movie_files/B06_ComptonRun/2352976354_1409208380_380118852.mp4'
+file 'file:/Users/bear/Documents/CoWork/bear-textbooks/books/quantum-mechanics-vol1/youtube/medhavy-ch1-classical-sims/media/videos/vox_scenes/1080p24/partial_movie_files/B06_ComptonRun/2352976354_657000066_2586657942.mp4'
+file 'file:/Users/bear/Documents/CoWork/bear-textbooks/books/quantum-mechanics-vol1/youtube/medhavy-ch1-classical-sims/media/videos/vox_scenes/1080p24/partial_movie_files/B06_ComptonRun/2352976354_2397158679_141149029.mp4'
+file 'file:/Users/bear/Documents/CoWork/bear-textbooks/books/quantum-mechanics-vol1/youtube/medhavy-ch1-classical-sims/media/videos/vox_scenes/1080p24/partial_movie_files/B06_ComptonRun/2352976354_832024067_387985012.mp4'
+file 'file:/Users/bear/Documents/CoWork/bear-textbooks/books/quantum-mechanics-vol1/youtube/medhavy-ch1-classical-sims/media/videos/vox_scenes/1080p24/partial_movie_files/B06_ComptonRun/2352976354_604202330_845857947.mp4'
+file 'file:/Users/bear/Documents/CoWork/bear-textbooks/books/quantum-mechanics-vol1/youtube/medhavy-ch1-classical-sims/media/videos/vox_scenes/1080p24/partial_movie_files/B06_ComptonRun/2352976354_1889442971_845284714.mp4'
+file 'file:/Users/bear/Documents/CoWork/bear-textbooks/books/quantum-mechanics-vol1/youtube/medhavy-ch1-classical-sims/media/videos/vox_scenes/1080p24/partial_movie_files/B06_ComptonRun/2352976354_1785493626_228776904.mp4'

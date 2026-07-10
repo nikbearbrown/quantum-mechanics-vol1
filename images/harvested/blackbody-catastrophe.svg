@@ -1,0 +1,25 @@
+<svg role="img" aria-labelledby="t-blackbody-catastrophe d-blackbody-catastrophe" viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg">
+  <title id="t-blackbody-catastrophe">Blackbody radiation: classical catastrophe vs Planck's law</title>
+  <desc id="d-blackbody-catastrophe">The Rayleigh-Jeans classical curve rises without bound at high frequency, the ultraviolet catastrophe, while the Planck distribution rises, peaks, and falls to match measured spectra.</desc>
+  <metadata><provenance>CANDIDATE · CAJAL PALETTE · QM VOL 1</provenance></metadata>
+  <defs>
+    <marker id="ar-bb" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2a1a0e"/></marker>
+  </defs>
+  <rect x="0" y="0" width="560" height="400" fill="#FFFFFF"/>
+  <text x="28" y="30" font-family="'EB Garamond','Garamond',Georgia,serif" font-size="16" fill="#2a1a0e">The Ultraviolet Catastrophe</text>
+  <rect x="70" y="56" width="430" height="280" fill="#F5F5F5" stroke="#D4D4D4" stroke-width="1"/>
+  <line x1="70" y1="126" x2="500" y2="126" stroke="#D4D4D4" stroke-width="0.5"/>
+  <line x1="70" y1="196" x2="500" y2="196" stroke="#D4D4D4" stroke-width="0.5"/>
+  <line x1="70" y1="266" x2="500" y2="266" stroke="#D4D4D4" stroke-width="0.5"/>
+  <line x1="70" y1="336" x2="500" y2="336" stroke="#2a1a0e" stroke-width="1.5"/>
+  <line x1="70" y1="56" x2="70" y2="336" stroke="#2a1a0e" stroke-width="1.5"/>
+  <path d="M70,335 Q150,330 210,300 Q250,275 280,230 Q300,195 315,150 Q327,108 336,56" fill="none" stroke="#787878" stroke-width="2" stroke-dasharray="6,4"/>
+  <path d="M70,336 C120,320 150,250 200,150 C225,110 255,98 290,120 C330,148 380,250 430,300 C455,322 480,330 500,333" fill="none" stroke="#C8102E" stroke-width="2.5"/>
+  <text x="345" y="84" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#545454">classical (Rayleigh–Jeans)</text>
+  <text x="345" y="99" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#545454">u ∝ ν²·k_B·T  →  ∞</text>
+  <text x="150" y="240" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#C8102E">Planck (measured)</text>
+  <text x="285" y="368" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="12" fill="#2a1a0e" text-anchor="middle">frequency  ν  →</text>
+  <text x="46" y="200" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="12" fill="#2a1a0e" text-anchor="middle" transform="rotate(-90 46 200)">spectral energy density  u(ν,T)</text>
+  <text x="66" y="350" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#545454" text-anchor="end">0</text>
+  
+</svg>

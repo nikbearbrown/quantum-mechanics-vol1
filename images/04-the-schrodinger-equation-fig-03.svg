@@ -39,13 +39,13 @@
   <text x="350" y="17" font-family="'EB Garamond','Garamond',Georgia,serif" font-size="14" font-weight="400" fill="#2a1a0e" text-anchor="middle">Stationary eigenstate vs. sloshing superposition</text>
 
   <!-- Column header labels -->
-  <text x="180" y="32" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="11" fill="#545454" text-anchor="middle" font-style="italic">single eigenstate |ψ₁|²</text>
-  <text x="520" y="32" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="11" fill="#545454" text-anchor="middle" font-style="italic">superposition ½|ψ₁+ψ₂|²</text>
+  <text x="180" y="32" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="11" fill="#545454" text-anchor="middle" font-style="italic">single eigenstate |ψ<tspan dy="0.3em" font-size="0.75em">1</tspan><tspan dy="-0.3em"></tspan>|<tspan dy="-0.5em" font-size="0.75em">2</tspan><tspan dy="0.5em"></tspan></text>
+  <text x="520" y="32" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="11" fill="#545454" text-anchor="middle" font-style="italic">superposition ½|ψ<tspan dy="0.3em" font-size="0.75em">1</tspan><tspan dy="-0.3em"></tspan>+ψ<tspan dy="0.3em" font-size="0.75em">2</tspan><tspan dy="-0.3em"></tspan>|<tspan dy="-0.5em" font-size="0.75em">2</tspan><tspan dy="0.5em"></tspan></text>
 
   <!-- Time row indicators (left strip) -->
   <circle cx="22" cy="97" r="6" fill="#545454"/>
   <circle cx="22" cy="277" r="6" fill="#545454" opacity="0.4"/>
-  <text x="22" y="130" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="9" fill="#545454" text-anchor="middle">t₀</text>
+  <text x="22" y="130" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="9" fill="#545454" text-anchor="middle">t<tspan dy="0.3em" font-size="0.75em">0</tspan><tspan dy="-0.3em"></tspan></text>
   <text x="22" y="310" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="9" fill="#545454" text-anchor="middle">T/2</text>
 
   <!-- ===== TOP-LEFT: Single eigenstate t=0 ===== -->
@@ -72,7 +72,7 @@
   <!-- Row labels on separator -->
   <text x="180" y="182" font-family="'EB Garamond','Garamond',Georgia,serif" font-size="11" fill="#2a1a0e" text-anchor="middle" font-style="italic">unchanged</text>
   <text x="520" y="175" font-family="'EB Garamond','Garamond',Georgia,serif" font-size="11" fill="#C8102E" text-anchor="middle" font-weight="600">sloshes →</text>
-  <text x="520" y="190" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="10" fill="#545454" text-anchor="middle">cross-term cos(ω₁₂t) beats</text>
+  <text x="520" y="190" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="10" fill="#545454" text-anchor="middle">cross-term cos(ω<tspan dy="0.3em" font-size="0.75em">12</tspan><tspan dy="-0.3em"></tspan>t) beats</text>
 
   <!-- Double-headed arrow between super panels -->
   <line x1="380" y1="183" x2="660" y2="183" stroke="#C8102E" stroke-width="0.75" stroke-dasharray="3 2"/>
@@ -105,7 +105,7 @@
   <text x="350" y="370" font-family="'EB Garamond','Garamond',Georgia,serif" font-size="12" fill="#2a1a0e" text-anchor="middle">Position x in well [0, L]</text>
 
   <!-- Bottom key -->
-  <text x="350" y="395" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="10" fill="#545454" text-anchor="middle">Stationary: |ψ₁|² constant.   Superposition: cross-term 2ψ₁ψ₂ cos(ω₁₂t) oscillates at beat frequency.</text>
+  <text x="350" y="395" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="10" fill="#545454" text-anchor="middle">Stationary: |ψ<tspan dy="0.3em" font-size="0.75em">1</tspan><tspan dy="-0.3em"></tspan>|<tspan dy="-0.5em" font-size="0.75em">2</tspan><tspan dy="0.5em"></tspan> constant.   Superposition: cross-term 2ψ<tspan dy="0.3em" font-size="0.75em">1</tspan><tspan dy="-0.3em"></tspan>ψ<tspan dy="0.3em" font-size="0.75em">2</tspan><tspan dy="-0.3em"></tspan> cos(ω<tspan dy="0.3em" font-size="0.75em">12</tspan><tspan dy="-0.3em"></tspan>t) oscillates at beat frequency.</text>
 
   <!-- Column vertical divider -->
   <line x1="350" y1="30" x2="350" y2="380" stroke="#D4D4D4" stroke-width="1" stroke-dasharray="6 3"/>
