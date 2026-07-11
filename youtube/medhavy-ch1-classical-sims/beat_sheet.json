@@ -20,14 +20,14 @@
     },
     "color_semantics": "Okabe-Ito: TEAL #009E73 = good/true, CRIMSON #D55E00 = bad/broken. INK for all text. Shape fills only for TEAL/CRIMSON.",
     "source_chapter": "quantum-mechanics-vol1/chapters/ch01-why-classical-physics-failed.md",
-    "note": "Medhavy register. B00 = brand intro (MedhavyOpen); B01–B12 = three simulation segments (PROMPT→SCRIPT→RUN→CHANGE); B13 = brand outro (MedhavyOutro). Pronunciation rule: narration_text sends 'med dahvy' to ElevenLabs; on-screen props show 'Medhavy'. Stop before publishing — proof cut only.",
-    "total_estimated_duration_seconds": 243.63
+    "note": "Medhavy register. B00 = brand intro (MedhavyOpen); B01–B12 = three simulation segments (PROMPT→SCRIPT→RUN→CHANGE); B13 = brand outro (MedhavyOutro). Pronunciation rule: narration_text sends 'Medhavy' to ElevenLabs; on-screen props show 'Medhavy'. Stop before publishing — proof cut only.",
+    "total_estimated_duration_seconds": 242.8
   },
   "beats": [
     {
       "beat_id": "B00",
       "act": "MEDHAVY INTRO",
-      "narration_text": "med dahvy A-I. From Sanskrit — meaning intelligent, or intellectually brilliant. The perfect name for our A-I-powered intelligent learning systems.",
+      "narration_text": "Medhavy A-I. From Sanskrit — meaning intelligent, or intellectually brilliant. The perfect name for our A-I-powered intelligent learning systems.",
       "shot": {
         "type": "GRAPHIC",
         "source": "remotion",
@@ -363,7 +363,7 @@
     {
       "beat_id": "B13",
       "act": "MEDHAVY OUTRO",
-      "narration_text": "med dahvy. A-I-powered intelligent learning systems. On YouTube, at med dahvy A-I. med dahvy dot com.",
+      "narration_text": "Medhavy. A-I-powered intelligent learning systems. On YouTube, at Medhavy A-I. Medhavy dot com.",
       "shot": {
         "type": "GRAPHIC",
         "source": "remotion",
@@ -386,7 +386,7 @@
       },
       "estimated_duration_s": 8.0,
       "audio_file": "mp3/beat-B13.mp3",
-      "actual_duration_s": 7.65
+      "actual_duration_s": 6.82
     }
   ]
 }

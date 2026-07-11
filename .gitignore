@@ -29,3 +29,10 @@ node_modules/
 *.bin
 *.ckpt
 *.safetensors
+__pycache__/
+*.pyc
+.env
+*.key
+*.pem
+client_secret*.json
+*token*.json
